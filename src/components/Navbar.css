@@ -33,26 +33,6 @@ body {
   color: #34C759;
 }
 
-#search-bar {
-  display: flex;
-  align-items: center;
-  background-color: #fff;
-  padding: 5px 10px;
-  border-radius: 20px;
-  width: 400px;
-}
-
-#search-bar .search-input {
-  border: none;
-  outline: none;
-  padding-left: 10px;
-  width: 100%;
-}
-
-#search-bar .search-icon {
-  height: 20px;
-}
-
 #address-button {
   background: none;
   border: none;

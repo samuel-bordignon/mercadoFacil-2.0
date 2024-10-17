@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import './Navbar.css'
+import SearchBar from "./SearchBar"
 function Navbar() {
   return (
     <nav class="navbar">
@@ -12,10 +13,7 @@ function Navbar() {
         <Link to="/ListaCompras" className="nav-link">Lista de compras</Link>
       </div>
 
-      <div id="search-bar">
-        <img src="Search.svg" alt="Buscar" class="search-icon" />
-        <input type="text" placeholder="Busque por mercados" class="search-input" />
-      </div>
+      <SearchBar />
 
       <button id="address-button">
         <div class="address-container">
