@@ -149,7 +149,7 @@ function Navbar() {
         color: '#fff',
       }
     })
-  
+  }
 
   const enviaLista = () => {}
 
