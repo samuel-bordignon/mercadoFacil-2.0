@@ -85,9 +85,23 @@ function Navbar() {
   const showErrorToast = () => {
     toast.error("Erro ao carregar dados do usuário!")
   }
-
+  // Função para exibir mensagens de sucesso
   const showValidationToast = () => {
     toast.success("Item adicionado ao carrinho!")
+  }
+  // Função para exibir um toast customizado
+  const customImageToast = () => {
+    toast("Pedido confirmado!", {
+      position: "bottom-center",
+      autoClose: 4000,
+      closeOnClick: true,
+      draggable: true,
+      icon: <img src="checkmark.svg" alt="Confirmado" style={{ width: '20px' }} />,  // Ícone como imagem
+      style: {
+        backgroundColor: '#00BFFF',
+        color: '#fff',
+      }
+    })
   }
   // Função para abrir/fechar pop-ups
   const togglePopup = (popupName) => {
@@ -97,7 +111,7 @@ function Navbar() {
       setActivePopup(popupName)
     }
   }
-
+  // Função para definir o endereço ativo
   const toggleAdderess = (cep) => {
     if (enderecoAtivo === cep) {
       return
@@ -113,7 +127,7 @@ function Navbar() {
     })
     setEnderecosdb(updatedEnderecos) // Atualiza o estado com os endereços atualizados
   }
-
+  // Função para incrementar a quantidade de um produto
   const incrementaProduto = (idProduto) => {
     const updatedprodutosdb = produtosdb.map((item) => {
       if (item.id === idProduto) {
@@ -123,7 +137,7 @@ function Navbar() {
     })
     setProdutosdb(updatedprodutosdb)
   }
-
+  // Função para decrementar a quantidade de um produto
   const desincrementaProduto = (idProduto) => {
     const updatedprodutosdb = produtosdb.map((item) => {
       if (item.id === idProduto && item.quantidade > 1) {
@@ -133,39 +147,25 @@ function Navbar() {
     })
     setProdutosdb(updatedprodutosdb)
   }
-
+  // Função para remover um produto do carrinho
   const deleteProduto = (idProduto) => {
     const updatedprodutosdb = produtosdb.filter((item) => item.id != idProduto)
     setProdutosdb(updatedprodutosdb)
   }
-
+  // Função para calcular o total da compra
   const calcularTotal = () => {
     return produtosdb.reduce((total, item) => total + (item.preco * item.quantidade), 0).toFixed(2);
   }
-
-  const customImageToast = () => {
-    toast("Pedido confirmado!", {
-      position: "bottom-center",
-      autoClose: 4000,
-      closeOnClick: true,
-      draggable: true,
-      icon: <img src="checkmark.svg" alt="Confirmado" style={{ width: '20px' }} />,  // Ícone como imagem
-      style: {
-        backgroundColor: '#00BFFF',
-        color: '#fff',
-      }
-    })
-  }
-
+  // Função para atualizar a lista de compras e abilitar o envio
   const atualizarListaCompras = () => {
     setListaComprasNavdb({ ...listaComprasNavdb, produtos: produtosdb });
     setProntaEnviar(true)
   }
-
+  // Função para concatenar os nomes e quantidades dos produtos da lista de compras
   function concatenaProdutos() {
     return (listaComprasNavdb.produtos.map((item) => `${item.nome} - ${item.quantidade} un`).join('\n'))
   }
-
+  // Função para enviar a mensagem para o WhatsApp
   useEffect(() => {
     if (prontaEnviar) {
       const mensagem = `Olá! Gostaria de fazer um pedido com os seguintes itens:\n\n${concatenaProdutos()}\n\n*Endereço de entrega:* ${enderecosdb.find(e => e.atual === true)?.endereco}, ${enderecosdb.find(e => e.atual === true)?.numero}\n\n*Total* ${calcularTotal()}\n\nAtenciosamente, ${usuario.nome}`
@@ -193,7 +193,7 @@ function Navbar() {
             Mercados
           </NavLink>
           <NavLink
-            to="/produtosdb"
+            to="/listaCompras"
             className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}
           >
             Lista de Compras
