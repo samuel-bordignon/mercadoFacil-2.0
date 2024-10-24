@@ -1,13 +1,20 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
+import './PerfilCliente.css'
 
 function PerfilCliente() {
+
+
+
   return (
     <div>
       <Navbar />
-      <h1>
-        Perfil Cliente
-      </h1>
+      <h1 className='cabecario'>Informações da Conta</h1>
+      <div className='container-informacoes'>
+      <h2>Informações Pessoais</h2>
+      <button>Editar</button>
+
+      </div>
     </div>
   )
 }
