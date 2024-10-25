@@ -4,7 +4,7 @@
     /* Alinhar no topo da tela */
     right: 0px;
     width: 29%;
-    height: 90%;
+    height: 100vh;
     /* Ocupa toda a altura da tela */
     background-color: white;
     border: 1px solid #ddd;
@@ -13,15 +13,17 @@
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+
     /* Permitir a rolagem vertical */
 }
 
-#popup-list button {
+#popup-list .btn-popup-x {
     cursor: pointer;
     background: none;
     border: none;
     display: flex;
-    align-items: center;
     gap: 10px;
 }
 
@@ -192,4 +194,58 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#popup-list .total-container{
+    width: 95%;
+}
+
+.total-details{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.total-details .total-text, 
+.total-details .total-preco {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color:#1C1722;
+}
+
+.total-btns{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.comparar-btn{
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    height: 50px;
+    width: 100%;
+    background-color: #00C677;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.enviar-btn{
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+    background: none;
+    color:#00C677;
+    border: none;
+    cursor: pointer;
 }

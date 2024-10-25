@@ -1,86 +1,29 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
-import { useEffect, useState } from 'react';
-import SearchBar from "./SearchBar"
+import { useContext, useEffect, useState } from 'react'
+import { GlobalContext } from '../contexts/GlobalContext'
 import { ToastContainer, toast } from 'react-toastify'
+import SearchBar from "./SearchBar"
 import 'react-toastify/dist/ReactToastify.css'
 import './Navbar.css'
 import './PopUpListaCompras.css'
 import './PopUpEnderecos.css'
 
+
 function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { produtosdb, setProdutosdb, enderecosdb, setEnderecosdb, mercadosdb, setMercadosdb, usuario, setUsuario } = useContext(GlobalContext)
 
   // Estado único para controlar qual pop-up está aberto
   const [activePopup, setActivePopup] = useState(null)
   const [enderecoAtivo, setEnderecoAtivo] = useState(null)
   const [prontaEnviar, setProntaEnviar] = useState(false)
-  const [enderecosdb, setEnderecosdb] = useState([
-    { id: 1, endereco: "Endereço 1", numero: "84", cep: "88058089", atual: true },
-    { id: 2, endereco: "Endereço 2", numero: "72", cep: "88058080", atual: false },
-    { id: 3, endereco: "Endereço 3", numero: "91", cep: "88058087", atual: false },
-  ])
-  const [produtosdb, setProdutosdb] = useState([
-    {
-      id: 1,
-      nome: "Arroz Branco",
-      preco: 10.00,
-      quantidade: 1,
-      imagem: "arroz.png",
-      descricao: "Pacote de arroz branco de alta qualidade.",
-      informacaoAdicional: { peso: "5kg", unidade: "1" }
-    },
-    {
-      id: 2,
-      nome: "Fardo Skol",
-      preco: 5.50,
-      quantidade: 1,
-      imagem: "skol.png",
-      descricao: "Fardo com 12 latas",
-      informacaoAdicional: { peso: "350ml", unidade: "12" }
-    },
-    {
-      id: 3,
-      nome: "Farinha de Trigo",
-      preco: 4.20,
-      quantidade: 1,
-      imagem: "farinha.png",
-      descricao: "Farinha de trigo enriquecida com ferro.",
-      informacaoAdicional: { peso: "1kg", unidade: "1" }
-    },
-    {
-      id: 4,
-      nome: "Óleo de Soja",
-      preco: 7.00,
-      quantidade: 1,
-      imagem: "oleo.png",
-      descricao: "Óleo de soja 100% natural.",
-      informacaoAdicional: { peso: "1L", unidade: "1" }
-    },
-    {
-      id: 5,
-      nome: "Açúcar Refinado",
-      preco: 3.80,
-      quantidade: 1,
-      imagem: "acucar.png",
-      descricao: "Açúcar refinado branco de alta pureza.",
-      informacaoAdicional: { peso: "1kg", unidade: "1" }
-    }
-  ])
-  const [listaComprasNavdb, setListaComprasNavdb] = useState({
-    id: 1, nome: "Lista 1", produtos: produtosdb },
-  )
-  const [mercadosdb, setMercadosdb] = useState([
-    { id: 1, nome: "Mercado do João", endereco: "Rua das Flores, 123", cep: "88058089", logo: "1.png", atual: false, celular: '554899749819' },
-    { id: 2, nome: "Mercado do José", endereco: "Rua das Palmeiras, 456", cep: "88058080", logo: "2.png", atual: true, celular: '554899749819' },
-    { id: 3, nome: "Mercado do Pedro", endereco: "Rua das Oliveiras, 789", cep: "88058087", logo: "3.png", atual: false, celular: '554899749819' },
-  ])
-  const[usuario, setUsuario] = useState({
-    id: 1,
-    nome: "Palhaço Caçarola",
-    email: "caçarola@palhaço.com",
-  })
   
+  const [listaComprasNavdb, setListaComprasNavdb] = useState({
+    id: 1, nome: "Lista 1", produtos: produtosdb
+  },
+  )
+
   // Função para exibir mensagens de erro/validação
   const showErrorToast = () => {
     toast.error("Erro ao carregar dados do usuário!")
@@ -272,7 +215,7 @@ function Navbar() {
             <div onClick={() => { setActivePopup(null) }} className="overlay-list">
               <div id="popup-list" onClick={(e) => e.stopPropagation()}>
                 <button
-                  className="btn-popup"
+                  className="btn-popup-x"
                   onClick={() => { setActivePopup(null) }}
                 >
                   <img src="Xverde.svg" alt="X" />
@@ -330,19 +273,19 @@ function Navbar() {
                       <span className="empty-list">Carrinho vazio</span>
                     )}
                   </div>
-                </div>
-                <div className="total-container">
-                  <div className="total-details">
-                    <span className="total-text">Total</span>
-                    <span className="total-price">R$ {calcularTotal()}</span>
-                  </div>
-                  <div className="total-btns">
-                    <button className="comparar-btn" onClick={() => navigate('/comparacaoListas')}>
-                      Comparar Preços
-                    </button>
-                    <button className="enviar-btn" onClick={() => atualizarListaCompras()}>
-                      Enviar Lista
-                    </button>
+                  <div className="total-container">
+                    <div className="total-details">
+                      <span className="total-text">Total</span>
+                      <span className="total-preco">R$ {calcularTotal()}</span>
+                    </div>
+                    <div className="total-btns">
+                      <button className="comparar-btn" onClick={() => navigate('/comparacaoListas')}>
+                        Comparar Preços
+                      </button>
+                      <button className="enviar-btn" onClick={() => atualizarListaCompras()}>
+                        Enviar Lista
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
