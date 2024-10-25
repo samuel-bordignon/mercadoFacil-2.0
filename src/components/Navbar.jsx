@@ -1,6 +1,7 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '../contexts/GlobalContext'
+import { useHotkeys } from 'react-hotkeys-hook'
 import { ToastContainer, toast } from 'react-toastify'
 import SearchBar from "./SearchBar"
 import 'react-toastify/dist/ReactToastify.css'
@@ -12,17 +13,26 @@ import './PopUpEnderecos.css'
 function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { produtosdb, setProdutosdb, enderecosdb, setEnderecosdb, mercadosdb, setMercadosdb, usuario, setUsuario } = useContext(GlobalContext)
+  const { produtosdb, setProdutosdb, enderecosdb, setEnderecosdb, mercadosdb, setMercadosdb, usuariodb, setUsuariodb } = useContext(GlobalContext)
 
   // Estado único para controlar qual pop-up está aberto
   const [activePopup, setActivePopup] = useState(null)
   const [enderecoAtivo, setEnderecoAtivo] = useState(null)
   const [prontaEnviar, setProntaEnviar] = useState(false)
-  
-  const [listaComprasNavdb, setListaComprasNavdb] = useState({
-    id: 1, nome: "Lista 1", produtos: produtosdb
-  },
+
+  const [listaComprasNavdb, setListaComprasNavdb] = useState(
+  {id: 1, nome: "Lista 1", produtos: produtosdb},
   )
+
+  useHotkeys('ctrl+l', (event) => {
+    event.preventDefault() // Previne o comportamento padrão do navegador
+    togglePopup('list') // Abre o pop-up da lista de compras
+  })
+
+  // Usando um atalho para abrir um modal (Shift + M)
+  useHotkeys('shift+m', () => {
+    alert('Atalho Shift+M ativado: Abrindo modal!');
+  });
 
   // Função para exibir mensagens de erro/validação
   const showErrorToast = () => {
@@ -97,11 +107,11 @@ function Navbar() {
   }
   // Função para calcular o total da compra
   const calcularTotal = () => {
-    return produtosdb.reduce((total, item) => total + (item.preco * item.quantidade), 0).toFixed(2);
+    return produtosdb.reduce((total, item) => total + (item.preco * item.quantidade), 0).toFixed(2)
   }
   // Função para atualizar a lista de compras e abilitar o envio
   const atualizarListaCompras = () => {
-    setListaComprasNavdb({ ...listaComprasNavdb, produtos: produtosdb });
+    setListaComprasNavdb({ ...listaComprasNavdb, produtos: produtosdb })
     setProntaEnviar(true)
   }
   // Função para concatenar os nomes e quantidades dos produtos da lista de compras
@@ -111,8 +121,8 @@ function Navbar() {
   // Função para enviar a mensagem para o WhatsApp
   useEffect(() => {
     if (prontaEnviar) {
-      const mensagem = `Olá! Gostaria de fazer um pedido com os seguintes itens:\n\n${concatenaProdutos()}\n\n*Endereço de entrega:* ${enderecosdb.find(e => e.atual === true)?.endereco}, ${enderecosdb.find(e => e.atual === true)?.numero}\n\n*Total* ${calcularTotal()}\n\nAtenciosamente, ${usuario.nome}`
-      const numero = mercadosdb.find(m => m.atual === true).celular
+      const mensagem = `Olá! Gostaria de fazer um pedido com os seguintes itens:\n\n${concatenaProdutos()}\n\n*Endereço de entrega:* ${enderecosdb.find(e => e.atual === true)?.endereco}, ${enderecosdb.find(e => e.atual === true)?.numero}\n\n*Total* ${calcularTotal()}\n\nAtenciosamente, ${usuariodb.nome}`
+      const numero = mercadosdb.find(mercado => mercado.atual === true).celular
       const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`
       window.open(url, '_blank')
       setProntaEnviar(false)
