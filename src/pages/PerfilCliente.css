@@ -1,22 +1,115 @@
 .cabecario{
     display: flex;
-    margin-left: 29%;
+    margin-left: 23.5%;
     margin-top: 2.5%;
     color: rgb(255, 255, 255);
     border-radius: 10px 10px 0 0;
     background-color: #0C194E;
-    width: 45%;
+    width: 54%;
     height: 75px;
     
 }
 
-.container-informacoes{
+.cabecario h1{
     display: flex;
-    margin-left: 40%;
-    border-radius: 8px;
+    margin-left: 6%;
+    margin-top: 2.5%;
+
+}
+
+.container-informacoes{
+    margin-left: 27%;
+    position: relative;
+    top: -31px;
+    border-radius: 18px;
     background-color: rgb(255, 255, 255);
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-    width: 30%;
+    width: 47%;
+    height: 389px;
 
+}
+
+.container-informacoes h2{
+    margin-left: 2%;
+    margin-top: 2.5%;
+    position: relative;
+    top: 21px;
+
+}
+
+.tela-usuario button{
+    margin-left: 89%;
+    position: relative;
+    top: 2.5px;
+    border-radius: 55px;
+    background-color: #00C677;
+    color: aliceblue;
+    border: none;
+    height: 24px;
+    width: 54px;
+
+
+}
+
+.informacoes-detalhadas{
+    margin-top: 2.5%;
+    margin-left: 2%;
+
+}
+
+.informacoes-detalhadas input{
+    border: none;
+    color: #737373;
+
+}
+
+.informacoes-detalhadas hr{
+    width: 95%;
+    color: #DCDCDC;
+
+}
+
+.container-contato{
+    margin-left: 0.5%;
+    margin-top: 5%;
+    border-radius: 18px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+
+}
+
+.container-informacoes-contato h2{
+    margin-left: 2%;
+    margin-top: 2.5%;
+    position: relative;
+    top: 21px;
+
+}
+
+.informacoes-detalhadas-contato input{
+    border: none;
+    color: #737373;
+    margin-left: 2%;
+
+}
+
+.informacoes-detalhadas-contato hr{
+    width: 95%;
+    color: #DCDCDC;
+    margin-left: 2%;
+
+}
+
+.informacoes-detalhadas-contato label{
+    margin-left: 2%;
+
+}
+
+.container-contato{
+    margin-left: 0.5%;
+    margin-top: 5%;
+    border-radius: 18px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 
 }
