@@ -14,14 +14,14 @@ body {
 @media only screen and (min-width: 1200px) {
   /* Ajustes para telas grandes */
   body {
-    zoom: 80%; /* tamanho normal */
+    zoom: 75%; /* tamanho normal */
   }
 }
 
 @media only screen and (min-width: 1920px) {
   /* Ajustes para telas grandes */
   body {
-    zoom: 95%; /* tamanho normal */
+    zoom: 100%; /* tamanho normal */
   }
 }
 

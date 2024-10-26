@@ -4,7 +4,7 @@
     /* Alinhar no topo da tela */
     right: 0px;
     width: 29%;
-    height: 90%;
+    height: 100%;
     /* Ocupa toda a altura da tela */
     background-color: white;
     border: 1px solid #ddd;
@@ -12,7 +12,6 @@
     border-radius: 4px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
 
@@ -25,12 +24,12 @@
     border: none;
     display: flex;
     gap: 10px;
+    width: fit-content;
 }
 
 #popup-list .shopping-list {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
@@ -40,7 +39,7 @@
     align-items: center;
     justify-content: space-between;
     width: 95%;
-    border-bottom: 1px solid #ddd;
+    height: 7%;
     padding-bottom: 33px;
     padding-top: 20px;
 }
@@ -69,6 +68,8 @@
     font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    height: 41%;
     width: 95%;
 }
 
@@ -198,6 +199,7 @@
 
 #popup-list .total-container{
     width: 95%;
+    height: 15%;
 }
 
 .total-details{

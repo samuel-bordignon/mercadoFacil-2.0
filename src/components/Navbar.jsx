@@ -31,8 +31,8 @@ function Navbar() {
 
   // Usando um atalho para abrir um modal (Shift + M)
   useHotkeys('shift+m', () => {
-    alert('Atalho Shift+M ativado: Abrindo modal!');
-  });
+    navigate('/anima')
+  })
 
   // Função para exibir mensagens de erro/validação
   const showErrorToast = () => {
@@ -156,7 +156,7 @@ function Navbar() {
 
       {/* Container Central - SearchBar */}
       <div id="container-centro-nav">
-        {location.pathname !== '/produtosdb' &&
+        {location.pathname !== '/listaCompras' &&
           location.pathname !== '/perfilCliente' && <SearchBar />}
       </div>
 
@@ -184,7 +184,7 @@ function Navbar() {
                   className="btn-popup"
                   onClick={() => { setActivePopup(null) }}
                 >
-                  <img src="Xverde.svg" alt="X" />
+                  <img src="XisVerde.svg" alt="X" />
                 </button>
               </div>
               <button className="add-endereco">
@@ -228,7 +228,7 @@ function Navbar() {
                   className="btn-popup-x"
                   onClick={() => { setActivePopup(null) }}
                 >
-                  <img src="Xverde.svg" alt="X" />
+                  <img src="XisVerde.svg" alt="X" />
                 </button>
                 <div className="shopping-list">
                   {mercadosdb.map((mercado) => {
