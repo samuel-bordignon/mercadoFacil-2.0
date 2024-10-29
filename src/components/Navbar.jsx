@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import './Navbar.css'
 import './PopUpListaCompras.css'
 import './PopUpEnderecos.css'
+import AddEndereco from "../pages/AddEndereco"
 
 
 function Navbar() {
@@ -187,7 +188,7 @@ function Navbar() {
                   <img src="XisVerde.svg" alt="X" />
                 </button>
               </div>
-              <button className="add-endereco">
+              <button className="add-endereco" onClick={()=> navigate("/addEndereco")}>
                 <div>
                   <img src="adicionarIcon.svg" alt="Adicionar" />
                 </div>
