@@ -167,7 +167,7 @@ function Navbar() {
         <button id="endereco-button" onClick={() => togglePopup('endereco')}>
           <div className="endereco-container">
             <span className="endereco-text">
-              {enderecosdb.find(e => e.atual === true)?.endereco ? `${enderecosdb.find(e => e.atual === true).endereco}, ` : "Selecione um endereço"}
+              {enderecosdb.find(e => e.atual === true)?.logradouro ? `${enderecosdb.find(e => e.atual === true).logradouro}, ` : "Selecione um endereço"}
               <span className="endereco-number">
                 {enderecosdb.find(e => e.atual === true)?.numero || ""}
               </span>
@@ -200,8 +200,8 @@ function Navbar() {
                   className={enderecoAtivo === endereco.cep || endereco.atual ? 'adderess-atual' : 'adderess'}
                   onClick={() => toggleAdderess(endereco.cep)}
                 >
-                  <span className="cep-text-pop">{endereco.cep}</span>
-                  <span className="adderess-text-pop">{endereco.endereco}{endereco.numero}</span>
+                  <span className="cep-text-pop">{endereco.apelido}</span>
+                  <span className="adderess-text-pop">{endereco.endereco}{endereco.cep}</span>
                 </button>
               ))}
             </div>

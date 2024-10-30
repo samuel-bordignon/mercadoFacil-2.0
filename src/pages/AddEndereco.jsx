@@ -1,39 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Navbar from '../components/Navbar';
+import { GlobalContext } from '../contexts/GlobalContext';
 import './AddEndereco.css';
 
 function AddEndereco() {
-  // Array de objetos contendo os dados dos endereços
-  const [enderecosEdit, setEnderecosEdit] = useState([
-    {
-      cep: '88010-001',
-      complemento: 'Apto 202',
-      bairro: 'Centro',
-      endereco: 'Rua Felipe Schmidt, 123',
-      apelido: 'Minha Casa'
-    },
-    {
-      cep: '88030-200',
-      complemento: 'Bloco B',
-      bairro: 'Trindade',
-      endereco: 'Avenida Madre Benvenuta, 555',
-      apelido: 'Escritório'
-    },
-    {
-      cep: '88040-500',
-      complemento: 'Casa 1',
-      bairro: 'Itacorubi',
-      endereco: 'Servidão Rosa, 90',
-      apelido: 'Casa de Praia'
-    }
-  ]);
+  // Acesso ao contexto
+  const { enderecosdb, setEnderecosdb } = useContext(GlobalContext);
 
   // Estado para os dados do formulário
   const [formData, setFormData] = useState({
     cep: '',
+    logradouro: '',
     complemento: '',
     bairro: '',
-    endereco: '',
+    numero: '',
     apelido: ''
   });
 
@@ -42,7 +22,8 @@ function AddEndereco() {
 
   // Função para preencher o formulário com os dados do endereço selecionado para edição
   const handleEdit = (index) => {
-    setFormData(enderecosEdit[index]);
+    const endereco = enderecosdb[index];
+    setFormData(endereco);
     setEditIndex(index); // Salva o índice do endereço que está sendo editado
   };
 
@@ -58,36 +39,43 @@ function AddEndereco() {
   // Função para salvar o endereço (criar novo ou atualizar existente)
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     if (editIndex !== null) {
       // Atualiza o endereço existente no array
-      const updatedEnderecos = [...enderecosEdit];
-      updatedEnderecos[editIndex] = formData;
-      setEnderecosEdit(updatedEnderecos);
+      const updatedEnderecos = [...enderecosdb];
+      updatedEnderecos[editIndex] = { ...formData, id: updatedEnderecos[editIndex].id }; // Manter o id
+      setEnderecosdb(updatedEnderecos);
       setEditIndex(null); // Reseta o índice de edição
     } else {
-      // Adiciona um novo endereço
-      setEnderecosEdit([...enderecosEdit, formData]);
+      // Atualiza o endereço atual para false antes de adicionar um novo
+      const updatedEnderecos = enderecosdb.map((endereco) => {
+        return { ...endereco, atual: endereco.atual ? false : endereco.atual };
+      });
+  
+      // Adiciona um novo endereço com atual como true
+      setEnderecosdb([...updatedEnderecos, { ...formData, id: updatedEnderecos.length + 1, atual: true }]);
     }
-
+  
     // Limpa o formulário após a submissão
     setFormData({
       cep: '',
+      logradouro: '',
       complemento: '',
       bairro: '',
-      endereco: '',
+      numero: '',
       apelido: ''
     });
   };
-
+  
   // Função para cancelar a edição e limpar o formulário
   const handleCancelEdit = () => {
     setEditIndex(null);
     setFormData({
       cep: '',
+      logradouro: '',
       complemento: '',
       bairro: '',
-      endereco: '',
+      numero: '',
       apelido: ''
     });
   };
@@ -95,14 +83,15 @@ function AddEndereco() {
   // Função para deletar um endereço
   const handleDelete = () => {
     if (editIndex !== null) {
-      const updatedEnderecos = enderecosEdit.filter((_, index) => index !== editIndex);
-      setEnderecosEdit(updatedEnderecos);
+      const updatedEnderecos = enderecosdb.filter((_, index) => index !== editIndex);
+      setEnderecosdb(updatedEnderecos);
       setEditIndex(null);
       setFormData({
         cep: '',
+        logradouro: '',
         complemento: '',
         bairro: '',
-        endereco: '',
+        numero: '',
         apelido: ''
       });
     }
@@ -125,20 +114,20 @@ function AddEndereco() {
                 <label>Número</label>
                 <input
                   type="text"
-                  name="endereco"
-                  value={formData.endereco}
+                  name="numero"
+                  value={formData.numero}
                   onChange={handleChange}
-                  placeholder="exemplo: Rua XYZ"
+                  placeholder="exemplo: XXXX"
                 />
               </div>
               <div className="grupo-formulario input-grande">
-                <label>Complemento</label>
+                <label>Logradouro</label>
                 <input
                   type="text"
-                  name="complemento"
-                  value={formData.complemento}
+                  name="logradouro"
+                  value={formData.logradouro}
                   onChange={handleChange}
-                  placeholder="Apartamento/Bloco/Casa"
+                  placeholder="exemplo: Rua/Av."
                 />
               </div>
             </div>
@@ -166,16 +155,27 @@ function AddEndereco() {
               </div>
             </div>
 
-            <div className="grupo-formulario">
-              <label>Apelidar seu endereço</label>
-              <input
-                type="text"
-                name="apelido"
-                value={formData.apelido}
-                onChange={handleChange}
-                placeholder="exemplo: Minha casa"
-                className="input-grande"
-              />
+            <div className="form-row">
+              <div className="grupo-formulario input-medio">
+                <label>Complemento</label>
+                <input
+                  type="text"
+                  name="complemento"
+                  value={formData.complemento}
+                  onChange={handleChange}
+                  placeholder="exemplo: Apartamento"
+                />
+              </div>
+              <div className="grupo-formulario input-medio">
+                <label>Apelido</label>
+                <input
+                  type="text"
+                  name="apelido"
+                  value={formData.apelido}
+                  onChange={handleChange}
+                  placeholder="exemplo: Minha casa"
+                />
+              </div>
             </div>
 
             <div className="botoes-formulario">
@@ -194,13 +194,14 @@ function AddEndereco() {
         <div className="enderecos-salvos">
           <h3>Endereços salvos</h3>
           <ul>
-            {enderecosEdit.map((endereco, index) => (
+            {enderecosdb.map((endereco, index) => (
+              
               <li key={index}>
                 <div className="info-endereco">
                   <span>CEP: {endereco.cep}</span>
+                  <p>Logradouro: {endereco.logradouro}, {endereco.numero}</p>
                   <p>Complemento: {endereco.complemento}</p>
                   <p>Bairro: {endereco.bairro}</p>
-                  <p>Endereço: {endereco.endereco}</p>
                 </div>
                 <span className="apelido-endereco">{endereco.apelido}</span>
                 <button className="botao-editar" onClick={() => handleEdit(index)}>
