@@ -122,7 +122,7 @@ function PerfilCliente() {
               <button onClick={() => (trocaBotao('contato'))}>editar</button>}
           </div>
           <div className='informacoes-detalhadas-contato'>
-            <label htmlFor='telefone'>Telefone</label><br/>
+            <label htmlFor='telefone'>Telefone</label><br />
             <input
               type="text"
               id="telefone"
@@ -131,7 +131,7 @@ function PerfilCliente() {
               disabled={activeBtn != 'contato'}
               style={{ color: activeBtn == "contato" && activeBtn ? "black" : "gray" }}
             /><br />
-            <hr/>
+            <hr />
             <label htmlFor='email'>Email</label><br />
             <input
               type="email"
@@ -141,9 +141,8 @@ function PerfilCliente() {
               disabled={activeBtn != 'contato'}
               style={{ color: activeBtn == "contato" && activeBtn ? "black" : "gray" }}
             /><br />
-            <hr/>
+            <hr />
           </div>
-        </div>
 
           <div className='container-endereco'>
             <div className='cabecario-endereco'>
@@ -161,7 +160,7 @@ function PerfilCliente() {
                 disabled={activeBtn != 'endereco'}
                 style={{ color: activeBtn == "endereco" && activeBtn ? "black" : "gray" }}
               /><br />
-              <hr/>
+              <hr />
               <label htmlFor='bairro'>Bairro</label><br />
               <input
                 type="text"
@@ -171,7 +170,7 @@ function PerfilCliente() {
                 disabled={activeBtn != 'endereco'}
                 style={{ color: activeBtn == "endereco" && activeBtn ? "black" : "gray" }}
               /><br />
-              <hr/>
+              <hr />
               <label htmlFor='logradouro'>Logradouro</label><br />
               <input
                 type="text"
@@ -181,7 +180,7 @@ function PerfilCliente() {
                 disabled={activeBtn != 'endereco'}
                 style={{ color: activeBtn == "endereco" && activeBtn ? "black" : "gray" }}
               /><br />
-              <hr/>
+              <hr />
               <label htmlFor='numero'>Número</label><br />
               <input
                 type="text"
@@ -191,7 +190,7 @@ function PerfilCliente() {
                 disabled={activeBtn != 'endereco'}
                 style={{ color: activeBtn == "endereco" && activeBtn ? "black" : "gray" }}
               /><br />
-              <hr/>
+              <hr />
               <label htmlFor='complemento'>Complemento</label><br />
               <input
                 type="text"
@@ -204,21 +203,22 @@ function PerfilCliente() {
               <hr />
             </div>
           </div>
+        </div>
       </div>
       {
-        // <div>
-        //   <h1>{usuariodb.nome}</h1>
-        //   <p>{usuariodb.cpf}</p>
-        //   <p>{usuariodb.dataNascimento}</p>
-        //   <p>{usuariodb.senha}</p>
-        //   <p>{usuariodb.telefone}</p>
-        //   <p>{usuariodb.email}</p>
-        //   <p>{usuariodb.endereco.cep}</p>
-        //   <p>{usuariodb.endereco.bairro}</p>
-        //   <p>{usuariodb.endereco.logradouro}</p>
-        //   <p>{usuariodb.endereco.numero}</p>
-        //   <p>{usuariodb.endereco.complemento}</p>
-        // </div>
+        <div>
+          <h1>{usuariodb.nome}</h1>
+          <p>{usuariodb.cpf}</p>
+          <p>{usuariodb.dataNascimento}</p>
+          <p>{usuariodb.senha}</p>
+          <p>{usuariodb.telefone}</p>
+          <p>{usuariodb.email}</p>
+          <p>{usuariodb.endereco.cep}</p>
+          <p>{usuariodb.endereco.bairro}</p>
+          <p>{usuariodb.endereco.logradouro}</p>
+          <p>{usuariodb.endereco.numero}</p>
+          <p>{usuariodb.endereco.complemento}</p>
+        </div>
       }
     </div>
   )

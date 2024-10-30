@@ -1,33 +1,24 @@
-.tela-usuario{
-    display: grid;
-    place-items: center;
-    align-items: flex-start;
-
-}
-
 .cabecario-perfil-usuario h1{
+    display: flex;
     color: aliceblue;
 
 }
 
 .cabecario-perfil-usuario{
     display: flex;
-    margin: 2% auto 0 auto;
     border-radius: 10px 10px 0 0;
     background-color: #0C194E;
-    width: 39%;
-    float: right;
+    width: 46%;
 
 }
 
 .container-info{
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    justify-content: center;
     border-radius: 19px;
     width: 35%;
     height: 35%;
-    z-index: -1;
 
-      
 }
 
 .cabecalio-info{
@@ -41,102 +32,34 @@
     background-color: #00C677;
     border: none;
     color: aliceblue;
-    border-radius: 7px;
+    border-radius: 17px;
+    height: 35px;
+    width: 45px;
 
 }
 
 .informacoes-detalhadas{
-    margin-left: 3%;
-
-}
-
-
-.informacoes-detalhadas input{
     border: none;
-    background-color: rgba(240, 255, 255, 0);
+
 
 }
 
-.informacoes-detalhadas hr{
-    width: 95%;
-
+.container {
+    margin: 20px;
 }
 
-.container-contato{
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-    border-radius: 19px;
-    height: 55%;
-    margin-top: 9%;
-    z-index: -1;
-
-}
-
-.cabecario-contato{
-    display: flex;
-    color: #0C194E;
-    justify-content: space-between;
-
-}
-
-.cabecario-contato button{
-    background-color: #00C677;
+.input-transparente {
+    background-color: transparent;
     border: none;
-    color: aliceblue;
-    border-radius: 7px;
-
+    border-bottom: 2px solid transparent;
+    padding: 10px;
+    font-size: 16px;
+    outline: none; /* Remove o contorno ao focar */
+    transition: border-bottom 0.3s; /* Transição suave para a borda */
 }
 
-.informacoes-detalhadas-contato{
-    margin-left: 3%;
-
+.input-transparente.editando {
+    border-bottom: 2px solid #4CAF50; /* Borda verde ao editar */
+    background-color: white; /* Fundo branco quando editando */
 }
 
-.informacoes-detalhadas-contato input{
-    border: none;
-    background-color: rgba(240, 255, 255, 0);
-
-}
-
-.informacoes-detalhadas-contato hr{
-    width: 95%;
-
-}
-
-.container-endereco{
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-    border-radius: 19px;
-    margin-top: 2%;
-    z-index: -1;
-
-}
-
-.cabecario-endereco{
-    display: flex;
-    color: #0C194E;
-    justify-content: space-between;
-
-}
-
-.cabecario-endereco button{
-    background-color: #00C677;
-    border: none;
-    color: aliceblue;
-    border-radius: 7px;
-
-}
-
-.informacoes-detalhadas-endereco {
-    margin-left: 3%;
-
-}
-
-.informacoes-detalhadas-endereco input{
-    border: none;
-    background-color: rgba(240, 255, 255, 0);
-
-}
-
-.informacoes-detalhadas-endereco hr{
-    width: 95%;
-
-}
