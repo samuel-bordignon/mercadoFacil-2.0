@@ -5,7 +5,7 @@ import './AddEndereco.css';
 
 function AddEndereco() {
   // Acesso ao contexto
-  const { enderecosdb, setEnderecosdb } = useContext(GlobalContext);
+  const { enderecosdb, setEnderecosdb, } = useContext(GlobalContext);
 
   // Estado para os dados do formulário
   const [formData, setFormData] = useState({

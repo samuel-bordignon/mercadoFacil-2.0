@@ -14,7 +14,7 @@ import AddEndereco from "../pages/AddEndereco"
 function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { produtosdb, setProdutosdb, enderecosdb, setEnderecosdb, mercadosdb, setMercadosdb, usuariodb, setUsuariodb } = useContext(GlobalContext)
+  const { produtosdb, setProdutosdb, enderecosdb, setEnderecosdb, mercadosdb, usuariodb, setListaEnderecos, listaEnderecos  } = useContext(GlobalContext)
 
   // Estado único para controlar qual pop-up está aberto
   const [activePopup, setActivePopup] = useState(null)
@@ -63,6 +63,14 @@ function Navbar() {
       setActivePopup(null)
     } else {
       setActivePopup(popupName)
+    }
+
+    if(popupName == 'list'){
+      if(listaEnderecos){
+        setListaEnderecos(false)
+      }else{
+        setListaEnderecos(true)
+      }
     }
   }
   // Função para definir o endereço ativo

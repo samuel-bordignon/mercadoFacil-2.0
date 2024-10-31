@@ -42,23 +42,22 @@ export const GlobalContextProvider = ({ children }) => {
             complemento: "Apto 101"
         }
     })
+    //constancia para redenrizar e desrenderizar os endereços na pagina endereços
+    const [listaEnderecos, setListaEnderecos] = useState(true)
 
-    // Função para alterar o endereço atual
-    const setAdderessAtual = (cep) => {
-        const updatedEnderecos = enderecosdb.map((endereco) => {
-            return { ...endereco, atual: endereco.cep === cep }
-        })
-        setEnderecosdb(updatedEnderecos)
-    }
+
+
+
+
 
     // Prover estados e funções aos componentes filhos
     return (
         <GlobalContext.Provider value={{
             enderecosdb, setEnderecosdb,
-            setAdderessAtual,
             produtosdb, setProdutosdb,
             mercadosdb, setMercadosdb,
             usuariodb, setUsuariodb,
+            listaEnderecos, setListaEnderecos,
         }}>
             {children}
         </GlobalContext.Provider>
