@@ -23,41 +23,32 @@ export const GlobalContextProvider = ({ children }) => {
     // Estado para Parceiro logado
     const [parceirodb, setParceirodb] = useState({
         id: 1,
-        nome: "",
-        cpf: "",
-        dataNascimento: "",
-        senha: "",
-        telefone: "",
-        email: "",
-        mercado: {
-            nome: "",
-            logo: "",
-            celular: "",
-            email: "",
-            cnpj: "",
-            endereco: {
-                cep: "",
-                bairro: "",
-                logradouro: "",
-                numero: "",
-                complemento: ""
-            },
+        nome: "João da Silva",
+        cpf: "123456789",
+        dataNascimento: "2000-01-01",
+        senha: "123456",
+        telefone: "48999999999",
+        email: "jao@gmail.com",
+        endereco: {
+            cep: "88058089",
+            bairro: "Ingleses",
+            logradouro: "Rua do Ingleses",
+            numero: "23",
+            complemento: "Apto 101"
         }
     })
+    //constancia para redenrizar e desrenderizar os endereços na pagina endereços
+    const [listaEnderecos, setListaEnderecos] = useState(true)
 
-    // Função para alterar o endereço atual
-    const setAdderessAtual = (cep) => {
-        const updatedEnderecos = enderecosdb.map((endereco) => {
-            return { ...endereco, atual: endereco.cep === cep }
-        })
-        setEnderecosdb(updatedEnderecos)
-    }
+
+
+
+
 
     // Prover estados e funções aos componentes filhos
     return (
         <GlobalContext.Provider value={{
             enderecosdb, setEnderecosdb,
-            setAdderessAtual,
             produtosdb, setProdutosdb,
             mercadosdb, setMercadosdb,
             clientedb, setClientedb,

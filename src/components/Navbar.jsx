@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import './Navbar.css'
 import './PopUpListaCompras.css'
 import './PopUpEnderecos.css'
+import AddEndereco from "../pages/AddEndereco"
 
 
 function Navbar() {
@@ -60,6 +61,14 @@ function Navbar() {
       setActivePopup(null)
     } else {
       setActivePopup(popupName)
+    }
+
+    if(popupName == 'list'){
+      if(listaEnderecos){
+        setListaEnderecos(false)
+      }else{
+        setListaEnderecos(true)
+      }
     }
   }
   // Função para definir o endereço ativo
@@ -164,7 +173,7 @@ function Navbar() {
         <button id="endereco-button" onClick={() => togglePopup('endereco')}>
           <div className="endereco-container">
             <span className="endereco-text">
-              {enderecosdb.find(e => e.atual === true)?.endereco ? `${enderecosdb.find(e => e.atual === true).endereco}, ` : "Selecione um endereço"}
+              {enderecosdb.find(e => e.atual === true)?.logradouro ? `${enderecosdb.find(e => e.atual === true).logradouro}, ` : "Selecione um endereço"}
               <span className="endereco-number">
                 {enderecosdb.find(e => e.atual === true)?.numero || ""}
               </span>
@@ -185,7 +194,7 @@ function Navbar() {
                   <img src="XisVerde.svg" alt="X" />
                 </button>
               </div>
-              <button className="add-endereco">
+              <button className="add-endereco" onClick={()=> navigate("/addEndereco")}>
                 <div>
                   <img src="adicionarIcon.svg" alt="Adicionar" />
                 </div>
@@ -197,8 +206,8 @@ function Navbar() {
                   className={enderecoAtivo === endereco.cep || endereco.atual ? 'adderess-atual' : 'adderess'}
                   onClick={() => toggleAdderess(endereco.cep)}
                 >
-                  <span className="cep-text-pop">{endereco.cep}</span>
-                  <span className="adderess-text-pop">{endereco.endereco}{endereco.numero}</span>
+                  <span className="cep-text-pop">{endereco.apelido}</span>
+                  <span className="adderess-text-pop">{endereco.endereco}{endereco.cep}</span>
                 </button>
               ))}
             </div>

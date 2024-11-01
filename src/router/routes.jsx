@@ -5,6 +5,7 @@ import PerfilCliente from "../pages/PerfilCliente";
 import Mercado from "../pages/Mercado";
 import Dragoes from "../pages/Dragoes";
 import TesteAnimacao from "../pages/TesteAnimacao";
+import AddEndereco from "../pages/AddEndereco";
 import EscolhaLoginCadastro from "../pages/EscolhaLoginCadastro";
 import CadastroCliente1 from "../pages/CadastroCliente1";
 import CadastroPerceiro1 from "../pages/CadastroParceiro1";
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
     {path: "/acessoParceiro", element: <AcessoParceiro />},
     {path: "/dragoes", element: <Dragoes />},
     {path: "/anima", element: <TesteAnimacao />},
+    {path: "/addEndereco", element: <AddEndereco />},
     
 ])
 
