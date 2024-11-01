@@ -9,6 +9,7 @@ import './Navbar.css'
 import './PopUpListaCompras.css'
 import './PopUpEnderecos.css'
 import AddEndereco from "../pages/AddEndereco"
+import { p } from "framer-motion/client"
 
 
 function Navbar() {
@@ -22,16 +23,12 @@ function Navbar() {
   const [prontaEnviar, setProntaEnviar] = useState(false)
 
   const [listaComprasNavdb, setListaComprasNavdb] = useState(
-  {id: 1, nome: "Lista 1", produtos: produtosdb},
+    { id: 1, nome: "Lista 1", produtos: produtosdb },
   )
 
   useHotkeys('ctrl+l', (event) => {
     event.preventDefault() // Previne o comportamento padrão do navegador
     togglePopup('list') // Abre o pop-up da lista de compras
-  })
-  // Usando um atalho para abrir um modal (Shift + M)
-  useHotkeys('shift+m', () => {
-    navigate('/anima')
   })
   // Função para exibir mensagens de erro/validação
   const showErrorToast = () => {
@@ -63,10 +60,10 @@ function Navbar() {
       setActivePopup(popupName)
     }
 
-    if(popupName == 'list'){
-      if(listaEnderecos){
+    if (popupName == 'list') {
+      if (listaEnderecos) {
         setListaEnderecos(false)
-      }else{
+      } else {
         setListaEnderecos(true)
       }
     }
@@ -178,11 +175,10 @@ function Navbar() {
                 {enderecosdb.find(e => e.atual === true)?.numero || ""}
               </span>
             </span>
-
             <img src="flecha.svg" alt="Flecha" className="arrow-icon" />
           </div>
         </button>
-
+        {/*popup do endereço*/}
         {activePopup === 'endereco' && (
           <div onClick={() => { setActivePopup(null) }} className="overlay">
             <div id="popup-endereco" onClick={(e) => e.stopPropagation()}>
@@ -194,7 +190,7 @@ function Navbar() {
                   <img src="XisVerde.svg" alt="X" />
                 </button>
               </div>
-              <button className="add-endereco" onClick={()=> navigate("/addEndereco")}>
+              <button className="add-endereco" onClick={() => navigate("/addEndereco")}>
                 <div>
                   <img src="adicionarIcon.svg" alt="Adicionar" />
                 </div>
@@ -322,7 +318,6 @@ function Navbar() {
         pauseOnHover          // Pausar auto-close ao passar o mouse
         theme="colored"       // Tema padrão colorido
       />
-
     </div>
   )
 }

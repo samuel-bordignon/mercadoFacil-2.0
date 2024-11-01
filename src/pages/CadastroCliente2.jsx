@@ -13,6 +13,7 @@ const validationSchema = z.object({
     cep: z.string().length(9, 'CEP deve ter 8 dígitos').nonempty('CEP é obrigatório'),
     logradouro: z.string().nonempty('Logradouro é obrigatório'),
     bairro: z.string().nonempty('Bairro é obrigatório'),
+    apelido: z.string().nonempty('Apelido é obrigatório'),
     numero: z.string().optional(),
     complemento: z.string().optional(),
 })
@@ -26,7 +27,8 @@ function CadastroCliente2() {
     })
 
     const onSubmitEndereco = (data) => {
-        setEnderecosdb([data]); // Salva o endereço como o primeiro e único no array ao submeter
+        const enderecoFinal = { ...data, atual: true, id: 1 }
+        setEnderecosdb([enderecoFinal]); // Salva o endereço como o primeiro e único no array ao submeter
         console.log("Endereço atualizado:", enderecosdb[0]);
         navigate('/mercados'); // Navega para a próxima página
     }
@@ -45,53 +47,63 @@ function CadastroCliente2() {
                     <p>Torne sua vida fácil</p>
                     <h2 className='etapa1'>Endereço</h2>
                 </div>
-                <form onSubmit={handleSubmit(onSubmitEndereco)} className="form-container">
-                    <div className="container-inputs">
-                        <label className="label">CEP</label>
-                        <InputMask
-                            mask="99999-999"
-                            className="input"
-                            {...register('cep')}
-                        />
-                        <p className='error'>{errors.cep?.message}</p>
+                <form onSubmit={handleSubmit(onSubmitEndereco)} className="form-container" id='form-endereco'>
+                    <div className='form-endereco-cliente'>
+                        <div className="container-inputs">
+                            <label className="label">CEP</label>
+                            <InputMask
+                                mask="99999-999"
+                                className="input"
+                                {...register('cep')}
+                            />
+                            <p className='error'>{errors.cep?.message}</p>
 
-                        <label className="label">Bairro</label>
-                        <input
-                            type='text'
-                            className="input"
-                            {...register('bairro')}
-                        />
-                        <p className='error'>{errors.bairro?.message}</p>
+                            <label className="label">Bairro</label>
+                            <input
+                                type='text'
+                                className="input"
+                                {...register('bairro')}
+                            />
+                            <p className='error'>{errors.bairro?.message}</p>
 
-                        <label className="label">Logradouro</label>
-                        <input
-                            type='text'
-                            className="input"
-                            {...register('logradouro')}
-                        />
-                        <p className='error'>{errors.logradouro?.message}</p>
+                            <label className="label">Logradouro</label>
+                            <input
+                                type='text'
+                                className="input"
+                                {...register('logradouro')}
+                            />
+                            <p className='error'>{errors.logradouro?.message}</p>
+                        </div>
+                        <div className="container-inputs">
+                            <label className="label">Número</label>
+                            <input
+                                placeholder='Opcional'
+                                type='text'
+                                className="input"
+                                {...register('numero')}
+                            />
+                            <p style={{ visibility: 'hidden' }} className='error'></p>
+
+                            <label className="label">Complemento</label>
+                            <input
+                                placeholder='Opcional'
+                                type='text'
+                                className="input"
+                                {...register('complemento')}
+                            />
+                            <p style={{ visibility: 'hidden' }} className='error'></p>
+
+                            <label className="label">Apelido</label>
+                            <input
+                                placeholder='Como você deseja chamar esse endereço'
+                                type='text'
+                                className="input"
+                                {...register('apelido')}
+                            />
+                            <p className='error'>{errors.apelido?.message}</p>
+                        </div>
                     </div>
-                    <div className="container-inputs">
-                        <label className="label">Número</label>
-                        <input
-                            placeholder='Opcional'
-                            type='text'
-                            className="input"
-                            {...register('numero')}
-                        />
-                        <p style={{ visibility: 'hidden' }} className='error'></p>
-
-                        <label className="label">Complemento</label>
-                        <input
-                            placeholder='Opcional'
-                            type='text'
-                            className="input"
-                            {...register('complemento')}
-                        />
-                        <p style={{ visibility: 'hidden' }} className='error'></p>
-
-                        <button type="submit" className='acessarCadastro'>Acessar</button>
-                    </div>
+                    <button type="submit" className='acessarCadastro'>Acessar</button>
                 </form>
             </div>
         </div>

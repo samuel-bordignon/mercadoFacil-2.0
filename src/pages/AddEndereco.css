@@ -12,7 +12,7 @@
         padding: 20px;
         width: 40%;
         box-sizing: border-box;
-        height: 800px;
+        height: 700px;
         align-items: center;
         justify-content: center;
         margin-top: 3%;
@@ -87,7 +87,7 @@
         padding: 15px;
         border-radius: 10px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        height: 1040px;
+        height: 990px;
         z-index: 1; /* Camada geral para o container */
     }
 
@@ -117,6 +117,7 @@
         flex-direction: column;
         position: relative; /* Posiciona em relação a cada item da lista */
         z-index: 1; /* Ajuste para garantir que o conteúdo esteja acima do fundo */
+        right: 15%;
     }
 
     .enderecos-salvos li .info-endereco span {

@@ -45,6 +45,7 @@ function CadastroCliente1() {
       ...data,
       cpf: cpfLimpo,
       telefone: telefoneLimpo,
+      
     }
 
     setClientedb(dadosLimpos)
