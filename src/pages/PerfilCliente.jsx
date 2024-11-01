@@ -112,7 +112,6 @@ function PerfilCliente() {
             disabled={activeBtn != 'pessoal'}
             style={{ color: activeBtn == "pessoal" && activeBtn ? "black" : "gray" }}
           /><br />
-          <hr />
         </div>
 
         <div className='container-contato'>
@@ -205,20 +204,21 @@ function PerfilCliente() {
           </div>
         </div>
       </div>
+      <button className='excluir-conta-usuario'>Excluir conta</button>
       {
-        <div>
-          <h1>{usuariodb.nome}</h1>
-          <p>{usuariodb.cpf}</p>
-          <p>{usuariodb.dataNascimento}</p>
-          <p>{usuariodb.senha}</p>
-          <p>{usuariodb.telefone}</p>
-          <p>{usuariodb.email}</p>
-          <p>{usuariodb.endereco.cep}</p>
-          <p>{usuariodb.endereco.bairro}</p>
-          <p>{usuariodb.endereco.logradouro}</p>
-          <p>{usuariodb.endereco.numero}</p>
-          <p>{usuariodb.endereco.complemento}</p>
-        </div>
+        // <div>
+        //   <h1>{usuariodb.nome}</h1>
+        //   <p>{usuariodb.cpf}</p>
+        //   <p>{usuariodb.dataNascimento}</p>
+        //   <p>{usuariodb.senha}</p>
+        //   <p>{usuariodb.telefone}</p>
+        //   <p>{usuariodb.email}</p>
+        //   <p>{usuariodb.endereco.cep}</p>
+        //   <p>{usuariodb.endereco.bairro}</p>
+        //   <p>{usuariodb.endereco.logradouro}</p>
+        //   <p>{usuariodb.endereco.numero}</p>
+        //   <p>{usuariodb.endereco.complemento}</p>
+        // </div>
       }
     </div>
   )

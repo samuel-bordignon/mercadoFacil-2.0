@@ -1,0 +1,179 @@
+.tela-usuario{
+    display: grid;
+    place-items: center;
+    align-items: flex-start;
+
+}
+
+.cabecario-perfil-usuario h1{
+    display: flex;
+    color: aliceblue;
+
+}
+
+.cabecario-perfil-usuario{
+    display: flex;
+    margin: 1% auto 0 auto;
+    border-radius: 10px 10px 0 0;
+    background-color: #0C194E;
+    width: 35%;
+
+}
+
+.container-info{
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.301);
+    justify-content: center;
+    border-radius: 0 0 10px 10px;
+    margin-top: 0.5%;
+    width: 35%;
+    height: 35%;
+
+      
+}
+
+.cabecalio-info{
+    display: flex;
+    color: #0C194E;
+    border-radius: 17px;
+    border-radius: 7px;
+    justify-content: space-between;
+    margin-left: 3%;
+
+}
+.cabecalio-info button{
+    background-color: #00C677;
+    border: none;
+    height: 5%;
+    border-bottom: 2px solid transparent;
+    padding: 10px;
+    font-size: 16px;
+    color: aliceblue;
+    border-radius: 7px;
+    margin-right: 3.5%;
+    margin-top: 0.5%;
+
+
+}
+
+.informacoes-detalhadas{
+    margin: 3%;
+
+}
+
+
+.informacoes-detalhadas input{
+    border: none;
+    background-color: rgba(240, 255, 255, 0);
+
+}
+
+.informacoes-detalhadas hr{
+    width: 95%;
+
+}
+
+.container-contato{
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.301);
+    border-radius: 19px;
+    height: 55%;
+
+}
+
+.container {
+    margin: 20px;
+
+}
+
+.cabecario-contato{
+    display: flex;
+    color: #0C194E;
+    margin-left: 3%;
+    justify-content: space-between;
+
+}
+
+.cabecario-contato button{
+    background-color: #00C677;
+    border: none;
+    height: 5%;
+    border-bottom: 2px solid transparent;
+    padding: 10px;
+    font-size: 16px;
+    color: aliceblue;
+    border-radius: 7px;
+    margin-right: 3.5%;
+    margin-top: 0.5%;
+
+}
+
+.informacoes-detalhadas-contato{
+    margin-left: 3%;
+
+}
+
+.informacoes-detalhadas-contato input{
+    border: none;
+    background-color: rgba(240, 255, 255, 0);
+
+}
+
+.informacoes-detalhadas-contato hr{
+    width: 95%;
+
+}
+
+.container-endereco{
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.301);
+    border-radius: 19px;
+    margin-top: 1%;
+    z-index: -1;
+
+}
+
+.cabecario-endereco{
+    display: flex;
+    color: #0C194E;
+    margin-left: 3%;
+    justify-content: space-between;
+
+}
+
+.cabecario-endereco button{
+    background-color: #00C677;
+    border: none;
+    height: 5%;
+    padding: 10px;
+    font-size: 16px;
+    color: aliceblue;
+    border-radius: 7px;
+    margin-right: 3.5%;
+    margin-top: 0.5%;
+
+}
+
+.informacoes-detalhadas-endereco {
+    margin-left: 3%;
+
+}
+
+.informacoes-detalhadas-endereco input{
+    border: none;
+    background-color: rgba(240, 255, 255, 0);
+
+}
+
+.informacoes-detalhadas-endereco hr{
+    width: 95%;
+
+}
+
+.excluir-conta-usuario{
+    border: none;
+    background-color: #0C194E;
+    color: aliceblue;
+    width: 35%;
+    height: 45px;
+    border-radius: 10px;
+    font-size: 24px;
+
+}
