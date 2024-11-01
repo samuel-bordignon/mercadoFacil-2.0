@@ -1,23 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './HomeMercados.css';
 import Navbar from '../components/Navbar';
-
-const mercadosVisitados = [
-  { nome: 'Big by Carrefour', distancia: '5.6 km', tempo: '146-156 min', img: 'image1.png' },
-  { nome: 'Nome do Mercado 2', distancia: '3.2 km', tempo: '120-130 min', img: 'image2.avif' },
-  { nome: 'Nome do Mercado 3', distancia: '4.0 km', tempo: '130-140 min', img: 'image3.avif' },
-  { nome: 'Nome do Mercado 4', distancia: '6.1 km', tempo: '150-160 min', img: 'image4.jpg' },
-  { nome: 'Nome do Mercado 5', distancia: '2.0 km', tempo: '140-150 min', img: 'image5.avif' },
-  { nome: 'Nome do Mercado 6', distancia: '4.5 km', tempo: '160-170 min', img: 'image6.avif' },
-];
+import { GlobalContext } from '../contexts/GlobalContext';
 
 function HomeMercados() {
+  const { mercadosVisitados } = useContext(GlobalContext);
+
   const slidesVisitados = [];
   const slidesPerto = [];
 
+  // Agrupando os mercados visitados em slides
   for (let i = 0; i < mercadosVisitados.length; i += 3) {
     slidesVisitados.push(mercadosVisitados.slice(i, i + 3));
-    slidesPerto.push(mercadosVisitados.slice(i, i + 3)); // Aqui você pode alterar os dados se quiser diferentes
+    slidesPerto.push(mercadosVisitados.slice(i, i + 3)); 
   }
 
   return (
@@ -139,7 +134,6 @@ function HomeMercados() {
             <span className="carousel-control-next-icon" aria-hidden="true"></span>
           </button>
         </div>
-
       </div>
     </div>
   );
