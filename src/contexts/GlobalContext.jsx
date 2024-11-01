@@ -7,9 +7,9 @@ export const GlobalContext = createContext()
 export const GlobalContextProvider = ({ children }) => {
     // Estado para endereços
     const [enderecosdb, setEnderecosdb] = useState([
-        { id: 1, complemento: "Apto 10", numero: "84", cep: "88010-001", logradouro: "Rua Sao João", bairro: "Rio Vermelho", apelido: "Minha casa", atual: true },
-        { id: 2, complemento: "Casa 23", numero: "72", cep: "88058080", logradouro: "Rua Sao João", bairro: "Rio Vermelho", apelido: "Minha casa", atual: false },
-        { id: 3, complemento: "Condominio", numero: "91", cep: "88058087", logradouro: "Rua Sao João", bairro: "Rio Vermelho", apelido: "Minha casa", atual: false },
+        // { id: 1, complemento: "Apto 10", numero: "84", cep: "88010-001", logradouro: "Rua Sao João", bairro: "Rio Vermelho", apelido: "Minha casa", atual: true },
+        // { id: 2, complemento: "Casa 23", numero: "72", cep: "88058-080", logradouro: "Rua Sao João", bairro: "Rio Vermelho", apelido: "Minha casa", atual: false },
+        // { id: 3, complemento: "Condominio", numero: "91", cep: "88058-087", logradouro: "Rua Sao João", bairro: "Rio Vermelho", apelido: "Minha casa", atual: false },
     ])
     // Estado para produtos
     const [produtosdb, setProdutosdb] = useState([
