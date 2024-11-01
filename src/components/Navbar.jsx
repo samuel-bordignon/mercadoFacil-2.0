@@ -13,7 +13,7 @@ import './PopUpEnderecos.css'
 function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { produtosdb, setProdutosdb, enderecosdb, setEnderecosdb, mercadosdb, setMercadosdb, usuariodb, setUsuariodb } = useContext(GlobalContext)
+  const { produtosdb, setProdutosdb, enderecosdb, setEnderecosdb, mercadosdb, setMercadosdb, clientedb, setUsuariodb } = useContext(GlobalContext)
 
   // Estado único para controlar qual pop-up está aberto
   const [activePopup, setActivePopup] = useState(null)
@@ -28,12 +28,10 @@ function Navbar() {
     event.preventDefault() // Previne o comportamento padrão do navegador
     togglePopup('list') // Abre o pop-up da lista de compras
   })
-
   // Usando um atalho para abrir um modal (Shift + M)
   useHotkeys('shift+m', () => {
     navigate('/anima')
   })
-
   // Função para exibir mensagens de erro/validação
   const showErrorToast = () => {
     toast.error("Erro ao carregar dados do usuário!")
@@ -121,7 +119,7 @@ function Navbar() {
   // Função para enviar a mensagem para o WhatsApp
   useEffect(() => {
     if (prontaEnviar) {
-      const mensagem = `Olá! Gostaria de fazer um pedido com os seguintes itens:\n\n${concatenaProdutos()}\n\n*Endereço de entrega:* ${enderecosdb.find(e => e.atual === true)?.endereco}, ${enderecosdb.find(e => e.atual === true)?.numero}\n\n*Total* ${calcularTotal()}\n\nAtenciosamente, ${usuariodb.nome}`
+      const mensagem = `Olá! Gostaria de fazer um pedido com os seguintes itens:\n\n${concatenaProdutos()}\n\n*Endereço de entrega:* ${enderecosdb.find(e => e.atual === true)?.endereco}, ${enderecosdb.find(e => e.atual === true)?.numero}\n\n*Total* ${calcularTotal()}\n\nAtenciosamente, ${clientedb.nome}`
       const numero = mercadosdb.find(mercado => mercado.atual === true).celular
       const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`
       window.open(url, '_blank')
@@ -140,7 +138,7 @@ function Navbar() {
         </div>
         <div id="links-container">
           <NavLink
-            to="/"
+            to="/mercados"
             className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}
           >
             Mercados

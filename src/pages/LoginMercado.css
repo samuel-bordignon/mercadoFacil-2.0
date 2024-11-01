@@ -1,0 +1,40 @@
+.esquerdaAcesso{
+    width: 590px;
+    height: 574px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.14);
+    background: #FFF;
+    backdrop-filter: blur(54.650001525878906px);
+    filter: drop-shadow(30px 30px rgba(217, 217, 217, 0.28));
+    display: flex;
+    justify-content: center;
+}
+
+.acessar {
+    color: #FFF;
+    width: 328px;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: 50px;
+    border: #0C194E;
+    background: var(--Azul-Principal, #0C194E);
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 12px;
+    margin-top: 1rem;
+}
+
+.acessar-posicao{
+    display: flex;
+}
+
+.container-inputsM{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}

@@ -5,18 +5,18 @@ import { GlobalContext } from '../contexts/GlobalContext'
 import { div } from 'framer-motion/client'
 
 function PerfilCliente() {
-  const { usuariodb, setUsuariodb } = useContext(GlobalContext)
-  const [inputNome, setInputNome] = useState(usuariodb.nome)
-  const [inputCpf, setInputCpf] = useState(usuariodb.cpf)
-  const [inputDataNascimento, setInputDataNascimento] = useState(usuariodb.dataNascimento)
-  const [inputSenha, setInputSenha] = useState(usuariodb.senha)
-  const [inputTelefone, setInputTelefone] = useState(usuariodb.telefone)
-  const [inputEmail, setInputEmail] = useState(usuariodb.email)
-  const [inputCep, setInputCep] = useState(usuariodb.endereco.cep)
-  const [inputBairro, setInputBairro] = useState(usuariodb.endereco.bairro)
-  const [inputLogradouro, setInputLogradouro] = useState(usuariodb.endereco.logradouro)
-  const [inputNumero, setInputNumero] = useState(usuariodb.endereco.numero)
-  const [inputComplemento, setInputComplemento] = useState(usuariodb.endereco.complemento)
+  const { clientedb, setClientedb } = useContext(GlobalContext)
+  const [inputNome, setInputNome] = useState(clientedb.nome)
+  const [inputCpf, setInputCpf] = useState(clientedb.cpf)
+  const [inputDataNascimento, setInputDataNascimento] = useState(clientedb.dataNascimento)
+  const [inputSenha, setInputSenha] = useState(clientedb.senha)
+  const [inputTelefone, setInputTelefone] = useState(clientedb.telefone)
+  const [inputEmail, setInputEmail] = useState(clientedb.email)
+  const [inputCep, setInputCep] = useState(clientedb.endereco.cep)
+  const [inputBairro, setInputBairro] = useState(clientedb.endereco.bairro)
+  const [inputLogradouro, setInputLogradouro] = useState(clientedb.endereco.logradouro)
+  const [inputNumero, setInputNumero] = useState(clientedb.endereco.numero)
+  const [inputComplemento, setInputComplemento] = useState(clientedb.endereco.complemento)
   const [activeBtn, setActiveBtn] = useState(null)
 
   const trocaBotao = (nomebtn) => {
@@ -31,22 +31,22 @@ function PerfilCliente() {
 
   const atualizaDados = () => {
     if (activeBtn === 'pessoal') {
-      setUsuariodb({
-        ...usuariodb,
+      setClientedb({
+        ...clientedb,
         nome: inputNome,
         cpf: inputCpf,
         dataNascimento: inputDataNascimento,
         senha: inputSenha,
       })
     } else if (activeBtn === 'contato') {
-      setUsuariodb({
-        ...usuariodb,
+      setClientedb({
+        ...clientedb,
         telefone: inputTelefone,
         email: inputEmail,
       })
     } else if (activeBtn === 'endereco') {
-      setUsuariodb({
-        ...usuariodb,
+      setClientedb({
+        ...clientedb,
         endereco: {
           cep: inputCep,
           bairro: inputBairro,
@@ -207,17 +207,17 @@ function PerfilCliente() {
       </div>
       {
         <div>
-          <h1>{usuariodb.nome}</h1>
-          <p>{usuariodb.cpf}</p>
-          <p>{usuariodb.dataNascimento}</p>
-          <p>{usuariodb.senha}</p>
-          <p>{usuariodb.telefone}</p>
-          <p>{usuariodb.email}</p>
-          <p>{usuariodb.endereco.cep}</p>
-          <p>{usuariodb.endereco.bairro}</p>
-          <p>{usuariodb.endereco.logradouro}</p>
-          <p>{usuariodb.endereco.numero}</p>
-          <p>{usuariodb.endereco.complemento}</p>
+          <h1>{clientedb.nome}</h1>
+          <p>{clientedb.cpf}</p>
+          <p>{clientedb.dataNascimento}</p>
+          <p>{clientedb.senha}</p>
+          <p>{clientedb.telefone}</p>
+          <p>{clientedb.email}</p>
+          <p>{clientedb.endereco.cep}</p>
+          <p>{clientedb.endereco.bairro}</p>
+          <p>{clientedb.endereco.logradouro}</p>
+          <p>{clientedb.endereco.numero}</p>
+          <p>{clientedb.endereco.complemento}</p>
         </div>
       }
     </div>
