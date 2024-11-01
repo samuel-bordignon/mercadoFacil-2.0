@@ -17,6 +17,7 @@ import LoginParceiro from "../pages/LoginParceiro";
 import EscolhaLogin from "../pages/EscolhaLogin";
 import EscolhaCadastro from "../pages/EscolhaCadastro";
 import CadastroCliente2 from "../pages/CadastroCliente2";
+import TelaDentroMercado from "../pages/TeladentroMercado";
 
 const router = createBrowserRouter([
     {path: "/mercados", element: <HomeMercados />},
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
     {path: "/dragoes", element: <Dragoes />},
     {path: "/anima", element: <TesteAnimacao />},
     {path: "/addEndereco", element: <AddEndereco />},
+    {path: "/telaDentroMercado", element: <TelaDentroMercado />},
     
 ])
 
