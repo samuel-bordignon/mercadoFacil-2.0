@@ -26,7 +26,7 @@ export const GlobalContextProvider = ({ children }) => {
             logo: "1.png",
             telefone: 554899749819,
             email: "",
-            atual: false,
+            atual: true,
         },
         {
             id: 2,
