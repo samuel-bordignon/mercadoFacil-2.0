@@ -4,12 +4,13 @@ import "./TelaDentroMercado.css"
 function TelaDentroMercado() {
 
   return (
-    <div>
+    <div className="tudo">
       <Navbar />
-      <div className="tela-dentro-mercado">
+      <div className="tela-dentro-mercado"> 
         <div className="sideBar-dentro-mercado">
-            <input type="text" />
+          <input type="text" />
         </div>
+        <div></div>
       </div>
 
     </div>
