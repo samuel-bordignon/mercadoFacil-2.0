@@ -17,12 +17,14 @@ function AddEndereco() {
 
   const [editIndex, setEditIndex] = useState(null);
   const [formHeight, setFormHeight] = useState('700px');
+  const [buttonSize, setButtonSize] = useState('large'); // Estado para buttonSize
 
   const handleEdit = (index) => {
     const endereco = enderecosdb[index];
     setFormData(endereco);
     setEditIndex(index);
     setFormHeight('800px');
+    setButtonSize('small');
   };
 
   const handleChange = (e) => {
@@ -41,6 +43,7 @@ function AddEndereco() {
       setEnderecosdb(updatedEnderecos);
       setEditIndex(null);
       setFormHeight('700px');
+      setButtonSize('large');
     } else {
       const updatedEnderecos = enderecosdb.map((endereco) => ({
         ...endereco,
@@ -72,14 +75,13 @@ function AddEndereco() {
       apelido: ''
     });
     setFormHeight('700px');
+    setButtonSize('large');
   };
 
   const handleDelete = (index) => {
-    if (editIndex !== null) {
-      const updatedEnderecos = enderecosdb.filter((_, i) => i !== index);
-      setEnderecosdb(updatedEnderecos);
-      handleCancelEdit();
-    }
+    const updatedEnderecos = enderecosdb.filter((_, i) => i !== index);
+    setEnderecosdb(updatedEnderecos);
+    handleCancelEdit();
   };
 
   return (
@@ -159,9 +161,10 @@ function AddEndereco() {
             </div>
 
             <div className="botoes-formulario">
-              <button type="submit" className="botao-salvar">
+              <button type="submit" className={`botao-salvar ${buttonSize}`}>
                 {editIndex !== null ? 'Atualizar endereço' : 'Salvar endereço'}
               </button>
+
               {editIndex !== null && (
                 <button
                   type="button"
@@ -172,13 +175,13 @@ function AddEndereco() {
                 </button>
               )}
             </div>
-              <button
-                type="button"
-                onClick={handleCancelEdit}
-                className="botao-cancelar"
-              >
-                Cancelar
-              </button>
+            <button
+              type="button"
+              onClick={handleCancelEdit}
+              className="botao-cancelar"
+            >
+              Cancelar
+            </button>
           </form>
         </div>
 
