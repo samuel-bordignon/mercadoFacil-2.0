@@ -126,7 +126,7 @@ function Navbar() {
   useEffect(() => {
     if (prontaEnviar) {
       const mensagem = `Olá! Gostaria de fazer um pedido com os seguintes itens:\n\n${concatenaProdutos()}\n\n*Endereço de entrega:* ${enderecosdb.find(e => e.atual === true)?.endereco}, ${enderecosdb.find(e => e.atual === true)?.numero}\n\n*Total* ${calcularTotal()}\n\nAtenciosamente, ${clientedb.nome}`
-      const numero = mercadosdb.find(mercado => mercado.atual === true).celular
+      const numero = mercadosdb.find(mercado => mercado.atual === true).telefone
       const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`
       window.open(url, '_blank')
       setProntaEnviar(false)
