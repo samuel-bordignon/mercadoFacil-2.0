@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import InputMask from 'react-input-mask'; // Importa o InputMask
+import InputMask from 'react-input-mask';
 import Navbar from '../components/Navbar';
 import { GlobalContext } from '../contexts/GlobalContext';
 import './AddEndereco.css';
@@ -16,13 +16,13 @@ function AddEndereco() {
   });
 
   const [editIndex, setEditIndex] = useState(null);
-  const [formHeight, setFormHeight] = useState('700px'); // Estado para a altura do formulário
+  const [formHeight, setFormHeight] = useState('700px');
 
   const handleEdit = (index) => {
     const endereco = enderecosdb[index];
     setFormData(endereco);
     setEditIndex(index);
-    setFormHeight('800px'); // Aumenta a altura ao editar
+    setFormHeight('800px');
   };
 
   const handleChange = (e) => {
@@ -40,12 +40,16 @@ function AddEndereco() {
       updatedEnderecos[editIndex] = { ...formData, id: updatedEnderecos[editIndex].id };
       setEnderecosdb(updatedEnderecos);
       setEditIndex(null);
-      setFormHeight('700px'); // Reseta a altura após salvar
+      setFormHeight('700px');
     } else {
-      const updatedEnderecos = enderecosdb.map((endereco) => {
-        return { ...endereco, atual: endereco.atual ? false : endereco.atual };
-      });
-      setEnderecosdb([...updatedEnderecos, { ...formData, id: updatedEnderecos.length + 1, atual: true }]);
+      const updatedEnderecos = enderecosdb.map((endereco) => ({
+        ...endereco,
+        atual: false
+      }));
+      setEnderecosdb([
+        ...updatedEnderecos,
+        { ...formData, id: updatedEnderecos.length + 1, atual: true }
+      ]);
     }
     setFormData({
       cep: '',
@@ -67,23 +71,14 @@ function AddEndereco() {
       numero: '',
       apelido: ''
     });
-    setFormHeight('700px'); // Reseta a altura ao cancelar
+    setFormHeight('700px');
   };
 
-  const handleDelete = () => {
+  const handleDelete = (index) => {
     if (editIndex !== null) {
-      const updatedEnderecos = enderecosdb.filter((_, index) => index !== editIndex);
+      const updatedEnderecos = enderecosdb.filter((_, i) => i !== index);
       setEnderecosdb(updatedEnderecos);
-      setEditIndex(null);
-      setFormData({
-        cep: '',
-        logradouro: '',
-        complemento: '',
-        bairro: '',
-        numero: '',
-        apelido: ''
-      });
-      setFormHeight('700px'); // Reseta a altura após deletar
+      handleCancelEdit();
     }
   };
 
@@ -93,11 +88,6 @@ function AddEndereco() {
       <div className="conteiner">
         <div className="secao-formulario" style={{ height: formHeight }}>
           <h2>{editIndex !== null ? 'Editar endereço' : 'Adicionar meu endereço'}</h2>
-          {editIndex !== null && (
-            <button className="botao-deletar" onClick={handleDelete}>
-              Deletar
-            </button>
-          )}
           <form onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="grupo-formulario input-pequeno">
@@ -173,11 +163,22 @@ function AddEndereco() {
                 {editIndex !== null ? 'Atualizar endereço' : 'Salvar endereço'}
               </button>
               {editIndex !== null && (
-                <button type="button" onClick={handleCancelEdit} className="botao-cancelar">
-                  Cancelar
+                <button
+                  type="button"
+                  className="botao-deletar"
+                  onClick={() => handleDelete(editIndex)}
+                >
+                  Deletar
                 </button>
               )}
             </div>
+              <button
+                type="button"
+                onClick={handleCancelEdit}
+                className="botao-cancelar"
+              >
+                Cancelar
+              </button>
           </form>
         </div>
 
@@ -193,7 +194,10 @@ function AddEndereco() {
                   <p>Bairro: {endereco.bairro}</p>
                 </div>
                 <span className="apelido-endereco">{endereco.apelido}</span>
-                <button className="botao-editar" onClick={() => handleEdit(index)}>
+                <button
+                  className="botao-editar"
+                  onClick={() => handleEdit(index)}
+                >
                   Editar✏️
                 </button>
               </li>
