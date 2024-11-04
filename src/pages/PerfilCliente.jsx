@@ -2,25 +2,25 @@ import React, { useContext, useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import './PerfilCliente.css'
 import { GlobalContext } from '../contexts/GlobalContext'
-import { div } from 'framer-motion/client'
 
 function PerfilCliente() {
-  const { clientedb, setClientedb } = useContext(GlobalContext)
+  const { clientedb, setClientedb, enderecosdb, setEnderecosdb, } = useContext(GlobalContext)
   const [inputNome, setInputNome] = useState(clientedb.nome)
   const [inputCpf, setInputCpf] = useState(clientedb.cpf)
   const [inputDataNascimento, setInputDataNascimento] = useState(clientedb.dataNascimento)
   const [inputSenha, setInputSenha] = useState(clientedb.senha)
   const [inputTelefone, setInputTelefone] = useState(clientedb.telefone)
   const [inputEmail, setInputEmail] = useState(clientedb.email)
-  const [inputCep, setInputCep] = useState(clientedb.endereco.cep)
-  const [inputBairro, setInputBairro] = useState(clientedb.endereco.bairro)
-  const [inputLogradouro, setInputLogradouro] = useState(clientedb.endereco.logradouro)
-  const [inputNumero, setInputNumero] = useState(clientedb.endereco.numero)
-  const [inputComplemento, setInputComplemento] = useState(clientedb.endereco.complemento)
+  const [objetoEndereco, setObjetoEndereco] = useState(enderecosdb.find(endereco => endereco.atual === true))
+  const [inputCep, setInputCep] = useState(objetoEndereco.cep)
+  const [inputBairro, setInputBairro] = useState(objetoEndereco.bairro)
+  const [inputLogradouro, setInputLogradouro] = useState(objetoEndereco.logradouro)
+  const [inputNumero, setInputNumero] = useState(objetoEndereco.numero)
+  const [inputComplemento, setInputComplemento] = useState(objetoEndereco.complemento)
   const [activeBtn, setActiveBtn] = useState(null)
 
+  console.log(clientedb)  
   const trocaBotao = (nomebtn) => {
-
     if (activeBtn === nomebtn) {
       setActiveBtn(null)
       //atualizaDados()
@@ -205,21 +205,6 @@ function PerfilCliente() {
           </div>
         </div>
       </div>
-      {
-        <div>
-          <h1>{clientedb.nome}</h1>
-          <p>{clientedb.cpf}</p>
-          <p>{clientedb.dataNascimento}</p>
-          <p>{clientedb.senha}</p>
-          <p>{clientedb.telefone}</p>
-          <p>{clientedb.email}</p>
-          <p>{clientedb.endereco.cep}</p>
-          <p>{clientedb.endereco.bairro}</p>
-          <p>{clientedb.endereco.logradouro}</p>
-          <p>{clientedb.endereco.numero}</p>
-          <p>{clientedb.endereco.complemento}</p>
-        </div>
-      }
     </div>
   )
 }
