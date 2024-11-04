@@ -11,12 +11,6 @@ function PerfilCliente() {
   const [inputSenha, setInputSenha] = useState(clientedb.senha)
   const [inputTelefone, setInputTelefone] = useState(clientedb.telefone)
   const [inputEmail, setInputEmail] = useState(clientedb.email)
-  const [objetoEndereco, setObjetoEndereco] = useState(enderecosdb.find(endereco => endereco.atual === true))
-  const [inputCep, setInputCep] = useState(objetoEndereco.cep)
-  const [inputBairro, setInputBairro] = useState(objetoEndereco.bairro)
-  const [inputLogradouro, setInputLogradouro] = useState(objetoEndereco.logradouro)
-  const [inputNumero, setInputNumero] = useState(objetoEndereco.numero)
-  const [inputComplemento, setInputComplemento] = useState(objetoEndereco.complemento)
   const [activeBtn, setActiveBtn] = useState(null)
 
   console.log(clientedb)  
@@ -141,66 +135,6 @@ function PerfilCliente() {
               style={{ color: activeBtn == "contato" && activeBtn ? "black" : "gray" }}
             /><br />
             <hr />
-          </div>
-
-          <div className='container-endereco'>
-            <div className='cabecario-endereco'>
-              <h2>Endereço</h2>
-              {activeBtn == 'endereco' ? <button onClick={() => (atualizaDados(), trocaBotao())}>Salvar</button> :
-                <button onClick={() => (trocaBotao('endereco'))}>editar</button>}
-            </div>
-            <div className='informacoes-detalhadas-endereco'>
-              <label htmlFor='cep'>CEP</label><br />
-              <input
-                type="text"
-                id="cep"
-                value={inputCep}
-                onChange={(e) => setInputCep(e.target.value)}
-                disabled={activeBtn != 'endereco'}
-                style={{ color: activeBtn == "endereco" && activeBtn ? "black" : "gray" }}
-              /><br />
-              <hr />
-              <label htmlFor='bairro'>Bairro</label><br />
-              <input
-                type="text"
-                id="bairro"
-                value={inputBairro}
-                onChange={(e) => setInputBairro(e.target.value)}
-                disabled={activeBtn != 'endereco'}
-                style={{ color: activeBtn == "endereco" && activeBtn ? "black" : "gray" }}
-              /><br />
-              <hr />
-              <label htmlFor='logradouro'>Logradouro</label><br />
-              <input
-                type="text"
-                id="logradouro"
-                value={inputLogradouro}
-                onChange={(e) => setInputLogradouro(e.target.value)}
-                disabled={activeBtn != 'endereco'}
-                style={{ color: activeBtn == "endereco" && activeBtn ? "black" : "gray" }}
-              /><br />
-              <hr />
-              <label htmlFor='numero'>Número</label><br />
-              <input
-                type="text"
-                id="numero"
-                value={inputNumero}
-                onChange={(e) => setInputNumero(e.target.value)}
-                disabled={activeBtn != 'endereco'}
-                style={{ color: activeBtn == "endereco" && activeBtn ? "black" : "gray" }}
-              /><br />
-              <hr />
-              <label htmlFor='complemento'>Complemento</label><br />
-              <input
-                type="text"
-                id="complemento"
-                value={inputComplemento}
-                onChange={(e) => setInputComplemento(e.target.value)}
-                disabled={activeBtn != 'endereco'}
-                style={{ color: activeBtn == "endereco" && activeBtn ? "black" : "gray" }}
-              /><br />
-              <hr />
-            </div>
           </div>
         </div>
       </div>
