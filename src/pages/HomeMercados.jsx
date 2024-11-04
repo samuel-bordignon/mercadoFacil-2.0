@@ -37,7 +37,7 @@ function HomeMercados() {
                       <div className="cardMercado">
                         <div className='cardContent'>
                           <div className="imagemCard">
-                            <img src={mercado.img} alt={`Mercado ${idx + 1}`} />
+                            <img src={mercado.logo} alt={`Mercado ${idx + 1}`} />
                           </div>
                           <div className="info-mercado">
                             <p className="nome-mercado">{mercado.nome}</p>
@@ -76,7 +76,7 @@ function HomeMercados() {
                       <div className="cardMercado">
                         <div className='cardContent'>
                           <div className="imagemCard">
-                            <img src={mercado.img} alt={`Mercado ${idx + 1}`} />
+                            <img src={mercado.logo} alt={`Mercado ${idx + 1}`} />
                           </div>
                           <div className="info-mercado">
                             <p className="nome-mercado">{mercado.nome}</p>
@@ -111,7 +111,7 @@ function HomeMercados() {
                       <div className="cardMercado">
                         <div className='cardContent'>
                           <div className="imagemCard">
-                            <img src={mercado.img} alt={`Mercado ${idx + 1}`} />
+                            <img src={mercado.logo} alt={`Mercado ${idx + 1}`} />
                           </div>
                           <div className="info-mercado">
                             <p className="nome-mercado">{mercado.nome}</p>
