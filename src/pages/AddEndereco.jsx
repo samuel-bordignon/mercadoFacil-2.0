@@ -1,13 +1,11 @@
 import React, { useState, useContext } from 'react';
+import InputMask from 'react-input-mask'; // Importa o InputMask
 import Navbar from '../components/Navbar';
 import { GlobalContext } from '../contexts/GlobalContext';
 import './AddEndereco.css';
 
 function AddEndereco() {
-  // Acesso ao contexto
-  const { enderecosdb, setEnderecosdb, } = useContext(GlobalContext);
-
-  // Estado para os dados do formulário
+  const { enderecosdb, setEnderecosdb } = useContext(GlobalContext);
   const [formData, setFormData] = useState({
     cep: '',
     logradouro: '',
@@ -17,17 +15,16 @@ function AddEndereco() {
     apelido: ''
   });
 
-  // Estado para armazenar o índice do endereço que está sendo editado
   const [editIndex, setEditIndex] = useState(null);
+  const [formHeight, setFormHeight] = useState('700px'); // Estado para a altura do formulário
 
-  // Função para preencher o formulário com os dados do endereço selecionado para edição
   const handleEdit = (index) => {
     const endereco = enderecosdb[index];
     setFormData(endereco);
-    setEditIndex(index); // Salva o índice do endereço que está sendo editado
+    setEditIndex(index);
+    setFormHeight('800px'); // Aumenta a altura ao editar
   };
 
-  // Função para atualizar o estado do formulário com os valores dos inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -36,27 +33,20 @@ function AddEndereco() {
     }));
   };
 
-  // Função para salvar o endereço (criar novo ou atualizar existente)
   const handleSubmit = (e) => {
     e.preventDefault();
-  
     if (editIndex !== null) {
-      // Atualiza o endereço existente no array
       const updatedEnderecos = [...enderecosdb];
-      updatedEnderecos[editIndex] = { ...formData, id: updatedEnderecos[editIndex].id }; // Manter o id
+      updatedEnderecos[editIndex] = { ...formData, id: updatedEnderecos[editIndex].id };
       setEnderecosdb(updatedEnderecos);
-      setEditIndex(null); // Reseta o índice de edição
+      setEditIndex(null);
+      setFormHeight('700px'); // Reseta a altura após salvar
     } else {
-      // Atualiza o endereço atual para false antes de adicionar um novo
       const updatedEnderecos = enderecosdb.map((endereco) => {
         return { ...endereco, atual: endereco.atual ? false : endereco.atual };
       });
-  
-      // Adiciona um novo endereço com atual como true
       setEnderecosdb([...updatedEnderecos, { ...formData, id: updatedEnderecos.length + 1, atual: true }]);
     }
-  
-    // Limpa o formulário após a submissão
     setFormData({
       cep: '',
       logradouro: '',
@@ -66,8 +56,7 @@ function AddEndereco() {
       apelido: ''
     });
   };
-  
-  // Função para cancelar a edição e limpar o formulário
+
   const handleCancelEdit = () => {
     setEditIndex(null);
     setFormData({
@@ -78,9 +67,9 @@ function AddEndereco() {
       numero: '',
       apelido: ''
     });
+    setFormHeight('700px'); // Reseta a altura ao cancelar
   };
 
-  // Função para deletar um endereço
   const handleDelete = () => {
     if (editIndex !== null) {
       const updatedEnderecos = enderecosdb.filter((_, index) => index !== editIndex);
@@ -94,6 +83,7 @@ function AddEndereco() {
         numero: '',
         apelido: ''
       });
+      setFormHeight('700px'); // Reseta a altura após deletar
     }
   };
 
@@ -101,7 +91,7 @@ function AddEndereco() {
     <div>
       <Navbar />
       <div className="conteiner">
-        <div className="secao-formulario">
+        <div className="secao-formulario" style={{ height: formHeight }}>
           <h2>{editIndex !== null ? 'Editar endereço' : 'Adicionar meu endereço'}</h2>
           {editIndex !== null && (
             <button className="botao-deletar" onClick={handleDelete}>
@@ -135,12 +125,12 @@ function AddEndereco() {
             <div className="form-row">
               <div className="grupo-formulario input-medio">
                 <label>CEP</label>
-                <input
-                  type="text"
+                <InputMask
+                  mask="99999-999"
                   name="cep"
                   value={formData.cep}
                   onChange={handleChange}
-                  placeholder="XXXXX-XX"
+                  placeholder="XXXXX-XXX"
                 />
               </div>
               <div className="grupo-formulario input-medio">
@@ -195,7 +185,6 @@ function AddEndereco() {
           <h3>Endereços salvos</h3>
           <ul>
             {enderecosdb.map((endereco, index) => (
-              
               <li key={index}>
                 <div className="info-endereco">
                   <span>CEP: {endereco.cep}</span>

@@ -1,0 +1,110 @@
+.navbar {
+    margin: 2rem;
+}
+
+.navbar img {
+    max-width: 11rem;
+}
+
+.container {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    padding: 2.5rem;
+    gap: 5rem;
+}
+
+.container h1 {
+    color: var(--Azul-Principal, #0C194E);
+    font-family: Poppins;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.container p {
+    color: var(--Verde-Principal, #00C677);
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.container-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+}
+
+.container-buttons .primary {
+    color: #FFF;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    height: 58px;
+    flex-shrink: 0;
+    border: #0C194E;
+    border-radius: var(--Corner-Extra-small, 4px);
+    background: var(--Azul-Principal, #0C194E);
+}
+
+.primary:hover {
+    background: #FFF;
+    border: 1px solid var(--Azul-Principal, #0C194E);
+    color: #0C194E;
+    transition: 0.5s;
+}
+
+
+
+.container-buttons .second {
+    color: #000;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    line-height: 12px;
+    /* 60% */
+    height: 58px;
+    flex-shrink: 0;
+    border-radius: var(--Corner-Extra-small, 4px);
+    border: 0.5px solid rgba(0, 0, 0, 0.39);
+    background: #FFF;
+}
+
+.second:hover {
+    background: #0C194E;
+    border: 1px solid #FFF;
+    color: #FFF;
+    transition: 0.5s;
+}
+
+.direita img {
+    max-width: 32rem;
+    height: 470px;
+}
+
+.esquerda {
+    width: 590px;
+    height: 574px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.14);
+    background: #FFF;
+    backdrop-filter: blur(54.650001525878906px);
+    filter: drop-shadow(30px 30px rgba(217, 217, 217, 0.28));
+    display: flex;
+    justify-content: inherit;
+}
+
+.paragrafo-verde {
+    display: flex;
+}

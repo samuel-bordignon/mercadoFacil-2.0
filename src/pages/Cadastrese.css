@@ -1,0 +1,149 @@
+.background-cadastro{
+    background-image: url('../assets/background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;       
+    justify-content: space-evenly;        
+}
+
+.image-container{
+    margin-bottom: 5%;
+    cursor: pointer;
+}
+
+.btn-cadastro{
+    background: none;
+    border: none;
+}
+
+.botao-voltar{
+    height: 32px;
+}
+
+.cadastrese-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    padding: 2.5%;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.14);
+    background: #FFF;
+    backdrop-filter: blur(54.65px);
+    filter: drop-shadow(30px 30px rgba(217, 217, 217, 0.28));
+    scale: 0.9;
+}
+
+#form-endereco .form-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.form-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.detalhes-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 130px;
+}
+
+.detalhes-container p{
+    font-family: 'poppins', sans-serif; ;
+    color: #00C677;
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.etapa1 {
+    color: var(--Azul-Principal, #0C194E);
+    font-family: Poppins;
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.form-endereco-cliente{
+    display: flex;
+    width: 100%;
+}
+
+.container-inputs{
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    gap: 0.8rem;
+}
+
+.input {
+    width: 100%;
+    height: 52px;
+    flex-shrink: 0;
+    padding:0 15px ;
+    font-size: 18px;
+    border-radius: var(--Corner-Extra-small, 4px);
+    border: 0.5px solid rgba(150, 150, 150, 0.39);
+    background: #FFF;
+}
+
+.cabecalho-cadastro {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.cabecalho-cadastro h1{
+    font-family: 'poppins', sans-serif;
+    color: #0C194E;
+    font-weight: 600;
+}
+
+.container p {
+    display: flex;
+}
+
+.cadastre-se {
+    color: var(--Azul-Principal, #0C194E);
+    font-family: Poppins;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.acessarCadastro {
+    color: #FFF;
+    width: 80%;
+    height: 52px;
+    border-radius: 50px;
+    border: #0C194E;
+    background: var(--Azul-Principal, #0C194E);
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 26px;
+}
+
+.error{
+    color: red;
+    font-size: 15px;
+    margin-top: 0.5rem;
+}

@@ -9,12 +9,13 @@ import './Navbar.css'
 import './PopUpListaCompras.css'
 import './PopUpEnderecos.css'
 import AddEndereco from "../pages/AddEndereco"
+import { p } from "framer-motion/client"
 
 
 function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { produtosdb, setProdutosdb, enderecosdb, setEnderecosdb, mercadosdb, usuariodb, setListaEnderecos, listaEnderecos  } = useContext(GlobalContext)
+  const { produtosdb, setProdutosdb, enderecosdb, setEnderecosdb, mercadosdb, setMercadosdb, clientedb, setUsuariodb } = useContext(GlobalContext)
 
   // Estado único para controlar qual pop-up está aberto
   const [activePopup, setActivePopup] = useState(null)
@@ -22,19 +23,13 @@ function Navbar() {
   const [prontaEnviar, setProntaEnviar] = useState(false)
 
   const [listaComprasNavdb, setListaComprasNavdb] = useState(
-  {id: 1, nome: "Lista 1", produtos: produtosdb},
+    { id: 1, nome: "Lista 1", produtos: produtosdb },
   )
 
   useHotkeys('ctrl+l', (event) => {
     event.preventDefault() // Previne o comportamento padrão do navegador
     togglePopup('list') // Abre o pop-up da lista de compras
   })
-
-  // Usando um atalho para abrir um modal (Shift + M)
-  useHotkeys('shift+m', () => {
-    navigate('/anima')
-  })
-
   // Função para exibir mensagens de erro/validação
   const showErrorToast = () => {
     toast.error("Erro ao carregar dados do usuário!")
@@ -65,10 +60,10 @@ function Navbar() {
       setActivePopup(popupName)
     }
 
-    if(popupName == 'list'){
-      if(listaEnderecos){
+    if (popupName == 'list') {
+      if (listaEnderecos) {
         setListaEnderecos(false)
-      }else{
+      } else {
         setListaEnderecos(true)
       }
     }
@@ -130,7 +125,7 @@ function Navbar() {
   // Função para enviar a mensagem para o WhatsApp
   useEffect(() => {
     if (prontaEnviar) {
-      const mensagem = `Olá! Gostaria de fazer um pedido com os seguintes itens:\n\n${concatenaProdutos()}\n\n*Endereço de entrega:* ${enderecosdb.find(e => e.atual === true)?.endereco}, ${enderecosdb.find(e => e.atual === true)?.numero}\n\n*Total* ${calcularTotal()}\n\nAtenciosamente, ${usuariodb.nome}`
+      const mensagem = `Olá! Gostaria de fazer um pedido com os seguintes itens:\n\n${concatenaProdutos()}\n\n*Endereço de entrega:* ${enderecosdb.find(e => e.atual === true)?.endereco}, ${enderecosdb.find(e => e.atual === true)?.numero}\n\n*Total* ${calcularTotal()}\n\nAtenciosamente, ${clientedb.nome}`
       const numero = mercadosdb.find(mercado => mercado.atual === true).celular
       const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`
       window.open(url, '_blank')
@@ -149,7 +144,7 @@ function Navbar() {
         </div>
         <div id="links-container">
           <NavLink
-            to="/"
+            to="/mercados"
             className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}
           >
             Mercados
@@ -180,11 +175,10 @@ function Navbar() {
                 {enderecosdb.find(e => e.atual === true)?.numero || ""}
               </span>
             </span>
-
             <img src="flecha.svg" alt="Flecha" className="arrow-icon" />
           </div>
         </button>
-
+        {/*popup do endereço*/}
         {activePopup === 'endereco' && (
           <div onClick={() => { setActivePopup(null) }} className="overlay">
             <div id="popup-endereco" onClick={(e) => e.stopPropagation()}>
@@ -196,7 +190,7 @@ function Navbar() {
                   <img src="XisVerde.svg" alt="X" />
                 </button>
               </div>
-              <button className="add-endereco" onClick={()=> navigate("/addEndereco")}>
+              <button className="add-endereco" onClick={() => navigate("/addEndereco")}>
                 <div>
                   <img src="adicionarIcon.svg" alt="Adicionar" />
                 </div>
@@ -324,7 +318,6 @@ function Navbar() {
         pauseOnHover          // Pausar auto-close ao passar o mouse
         theme="colored"       // Tema padrão colorido
       />
-
     </div>
   )
 }
