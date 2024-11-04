@@ -22,7 +22,6 @@ function PerfilCliente() {
       setActiveBtn(nomebtn)
     }
   }
-
   const atualizaDados = () => {
     if (activeBtn === 'pessoal') {
       setClientedb({
@@ -106,6 +105,7 @@ function PerfilCliente() {
             disabled={activeBtn != 'pessoal'}
             style={{ color: activeBtn == "pessoal" && activeBtn ? "black" : "gray" }}
           /><br />
+          <hr />
         </div>
 
         <div className='container-contato'>
@@ -138,6 +138,7 @@ function PerfilCliente() {
           </div>
         </div>
       </div>
+      <button className='excluirConta-usuario'>Excluir conta</button>
     </div>
   )
 }
