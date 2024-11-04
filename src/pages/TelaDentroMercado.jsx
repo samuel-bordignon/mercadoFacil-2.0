@@ -1,11 +1,17 @@
 import Navbar from "../components/Navbar"
+import "./TelaDentroMercado.css"
 
 function TelaDentroMercado() {
 
   return (
     <div>
-        <Navbar />
-      
+      <Navbar />
+      <div className="tela-dentro-mercado">
+        <div className="sideBar-dentro-mercado">
+            <input type="text" />
+        </div>
+      </div>
+
     </div>
   )
 }
