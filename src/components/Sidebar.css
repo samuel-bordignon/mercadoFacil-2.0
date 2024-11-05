@@ -70,4 +70,8 @@
 #logout_btn:hover {
     background-color: #f0f0f025;
 }
+.side-item.active {
+    background-color: #c0c0c049; /* Cinza claro para indicar o item ativo */
+}
+
 
