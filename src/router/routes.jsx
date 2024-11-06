@@ -19,6 +19,11 @@ import EscolhaCadastro from "../pages/EscolhaCadastro";
 import CadastroCliente2 from "../pages/CadastroCliente2";
 import TelaDentroMercado from "../pages/TeladentroMercado";
 import Sidebar from "../components/Sidebar";
+<<<<<<< HEAD
+import PerfilMercado from "../pages/PerfilMercado";
+=======
+import MercadoCadastroProdutos from "../pages/MercadoCadastroProdutos";
+>>>>>>> 4d9bd3b81d2ecdccd0b071089f4d191bfc412748
 
 const router = createBrowserRouter([
     {path: "/mercados", element: <HomeMercados />},
@@ -41,6 +46,12 @@ const router = createBrowserRouter([
     {path: "/addEndereco", element: <AddEndereco />},
     {path: "/telaDentroMercado", element: <TelaDentroMercado />},
     {path: "/sidebar", element: <Sidebar />},
+<<<<<<< HEAD
+    {path: "/perfilMercado", element: <PerfilMercado />},
+
+=======
+    {path: "/cadastroProdutos", element: <MercadoCadastroProdutos/>},
+>>>>>>> 4d9bd3b81d2ecdccd0b071089f4d191bfc412748
     
 ])
 
