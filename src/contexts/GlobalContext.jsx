@@ -125,7 +125,7 @@ return (
         mercadosdb, setMercadosdb,
         clientedb, setClientedb,
         listaEnderecos, setListaEnderecos,
-        mercadosVisitados // Adicionado aqui
+        mercadosVisitados,  // Adicionado aqui
     }}>
         {children}
     </GlobalContext.Provider>
