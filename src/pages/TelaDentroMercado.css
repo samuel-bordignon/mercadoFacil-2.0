@@ -11,27 +11,36 @@
 }
 
 .sideBar-dentro-mercado {
-    width: 28%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
     height: 100%;
     background-color: rgb(212, 212, 212)
 }
 
 .nome-mercado-container {
-    height: 10%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    border: 1px white solid;
+    width: 88%;
+    border-bottom: 1px white solid;
+    height: 14%;
 }
 
 .nome-mercado-container h5 {
     font-family: 'Poppins', sans-serif;
+    margin-top: 13%;
 }
 
 .endereco-cnpj-container {
-    height: 30%;
-    border: 1px white solid;
-    padding: 3%;
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    width: 88%;
+    height: 34%;
+    border-bottom: 1px white solid;
 }
 
 .sub-titulo-sideBar-mercado {
@@ -45,6 +54,26 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.endereco-cnpj-container p {
+p {
     font-family: 'Poppins', sans-serif;
+}
+
+.titulo-outras-info {
+    margin-top: 10%;
+}
+
+.horario-container {
+    display: flex;
+    justify-content: space-between;
+    width: 88%;
+    border-bottom: 1px white solid;
+    padding: 0%;
+}
+
+.dias-funcion-container {
+
+}
+
+.horarios-funcion-container {
+    margin-top: 14%;
 }
