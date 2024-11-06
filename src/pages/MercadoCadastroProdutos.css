@@ -1,0 +1,156 @@
+/* Container principal */
+.container-CadastroProdutos {
+    display: flex;
+    flex-direction: column;
+    margin-left: 120px; 
+    padding: 20px;
+    height: 100vh; /* Ocupa a altura total da tela */
+}
+
+/* Título */
+.titulo {
+    width: 70%;
+}
+
+.titulo h1 {
+    font-size: 33px;
+    color: #0C194E;
+    margin-top: 25px;
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+
+/* Formulário */
+.container-formulario {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 20px;
+    height: 80%; 
+    margin-left: 40px;
+}
+
+/* Estilos para a Vitrine */
+.container-vitrine {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 46%; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    height: 100%; 
+}
+
+/* Título da Vitrine */
+.titulo-vitrine {
+    margin-top: 40px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Seções internas da Vitrine */
+.container-vitrine h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 33px;
+    color: #333;
+}
+
+/* Estilos para campos de entrada na Vitrine e Detalhes */
+.container-vitrine input,
+.container-detalhes input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    border: 1px solid #898989;
+    background-color: #FAFAFA;
+    font-size: 14px;
+}
+
+/* Ajuste do espaço entre <p> e <input> */
+.container-vitrine p,
+.container-detalhes p {
+    margin: 0 0 5px 0; 
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Container de Detalhes */
+.container-detalhes {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 46%;
+    height: 90%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-right: 53px;
+}
+
+.container-detalhes h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Estilos para botões */
+.botoes {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.salvar {
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.salvar:hover {
+    background-color: #218838;
+}
+
+.cancelar {
+    background-color: #0C194E;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cancelar:hover {
+    background-color: #001b3f;
+}
+
+/* Container da imagem */
+.container-image {
+    width: 750px;
+    height: 277px;
+    background-color: #0C194E;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo para .imagemProduto */
+.imagemProduto {
+    background-color: #E9E9E9;
+    width: 393px;
+    height: 222px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
