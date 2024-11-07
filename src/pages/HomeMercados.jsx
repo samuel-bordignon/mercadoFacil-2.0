@@ -1,18 +1,24 @@
 import React, { useContext } from 'react';
 import './HomeMercados.css';
+import { useNavigate } from "react-router-dom"
 import Navbar from '../components/Navbar';
 import { GlobalContext } from '../contexts/GlobalContext';
 
 function HomeMercados() {
-  const { mercadosVisitados } = useContext(GlobalContext);
-
+  const { mercadosdb, setIdMercadoAtivo } = useContext(GlobalContext);
+  const navigate = useNavigate()
   const slidesVisitados = [];
   const slidesPerto = [];
 
   // Agrupando os mercados visitados em slides
-  for (let i = 0; i < mercadosVisitados.length; i += 3) {
-    slidesVisitados.push(mercadosVisitados.slice(i, i + 3));
-    slidesPerto.push(mercadosVisitados.slice(i, i + 3)); 
+  for (let i = 0; i < mercadosdb.length; i += 3) {
+    slidesVisitados.push(mercadosdb.slice(i, i + 3));
+    slidesPerto.push(mercadosdb.slice(i, i + 3)); 
+  }
+
+  function redirecionaTelaMercado(id) {
+    setIdMercadoAtivo(id)
+    navigate('/telaDentroMercado')
   }
 
   return (
@@ -34,7 +40,7 @@ function HomeMercados() {
                 <div className="row">
                   {slide.map((mercado, idx) => (
                     <div className="col-md-4" key={idx}>
-                      <div className="cardMercado">
+                      <div className="cardMercado" onClick={() => (redirecionaTelaMercado(mercado.id))}>
                         <div className='cardContent'>
                           <div className="imagemCard">
                             <img src={mercado.logo} alt={`Mercado ${idx + 1}`} />

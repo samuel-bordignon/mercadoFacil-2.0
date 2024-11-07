@@ -16,17 +16,20 @@
     align-items: center;
     width: 20%;
     height: 100%;
-    background-color: rgb(212, 212, 212)
+    background-color: rgb(255, 255, 255);
+    box-shadow: 5px 5px 5px rgb(228, 228, 228);
 }
 
 .nome-mercado-container {
+    scale: 0.95;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    /* flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; */
     width: 88%;
-    border-bottom: 1px white solid;
-    height: 14%;
+    border-bottom: 2px rgb(218, 218, 218) solid;
+    height: 12%;
 }
 
 .nome-mercado-container h5 {
@@ -35,12 +38,14 @@
 }
 
 .endereco-cnpj-container {
+    scale: 0.95;
     display: flex;
     flex-direction: column;
     gap: 2%;
+    padding: 4%;
     width: 88%;
     height: 34%;
-    border-bottom: 1px white solid;
+    border-bottom: 2px rgb(218, 218, 218) solid;
 }
 
 .sub-titulo-sideBar-mercado {
@@ -63,17 +68,23 @@ p {
 }
 
 .horario-container {
+    scale: 0.95;
     display: flex;
     justify-content: space-between;
     width: 88%;
-    border-bottom: 1px white solid;
-    padding: 0%;
-}
-
-.dias-funcion-container {
-
+    border-bottom: 2px rgb(218, 218, 218) solid;
+    padding: 4%;
 }
 
 .horarios-funcion-container {
     margin-top: 14%;
+}
+
+.contato-container {
+    scale: 0.95;
+    display: flex;
+    flex-direction: column;
+    width: 88%;
+    height: 8%;
+    padding: 4%;
 }
