@@ -112,7 +112,16 @@ export const GlobalContextProvider = ({ children }) => {
     //constancia para redenrizar e desrenderizar os endereços na pagina endereços
     const [listaEnderecos, setListaEnderecos] = useState(true)
 
-
+     // Exemplo de categorias
+    const categoryOptions = [
+    { value: 'categoria1', label: 'Hórtifrute' },
+    { value: 'categoria2', label: 'Açougue' },
+    { value: 'categoria3', label: 'Padaria' },
+    { value: 'categoria4', label: 'Bebidas' },
+    { value: 'categoria5', label: 'Freezer' },
+    { value: 'categoria5', label: 'Freezer' },
+    // Adicione mais categorias conforme necessário
+  ];
 
 
 
@@ -125,7 +134,8 @@ return (
         mercadosdb, setMercadosdb,
         clientedb, setClientedb,
         listaEnderecos, setListaEnderecos,
-        mercadosVisitados,  // Adicionado aqui
+        mercadosVisitados,
+        categoryOptions,
     }}>
         {children}
     </GlobalContext.Provider>

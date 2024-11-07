@@ -34,7 +34,7 @@ const Sidebar = () => {
                         </li>
                         <li
                             className={`side-item ${activeItem === 'Gerente' ? 'active' : ''}`}
-                            onClick={() => handleItemClick('Gerente')}
+                            onClick={() => handleItemClick('Gerente')} 
                         >
                             <i className="bi bi-person-circle fa-2x"></i>
                             <span>Gerente</span>
