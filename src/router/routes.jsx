@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import HomeMercados from "../pages/HomeMercados";
 import GerenciaLista from "../pages/GerenciaLista";
 import PerfilCliente from "../pages/PerfilCliente";
-import Mercado from "../pages/Mercado";
 import Dragoes from "../pages/Dragoes";
 import TesteAnimacao from "../pages/TesteAnimacao";
 import AddEndereco from "../pages/AddEndereco";
@@ -23,10 +22,9 @@ import PerfilMercado from "../pages/PerfilMercado";
 import MercadoCadastroProdutos from "../pages/MercadoCadastroProdutos";
 
 const router = createBrowserRouter([
-    {path: "/mercados", element: <HomeMercados />},
+    {path: "/mercado", element: <HomeMercados />},
     {path: "/listaCompras", element: <GerenciaLista />},
     {path: "/perfilCliente", element: <PerfilCliente />},
-    {path: "/mercado", element: <Mercado />},
     {path: "/", element: <EscolhaLoginCadastro />},
     {path: "/loginDois", element: <EscolhaLogin />},
     {path: "/criarConta", element: <EscolhaCadastro />},
