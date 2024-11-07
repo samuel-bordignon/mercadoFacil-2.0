@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import HomeMercados from "../pages/HomeMercados";
 import GerenciaLista from "../pages/GerenciaLista";
 import PerfilCliente from "../pages/PerfilCliente";
-import Mercado from "../pages/Mercado";
 import Dragoes from "../pages/Dragoes";
 import TesteAnimacao from "../pages/TesteAnimacao";
 import AddEndereco from "../pages/AddEndereco";
@@ -19,17 +18,13 @@ import EscolhaCadastro from "../pages/EscolhaCadastro";
 import CadastroCliente2 from "../pages/CadastroCliente2";
 import TelaDentroMercado from "../pages/TeladentroMercado";
 import Sidebar from "../components/Sidebar";
-<<<<<<< HEAD
 import PerfilMercado from "../pages/PerfilMercado";
-=======
 import MercadoCadastroProdutos from "../pages/MercadoCadastroProdutos";
->>>>>>> 4d9bd3b81d2ecdccd0b071089f4d191bfc412748
 
 const router = createBrowserRouter([
-    {path: "/mercados", element: <HomeMercados />},
+    {path: "/mercado", element: <HomeMercados />},
     {path: "/listaCompras", element: <GerenciaLista />},
     {path: "/perfilCliente", element: <PerfilCliente />},
-    {path: "/mercado", element: <Mercado />},
     {path: "/", element: <EscolhaLoginCadastro />},
     {path: "/loginDois", element: <EscolhaLogin />},
     {path: "/criarConta", element: <EscolhaCadastro />},
@@ -46,12 +41,9 @@ const router = createBrowserRouter([
     {path: "/addEndereco", element: <AddEndereco />},
     {path: "/telaDentroMercado", element: <TelaDentroMercado />},
     {path: "/sidebar", element: <Sidebar />},
-<<<<<<< HEAD
     {path: "/perfilMercado", element: <PerfilMercado />},
 
-=======
     {path: "/cadastroProdutos", element: <MercadoCadastroProdutos/>},
->>>>>>> 4d9bd3b81d2ecdccd0b071089f4d191bfc412748
     
 ])
 
