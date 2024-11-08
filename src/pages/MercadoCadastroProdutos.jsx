@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import Select from 'react-select';
+// import Select from 'react-select';
 import Sidebar from '../components/Sidebar';
 import './MercadoCadastroProdutos.css';
 import { GlobalContext } from '../contexts/GlobalContext';

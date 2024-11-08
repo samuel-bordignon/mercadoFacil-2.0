@@ -11,40 +11,6 @@ const Sidebar = () => {
     };
 
     return (
-<<<<<<< HEAD
-        <div>
-            <nav id="sidebar">
-                <div id="sidebar_content">
-                    <ul id="side_items">
-                        <div className="icon-Top">
-                            <img className="icon-mercado" src="iconsidebar.svg" alt="" />
-                        </div>
-                        <li
-                            className={`side-item ${activeItem === 'Estoque' ? 'active' : ''}`}
-                            onClick={() => handleItemClick('Estoque')}
-                        >
-                            <i className="bi bi-box-seam fa-2x"></i>
-                            <span>Estoque</span>
-                        </li>
-                        <li
-                            className={`side-item ${activeItem === 'Mercado' ? 'active' : ''}`}
-                            onClick={() => handleItemClick('Mercado')}
-                        >
-                            <i className="bi bi-shop fa-2x"></i>
-                            <span>Mercado</span>
-                        </li>
-                        <li
-                            className={`side-item ${activeItem === 'Gerente' ? 'active' : ''}`}
-                            onClick={() => handleItemClick('Gerente')} 
-                        >
-                            <i className="bi bi-person-circle fa-2x"></i>
-                            <span>Gerente</span>
-                        </li>
-                    </ul>
-                </div>
-=======
->>>>>>> 721f817e92ae7a94c4c47f5ae9d03abb88f893d8
-
         <nav id="sidebar">
             <div id="sidebar_content">
                 <ul id="side_items">
