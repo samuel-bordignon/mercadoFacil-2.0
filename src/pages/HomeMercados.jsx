@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import { GlobalContext } from '../contexts/GlobalContext';
 
 function HomeMercados() {
-  const { mercadosdb, setIdMercadoAtivo } = useContext(GlobalContext);
+  const { mercadosdb, setLocalStorage, chaveMercadoLocal } = useContext(GlobalContext);
   const navigate = useNavigate()
   const slidesVisitados = [];
   const slidesPerto = [];
@@ -17,8 +17,9 @@ function HomeMercados() {
   }
 
   function redirecionaTelaMercado(id) {
-    setIdMercadoAtivo(id)
+    setLocalStorage(chaveMercadoLocal, id)
     navigate('/telaDentroMercado')
+    console.log("oi")
   }
 
   return (

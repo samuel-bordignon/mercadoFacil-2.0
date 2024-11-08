@@ -5,13 +5,19 @@ import { GlobalContext } from '../contexts/GlobalContext'
 import React, { useContext, useState } from 'react'
 
 function TelaDentroMercado() {
-  const {idMercadoAtivo, mercadosdb} = useContext(GlobalContext)
+  const {getLocalStorage, chaveMercadoLocal , mercadosdb, enderecoMercadodb} = useContext(GlobalContext)
 
-  const mercadoAtual = mercadosdb.find((mercado) => mercado.id === idMercadoAtivo)
+  const idMercado = getLocalStorage(chaveMercadoLocal)
+
+  const mercadoAtual = mercadosdb.find((mercado) => mercado.id === idMercado)
+  const enderecoAtual = enderecoMercadodb.find((endereco) => endereco.idMercado === idMercado)
+  enderecoMercadodb.forEach((element) => console.log(element.idMercado));
+  mercadosdb.forEach((element) => console.log(element.cnpj));
 
   function uuu(){
-    console.log(mercadoAtual)
-    console.log(idMercadoAtivo)
+    console.log(mercadoAtual.cnpj)
+    console.log(idMercado)
+    console.log(enderecoAtual)
   }
 
   return (
@@ -20,16 +26,16 @@ function TelaDentroMercado() {
       <div className="tela-dentro-mercado">
         <div className="sideBar-dentro-mercado">
           <div className="nome-mercado-container">
-              {/* logo mercado */}  
-            <h5>{mercadoAtual.nome}</h5> {/* Exemplo, será alterado (mercadodb.nome)*/}
+               
+            <h5>{mercadoAtual.nome}</h5>
           </div>
           <div className="endereco-cnpj-container">
             <p className="sub-titulo-sideBar-mercado">Sobre</p>
             {/* <h5>{mercadosdb.find((endereco) => endereco.idMercado === idMercadoAtivo)}</h5> */}
             <p>informações sobre o endereço do mercado</p>
-            <p>CEP</p> {/*digitar o cep */}
+            <p>{enderecoAtual.cep}</p>
             <h5 className="titulo-outras-info">Outras informações</h5>
-            <p>CNPJ</p>
+            <p>CNPJ: {mercadoAtual.cnpj}</p>
           </div>
           <div className="horario-container">
             <div className="dias-funcion-container">
@@ -54,13 +60,12 @@ function TelaDentroMercado() {
           </div>
           <div className="contato-container">
             <p className="sub-titulo-sideBar-mercado">Contato</p>
-            <p>Telefone</p>
-            <p>Email</p>
+            <p>Telefone: +{mercadoAtual.telefone}</p>
+            <p>Email: {mercadoAtual.email}</p>
           </div>
         </div>
-        <button onClick={()=>(uuu())}>fkhsdf</button>
       </div>
-
+<button onClick={uuu}>isso ai</button>
     </div>
   )
 }
