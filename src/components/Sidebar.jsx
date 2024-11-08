@@ -1,49 +1,27 @@
 import './Sidebar.css';
+import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 const Sidebar = () => {
     const [activeItem, setActiveItem] = useState(null);
+    const navigate = useNavigate()
 
+    //Faz a navegação para outras paginas pela sidebar
     const handleItemClick = (item) => {
         setActiveItem(item);
+        if(item == 'gerente'){
+            navigate('/cadastroProdutos')
+        }else if(item == 'mercado'){
+            navigate('/cadastroProdutos')
+        }else if(item == 'estoque'){
+            navigate('/cadastroProdutos')
+            
+        }
     };
 
     return (
-<<<<<<< HEAD
-        <div>
-            <nav id="sidebar">
-                <div id="sidebar_content">
-                    <ul id="side_items">
-                        <div className="icon-Top">
-                            <img className="icon-mercado" src="iconsidebar.svg" alt="" />
-                        </div>
-                        <li
-                            className={`side-item ${activeItem === 'Estoque' ? 'active' : ''}`}
-                            onClick={() => handleItemClick('Estoque')}
-                        >
-                            <i className="bi bi-box-seam fa-2x"></i>
-                            <span>Estoque</span>
-                        </li>
-                        <li
-                            className={`side-item ${activeItem === 'Mercado' ? 'active' : ''}`}
-                            onClick={() => handleItemClick('Mercado')}
-                        >
-                            <i className="bi bi-shop fa-2x"></i>
-                            <span>Mercado</span>
-                        </li>
-                        <li
-                            className={`side-item ${activeItem === 'Gerente' ? 'active' : ''}`}
-                            onClick={() => handleItemClick('Gerente')} 
-                        >
-                            <i className="bi bi-person-circle fa-2x"></i>
-                            <span>Gerente</span>
-                        </li>
-                    </ul>
-                </div>
-=======
->>>>>>> 721f817e92ae7a94c4c47f5ae9d03abb88f893d8
 
         <nav id="sidebar">
             <div id="sidebar_content">
@@ -52,22 +30,22 @@ const Sidebar = () => {
                         <img className="icon-mercado" src="iconsidebar.svg" alt="" />
                     </div>
                     <li
-                        className={`side-item ${activeItem === 'Estoque' ? 'active' : ''}`}
-                        onClick={() => handleItemClick('Estoque')}
+                        className={`side-item ${activeItem === 'estoque' ? 'active' : ''}`}
+                        onClick={() => handleItemClick('estoque')}
                     >
                         <i className="bi bi-box-seam fa-2x"></i>
                         <span>Estoque</span>
                     </li>
                     <li
-                        className={`side-item ${activeItem === 'Mercado' ? 'active' : ''}`}
-                        onClick={() => handleItemClick('Mercado')}
+                        className={`side-item ${activeItem === 'mercado' ? 'active' : ''}`}
+                        onClick={() => handleItemClick('mercado')}
                     >
                         <i className="bi bi-shop fa-2x"></i>
                         <span>Mercado</span>
                     </li>
                     <li
-                        className={`side-item ${activeItem === 'Gerente' ? 'active' : ''}`}
-                        onClick={() => handleItemClick('Gerente')}
+                        className={`side-item ${activeItem === 'gerente' ? 'active' : ''}`}
+                        onClick={() => handleItemClick('gerente')}
                     >
                         <i className="bi bi-person-circle fa-2x"></i>
                         <span>Gerente</span>
