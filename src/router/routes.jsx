@@ -20,6 +20,7 @@ import TelaDentroMercado from "../pages/TeladentroMercado";
 import Sidebar from "../components/Sidebar";
 import PerfilMercado from "../pages/PerfilMercado";
 import MercadoCadastroProdutos from "../pages/MercadoCadastroProdutos";
+import MercadoEstoque from "../pages/MercadoEstoque";
 
 const router = createBrowserRouter([
     {path: "/mercado", element: <HomeMercados />},
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
     {path: "/telaDentroMercado", element: <TelaDentroMercado />},
     {path: "/sidebar", element: <Sidebar />},
     {path: "/perfilMercado", element: <PerfilMercado />},
-
+    {path: "/mercadoEstoque", element: <MercadoEstoque/>},
     {path: "/cadastroProdutos", element: <MercadoCadastroProdutos/>},
     
 ])

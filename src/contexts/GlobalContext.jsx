@@ -263,6 +263,7 @@ export const GlobalContextProvider = ({ children }) => {
 
     const chaveMercadoLocal = 'mercadosdbLocal'
     const chaveClientedbLocal = 'ClientedbLocal'
+    const chaveProdutodbLocal = 'produtodbLocal'
 
     // Prover estados e funções aos componentes filhos
     return (
@@ -276,7 +277,7 @@ export const GlobalContextProvider = ({ children }) => {
             idMercadoAtivo, setIdMercadoAtivo,
             categoryOptions,
             getLocalStorage, setLocalStorage,
-            chaveMercadoLocal, chaveClientedbLocal
+            chaveMercadoLocal, chaveClientedbLocal, chaveProdutodbLocal
         }}>
             {children}
         </GlobalContext.Provider>
