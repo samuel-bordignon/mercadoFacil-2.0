@@ -174,23 +174,32 @@ export const GlobalContextProvider = ({ children }) => {
         email: "jao@gmail.com",
     })
 
+     // Exemplo de categorias
+    const categoryOptions = [
+    { value: 'categoria1', label: 'Hórtifrute' },
+    { value: 'categoria2', label: 'Açougue' },
+    { value: 'categoria3', label: 'Padaria' },
+    { value: 'categoria4', label: 'Bebidas' },
+    { value: 'categoria5', label: 'Freezer' },
+    { value: 'categoria5', label: 'Freezer' },
+    // Adicione mais categorias conforme necessário
+  ];
 
 
 
 
-
-
-    // Prover estados e funções aos componentes filhos
-    return (
-        <GlobalContext.Provider value={{
-            enderecosdb, setEnderecosdb,
-            produtosdb, setProdutosdb,
-            mercadosdb, setMercadosdb,
-            clientedb, setClientedb,
-            mercadosVisitados,  // Adicionado aqui
-            idMercadoAtivo, setIdMercadoAtivo
-        }}>
-            {children}
-        </GlobalContext.Provider>
-    )
+// Prover estados e funções aos componentes filhos
+return (
+    <GlobalContext.Provider value={{
+        enderecosdb, setEnderecosdb,
+        produtosdb, setProdutosdb,
+        mercadosdb, setMercadosdb,
+        clientedb, setClientedb,
+        listaEnderecos, setListaEnderecos,
+        mercadosVisitados,
+        categoryOptions,
+    }}>
+        {children}
+    </GlobalContext.Provider>
+)
 }

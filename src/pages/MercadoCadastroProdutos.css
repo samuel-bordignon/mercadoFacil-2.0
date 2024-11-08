@@ -56,6 +56,12 @@
     margin-bottom: 33px;
     color: #333;
 }
+.container-detalhes h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+}
 
 /* Estilos para campos de entrada na Vitrine e Detalhes */
 .container-vitrine input,
@@ -84,7 +90,7 @@
     border-radius: 8px;
     padding: 20px;
     width: 46%;
-    height: 90%;
+    height: 100%;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     margin-right: 53px;
 }
@@ -99,9 +105,9 @@
 /* Estilos para botões */
 .botoes {
     display: flex;
-    gap: 10px;
+    gap: 40px;
     justify-content: flex-end;
-    margin-top: 20px;
+    
 }
 
 .salvar {
@@ -125,16 +131,33 @@
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    border: 1px solid white;
     transition: background-color 0.3s;
+    width: 180px;
+    
 }
 
 .cancelar:hover {
-    background-color: #001b3f;
+    background-color: #212e63;
 }
+
+.borda-botoes{
+    background-color: #001b3f;
+    height: 80px;
+    width: 580px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-left: 11%;
+    border-radius: 10px;
+    margin-top: 30%;
+}
+
+
 
 /* Container da imagem */
 .container-image {
-    width: 750px;
+    width: 100%;
     height: 277px;
     background-color: #0C194E;
     border-radius: 8px;
@@ -142,15 +165,39 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-/* Estilo para .imagemProduto */
-.imagemProduto {
-    background-color: #E9E9E9;
-    width: 393px;
-    height: 222px;
+    cursor: pointer; 
+    box-sizing: border-box;
+  }
+  
+  /* Estilo para .imagemProduto */
+  .imagemProduto {
+    background-color: #0C194E;
+    width: 100%; 
+    height: 100%; 
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-}
+    overflow: hidden; 
+  }
+  
+  /* Feedback visual (se a imagem não for carregada) */
+  .imagemProduto p {
+    color: #FAFAFA;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  /* Estilo para a imagem */
+  .imagemProduto img {
+    object-fit: cover; 
+    width: 50%; 
+    height: 90%; 
+    object-position: center; 
+    border-radius: 5px;
+  }
+  
+  .select-category {
+    margin-bottom: 30px;
+    
+  }

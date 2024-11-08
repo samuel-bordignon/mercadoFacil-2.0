@@ -22,6 +22,7 @@
     "react-hotkeys-hook": "^4.5.1",
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^6.26.2",
+    "react-select": "^5.8.2",
     "react-toastify": "^10.0.6",
     "router-context": "file:",
     "yup": "^1.4.0",
