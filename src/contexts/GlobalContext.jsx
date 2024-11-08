@@ -39,7 +39,7 @@ export const GlobalContextProvider = ({ children }) => {
         },
         {
             id: 3,
-            nome: "Mercado da Pedro",
+            nome: "Mercado do Pedro",
             cnpj: "11111111111111",
             logo: "3.png",
             telefone: 554899749820,
@@ -63,7 +63,7 @@ export const GlobalContextProvider = ({ children }) => {
         },
         {
             id: 6,
-            nome: "Mercado do Pedro",
+            nome: "Mercadinho da Esquina",
             cnpj: "44444444444444",
             logo: "6.png",
             telefone: 554899749823,
@@ -96,15 +96,15 @@ export const GlobalContextProvider = ({ children }) => {
 
     ])
     const [enderecoMercadodb, setEnderecoMercadodb] = useState([
-        { id: 1, idMercadoAtual: 1, cepMercado: 89122234, logradouro: "Rua das Flores" },
-        { id: 2, idMercadoAtual: 2, cepMercado: 86869274, logradouro: "Rua das Águas" },
-        { id: 3, idMercadoAtual: 3, cepMercado: 91543867, logradouro: "Rua das Praias" },
-        { id: 4, idMercadoAtual: 4, cepMercado: 76924013, logradouro: "Av. dos Cristais" },
-        { id: 5, idMercadoAtual: 5, cepMercado: 82054185, logradouro: "Rua dos Papagaios" },
-        { id: 6, idMercadoAtual: 6, cepMercado: 80346573, logradouro: "Rua da Figueira" },
-        { id: 7, idMercadoAtual: 7, cepMercado: 81205743, logradouro: "Av. do Beija-Flor" },
-        { id: 8, idMercadoAtual: 8, cepMercado: 70456332, logradouro: "Av. da Lua" },
-        { id: 9, idMercadoAtual: 9, cepMercado: 23479643, logradouro: "Rua da Estrela" },
+        { id: 1, idMercado: 1, cep: 89122234, logradouro: "Rua das Flores" },
+        { id: 2, idMercado: 2, cep: 86869274, logradouro: "Rua das Águas" },
+        { id: 3, idMercado: 3, cep: 91543867, logradouro: "Rua das Praias" },
+        { id: 4, idMercado: 4, cep: 76924013, logradouro: "Av. dos Cristais" },
+        { id: 5, idMercado: 5, cep: 82054185, logradouro: "Rua dos Papagaios" },
+        { id: 6, idMercado: 6, cep: 80346573, logradouro: "Rua da Figueira" },
+        { id: 7, idMercado: 7, cep: 81205743, logradouro: "Av. do Beija-Flor" },
+        { id: 8, idMercado: 8, cep: 70456332, logradouro: "Av. da Lua" },
+        { id: 9, idMercado: 9, cep: 23479643, logradouro: "Rua da Estrela" },
     ])
 
     const [horarioFuncionamento, setHorarioFuncionamento] = useState([
@@ -245,16 +245,6 @@ export const GlobalContextProvider = ({ children }) => {
 
     // Estado para Usuário logado
     const [clientedb, setClientedb] = useState({})
-    // Estado para Parceiro logado
-    const [parceirodb, setParceirodb] = useState({
-        id: 1,
-        nome: "João da Silva",
-        cpf: "123456789",
-        dataNascimento: "2000-01-01",
-        senha: "123456",
-        telefone: "48999999999",
-        email: "jao@gmail.com",
-    })
 
     // Exemplo de categorias
     const categoryOptions = [
@@ -282,6 +272,8 @@ export const GlobalContextProvider = ({ children }) => {
             produtosdb, setProdutosdb,
             mercadosdb, setMercadosdb,
             clientedb, setClientedb,
+            enderecoMercadodb, setEnderecoMercadodb,
+            horarioFuncionamento, setHorarioFuncionamento,
             idMercadoAtivo, setIdMercadoAtivo,
             categoryOptions,
             getLocalStorage, setLocalStorage,

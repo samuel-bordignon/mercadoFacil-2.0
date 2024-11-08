@@ -5,15 +5,19 @@ import { GlobalContext } from '../contexts/GlobalContext'
 import React, { useContext, useState } from 'react'
 
 function TelaDentroMercado() {
-  const {getLocalStorage, chaveMercadoLocal , mercadosdb} = useContext(GlobalContext)
+  const {getLocalStorage, chaveMercadoLocal , mercadosdb, enderecoMercadodb} = useContext(GlobalContext)
 
   const idMercado = getLocalStorage(chaveMercadoLocal)
 
   const mercadoAtual = mercadosdb.find((mercado) => mercado.id === idMercado)
+  const enderecoAtual = enderecoMercadodb.find((endereco) => endereco.idMercado === idMercado)
+  enderecoMercadodb.forEach((element) => console.log(element.cnpj));
+  enderecoMercadodb.forEach((element) => console.log(element.idMercado));
 
   function uuu(){
     console.log(mercadoAtual)
     console.log(idMercado)
+    console.log(enderecoAtual)
   }
 
   return (
@@ -29,9 +33,9 @@ function TelaDentroMercado() {
             <p className="sub-titulo-sideBar-mercado">Sobre</p>
             {/* <h5>{mercadosdb.find((endereco) => endereco.idMercado === idMercadoAtivo)}</h5> */}
             <p>informações sobre o endereço do mercado</p>
-            <p>CEP</p> {/*digitar o cep */}
+            <p>{enderecoAtual.cep}</p>
             <h5 className="titulo-outras-info">Outras informações</h5>
-            <p>CNPJ</p>
+            <p>{enderecoAtual.cpnj}</p>
           </div>
           <div className="horario-container">
             <div className="dias-funcion-container">
@@ -60,9 +64,8 @@ function TelaDentroMercado() {
             <p>Email</p>
           </div>
         </div>
-        <button onClick={()=>(uuu())}>fkhsdf</button>
       </div>
-
+<button onClick={uuu}>isso ai</button>
     </div>
   )
 }
