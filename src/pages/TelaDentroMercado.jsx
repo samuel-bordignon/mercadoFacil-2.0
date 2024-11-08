@@ -5,13 +5,15 @@ import { GlobalContext } from '../contexts/GlobalContext'
 import React, { useContext, useState } from 'react'
 
 function TelaDentroMercado() {
-  const {idMercadoAtivo, mercadosdb} = useContext(GlobalContext)
+  const {getLocalStorage, chaveMercadoLocal , mercadosdb} = useContext(GlobalContext)
 
-  const mercadoAtual = mercadosdb.find((mercado) => mercado.id === idMercadoAtivo)
+  const idMercado = getLocalStorage(chaveMercadoLocal)
+
+  const mercadoAtual = mercadosdb.find((mercado) => mercado.id === idMercado)
 
   function uuu(){
     console.log(mercadoAtual)
-    console.log(idMercadoAtivo)
+    console.log(idMercado)
   }
 
   return (
@@ -20,8 +22,8 @@ function TelaDentroMercado() {
       <div className="tela-dentro-mercado">
         <div className="sideBar-dentro-mercado">
           <div className="nome-mercado-container">
-              {/* logo mercado */}  
-            <h5>{mercadoAtual.nome}</h5> {/* Exemplo, será alterado (mercadodb.nome)*/}
+               
+            <h5>{mercadoAtual.nome}</h5>
           </div>
           <div className="endereco-cnpj-container">
             <p className="sub-titulo-sideBar-mercado">Sobre</p>
