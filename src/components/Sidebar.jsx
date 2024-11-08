@@ -16,7 +16,7 @@ const Sidebar = () => {
         }else if(item == 'mercado'){
             navigate('/cadastroProdutos')
         }else if(item == 'estoque'){
-            navigate('/cadastroProdutos')
+            navigate('/mercadoEstoque')
             
         }
     };

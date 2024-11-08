@@ -1,14 +1,13 @@
 import React, { useState, useContext } from 'react';
-// import Select from 'react-select';
+import Select from 'react-select';
 import Sidebar from '../components/Sidebar';
 import './MercadoCadastroProdutos.css';
 import { GlobalContext } from '../contexts/GlobalContext';
+import InputMask from 'react-input-mask';
 
 function MercadoCadastroProdutos() {
-  // Acessa o contexto global para obter categorias e produtos, e a função para atualizar produtos
   const { categoryOptions, produtosdb, setProdutosdb } = useContext(GlobalContext);
 
-  // Define estados iniciais para dados do formulário, imagem, categorias, índice de edição e preço formatado
   const [formData, setFormData] = useState({
     nome: '',
     preco: '',
@@ -19,97 +18,91 @@ function MercadoCadastroProdutos() {
     categoria: []
   });
 
-  const [image, setImage] = useState(null); // Armazena a imagem carregada
-  const [selectedCategories, setSelectedCategories] = useState([]); 
-  const [editIndex, setEditIndex] = useState(null); 
-  const [price, setPrice] = useState(''); 
+  const [image, setImage] = useState(null);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [editIndex, setEditIndex] = useState(null);
+  const [price, setPrice] = useState('');
+  const [errors, setErrors] = useState({}); // Estado para armazenar erros
 
-  // Função para manipular o upload da imagem
   const handleFileChange = (event) => {
-    const file = event.target.files[0]; // Obtém o arquivo selecionado
+    const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader(); // Cria um leitor de arquivos
+      const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result); // Define a imagem para exibição
+        setImage(reader.result);
         setFormData((prevData) => ({
           ...prevData,
-          imagem: reader.result, 
+          imagem: reader.result,
         }));
       };
-      reader.readAsDataURL(file); // Converte o arquivo em uma URL base64
+      reader.readAsDataURL(file);
     }
   };
 
-  // Simula o clique no input de arquivo para abrir o seletor de arquivos
   const handleDivClick = () => {
-    document.getElementById('file-input').click(); // Abre o seletor de arquivos
+    document.getElementById('file-input').click();
   };
 
-  // Função para formatar e atualizar o preço ao digitar
   const handlePriceChange = (event) => {
-    let value = event.target.value.replace(/\D/g, ''); // Remove caracteres não numéricos
-    value = (Number(value) / 100).toFixed(2) + ''; // Converte para formato de moeda com duas casas decimais
-    value = value.replace('.', ','); // Substitui ponto por vírgula
-    value = `R$ ${value}`; 
-    setPrice(value); 
+    let value = event.target.value.replace(/\D/g, '');
+    value = (Number(value) / 100).toFixed(2) + '';
+    value = value.replace('.', ',');
+    value = `R$ ${value}`;
+    setPrice(value);
     setFormData((prevData) => ({
       ...prevData,
-      preco: value, 
+      preco: value,
     }));
   };
 
-  // Função para atualizar o estado formData com o valor do campo alterado
   const handleChange = (e) => {
-    const { name, value } = e.target; 
+    const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value, // Atualiza o campo correspondente em formData
+      [name]: value,
     }));
   };
 
-  // Função para manipular a seleção de categorias
   const handleCategoryChange = (selected) => {
     setSelectedCategories(selected);
     setFormData((prevData) => ({
       ...prevData,
-      categoria: selected.map((cat) => cat.value), // Atualiza o campo 'categoria' em formData com os valores selecionados
+      categoria: selected.map((cat) => cat.value),
     }));
   };
 
-  // Função para salvar ou atualizar o produto ao enviar o formulário
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Impede o recarregamento da página ao enviar o formulário
-    if (editIndex !== null) {
-      const updatedProdutos = [...produtosdb]; // Cria uma cópia do banco de dados de produtos
-      updatedProdutos[editIndex] = { ...formData, id: updatedProdutos[editIndex].id }; 
-      setProdutosdb(updatedProdutos); 
-      setEditIndex(null); 
-    } else {
-      // Se não estiver editando, cria um novo produto
-      const newProduct = {
-        ...formData,
-        id: produtosdb.length + 1, // Gera um novo ID com base no tamanho da lista
-      };
-      setProdutosdb([...produtosdb, newProduct]); // Adiciona o novo produto ao banco de dados
-    }
-    // Reseta o formulário para os valores iniciais
-    setFormData({
-      nome: '',
-      preco: '',
-      informacaoAdicional: '',
-      quantidade: '',
-      imagem: '',
-      codigoProduto: '',
-      categoria: []
-    });
-    setSelectedCategories([]); 
-    setImage(null); 
-    setPrice(''); 
+  // Valida os campos obrigatórios antes de enviar
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.nome) newErrors.nome = 'Nome é obrigatório';
+    if (!formData.preco) newErrors.preco = 'Preço é obrigatório';
+    if (!formData.codigoProduto) newErrors.codigoProduto = 'Código do produto é obrigatório';
+    if (!formData.categoria.length) newErrors.categoria = 'Selecione ao menos uma categoria';
+    if (!formData.quantidade) newErrors.quantidade = 'Estoque é obrigatório';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  // Função para cancelar a edição de um produto e limpar o formulário
-  const handleCancelEdit = () => {
-    setEditIndex(null); // Reseta o índice de edição para modo de novo produto
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
+
+    if (editIndex !== null) {
+      const updatedProdutos = [...produtosdb];
+      updatedProdutos[editIndex] = { ...formData, id: updatedProdutos[editIndex].id };
+      setProdutosdb(updatedProdutos);
+      setEditIndex(null);
+    } else {
+      const newProduct = {
+        ...formData,
+        id: produtosdb.length + 1,
+      };
+      setProdutosdb([...produtosdb, newProduct]);
+    }
+
     setFormData({
       nome: '',
       preco: '',
@@ -119,9 +112,27 @@ function MercadoCadastroProdutos() {
       codigoProduto: '',
       categoria: []
     });
-    setSelectedCategories([]); // Limpa as categorias selecionadas
-    setImage(null); // Remove a imagem
-    setPrice(''); // Limpa o preço formatado
+    setSelectedCategories([]);
+    setImage(null);
+    setPrice('');
+    setErrors({});
+  };
+
+  const handleCancelEdit = () => {
+    setEditIndex(null);
+    setFormData({
+      nome: '',
+      preco: '',
+      informacaoAdicional: '',
+      quantidade: '',
+      imagem: '',
+      codigoProduto: '',
+      categoria: []
+    });
+    setSelectedCategories([]);
+    setImage(null);
+    setPrice('');
+    setErrors({});
   };
 
   return (
@@ -129,9 +140,9 @@ function MercadoCadastroProdutos() {
       <Sidebar />
       <div className='container-CadastroProdutos'>
         <div className='titulo'>
-          <h1>{editIndex !== null ? 'Editar Produto' : 'Novo Produto'}</h1> {/* Exibe título de acordo com o modo */}
+          <h1>{editIndex !== null ? 'Editar Produto' : 'Novo Produto'}</h1>
         </div>
-        <form onSubmit={handleSubmit}> {/* Formulário para salvar/atualizar produto */}
+        <form onSubmit={handleSubmit}>
           <div className="container-formulario">
             <div className="container-vitrine">
               <div className="container-image" onClick={handleDivClick}>
@@ -159,7 +170,10 @@ function MercadoCadastroProdutos() {
                 placeholder="Ex: Banana Prata"
                 value={formData.nome}
                 onChange={handleChange}
+                className={errors.nome ? 'error' : ''}
               />
+              {errors.nome && <span className="error">{errors.nome}</span>}
+
               <p>Descrição</p>
               <input
                 type="text"
@@ -168,25 +182,31 @@ function MercadoCadastroProdutos() {
                 value={formData.informacaoAdicional}
                 onChange={handleChange}
               />
+
               <p>Preço de venda</p>
               <input
                 type="text"
                 placeholder="Preço de Venda"
                 value={price}
                 onChange={handlePriceChange}
+                className={errors.preco ? 'error' : ''}
               />
+              {errors.preco && <span className="error">{errors.preco}</span>}
             </div>
 
             <div className="container-detalhes">
               <h2>Detalhes</h2>
               <p>Código do Produto</p>
-              <input
+              <InputMask
+                mask="9999999999999"
                 type="text"
                 name="codigoProduto"
-                placeholder="Ex: 12345-67890"
+                placeholder="Ex: 1234567890"
                 value={formData.codigoProduto}
                 onChange={handleChange}
+                className={errors.codigoProduto ? 'error' : ''}
               />
+              {errors.codigoProduto && <span className="error">{errors.codigoProduto}</span>}
 
               <p>Categoria</p>
               <Select
@@ -204,6 +224,7 @@ function MercadoCadastroProdutos() {
                   }),
                 }}
               />
+              {errors.categoria && <span className="error">{errors.categoria}</span>}
 
               <p>Estoque</p>
               <input
@@ -212,7 +233,10 @@ function MercadoCadastroProdutos() {
                 placeholder="Quantidade em estoque"
                 value={formData.quantidade}
                 onChange={handleChange}
+                className={errors.quantidade ? 'error' : ''}
               />
+              {errors.quantidade && <span className="error">{errors.quantidade}</span>}
+
               <div className='borda-botoes'>
                 <div className="botoes">
                   <button type="submit" className="salvar">Salvar Alterações</button>

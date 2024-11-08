@@ -68,11 +68,16 @@
 .container-detalhes input {
     width: 100%;
     padding: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     border-radius: 5px;
     border: 1px solid #898989;
     background-color: #FAFAFA;
     font-size: 14px;
+}
+
+.container-vitrine input.error,
+.container-detalhes input.error{
+    margin-bottom: 5px;
 }
 
 /* Ajuste do espaço entre <p> e <input> */
@@ -201,3 +206,9 @@
     margin-bottom: 30px;
     
   }
+ .error {
+  color: red;
+  font-size: 0.9em;
+  
+  
+}
