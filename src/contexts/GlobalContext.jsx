@@ -195,7 +195,7 @@ return (
         produtosdb, setProdutosdb,
         mercadosdb, setMercadosdb,
         clientedb, setClientedb,
-        listaEnderecos, setListaEnderecos,
+        gerentedb, setGerentedb,
         mercadosVisitados,
         categoryOptions,
     }}>

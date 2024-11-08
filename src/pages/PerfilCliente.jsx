@@ -12,6 +12,7 @@ function PerfilCliente() {
   const [inputTelefone, setInputTelefone] = useState(clientedb.telefone)
   const [inputEmail, setInputEmail] = useState(clientedb.email)
   const [activeBtn, setActiveBtn] = useState(null)
+  const [popPupAtivo, setPopPupAtivo] = useState(false)
 
   console.log(clientedb)  
   const trocaBotao = (nomebtn) => {
@@ -50,7 +51,6 @@ function PerfilCliente() {
       })
     }
   }
-
 
 
   return (
@@ -138,7 +138,8 @@ function PerfilCliente() {
           </div>
         </div>
       </div>
-      <button className='excluirConta-usuario'>Excluir conta</button>
+      <button className='excluirConta-usuario' onClick={()=>( setPopPupAtivo(!popPupAtivo))}>Excluir conta</button>
+      {popPupAtivo && <div className='overlay-pop' onClick={()=>( setPopPupAtivo(!popPupAtivo))}><div className='pop-container'><p>jfsbdkfbkbdkb</p></div></div>}
     </div>
   )
 }

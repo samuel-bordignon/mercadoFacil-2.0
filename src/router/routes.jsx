@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import HomeMercados from "../pages/HomeMercados";
 import GerenciaLista from "../pages/GerenciaLista";
 import PerfilCliente from "../pages/PerfilCliente";
-import Dragoes from "../pages/Dragoes";
+// import Dragoes from "../pages/Dragoes";
 import TesteAnimacao from "../pages/TesteAnimacao";
 import AddEndereco from "../pages/AddEndereco";
 import EscolhaLoginCadastro from "../pages/EscolhaLoginCadastro";
@@ -20,6 +20,7 @@ import TelaDentroMercado from "../pages/TeladentroMercado";
 import Sidebar from "../components/Sidebar";
 import PerfilMercado from "../pages/PerfilMercado";
 import MercadoCadastroProdutos from "../pages/MercadoCadastroProdutos";
+import PerfilGerente from "../pages/PerfilGerente";
 
 const router = createBrowserRouter([
     {path: "/mercado", element: <HomeMercados />},
@@ -36,14 +37,15 @@ const router = createBrowserRouter([
     {path: "/criarConta/CadastroParceiro2", element: <CadastroPerceiro2 />},
     {path: "/criarConta/CadastroParceiro3", element: <CadastroPerceiro3 />},
     {path: "/acessoParceiro", element: <AcessoParceiro />},
-    {path: "/dragoes", element: <Dragoes />},
+    // {path: "/dragoes", element: <Dragoes />},
     {path: "/anima", element: <TesteAnimacao />},
     {path: "/addEndereco", element: <AddEndereco />},
     {path: "/telaDentroMercado", element: <TelaDentroMercado />},
     {path: "/sidebar", element: <Sidebar />},
     {path: "/perfilMercado", element: <PerfilMercado />},
-
+    {path: "/perfilGerente", element: <PerfilGerente />},
     {path: "/cadastroProdutos", element: <MercadoCadastroProdutos/>},
+    
     
 ])
 

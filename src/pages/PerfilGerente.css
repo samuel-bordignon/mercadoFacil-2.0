@@ -1,13 +1,13 @@
-.tela-mercado{
+.tela-gerente{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     padding: 1.5%;
-
+    
 }
 
-.cabecario-perfil-mercado h1{
+.cabecario-perfil-gerente h1{
     display: flex;
     color: aliceblue;
     margin-left: 3%;
@@ -15,8 +15,9 @@
 
 }
 
-.cabecario-perfil-mercado{
+.cabecario-perfil-gerente{
     display: flex;
+    margin: 1% auto 0 auto;
     border-radius: 10px 10px 0 0;
     background-color: #0C194E;
     width: 35%;
@@ -24,16 +25,16 @@
 
 }
 
-.container-info-mercado{
+.container-info-gerente{
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.301);
     justify-content: center;
-    margin-top: 0.5%;
+    margin-top: 1.5%;
     width: 35%;
-    height: 23%;
+    height: 63%;
 
 }
 
-.cabecalio-info-mercado{
+.cabecalio-info-gerente{
     display: flex;
     color: #0C194E;
     justify-content: space-between;
@@ -42,7 +43,7 @@
 
 }
 
-.cabecalio-info-mercado button{
+.cabecalio-info-gerente button{
     background-color: #00c677;
     border: none;
     font-size: 16px;
@@ -51,16 +52,15 @@
     width: 85px;
     border-radius: 20px;
     margin-right: 3.5%;
-    margin-top: 1.5%;
-    
+
 }
 
-.informacoes-detalhadas-mercado{
+.informacoes-detalhadas-gerente{
     margin: 3%;
 
 }
 
-.informacoes-detalhadas-mercado input{
+.informacoes-detalhadas-gerente input{
     border: none;
     outline: none;
     background-color: rgba(240, 255, 255, 0);
@@ -68,12 +68,12 @@
 
 }
 
-.informacoes-detalhadas-mercado{
+.informacoes-detalhadas-gerente hr{
     width: 95%;
 
 }
 
-.container-contato-mercado{
+.container-contato-gerente{
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.301);
     height: 55%;
     width: 35%;
@@ -81,7 +81,7 @@
 
 }
 
-.cabecario-contato-mercado{
+.cabecario-contato-gerente{
     display: flex;
     color: #0C194E;
     justify-content: space-between;
@@ -89,7 +89,7 @@
 
 }
 
-.cabecario-contato-mercado button{
+.cabecario-contato-gerente button{
     background-color: #00c677;
     border: none;
     font-size: 16px;
@@ -102,12 +102,12 @@
 
 }
 
-.informacoes-detalhadas-contato-mercado{
+.informacoes-detalhadas-contato-gerente{
     margin-left: 3%;
 
 }
 
-.informacoes-detalhadas-contato-mercado input{
+.informacoes-detalhadas-contato-gerente input{
     border: none;
     outline: none;
     background-color: rgba(240, 255, 255, 0);
@@ -115,69 +115,20 @@
 
 }
 
-.informacoes-detalhadas-contato-mercado hr{
+.informacoes-detalhadas-contato-gerente hr{
     width: 95%;
 
 }
 
-.container-endereco{
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.301);
-    justify-content: center;
-    margin-top: 1.5%;
-    width: 35%;
-    height: 23%;
-
-}
-
-.cabecario-endereco{
-    display: flex;
-    color: #0C194E;
-    justify-content: space-between;
-    margin-left: 3%;
-    margin-top: 1.5%;
-
-}
-
-.cabecario-endereco button{
-    background-color: #00c677;
-    border: none;
-    font-size: 16px;
-    color: white;
-    height: 30px;
-    width: 85px;
-    border-radius: 20px;
-    margin-right: 3.5%;
-    margin-top: 1.5%;
-
-}
-
-.informacoes-detalhadas-endereco{
-    margin-left: 3%;
-
-}
-
-.informacoes-detalhadas-endereco input{
-    border: none;
-    outline: none;
-    background-color: rgba(240, 255, 255, 0);
-    width: 95%;
-
-}
-
-.cabecario-endereco hr{
-    width: 95%;
-
-}
-
-.excluirConta-mercado{
+.excluirConta-gerente{
     border: none;
     background-color: #0C194E;
     color: aliceblue;
-    width: 35%;
+    width: 34%;
     height: 45px;
     border-radius: 10px;
     font-size: 24px;
     border-radius: 0 0 10px 10px;
-    margin-top: 0.5%;
+    margin-left: 33%;
 
 }

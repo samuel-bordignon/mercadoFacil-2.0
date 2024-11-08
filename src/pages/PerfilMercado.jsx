@@ -10,8 +10,8 @@ function PerfilMercado() {
   const [inputNome, setInputNome] = useState(mercadosdb[0].nome)
   const [inputCnpj, setInputCnpj] = useState(mercadosdb[0].cnpj)
   const [inputSenha, setInputSenha] = useState(mercadosdb[0].senha)
-  const [inputTelefone, setInputTelefone] = useState(mercadosdb?.telefone)
-  const [inputEmail, setInputEmail] = useState(mercadosdb?.email)
+  const [inputTelefone, setInputTelefone] = useState(mercadosdb[0].telefone)
+  const [inputEmail, setInputEmail] = useState(mercadosdb[0].email)
 
   // Trabalhando com o endereço
   const [objetoEndereco, setObjetoEndereco] = useState(enderecosdb?.find(endereco => endereco.atual === true) || {})
