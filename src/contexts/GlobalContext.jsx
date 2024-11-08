@@ -27,7 +27,7 @@ export const GlobalContextProvider = ({ children }) => {
             cnpj: "00000000000000",
             logo: "1.png",
             telefone: 554899749819,
-            email: "",
+            email: "joao.mercado@gmail.com",
         },
         {
             id: 2,
@@ -35,7 +35,7 @@ export const GlobalContextProvider = ({ children }) => {
             cnpj: "00000001111111",
             logo: "2.png",
             telefone: 554893583919,
-            email: "",
+            email: "jose.mercado@gmail.com",
         },
         {
             id: 3,
@@ -43,7 +43,7 @@ export const GlobalContextProvider = ({ children }) => {
             cnpj: "11111111111111",
             logo: "3.png",
             telefone: 554899749820,
-            email: "",
+            email: "pedro.mercado@gmail.com",
         },
         {
             id: 4,
@@ -51,7 +51,7 @@ export const GlobalContextProvider = ({ children }) => {
             cnpj: "22222222222222",
             logo: "mercadinho-logo-ali.png",
             telefone: 554899749821,
-            email: "",
+            email: "logo.ali.mercado@gmail.com",
         },
         {
             id: 5,
@@ -59,7 +59,7 @@ export const GlobalContextProvider = ({ children }) => {
             cnpj: "33333333333333",
             logo: "5.png",
             telefone: 554899749822,
-            email: "",
+            email: "lua.mercado@gmail.com",
         },
         {
             id: 6,
@@ -67,7 +67,7 @@ export const GlobalContextProvider = ({ children }) => {
             cnpj: "44444444444444",
             logo: "6.png",
             telefone: 554899749823,
-            email: "",
+            email: "esquina.mercado@gmail.com",
         },
         {
             id: 7,
@@ -75,7 +75,7 @@ export const GlobalContextProvider = ({ children }) => {
             cnpj: "55555555555555",
             logo: "7.png",
             telefone: 554899749824,
-            email: "",
+            email: "carlos.mercado@gmail.com",
         },
         {
             id: 8,
@@ -83,7 +83,7 @@ export const GlobalContextProvider = ({ children }) => {
             cnpj: "66666666666666",
             logo: "8.png",
             telefone: 554899749825,
-            email: "",
+            email: "ana.mercado@gmail.com",
         },
         {
             id: 9,
@@ -91,9 +91,8 @@ export const GlobalContextProvider = ({ children }) => {
             cnpj: "77777777777777",
             logo: "9.png",
             telefone: 554899749826,
-            email: "",
+            email: "rodrigo.mercado@gmail.com",
         },
-
     ])
     const [enderecoMercadodb, setEnderecoMercadodb] = useState([
         { id: 1, idMercado: 1, cep: 89122234, logradouro: "Rua das Flores" },

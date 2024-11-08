@@ -11,11 +11,11 @@ function TelaDentroMercado() {
 
   const mercadoAtual = mercadosdb.find((mercado) => mercado.id === idMercado)
   const enderecoAtual = enderecoMercadodb.find((endereco) => endereco.idMercado === idMercado)
-  enderecoMercadodb.forEach((element) => console.log(element.cnpj));
   enderecoMercadodb.forEach((element) => console.log(element.idMercado));
+  mercadosdb.forEach((element) => console.log(element.cnpj));
 
   function uuu(){
-    console.log(mercadoAtual)
+    console.log(mercadoAtual.cnpj)
     console.log(idMercado)
     console.log(enderecoAtual)
   }
@@ -35,7 +35,7 @@ function TelaDentroMercado() {
             <p>informações sobre o endereço do mercado</p>
             <p>{enderecoAtual.cep}</p>
             <h5 className="titulo-outras-info">Outras informações</h5>
-            <p>{enderecoAtual.cpnj}</p>
+            <p>CNPJ: {mercadoAtual.cnpj}</p>
           </div>
           <div className="horario-container">
             <div className="dias-funcion-container">
@@ -60,8 +60,8 @@ function TelaDentroMercado() {
           </div>
           <div className="contato-container">
             <p className="sub-titulo-sideBar-mercado">Contato</p>
-            <p>Telefone</p>
-            <p>Email</p>
+            <p>Telefone: +{mercadoAtual.telefone}</p>
+            <p>Email: {mercadoAtual.email}</p>
           </div>
         </div>
       </div>
