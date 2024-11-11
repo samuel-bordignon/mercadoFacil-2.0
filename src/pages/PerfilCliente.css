@@ -134,11 +134,48 @@
 }
 
 .pop-container {
-    background-color: red;
+    display: flex;
+    flex-direction: column;
     position: absolute;
-    top: 50%;
-    right: 50%;
-    width: 29%;
+    top: 60%;
+    left: 50%;
+    gap: 20px;
+    transform: translate(-50%, -60%);
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 30px;
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.pop-container h2{
+    color: #0C194E;
+
+}
+
+.botao-excluir{
+    background-color: #00c677;
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    height: 47px;
+    color: white;
+
+}
+
+.botao-cancelar{
+    background-color: #00c67700;
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    height: 47px;
+    color: #00c677;
+
+}
+
+.botao-cancelar:hover{
+    background-color: rgb(243, 243, 243);
+
 }
 
 .overlay-pop {

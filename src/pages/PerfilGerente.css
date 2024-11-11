@@ -132,3 +132,60 @@
     margin-left: 33%;
 
 }
+
+.pop-container-ger {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    gap: 20px;
+    transform: translate(-50%, -60%);
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 30px;
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.pop-container-ger h2{
+    color: #0C194E;
+
+}
+
+.botao-excluir-ger{
+    background-color: #00c677;
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    height: 47px;
+    color: white;
+
+}
+
+.botao-cancelar-ger{
+    background-color: #00c67700;
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    height: 47px;
+    color: #00c677;
+
+}
+
+.botao-cancelar-ger:hover{
+    background-color: rgb(243, 243, 243);
+
+}
+
+.overlay-pop {
+    position: fixed;
+    border: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
