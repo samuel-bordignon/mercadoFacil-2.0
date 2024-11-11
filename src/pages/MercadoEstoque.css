@@ -1,0 +1,64 @@
+.mercado-estoque {
+    display: flex;
+  }
+  
+  .container-mercadoEstoque {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 120px; 
+    padding: 20px;
+    height: 100vh; /* Ocupa a altura total da tela */
+    }
+
+  .busca-novo-produto {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .botao-novo-produto {
+    background-color: #001f54;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .tabela-produtos {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .tabela-produtos th, .tabela-produtos td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .produto-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .produto-imagem-placeholder {
+    width: 40px;
+    height: 40px;
+    background-color: #ccc;
+    margin-right: 10px;
+  }
+  
+  .produto-detalhes {
+    font-size: 0.9em;
+    color: #666;
+  }
+  
+  .disponivel-sim {
+    color: green;
+  }
+  
+  .disponivel-nao {
+    color: red;
+  }
+  
