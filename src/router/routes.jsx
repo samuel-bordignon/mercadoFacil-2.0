@@ -18,13 +18,14 @@ import EscolhaLogin from "../pages/EscolhaLogin";
 import EscolhaCadastro from "../pages/EscolhaCadastro";
 import CadastroCliente2 from "../pages/CadastroCliente2";
 import TelaDentroMercado from "../pages/TeladentroMercado";
+import FormularioTeste from "../pages/FormularioTeste";
 
 const router = createBrowserRouter([
     {path: "/mercados", element: <HomeMercados />},
     {path: "/listaCompras", element: <GerenciaLista />},
     {path: "/perfilCliente", element: <PerfilCliente />},
     {path: "/mercado", element: <Mercado />},
-    {path: "/", element: <EscolhaLoginCadastro />},
+    {path: "/ccdsf", element: <EscolhaLoginCadastro />},
     {path: "/loginDois", element: <EscolhaLogin />},
     {path: "/criarConta", element: <EscolhaCadastro />},
     {path: "/loginParceiro", element: <LoginParceiro />},
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
     {path: "/anima", element: <TesteAnimacao />},
     {path: "/addEndereco", element: <AddEndereco />},
     {path: "/telaDentroMercado", element: <TelaDentroMercado />},
+    {path: "/", element: <FormularioTeste />},
     
 ])
 

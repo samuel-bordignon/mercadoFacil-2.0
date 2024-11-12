@@ -161,7 +161,7 @@ function Navbar() {
       {/* Container Central - SearchBar */}
       <div id="container-centro-nav">
         {location.pathname !== '/listaCompras' &&
-          location.pathname !== '/perfilCliente' && <SearchBar />}
+          location.pathname !== '/perfilCliente' && <SearchBar data={['maca', 'banana', 'maçã']} />}
       </div>
 
       {/* Container Direito */}

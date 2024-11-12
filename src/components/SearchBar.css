@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
 #search-bar {
   display: flex;
   align-items: center;
@@ -17,6 +20,7 @@
   width: 100%;
   background-color: #f8f8f8;
   font-size: 16px;
+  z-index: 2;
 }
 
 #search-bar .search-input::placeholder {
@@ -32,4 +36,48 @@
   height: 100%;
   background: none;
   border: none;
+}
+
+#search-bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#search-bar-container  {
+  width: 100%;
+  position: relative;
+
+}
+
+#list-itens {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  position: absolute;
+  top: 45px;
+}
+
+#list-itens .list {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.list-item-search {
+  display: flex;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 19px;
+  height: 40px;
+  width: 100%;
+  font-weight: 400;
+  margin-left: px;
+}
+
+.list-item-search:hover {
+  background-color: #e6e6e6;
+  transition: 0.2s;
 }

@@ -87,28 +87,90 @@ export const GlobalContextProvider = ({ children }) => {
 
         }
     ])
-    const mercadosVisitados = [
-        { nome: 'Big by Carrefour', distancia: '5.6 km', tempo: '146-156 min', logo: 'image1.png' },
-        { nome: 'Nome do Mercado 2', distancia: '3.2 km', tempo: '120-130 min', logo: 'image2.avif' },
-        { nome: 'Nome do Mercado 3', distancia: '4.0 km', tempo: '130-140 min', logo: 'image3.avif' },
-        { nome: 'Nome do Mercado 4', distancia: '6.1 km', tempo: '150-160 min', logo: 'image4.jpg' },
-        { nome: 'Nome do Mercado 5', distancia: '2.0 km', tempo: '140-150 min', logo: 'image5.avif' },
-        { nome: 'Nome do Mercado 6', distancia: '4.5 km', tempo: '160-170 min', logo: 'image6.avif' },
-    ]
     // Estado para Usuário logado
     const [clientedb, setClientedb] = useState({})
-    // Estado para Parceiro logado
-    const [parceirodb, setParceirodb] = useState({
-        id: 1,
-        nome: "João da Silva",
-        cpf: "123456789",
-        dataNascimento: "2000-01-01",
-        senha: "123456",
-        telefone: "48999999999",
-        email: "jao@gmail.com",
-    })
-    //constancia para redenrizar e desrenderizar os endereços na pagina endereços
-    const [listaEnderecos, setListaEnderecos] = useState(true)
+
+    const getData = async (table) => {
+        try {
+            const response = await fetch(`http://localhost:3000/${table}`);
+            return await response.json();
+        } catch (error) {
+            console.error('Erro ao buscar dados:', error);
+        }
+    };
+
+    const getDataById = async (table, id) => {
+        try {
+            const response = await fetch(`http://localhost:3000/${table}/${id}`);
+            return await response.json();
+        } catch (error) {
+            console.error('Erro ao buscar registro:', error);
+        }
+    };
+
+    const addData = async (table, data) => {
+        try {
+            const response = await fetch(`http://localhost:3000/${table}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('Erro ao adicionar registro:', error);
+        }
+    };
+
+    const updateData = async (table, id, data) => {
+        try {
+            const response = await fetch(`http://localhost:3000/${table}/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('Erro ao atualizar registro:', error);
+        }
+    };
+
+    const deleteData = async (table, id) => {
+        try {
+            const response = await fetch(`http://localhost:3000/${table}/${id}`, {
+                method: 'DELETE',
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('Erro ao deletar registro:', error);
+        }
+    };
+
+    const checkEmailExists = async (table, email) => {
+        try {
+            const response = await fetch(`http://localhost:3000/${table}/email-exists/${email}`);
+            const data = await response.json();
+            return data.exists;
+        } catch (error) {
+            console.error('Erro ao verificar e-mail:', error);
+            return false;
+        }
+    };
+
+    const login = async (table, email, senha) => {
+        try {
+            const response = await fetch(`http://localhost:3000/${table}/password-vality/${email}/${senha}`);
+            const data = await response.json();
+            
+            if (data.loginSuccess) {
+                return { success: true, message: 'Login bem-sucedido' };
+            } else {
+                return { success: false, message: data.message };
+            }
+        } catch (error) {
+            console.error('Erro ao tentar logar:', error);
+            return { success: false, message: 'Erro ao tentar logar' };
+        }
+    };
 
     // Prover estados e funções aos componentes filhos
     return (
@@ -118,7 +180,9 @@ export const GlobalContextProvider = ({ children }) => {
             mercadosdb, setMercadosdb,
             clientedb, setClientedb,
             gerentedb, setGerentedb,
-            mercadosVisitados // Adicionado aqui
+            horarioFuncionamento, setHorarioFuncionamento,
+            getData, updateData, deleteData, addData, getDataById, checkEmailExists,login
+
         }}>
             {children}
         </GlobalContext.Provider>
