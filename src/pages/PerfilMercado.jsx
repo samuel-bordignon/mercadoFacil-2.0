@@ -20,8 +20,8 @@ function PerfilMercado() {
   const [inputLogradouro, setInputLogradouro] = useState(objetoEndereco?.logradouro || '')
   const [inputNumero, setInputNumero] = useState(objetoEndereco?.numero || '')
   const [inputComplemento, setInputComplemento] = useState(objetoEndereco?.complemento || '')
-
   const [activeBtn, setActiveBtn] = useState(null)
+  const [popPupAtivo, setPopPupAtivo] = useState(false)
 
   const trocaBotao = (nomebtn) => {
     if (activeBtn === nomebtn) {
@@ -197,7 +197,16 @@ function PerfilMercado() {
             <hr />
           </div>
         </div>
-        <button className='excluirConta-mercado'>Excluir conta</button>
+        <button className='excluirConta-mercado' onClick={()=>( setPopPupAtivo(!popPupAtivo))}>Excluir conta</button>
+      {popPupAtivo && <div className='overlay-pop' onClick={()=>( setPopPupAtivo(!popPupAtivo))}>
+        <div className='pop-container-mer'>
+          <i class="bi bi-chevron-left"></i>
+          <h2>Excluir Conta</h2>
+          <p>Você tem certeza que deseja excluir sua conta? </p>
+          <button className='botao-excluir-mer'>Excluir</button>
+          <button className='botao-cancelar-mer'>Cancelar</button>
+          </div>
+          </div>}
       </div>
     </div>
   )

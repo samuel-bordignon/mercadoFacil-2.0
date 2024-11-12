@@ -4,7 +4,7 @@ import './PerfilCliente.css'
 import { GlobalContext } from '../contexts/GlobalContext'
 
 function PerfilCliente() {
-  const { clientedb, setClientedb, enderecosdb, setEnderecosdb, } = useContext(GlobalContext)
+  const { clientedb, setClientedb} = useContext(GlobalContext)
   const [inputNome, setInputNome] = useState(clientedb.nome)
   const [inputCpf, setInputCpf] = useState(clientedb.cpf)
   const [inputDataNascimento, setInputDataNascimento] = useState(clientedb.dataNascimento)
@@ -139,7 +139,15 @@ function PerfilCliente() {
         </div>
       </div>
       <button className='excluirConta-usuario' onClick={()=>( setPopPupAtivo(!popPupAtivo))}>Excluir conta</button>
-      {popPupAtivo && <div className='overlay-pop' onClick={()=>( setPopPupAtivo(!popPupAtivo))}><div className='pop-container'><p>jfsbdkfbkbdkb</p></div></div>}
+      {popPupAtivo && <div className='overlay-pop' onClick={()=>( setPopPupAtivo(!popPupAtivo))}>
+        <div className='pop-container'>
+          <i class="bi bi-chevron-left"></i>
+          <h2>Excluir Conta</h2>
+          <p>Você tem certeza que deseja excluir sua conta? </p>
+          <button className='botao-excluir'>Excluir</button>
+          <button className='botao-cancelar'>Cancelar</button>
+          </div>
+          </div>}
     </div>
   )
 }

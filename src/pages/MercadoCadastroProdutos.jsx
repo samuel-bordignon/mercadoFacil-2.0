@@ -21,7 +21,7 @@ function MercadoCadastroProdutos() {
   const [image, setImage] = useState(null);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState(''); // Estado do preço no formato numérico
   const [errors, setErrors] = useState({}); // Estado para armazenar erros
 
   const handleFileChange = (event) => {
@@ -44,14 +44,14 @@ function MercadoCadastroProdutos() {
   };
 
   const handlePriceChange = (event) => {
-    let value = event.target.value.replace(/\D/g, '');
-    value = (Number(value) / 100).toFixed(2) + '';
-    value = value.replace('.', ',');
-    value = `R$ ${value}`;
-    setPrice(value);
+    let value = event.target.value.replace(/\D/g, ''); // Remove qualquer caractere não numérico
+    if (value) {
+      value = (Number(value) / 100).toFixed(2); // Formata o valor como número com 2 casas decimais
+    }
+    setPrice(value); // Atualiza o valor de preço (em formato numérico)
     setFormData((prevData) => ({
       ...prevData,
-      preco: value,
+      preco: value ? Number(value) : '', // Armazena como número
     }));
   };
 
@@ -90,6 +90,8 @@ function MercadoCadastroProdutos() {
       return;
     }
 
+    console.log(formData);  // Verifique os dados do formulário
+    
     if (editIndex !== null) {
       const updatedProdutos = [...produtosdb];
       updatedProdutos[editIndex] = { ...formData, id: updatedProdutos[editIndex].id };
@@ -135,6 +137,8 @@ function MercadoCadastroProdutos() {
     setErrors({});
   };
 
+  console.log(produtosdb)
+
   return (
     <div>
       <Sidebar />
@@ -170,15 +174,14 @@ function MercadoCadastroProdutos() {
                 placeholder="Ex: Banana Prata"
                 value={formData.nome}
                 onChange={handleChange}
-                className={errors.nome ? 'error' : ''}
-              />
+                className={errors.nome ? 'error' : ''} />
               {errors.nome && <span className="error">{errors.nome}</span>}
 
               <p>Descrição</p>
               <input
                 type="text"
                 name="informacaoAdicional"
-                placeholder="Ex: 10 Litros"
+                placeholder="Ex: 500g"
                 value={formData.informacaoAdicional}
                 onChange={handleChange}
               />
@@ -187,10 +190,9 @@ function MercadoCadastroProdutos() {
               <input
                 type="text"
                 placeholder="Preço de Venda"
-                value={price}
+                value={price ? `R$ ${price.replace('.', ',')}` : ''} // Formata para exibição
                 onChange={handlePriceChange}
-                className={errors.preco ? 'error' : ''}
-              />
+                className={errors.preco ? 'error' : ''} />
               {errors.preco && <span className="error">{errors.preco}</span>}
             </div>
 
@@ -204,8 +206,7 @@ function MercadoCadastroProdutos() {
                 placeholder="Ex: 1234567890"
                 value={formData.codigoProduto}
                 onChange={handleChange}
-                className={errors.codigoProduto ? 'error' : ''}
-              />
+                className={errors.codigoProduto ? 'error' : ''} />
               {errors.codigoProduto && <span className="error">{errors.codigoProduto}</span>}
 
               <p>Categoria</p>
@@ -222,8 +223,7 @@ function MercadoCadastroProdutos() {
                     maxHeight: 160,
                     overflowY: 'auto',
                   }),
-                }}
-              />
+                }} />
               {errors.categoria && <span className="error">{errors.categoria}</span>}
 
               <p>Estoque</p>
@@ -233,8 +233,7 @@ function MercadoCadastroProdutos() {
                 placeholder="Quantidade em estoque"
                 value={formData.quantidade}
                 onChange={handleChange}
-                className={errors.quantidade ? 'error' : ''}
-              />
+                className={errors.quantidade ? 'error' : ''} />
               {errors.quantidade && <span className="error">{errors.quantidade}</span>}
 
               <div className='borda-botoes'>

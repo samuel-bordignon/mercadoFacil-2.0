@@ -13,6 +13,7 @@ function PerfilGerente() {
     const [inputTelefone, setInputTelefone] = useState(gerentedb.telefone)
     const [inputEmail, setInputEmail] = useState(gerentedb.email)
     const [activeBtn, setActiveBtn] = useState(null)
+    const [popPupAtivo, setPopPupAtivo] = useState(false)
   
     console.log(gerentedb)  
     const trocaBotao = (nomebtn) => {
@@ -121,7 +122,16 @@ function PerfilGerente() {
             </div>
           </div>
         </div>
-        <button className='excluirConta-gerente'>Excluir conta</button>
+        <button className='excluirConta-gerente' onClick={()=>( setPopPupAtivo(!popPupAtivo))}>Excluir conta</button>
+      {popPupAtivo && <div className='overlay-pop' onClick={()=>( setPopPupAtivo(!popPupAtivo))}>
+        <div className='pop-container-ger'>
+          <i class="bi bi-chevron-left"></i>
+          <h2>Excluir Conta</h2>
+          <p>Você tem certeza que deseja excluir sua conta? </p>
+          <button className='botao-excluir-ger'>Excluir</button>
+          <button className='botao-cancelar-ger'>Cancelar</button>
+          </div>
+          </div>}
       </div>
   )
 }
