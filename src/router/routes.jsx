@@ -2,8 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import HomeMercados from "../pages/HomeMercados";
 import GerenciaLista from "../pages/GerenciaLista";
 import PerfilCliente from "../pages/PerfilCliente";
-import Mercado from "../pages/Mercado";
-import Dragoes from "../pages/Dragoes";
+// import Dragoes from "../pages/Dragoes";
 import TesteAnimacao from "../pages/TesteAnimacao";
 import AddEndereco from "../pages/AddEndereco";
 import EscolhaLoginCadastro from "../pages/EscolhaLoginCadastro";
@@ -19,13 +18,18 @@ import EscolhaCadastro from "../pages/EscolhaCadastro";
 import CadastroCliente2 from "../pages/CadastroCliente2";
 import TelaDentroMercado from "../pages/TeladentroMercado";
 import FormularioTeste from "../pages/FormularioTeste";
+import Sidebar from "../components/Sidebar";
+import PerfilMercado from "../pages/PerfilMercado";
+import MercadoCadastroProdutos from "../pages/MercadoCadastroProdutos";
+import PerfilGerente from "../pages/PerfilGerente";
+import MercadoEstoque from "../pages/MercadoEstoque";
 
 const router = createBrowserRouter([
-    {path: "/mercados", element: <HomeMercados />},
+    {path: "/mercado", element: <HomeMercados />},
     {path: "/listaCompras", element: <GerenciaLista />},
     {path: "/perfilCliente", element: <PerfilCliente />},
-    {path: "/mercado", element: <Mercado />},
     {path: "/ccdsf", element: <EscolhaLoginCadastro />},
+    {path: "/", element: <EscolhaLoginCadastro />},
     {path: "/loginDois", element: <EscolhaLogin />},
     {path: "/criarConta", element: <EscolhaCadastro />},
     {path: "/loginParceiro", element: <LoginParceiro />},
@@ -36,11 +40,17 @@ const router = createBrowserRouter([
     {path: "/criarConta/CadastroParceiro2", element: <CadastroPerceiro2 />},
     {path: "/criarConta/CadastroParceiro3", element: <CadastroPerceiro3 />},
     {path: "/acessoParceiro", element: <AcessoParceiro />},
-    {path: "/dragoes", element: <Dragoes />},
+    // {path: "/dragoes", element: <Dragoes />},
     {path: "/anima", element: <TesteAnimacao />},
     {path: "/addEndereco", element: <AddEndereco />},
     {path: "/telaDentroMercado", element: <TelaDentroMercado />},
     {path: "/", element: <FormularioTeste />},
+    {path: "/sidebar", element: <Sidebar />},
+    {path: "/perfilMercado", element: <PerfilMercado />},
+    {path: "/perfilGerente", element: <PerfilGerente />},
+    {path: "/mercadoEstoque", element: <MercadoEstoque/>},
+    {path: "/cadastroProdutos", element: <MercadoCadastroProdutos/>},
+    
     
 ])
 

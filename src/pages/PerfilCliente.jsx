@@ -12,6 +12,7 @@ function PerfilCliente() {
   const [inputTelefone, setInputTelefone] = useState(clientedb.telefone)
   const [inputEmail, setInputEmail] = useState(clientedb.email)
   const [activeBtn, setActiveBtn] = useState(null)
+  const [popPupAtivo, setPopPupAtivo] = useState(false)
 
   console.log(clientedb)  
   const trocaBotao = (nomebtn) => {
@@ -22,7 +23,6 @@ function PerfilCliente() {
       setActiveBtn(nomebtn)
     }
   }
-
   const atualizaDados = () => {
     if (activeBtn === 'pessoal') {
       setClientedb({
@@ -51,7 +51,6 @@ function PerfilCliente() {
       })
     }
   }
-
 
 
   return (
@@ -139,6 +138,16 @@ function PerfilCliente() {
           </div>
         </div>
       </div>
+      <button className='excluirConta-usuario' onClick={()=>( setPopPupAtivo(!popPupAtivo))}>Excluir conta</button>
+      {popPupAtivo && <div className='overlay-pop' onClick={()=>( setPopPupAtivo(!popPupAtivo))}>
+        <div className='pop-container'>
+          <i class="bi bi-chevron-left"></i>
+          <h2>Excluir Conta</h2>
+          <p>Você tem certeza que deseja excluir sua conta? </p>
+          <button className='botao-excluir'>Excluir</button>
+          <button className='botao-cancelar'>Cancelar</button>
+          </div>
+          </div>}
     </div>
   )
 }

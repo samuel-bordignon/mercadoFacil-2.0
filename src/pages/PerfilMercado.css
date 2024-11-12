@@ -1,22 +1,22 @@
-.tela-usuario {
-    display: grid;
-    place-items: center;
-    align-items: flex-start;
-    position: relative;
-    z-index: 1;
+.tela-mercado{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1.5%;
 
 }
 
-.cabecario-perfil-usuario h1 {
+.cabecario-perfil-mercado h1{
     display: flex;
     color: aliceblue;
     margin-left: 3%;
     margin-top: 1%
+
 }
 
-.cabecario-perfil-usuario {
+.cabecario-perfil-mercado{
     display: flex;
-    margin: 1% auto 0 auto;
     border-radius: 10px 10px 0 0;
     background-color: #0C194E;
     width: 35%;
@@ -24,17 +24,16 @@
 
 }
 
-.container-info {
+.container-info-mercado{
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.301);
     justify-content: center;
-    margin-top: 1.5%;
+    margin-top: 0.5%;
     width: 35%;
-    height: 63%;
-
+    height: 23%;
 
 }
 
-.cabecalio-info {
+.cabecalio-info-mercado{
     display: flex;
     color: #0C194E;
     justify-content: space-between;
@@ -43,7 +42,7 @@
 
 }
 
-.cabecalio-info button {
+.cabecalio-info-mercado button{
     background-color: #00c677;
     border: none;
     font-size: 16px;
@@ -52,16 +51,16 @@
     width: 85px;
     border-radius: 20px;
     margin-right: 3.5%;
-
+    margin-top: 1.5%;
+    
 }
 
-.informacoes-detalhadas {
+.informacoes-detalhadas-mercado{
     margin: 3%;
 
 }
 
-
-.informacoes-detalhadas input {
+.informacoes-detalhadas-mercado input{
     border: none;
     outline: none;
     background-color: rgba(240, 255, 255, 0);
@@ -69,19 +68,20 @@
 
 }
 
-.informacoes-detalhadas hr {
+.informacoes-detalhadas-mercado{
     width: 95%;
 
 }
 
-.container-contato {
+.container-contato-mercado{
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.301);
     height: 55%;
-    margin-top: 10%;
+    width: 35%;
+    margin-top: 1.5%;
 
 }
 
-.cabecario-contato {
+.cabecario-contato-mercado{
     display: flex;
     color: #0C194E;
     justify-content: space-between;
@@ -89,7 +89,7 @@
 
 }
 
-.cabecario-contato button {
+.cabecario-contato-mercado button{
     background-color: #00c677;
     border: none;
     font-size: 16px;
@@ -102,12 +102,12 @@
 
 }
 
-.informacoes-detalhadas-contato {
+.informacoes-detalhadas-contato-mercado{
     margin-left: 3%;
 
 }
 
-.informacoes-detalhadas-contato input {
+.informacoes-detalhadas-contato-mercado input{
     border: none;
     outline: none;
     background-color: rgba(240, 255, 255, 0);
@@ -115,12 +115,61 @@
 
 }
 
-.informacoes-detalhadas-contato hr {
+.informacoes-detalhadas-contato-mercado hr{
     width: 95%;
 
 }
 
-.excluirConta-usuario {
+.container-endereco{
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.301);
+    justify-content: center;
+    margin-top: 1.5%;
+    width: 35%;
+    height: 23%;
+
+}
+
+.cabecario-endereco{
+    display: flex;
+    color: #0C194E;
+    justify-content: space-between;
+    margin-left: 3%;
+    margin-top: 1.5%;
+
+}
+
+.cabecario-endereco button{
+    background-color: #00c677;
+    border: none;
+    font-size: 16px;
+    color: white;
+    height: 30px;
+    width: 85px;
+    border-radius: 20px;
+    margin-right: 3.5%;
+    margin-top: 1.5%;
+
+}
+
+.informacoes-detalhadas-endereco{
+    margin-left: 3%;
+
+}
+
+.informacoes-detalhadas-endereco input{
+    border: none;
+    outline: none;
+    background-color: rgba(240, 255, 255, 0);
+    width: 95%;
+
+}
+
+.cabecario-endereco hr{
+    width: 95%;
+
+}
+
+.excluirConta-mercado{
     border: none;
     background-color: #0C194E;
     color: aliceblue;
@@ -129,11 +178,11 @@
     border-radius: 10px;
     font-size: 24px;
     border-radius: 0 0 10px 10px;
-    margin-top: 2%;
+    margin-top: 0.5%;
 
 }
 
-.pop-container {
+.pop-container-mer {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -148,12 +197,12 @@
     z-index: 10;
 }
 
-.pop-container h2{
+.pop-container-mer h2{
     color: #0C194E;
 
 }
 
-.botao-excluir{
+.botao-excluir-mer{
     background-color: #00c677;
     border: none;
     border-radius: 9px;
@@ -163,7 +212,7 @@
 
 }
 
-.botao-cancelar{
+.botao-cancelar-mer{
     background-color: #00c67700;
     border: none;
     border-radius: 9px;
@@ -173,7 +222,7 @@
 
 }
 
-.botao-cancelar:hover{
+.botao-cancelar-mer:hover{
     background-color: rgb(243, 243, 243);
 
 }

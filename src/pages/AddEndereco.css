@@ -215,3 +215,14 @@
     background-color: #28a746e7; 
 }
 
+.botao-salvar.large {
+    padding: 15px; 
+    width: 100%; 
+}
+
+.botao-salvar.small {
+    padding: 10px; 
+    width: 49%; 
+}
+
+
