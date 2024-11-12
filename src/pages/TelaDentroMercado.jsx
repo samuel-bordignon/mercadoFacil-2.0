@@ -32,7 +32,7 @@ function TelaDentroMercado() {
           <div className="endereco-cnpj-container">
             <p className="sub-titulo-sideBar-mercado">Sobre</p>
             {/* <h5>{mercadosdb.find((endereco) => endereco.idMercado === idMercadoAtivo)}</h5> */}
-            <p>informações sobre o endereço do mercado</p>
+            <p>Informações sobre o endereço do mercado</p>
             <p>{enderecoAtual.cep}</p>
             <h5 className="titulo-outras-info">Outras informações</h5>
             <p>CNPJ: {mercadoAtual.cnpj}</p>

@@ -57,7 +57,7 @@ export const GlobalContextProvider = ({ children }) => {
             id: 5,
             nome: "Mercado da Lua",
             cnpj: "33333333333333",
-            logo: "5.png",
+            logo: "mercado-da-Lua.png",
             telefone: 554899749822,
             email: "lua.mercado@gmail.com",
         },
