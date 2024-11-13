@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar';
 import { GlobalContext } from '../contexts/GlobalContext';
 import './MercadoEstoque.css';
 
+
 function MercadoEstoque() {
   const { produtosdb, setProdutosdb } = useContext(GlobalContext);
   const [busca, setBusca] = useState("");
@@ -21,7 +22,9 @@ function MercadoEstoque() {
     <div className="mercado-estoque">
       <Sidebar />
       <div className="container-mercadoEstoque">
+        <div className="tituloEstoque">
         <h2>Estoque</h2>
+        </div>
         <div className="busca-novo-produto">
           <input
             type="text"
@@ -29,7 +32,10 @@ function MercadoEstoque() {
             value={busca}
             onChange={handleBuscaChange}
           />
-          <button className="botao-novo-produto">+ Novo Produto</button>
+          <button className="botao-novo-produto" id='novo-produto'>
+          <i class="bi bi-plus-lg"></i> Novo Produto
+          </button>
+
         </div>
 
         <table className="tabela-produtos">
