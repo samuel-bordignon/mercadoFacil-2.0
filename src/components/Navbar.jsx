@@ -292,7 +292,7 @@ function Navbar() {
                       <span className="total-preco">R$ {calcularTotal()}</span>
                     </div>
                     <div className="total-btns">
-                      <button className="comparar-btn" onClick={() => navigate('/comparacaoListas')}>
+                      <button className="comparar-btn" onClick={() => navigate('/comparacaoLista')}>
                         Comparar Preços
                       </button>
                       <button className="enviar-btn" onClick={() => atualizarListaCompras()}>

@@ -1,0 +1,23 @@
+.comparacaoLista{
+    display: flex;
+    border: rgb(255, 255, 255) solid;
+    box-shadow: 3px 1px 3px rgba(124, 124, 124, 0.301);
+
+}
+
+.comparacaoLista button{
+    display: flex;
+    border: none;
+    background-color: #00c67700;
+    color: #00c677;
+    font-size: 23px;
+    font-weight: 600;
+    margin-top: 1%;
+    margin-left: 3%;
+
+}
+
+.comparacaoLista img{
+    margin-left: 43%;
+
+}
