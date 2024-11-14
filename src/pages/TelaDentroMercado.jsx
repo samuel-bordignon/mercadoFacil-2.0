@@ -5,7 +5,7 @@ import { GlobalContext } from '../contexts/GlobalContext'
 import React, { useContext, useState } from 'react'
 
 function TelaDentroMercado() {
-  const {getLocalStorage, chaveMercadoLocal , mercadosdb, enderecoMercadodb} = useContext(GlobalContext)
+  const { getLocalStorage, chaveMercadoLocal, mercadosdb, enderecoMercadodb } = useContext(GlobalContext)
 
   const idMercado = getLocalStorage(chaveMercadoLocal)
 
@@ -14,7 +14,7 @@ function TelaDentroMercado() {
   enderecoMercadodb.forEach((element) => console.log(element.idMercado));
   mercadosdb.forEach((element) => console.log(element.cnpj));
 
-  function uuu(){
+  function uuu() {
     console.log(mercadoAtual.cnpj)
     console.log(idMercado)
     console.log(enderecoAtual)
@@ -26,11 +26,11 @@ function TelaDentroMercado() {
       <div className="tela-dentro-mercado">
         <div className="sideBar-dentro-mercado">
           <div className="nome-mercado-container">
-               
+
             <h5>{mercadoAtual.nome}</h5>
           </div>
           <div className="endereco-cnpj-container">
-            <p className="sub-titulo-sideBar-mercado">Sobre</p>
+            <p className="sub-titulo-verde">Sobre</p>
             {/* <h5>{mercadosdb.find((endereco) => endereco.idMercado === idMercadoAtivo)}</h5> */}
             <p>Informações sobre o endereço do mercado</p>
             <p>{enderecoAtual.cep}</p>
@@ -39,7 +39,7 @@ function TelaDentroMercado() {
           </div>
           <div className="horario-container">
             <div className="dias-funcion-container">
-              <p className="sub-titulo-sideBar-mercado">Horário</p>
+              <p className="sub-titulo-verde">Horário</p>
               <p>Domingo</p>
               <p>Segunda-feira</p>
               <p>Terça-feira</p>
@@ -59,13 +59,30 @@ function TelaDentroMercado() {
             </div>
           </div>
           <div className="contato-container">
-            <p className="sub-titulo-sideBar-mercado">Contato</p>
+            <p className="sub-titulo-verde">Contato</p>
             <p>Telefone: +{mercadoAtual.telefone}</p>
             <p>Email: {mercadoAtual.email}</p>
           </div>
         </div>
+        <div className="todos-produtos-container">
+          <div className="primeiro-topico-produtos">
+            <h4>Enlatados</h4>
+            <p className="sub-titulo-verde">Ver todos</p>
+          </div>
+          <div className="primeira-sessao-produtos-container">
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img src="" alt="" />
+              </div>
+              <p>R$ 00,00</p>
+              <p>Descrição básica sobre o produto</p>
+              
+            </div>
+          </div>
+
+        </div>
       </div>
-<button onClick={uuu}>isso ai</button>
+      {/* <button onClick={uuu}>isso ai</button> */}
     </div>
   )
 }

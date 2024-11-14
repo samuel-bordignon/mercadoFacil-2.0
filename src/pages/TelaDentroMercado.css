@@ -8,6 +8,7 @@
 .tela-dentro-mercado {
     width: 100%;
     height: 100%;
+    display: flex;
 }
 
 .sideBar-dentro-mercado {
@@ -48,7 +49,7 @@
     border-bottom: 2px rgb(218, 218, 218) solid;
 }
 
-.sub-titulo-sideBar-mercado {
+.sub-titulo-verde {
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
     font-weight: 500;
@@ -87,4 +88,37 @@ p {
     width: 88%;
     height: 8%;
     padding: 4%;
+}
+
+.todos-produtos-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.primeiro-topico-produtos {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5%;
+    border: 1px solid black;
+}
+
+.primeiro-topico-produtos h4 {
+    font-family: 'Poppins', sans-serif;
+}
+
+.primeira-sessao-produtos-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-evenly;
+    border: 1px solid black;
+}
+
+.card-produto {
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid black;
 }
