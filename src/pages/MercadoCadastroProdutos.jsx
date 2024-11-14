@@ -6,13 +6,14 @@ import { GlobalContext } from '../contexts/GlobalContext';
 import InputMask from 'react-input-mask';
 
 function MercadoCadastroProdutos() {
-  const { categoryOptions, produtosdb, setProdutosdb } = useContext(GlobalContext);
+  const { categoryOptions, produtosdb, setProdutosdb, unidadeOptions, } = useContext(GlobalContext);
 
   const [formData, setFormData] = useState({
     nome: '',
     preco: '',
     informacaoAdicional: '',
     quantidade: '',
+    unidade: '', // Adicionado campo de unidade
     imagem: '',
     codigoProduto: '',
     categoria: []
@@ -21,8 +22,10 @@ function MercadoCadastroProdutos() {
   const [image, setImage] = useState(null);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
-  const [price, setPrice] = useState(''); // Estado do preço no formato numérico
-  const [errors, setErrors] = useState({}); // Estado para armazenar erros
+  const [price, setPrice] = useState('');
+  const [errors, setErrors] = useState({});
+
+  // Lista de opções de unidades de medida
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -44,14 +47,14 @@ function MercadoCadastroProdutos() {
   };
 
   const handlePriceChange = (event) => {
-    let value = event.target.value.replace(/\D/g, ''); // Remove qualquer caractere não numérico
+    let value = event.target.value.replace(/\D/g, '');
     if (value) {
-      value = (Number(value) / 100).toFixed(2); // Formata o valor como número com 2 casas decimais
+      value = (Number(value) / 100).toFixed(2);
     }
-    setPrice(value); // Atualiza o valor de preço (em formato numérico)
+    setPrice(value);
     setFormData((prevData) => ({
       ...prevData,
-      preco: value ? Number(value) : '', // Armazena como número
+      preco: value ? Number(value) : '',
     }));
   };
 
@@ -71,7 +74,13 @@ function MercadoCadastroProdutos() {
     }));
   };
 
-  // Valida os campos obrigatórios antes de enviar
+  const handleUnidadeChange = (selected) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      unidade: selected.value,
+    }));
+  };
+
   const validateForm = () => {
     const newErrors = {};
     if (!formData.nome) newErrors.nome = 'Nome é obrigatório';
@@ -79,6 +88,7 @@ function MercadoCadastroProdutos() {
     if (!formData.codigoProduto) newErrors.codigoProduto = 'Código do produto é obrigatório';
     if (!formData.categoria.length) newErrors.categoria = 'Selecione ao menos uma categoria';
     if (!formData.quantidade) newErrors.quantidade = 'Estoque é obrigatório';
+    if (!formData.unidade) newErrors.unidade = 'Unidade é obrigatória';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -90,8 +100,6 @@ function MercadoCadastroProdutos() {
       return;
     }
 
-    console.log(formData);  // Verifique os dados do formulário
-    
     if (editIndex !== null) {
       const updatedProdutos = [...produtosdb];
       updatedProdutos[editIndex] = { ...formData, id: updatedProdutos[editIndex].id };
@@ -110,6 +118,7 @@ function MercadoCadastroProdutos() {
       preco: '',
       informacaoAdicional: '',
       quantidade: '',
+      unidade: '',
       imagem: '',
       codigoProduto: '',
       categoria: []
@@ -127,6 +136,7 @@ function MercadoCadastroProdutos() {
       preco: '',
       informacaoAdicional: '',
       quantidade: '',
+      unidade: '',
       imagem: '',
       codigoProduto: '',
       categoria: []
@@ -136,8 +146,6 @@ function MercadoCadastroProdutos() {
     setPrice('');
     setErrors({});
   };
-
-  console.log(produtosdb)
 
   return (
     <div>
@@ -190,7 +198,7 @@ function MercadoCadastroProdutos() {
               <input
                 type="text"
                 placeholder="Preço de Venda"
-                value={price ? `R$ ${price.replace('.', ',')}` : ''} // Formata para exibição
+                value={price ? `R$ ${price.replace('.', ',')}` : ''}
                 onChange={handlePriceChange}
                 className={errors.preco ? 'error' : ''} />
               {errors.preco && <span className="error">{errors.preco}</span>}
@@ -227,14 +235,39 @@ function MercadoCadastroProdutos() {
               {errors.categoria && <span className="error">{errors.categoria}</span>}
 
               <p>Estoque</p>
-              <input
-                type="text"
-                name="quantidade"
-                placeholder="Quantidade em estoque"
-                value={formData.quantidade}
-                onChange={handleChange}
-                className={errors.quantidade ? 'error' : ''} />
+              <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                <input 
+                  type="text"
+                  name="quantidade"
+                  placeholder="Quantidade em estoque"
+                  value={formData.quantidade}
+                  onChange={handleChange}
+                  className={errors.quantidade ? 'error' : ''} />
+              </div>
               {errors.quantidade && <span className="error">{errors.quantidade}</span>}
+
+              <p>Unidade de medida</p>
+              <div style={{ display: 'flex', gap: '30px', alignItems: 'center' }}>
+
+                <input 
+                  type="text"
+                  name="valorUnidade"
+                  placeholder="Valor"
+                  value={formData.valorUnidade}
+                  onChange={handleChange}
+                  className={errors.valorUnidade ? 'error' : ''} />
+
+                <Select
+                options={unidadeOptions}
+                placeholder="Unidade"
+                onChange={handleUnidadeChange}
+                value={unidadeOptions.find((option) => option.value === formData.unidade)}
+                className="select-unidade"
+                style={{ minWidth: '150px', width: 'auto' }}/>
+                </div>
+            
+
+              {errors.unidade && <span className="error">{errors.unidade}</span>}
 
               <div className='borda-botoes'>
                 <div className="botoes">

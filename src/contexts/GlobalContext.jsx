@@ -18,6 +18,14 @@ export const GlobalContextProvider = ({ children }) => {
         { id: 6, idMercado: 3, nome: "Farinha de Trigo", preco: 4.20, quantidade: 1, imagem: "farinha.png", informacaoAdicional: { peso: "1", unidade: "kg" } },
     ])
 
+    const unidadeOptions = [
+        { value: 'kg', label: 'Kg' },
+        { value: 'g', label: 'g' },
+        { value: 'l', label: 'L' },
+        { value: 'ml', label: 'ml' },
+        { value: 'un', label: 'Unidade' }
+      ];
+
     // Estado para mercados
     const [mercadosdb, setMercadosdb] = useState([
         {
@@ -258,7 +266,7 @@ export const GlobalContextProvider = ({ children }) => {
     return (
         <GlobalContext.Provider value={{
             enderecosdb, setEnderecosdb,
-            produtosdb, setProdutosdb,
+            produtosdb, setProdutosdb, unidadeOptions,
             mercadosdb, setMercadosdb,
             clientedb, setClientedb,
             enderecoMercadodb, setEnderecoMercadodb,

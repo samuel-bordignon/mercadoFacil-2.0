@@ -12,9 +12,9 @@ const Sidebar = () => {
     const handleItemClick = (item) => {
         setActiveItem(item);
         if(item == 'gerente'){
-            navigate('/cadastroProdutos')
+            navigate('/perfilGerente')
         }else if(item == 'mercado'){
-            navigate('/cadastroProdutos')
+            navigate('/perfilMercado')
         }else if(item == 'estoque'){
             navigate('/mercadoEstoque')
             

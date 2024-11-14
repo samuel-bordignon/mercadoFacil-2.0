@@ -2,16 +2,26 @@ import React, { useContext, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import { GlobalContext } from '../contexts/GlobalContext';
 import './MercadoEstoque.css';
-
+import { useNavigate } from "react-router-dom";
 
 function MercadoEstoque() {
-  const { produtosdb, setProdutosdb } = useContext(GlobalContext);
+  const { produtosdb } = useContext(GlobalContext);
   const [busca, setBusca] = useState("");
+  const [activeItem, setActiveItem] = useState(null);
+  const navigate = useNavigate();
 
   // Função para lidar com mudanças no campo de busca
   const handleBuscaChange = (event) => {
     setBusca(event.target.value);
-  }
+  };
+
+  // Função para lidar com o clique do botão Novo Produto
+  const handleItemClick = (item) => {
+    setActiveItem(item);
+    if (item === 'novoProduto') {
+      navigate('/cadastroProdutos');
+    }
+  };
 
   // Filtra os produtos com base no termo de busca
   const produtosFiltrados = produtosdb.filter((produto) =>
@@ -23,19 +33,24 @@ function MercadoEstoque() {
       <Sidebar />
       <div className="container-mercadoEstoque">
         <div className="tituloEstoque">
-        <h2>Estoque</h2>
+          <h2>Estoque</h2>
         </div>
         <div className="busca-novo-produto">
-          <input
-            type="text"
-            placeholder="Busque por produtos"
-            value={busca}
-            onChange={handleBuscaChange}
-          />
-          <button className="botao-novo-produto" id='novo-produto'>
-          <i class="bi bi-plus-lg"></i> Novo Produto
+          <div className="input-icon">
+            <i className="bi bi-search"></i>
+            <input
+              type="text"
+              placeholder="Busque por produtos"
+              value={busca}
+              onChange={handleBuscaChange}
+            />
+          </div>
+          <button 
+            className={`botao-novo-produto ${activeItem === 'novoProduto' ? 'active' : ''}`}
+            onClick={() => handleItemClick('novoProduto')}
+          >
+            <i className="bi bi-plus-lg"></i> Novo Produto
           </button>
-
         </div>
 
         <table className="tabela-produtos">
@@ -66,12 +81,13 @@ function MercadoEstoque() {
                   </div>
                 </td>
                 <td>
-                  {produto.preco && typeof produto.preco == 'number' && produto.preco > 0
+                  {produto.preco && typeof produto.preco === 'number' && produto.preco > 0
                     ? `R$ ${produto.preco.toFixed(2).replace('.', ',')}`
                     : 'Preço indisponível'}
                 </td>
                 <td>
-                  <span className={`disponivel-${produto.quantidade > 0 ? 'sim' : 'nao'}`}>
+                  <span className="disponivel">
+                    <span className={`circulo-disponivel ${produto.quantidade > 0 ? 'verde' : 'vermelho'}`}></span>
                     {produto.quantidade > 0 ? 'Sim' : 'Não'}
                   </span>
                 </td>
