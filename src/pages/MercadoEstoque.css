@@ -1,64 +1,129 @@
-.mercado-estoque {
-    display: flex;
-  }
-  
-  .container-mercadoEstoque {
-    width: 100%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    margin-left: 120px; 
-    padding: 20px;
-    height: 100vh; /* Ocupa a altura total da tela */
-    }
 
-  .busca-novo-produto {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .botao-novo-produto {
-    background-color: #001f54;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-  
-  .tabela-produtos {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .tabela-produtos th, .tabela-produtos td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .produto-info {
-    display: flex;
-    align-items: center;
-  }
-  
-  .produto-imagem-placeholder {
-    width: 40px;
-    height: 40px;
-    background-color: #ccc;
-    margin-right: 10px;
-  }
-  
-  .produto-detalhes {
-    font-size: 0.9em;
-    color: #666;
-  }
-  
-  .disponivel-sim {
-    color: green;
-  }
-  
-  .disponivel-nao {
-    color: red;
-  }
-  
+
+
+.mercado-estoque {
+  display: flex;
+}
+
+.container-mercadoEstoque {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 120px;
+  height: 100vh;
+}
+
+.tituloEstoque{
+  margin-bottom: 39px;
+  color: #001f54;
+}
+
+.busca-novo-produto {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #001f54;
+  border-radius: 8px;
+  height: 100px;
+}
+
+.busca-novo-produto input {
+  background-color: white;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 3px;
+  width: 40%;
+  font-size: 1em;
+  height: 55px  ;
+  border: #001f54;
+}
+
+.botao-novo-produto {
+  background-color: #ffffff;
+  color: #001f54;
+  border: none;
+  padding: 15px 30px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+  width: 20%;
+  height: 55px;
+  font-size: 18px;
+  gap: 10px; /* Espaçamento entre o ícone e o texto */
+  text-align: center;
+}
+
+.botao-novo-produto:hover {
+  background-color: #f0f0f0;
+}
+
+.botao-novo-produto i {
+  color: #2ecc71;
+  font-size: 1.2em; /* Aumenta o tamanho do ícone */
+  font-weight: 1000; /* Aumenta a espessura do ícone */
+  margin-left: 100px;
+}
+
+
+.tabela-produtos {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tabela-produtos th, .tabela-produtos td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabela-produtos th {
+  background-color: #001f54;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.tabela-produtos tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tabela-produtos tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.produto-info {
+  display: flex;
+  align-items: center;
+}
+
+.produto-imagem-placeholder {
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.produto-detalhes {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.disponivel-sim {
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+.disponivel-nao {
+  color: #e74c3c;
+  font-weight: bold;
+}

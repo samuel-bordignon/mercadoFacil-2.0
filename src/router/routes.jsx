@@ -23,6 +23,7 @@ import PerfilMercado from "../pages/PerfilMercado";
 import MercadoCadastroProdutos from "../pages/MercadoCadastroProdutos";
 import PerfilGerente from "../pages/PerfilGerente";
 import MercadoEstoque from "../pages/MercadoEstoque";
+import ComparacaoLista from "../pages/ComparacaoLista";
 
 const router = createBrowserRouter([
     {path: "/mercado", element: <HomeMercados />},
@@ -50,7 +51,7 @@ const router = createBrowserRouter([
     {path: "/perfilGerente", element: <PerfilGerente />},
     {path: "/mercadoEstoque", element: <MercadoEstoque/>},
     {path: "/cadastroProdutos", element: <MercadoCadastroProdutos/>},
-    
+    {path: "/comparacaoLista", element: <ComparacaoLista/>},
     
 ])
 
