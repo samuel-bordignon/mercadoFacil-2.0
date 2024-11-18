@@ -93,12 +93,23 @@
   color: #717171;
   font-weight: 500;
   font-size: 15px;
+  white-space: nowrap;
+  /* Evita quebra de linha */
+  overflow: hidden;
+  /* Oculta texto que ultrapassa o limite */
+  text-overflow: ellipsis;
+  /* Adiciona reticências */
+  max-width: 160px;
+  /* Ajuste para controlar o comprimento máximo */
+  display: inline-block;
 }
 
 
 #endereco-button .endereco-number {
+  color: #717171;
   font-weight: 500;
-  font-size: 16px
+  font-size: 15px;
+  margin-bottom: 2px;
 }
 
 #endereco-button .arrow-icon {

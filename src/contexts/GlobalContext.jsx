@@ -80,26 +80,48 @@ export const GlobalContextProvider = ({ children }) => {
             email: "",
         },
     ])
+    // Funções de Local Storage
+    const getLocalStorage = (chave) => JSON.parse(localStorage.getItem(chave)) ?? []
+    const setLocalStorage = (chave, dado) => localStorage.setItem(chave, JSON.stringify(dado))
+
+    // Chaves de Local Storage
+    const chaveMercadoData = 'MercadoData'
+    const chaveClienteData = 'ClienteData'
+    const chaveGerenteData = 'GerenteData'
+    const chaveEnderecoClienteLocal = 'EnderecoClienteData'
+    const chaveEnderecoMercadoLocal = 'EnderecoMercadoData'
+    const chaveProdutodbLocal = 'produtodbLocal'
+    const chaveGerentedbLocal = 'gerentedbLocal'
+
     // Estado para Usuário logado
     const [clientedb, setClientedb] = useState({})
 
     const getData = async (table) => {
         try {
-            const response = await fetch(`http://localhost:3000/${table}`);
-            return await response.json();
+            const response = await fetch(`http://localhost:3000/${table}`)
+            return await response.json()
         } catch (error) {
-            console.error('Erro ao buscar dados:', error);
+            console.error('Erro ao buscar dados:', error)
         }
-    };
+    }
 
     const getDataById = async (table, id) => {
         try {
-            const response = await fetch(`http://localhost:3000/${table}/${id}`);
-            return await response.json();
+            const response = await fetch(`http://localhost:3000/${table}/${id}`)
+            return await response.json()
         } catch (error) {
-            console.error('Erro ao buscar registro:', error);
+            console.error('Erro ao buscar registro:', error)
         }
-    };
+    }
+
+    const getDataByForeignKey = async (table, fk_colum, fk_value) => {
+        try {
+            const response = await fetch(`http://localhost:3000/${table}/${fk_colum}/${fk_value}`)
+            return await response.json()
+        } catch (error) {
+            console.error('Erro ao buscar registro:', error)
+        }
+    }
 
     const addData = async (table, data) => {
         try {
@@ -107,12 +129,61 @@ export const GlobalContextProvider = ({ children }) => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
-            });
-            return await response.json();
+            })
+    
+            const result = await response.json()
+    
+            if (response.ok && result) {
+                // Confirma se a resposta contém a chave de identificação esperada
+                const primaryKey = Object.keys(result).find(key => key.startsWith("id_"))
+                if (primaryKey) {
+                    setLocalStorage(primaryKey, result[primaryKey])
+                    console.log(`ID salvo: ${result[primaryKey]}`)
+                }
+            } else {
+                console.error("Erro ao salvar dados:", result?.message || "Resposta inválida do servidor")
+            }
+    
+            // Lógica para validar cliente e endereço
+            if (table === 'clientes') setLocalStorage('isClienteVality', true)
+            if (table === 'enderecoclientes') setLocalStorage('isEnderecoClienteVality', true)
+    
+            return result
         } catch (error) {
-            console.error('Erro ao adicionar registro:', error);
+            console.error('Erro ao adicionar registro:', error)
+            throw error
         }
-    };
+    }
+
+    const addRelation = async (idCliente, idEndereco) => {
+        if (!idCliente || !idEndereco) {
+            console.error("IDs para relacionamento não fornecidos")
+            return
+        }
+    
+        try {
+            const response = await fetch('http://localhost:3000/endereco_cliente_relecao', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    fk_id_cliente: idCliente,
+                    fk_id_enderecocliente: idEndereco,
+                }),
+            })
+    
+            if (response.ok) {
+                console.log("Relacionamento salvo com sucesso")
+                
+            } else {
+                console.error("Erro ao salvar relacionamento:", await response.json())
+            }
+        } catch (error) {
+            console.error("Erro ao criar relacionamento:", error)
+        }
+    }
+    
+    
+
 
     const updateData = async (table, id, data) => {
         try {
@@ -120,58 +191,63 @@ export const GlobalContextProvider = ({ children }) => {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
-            });
-            return await response.json();
+            })
+            return await response.json()
         } catch (error) {
-            console.error('Erro ao atualizar registro:', error);
+            console.error('Erro ao atualizar registro:', error)
         }
-    };
+        if (table === 'clientes') {
+            setLocalStorage('isClienteVality', true)
+        }
+        if (table === 'enderecoclientes') {
+            setLocalStorage('isEnderecoClienteVality', true)
+        }
+    }
 
     const deleteData = async (table, id) => {
         try {
             const response = await fetch(`http://localhost:3000/${table}/${id}`, {
                 method: 'DELETE',
-            });
-            return await response.json();
+            })
+            return await response.json()
         } catch (error) {
-            console.error('Erro ao deletar registro:', error);
+            console.error('Erro ao deletar registro:', error)
         }
-    };
+    }
 
     const checkEmailExists = async (table, email) => {
         try {
-            const response = await fetch(`http://localhost:3000/${table}/email-exists/${email}`);
-            const data = await response.json();
-            return data.exists;
+            const response = await fetch(`http://localhost:3000/${table}/email-exists/${email}`)
+            const data = await response.json()
+            return data.exists
         } catch (error) {
-            console.error('Erro ao verificar e-mail:', error);
-            return false;
+            console.error('Erro ao verificar e-mail:', error)
+            console.error(response.json())
+            return false
         }
-    };
+    }
 
     const login = async (table, email, senha) => {
         try {
-            const response = await fetch(`http://localhost:3000/${table}/password-vality/${email}/${senha}`);
-            const data = await response.json();
-            
+            const response = await fetch(`http://localhost:3000/${table}/password-vality/${email}/${senha}`)
+            const data = await response.json()
+
             if (data.loginSuccess) {
-                return { success: true, message: 'Login bem-sucedido' };
+                return { success: true, message: 'Login bem-sucedido' }
             } else {
-                return { success: false, message: data.message };
+                return { success: false, message: data.message }
             }
         } catch (error) {
-            console.error('Erro ao tentar logar:', error);
-            return { success: false, message: 'Erro ao tentar logar' };
+            console.error('Erro ao tentar logar:', error)
+            return { success: false, message: 'Erro ao tentar logar' }
         }
-    };
+    }
 
     const mercadosVisitados = [
         { nome: 'Big by Carrefour', distancia: '5.6 km', tempo: '146-156 min', logo: 'image1.png' },
         { nome: 'Nome do Mercado 2', distancia: '3.2 km', tempo: '120-130 min', logo: 'image2.avif' },
         // Adicione mais mercados conforme necessário
     ]
-
-    const [idMercadoAtivo, setIdMercadoAtivo] = useState()
 
     // Exemplo de categorias
     const categoryOptions = [
@@ -182,14 +258,21 @@ export const GlobalContextProvider = ({ children }) => {
         { value: 'categoria5', label: 'Freezer' },
     ]
 
-    // Funções de Local Storage
-    const getLocalStorage = (chave) => JSON.parse(localStorage.getItem(chave)) ?? []
-    const setLocalStorage = (chave, dado) => localStorage.setItem(chave, JSON.stringify(dado))
-
-    // Chaves de Local Storage
-    const chaveMercadoLocal = 'mercadosdbLocal'
-    const chaveClientedbLocal = 'ClientedbLocal'
-    const chaveProdutodbLocal = 'produtodbLocal'
+    const getEndereco = async (cep) => {
+        try {
+            const response = await fetch(`https://cep.awesomeapi.com.br/json/${cep}`)
+            const data = await response.json()
+            if (data.status && data.status !== 200) {
+                throw new Error('CEP não encontrado.')
+            }
+            return data
+            // Retorna o objeto com as informações do CEP
+        } catch (error) {
+            console.error('Erro ao obter endereço:', error)
+            setError('Erro ao obter o endereço.')
+            return null
+        }
+    }
 
     // Prover estados e funções aos componentes filhos
     return (
@@ -200,13 +283,15 @@ export const GlobalContextProvider = ({ children }) => {
             clientedb, setClientedb,
             enderecoMercadodb, setEnderecoMercadodb,
             horarioFuncionamento, setHorarioFuncionamento,
-            idMercadoAtivo, setIdMercadoAtivo,
             categoryOptions,
+
+            getEndereco,
+
             getLocalStorage, setLocalStorage,
-            chaveMercadoLocal, chaveClientedbLocal, chaveProdutodbLocal,
+
+            chaveMercadoData, chaveClienteData, chaveEnderecoClienteLocal, chaveEnderecoMercadoLocal, chaveGerenteData,
             gerentedb, setGerentedb,
-            horarioFuncionamento, setHorarioFuncionamento,
-            getData, updateData, deleteData, addData, getDataById, checkEmailExists,login
+            getData, updateData, deleteData, addData, addRelation, getDataById, getDataByForeignKey, checkEmailExists, login
         }}>
             {children}
         </GlobalContext.Provider>

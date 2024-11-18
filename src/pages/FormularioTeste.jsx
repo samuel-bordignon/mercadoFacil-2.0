@@ -26,44 +26,42 @@ function FormularioTeste() {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        const { nome, email, senha } = formCad;
+        e.preventDefault()
+        const { nome, email, senha } = formCad
 
         if (editingUserId) {
-            // Fetch existing user data by ID to check if the email has changed
-            const existingUser = await getDataById('clientes', editingUserId);
+           
+            const existingUser = await getDataById('clientes', editingUserId)
 
-            // Check if the email has changed, and if so, check if the new email already exists
+          
             if (existingUser.email !== email) {
-                const emailExists = await checkEmailExists('clientes', email);
+                const emailExists = await checkEmailExists('clientes', email)
                 if (emailExists) {
-                    alert('Email já cadastrado!');
-                    return;
+                    alert('Email já cadastrado!')
+                    return
                 }
             }
 
-            // If email is unique or unchanged, proceed to update
-            await updateData('clientes', editingUserId, { nome, email, senha });
+            
+            await updateData('clientes', editingUserId, { nome, email, senha })
             setClientes(clientes.map(cliente =>
                 cliente.id === editingUserId ? { ...cliente, nome, email, senha } : cliente
-            ));
+            ))
         } else {
-            // For new user, check if email already exists
-            const emailExists = await checkEmailExists('clientes', email);
+            
+            const emailExists = await checkEmailExists('clientes', email)
             if (emailExists) {
-                alert('Email já cadastrado!');
-                return;
+                alert('Email já cadastrado!')
+                return
             }
 
-            // If email is unique, proceed to add new client
-            const newClient = await addData('clientes', { nome, email, senha });
-            setClientes([...clientes, newClient]);
+            const newClient = await addData('clientes', { nome, email, senha })
+            setClientes([...clientes, newClient])
         }
 
-        // Reset form and editing state
-        setFormCad({ nome: '', email: '', senha: '' });
-        setEditingUserId(null);
-    };
+        setFormCad({ nome: '', email: '', senha: '' })
+        setEditingUserId(null)
+    }
 
 
     const handleLogin = async (e) => {

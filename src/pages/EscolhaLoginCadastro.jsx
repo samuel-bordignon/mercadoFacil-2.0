@@ -1,5 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { GlobalContext } from '../contexts/GlobalContext'
+import { useState, useContext } from 'react'
 
 function EscolhaLoginCadastro() {
   const navigate = useNavigate()

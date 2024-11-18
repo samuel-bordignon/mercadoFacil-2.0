@@ -41,8 +41,9 @@
     scale: 0.9;
 }
 
-#form-endereco .form-container {
+#form-endereco {
     display: flex;
+    align-items: center;
     flex-direction: column;
     width: 100%;
     justify-content: space-between;
@@ -80,6 +81,7 @@
 
 .form-endereco-cliente{
     display: flex;
+    justify-content: space-between;
     width: 100%;
 }
 

@@ -9,46 +9,72 @@ import './Cadastrese.css'
 import Voltar from '../assets/flechaAzul.svg'
 import Cover from '../assets/Cover.png'
 
-const validationSchema = z.object({
-  nome: z.string().nonempty('Nome é obrigatório').regex(/^[A-Za-zÀ-ÿ ]+$/, 'Nome não pode conter caracteres especiais'),
-  email: z.string().email('E-mail inválido').nonempty('E-mail é obrigatório'),
-  cpf: z.string().length(11, 'CPF deve ter 11 dígitos').nonempty('CPF é obrigatório'),
-  telefone: z.string().length(15, 'Telefone deve ter 11 dígitos').nonempty('Telefone é obrigatório'),
-  senha: z.string().min(8, 'Senha deve ter pelo menos 8 caracteres').nonempty('Senha é obrigatória'),
-  confirmarSenha: z.string().nonempty('Confirmar senha é obrigatório'),
-  dataNascimento: z.string().nonempty('Data de nascimento é obrigatória'),
-}).refine((data) => data.senha === data.confirmarSenha, {
-  message: "As senhas não coincidem",
-  path: ["confirmarSenha"]
-})
-
 function CadastroCliente1() {
   const navigate = useNavigate()
-  const { setClientedb, clientedb } = useContext(GlobalContext)
-
+  const { addData, checkEmailExists, updateData, getLocalStorage, setLocalStorage, chaveClienteData } = useContext(GlobalContext)
   const [showPassword, setShowPassword] = useState(false)
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: zodResolver(validationSchema),
-    defaultValues: clientedb
+  const storageLocal = getLocalStorage(chaveClienteData)
+  const id = getLocalStorage('id_cliente')
+
+
+  const validationSchema = z.object({
+    nome: z.string().nonempty('Nome é obrigatório').regex(/^[A-Za-zÀ-ÿ ]+$/, 'Nome não pode conter caracteres especiais'),
+    email: z.string().email('E-mail inválido').nonempty('E-mail é obrigatório')
+      .refine(async (email) => {
+        // Se o email já está no storage e não mudou, não faz a verificação
+        if (storageLocal && storageLocal.email === email) return true;
+
+        // Verifica em cada tabela (clientes, gerentes, mercados)
+        const checkCliente = await checkEmailExists('clientes', email);
+        if (checkCliente) return false; // Se encontrado, retorna false
+
+        const checkGerente = await checkEmailExists('gerentes', email);
+        if (checkGerente) return false; // Se encontrado, retorna false
+
+        const checkMercado = await checkEmailExists('mercados', email);
+        return !checkMercado; // Retorna false se encontrado, true se não encontrado
+      }, { message: 'E-mail já cadastrado' }),
+    cpf: z.string().length(11, 'CPF deve ter 11 dígitos').nonempty('CPF é obrigatório'),
+    telefone: z.string().length(11, 'Telefone deve ter 11 dígitos').nonempty('Telefone é obrigatório'),
+    senha: z.string().min(8, 'Senha deve ter pelo menos 8 caracteres').nonempty('Senha é obrigatória'),
+    confirmarSenha: z.string().nonempty('Confirmar senha é obrigatório'),
+    dataNascimento: z.string().nonempty('Data de nascimento é obrigatória'),
+  }).refine((data) => data.senha === data.confirmarSenha, {
+    message: "As senhas não coincidem",
+    path: ["confirmarSenha"]
   })
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setClientedb((prev) => ({ ...prev, [name]: value }))
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(validationSchema),
+    defaultValues: storageLocal || { nome: '', email: '', cpf: '', telefone: '', senha: '', confirmarSenha: '', dataNascimento: '' }
+  })
+
+
+  function verificaDadosObjeto(obj) {
+    return Object.keys(obj).length > 0 && Object.values(obj).every(value => value !== null && value !== undefined);
   }
 
-  const onSubmitPessoal = (data) => {
-    const cpfLimpo = data.cpf.replace(/\D/g, '')
-    const telefoneLimpo = data.telefone.replace(/\D/g, '')
-
-    const dadosLimpos = {
-      ...data,
-      cpf: cpfLimpo,
-      telefone: telefoneLimpo,
-      
+  const onSubmit = async (data) => {
+    if (verificaDadosObjeto(storageLocal)) {
+      updateData('clientes', id, {
+        nome: data.nome,
+        email: data.email,
+        cpf: data.cpf,
+        telefone: data.telefone,
+        senha: data.senha,
+        data_nasc: data.dataNascimento
+      })
+    } else {
+      addData('clientes', {
+        nome: data.nome,
+        email: data.email,
+        cpf: data.cpf,
+        telefone: data.telefone,
+        senha: data.senha,
+        data_nasc: data.dataNascimento
+      })
     }
-
-    setClientedb(dadosLimpos)
+    setLocalStorage(chaveClienteData, data)
     navigate('/cadastroEnderecoCliente')
   }
 
@@ -72,7 +98,7 @@ function CadastroCliente1() {
           <p>Torne sua vida fácil</p>
           <h2 className='etapa1'>Informações pessoais</h2>
         </div>
-        <form onSubmit={handleSubmit(onSubmitPessoal)} className="form-container">
+        <form onSubmit={handleSubmit(onSubmit)} className="form-container">
           <div className="container-inputs">
             <label className="label">Nome Completo</label>
             <input
@@ -99,9 +125,8 @@ function CadastroCliente1() {
             <p className='error'>{errors.email?.message}</p>
 
             <label className="label">Telefone</label>
-            <InputMask
+            <input
               {...register('telefone')}
-              mask="(99) 99999-9999"
               type="text"
               className="input"
             />
@@ -113,6 +138,7 @@ function CadastroCliente1() {
               {...register('dataNascimento')}
               type="date"
               className="input"
+              max={new Date().toISOString().split("T")[0]}
             />
             <p className='error'>{errors.dataNascimento?.message}</p>
 

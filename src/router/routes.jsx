@@ -25,7 +25,7 @@ import PerfilGerente from "../pages/PerfilGerente";
 import MercadoEstoque from "../pages/MercadoEstoque";
 
 const router = createBrowserRouter([
-    {path: "/mercado", element: <HomeMercados />},
+    {path: "/mercados", element: <HomeMercados />},
     {path: "/listaCompras", element: <GerenciaLista />},
     {path: "/perfilCliente", element: <PerfilCliente />},
     {path: "/ccdsf", element: <EscolhaLoginCadastro />},
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
     {path: "/anima", element: <TesteAnimacao />},
     {path: "/addEndereco", element: <AddEndereco />},
     {path: "/telaDentroMercado", element: <TelaDentroMercado />},
-    {path: "/", element: <FormularioTeste />},
+    {path: "/formulario", element: <FormularioTeste />},
     {path: "/sidebar", element: <Sidebar />},
     {path: "/perfilMercado", element: <PerfilMercado />},
     {path: "/perfilGerente", element: <PerfilGerente />},

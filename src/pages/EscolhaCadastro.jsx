@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom"
+import { GlobalContext } from '../contexts/GlobalContext'
+import { useContext } from 'react'
 
 
 function EscolhaCadastro() {
