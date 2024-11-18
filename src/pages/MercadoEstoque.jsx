@@ -15,18 +15,23 @@ function MercadoEstoque() {
     setBusca(event.target.value);
   };
 
-  // Função para lidar com o clique do botão Novo Produto
-  const handleItemClick = (item) => {
-    setActiveItem(item);
-    if (item === 'novoProduto') {
-      navigate('/cadastroProdutos');
-    }
+  
+  const handleItemClick = () => {
+    // Quando o botão "Novo Produto" for clicado, redireciona para a página de cadastro de produto
+    setActiveItem('novoProduto');
+    navigate('/cadastroProdutos');  // Certifique-se de que a rota '/cadastroProdutos' está definida corretamente
   };
 
   // Filtra os produtos com base no termo de busca
   const produtosFiltrados = produtosdb.filter((produto) =>
     produto.nome.toLowerCase().includes(busca.toLowerCase())
   );
+
+  // Função para redirecionar para a página de cadastro com os dados do produto
+  const handleProdutoClick = (produto) => {
+    // Navega para a página de cadastro de produtos passando os dados do produto
+    navigate('/cadastroProdutos', { state: { produto } });
+  };
 
   return (
     <div className="mercado-estoque">
@@ -47,7 +52,7 @@ function MercadoEstoque() {
           </div>
           <button 
             className={`botao-novo-produto ${activeItem === 'novoProduto' ? 'active' : ''}`}
-            onClick={() => handleItemClick('novoProduto')}
+            onClick={handleItemClick}
           >
             <i className="bi bi-plus-lg"></i> Novo Produto
           </button>
@@ -64,11 +69,11 @@ function MercadoEstoque() {
           </thead>
           <tbody>
             {produtosFiltrados.map((produto, index) => (
-              <tr key={index}>
+              <tr key={index} onClick={() => handleProdutoClick(produto)}>
                 <td>
                   <div className="produto-info">
                     <div className="produto-imagem-placeholder">
-                      <img src={produto.imagem} alt="" style={{ maxWidth: '100%' }}/>
+                      <img src={produto.imagem} alt="" style={{ maxWidth: '100%' }} />
                     </div>
                     <div>
                       <p>{produto.nome}</p>
