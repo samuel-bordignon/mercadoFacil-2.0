@@ -6,23 +6,24 @@ import { GlobalContext } from '../contexts/GlobalContext';
 import InputMask from 'react-input-mask';
 
 function MercadoCadastroProdutos() {
-  const { categoryOptions, produtosdb, setProdutosdb } = useContext(GlobalContext);
+  const { categoryOptions, produtosdb, setProdutosdb, unidadeOptions } = useContext(GlobalContext);
 
   const [formData, setFormData] = useState({
     nome: '',
     preco: '',
-    informacaoAdicional: '',
+    informacaoAdicional: { peso: '', unidade: '' },
     quantidade: '',
     imagem: '',
     codigoProduto: '',
-    categoria: []
+    categoria: [],
+    detalhes: '',
   });
 
   const [image, setImage] = useState(null);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
-  const [price, setPrice] = useState(''); // Estado do preço no formato numérico
-  const [errors, setErrors] = useState({}); // Estado para armazenar erros
+  const [price, setPrice] = useState('');
+  const [errors, setErrors] = useState({});
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -44,34 +45,53 @@ function MercadoCadastroProdutos() {
   };
 
   const handlePriceChange = (event) => {
-    let value = event.target.value.replace(/\D/g, ''); // Remove qualquer caractere não numérico
+    let value = event.target.value.replace(/\D/g, '');
     if (value) {
-      value = (Number(value) / 100).toFixed(2); // Formata o valor como número com 2 casas decimais
+      value = (Number(value) / 100).toFixed(2);
     }
-    setPrice(value); // Atualiza o valor de preço (em formato numérico)
+    setPrice(value);
     setFormData((prevData) => ({
       ...prevData,
-      preco: value ? Number(value) : '', // Armazena como número
+      preco: value ? Number(value) : '',
     }));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    if (name === 'peso') {
+      setFormData((prevData) => ({
+        ...prevData,
+        informacaoAdicional: {
+          ...prevData.informacaoAdicional,
+          peso: value,
+        },
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
   const handleCategoryChange = (selected) => {
     setSelectedCategories(selected);
     setFormData((prevData) => ({
       ...prevData,
-      categoria: selected.map((cat) => cat.value),
+      categoria: selected ? selected.map((cat) => cat.value) : [],
     }));
   };
 
-  // Valida os campos obrigatórios antes de enviar
+  const handleUnidadeChange = (selected) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      informacaoAdicional: {
+        ...prevData.informacaoAdicional,
+        unidade: selected ? selected.value : '', 
+      },
+    }));
+  };
+
   const validateForm = () => {
     const newErrors = {};
     if (!formData.nome) newErrors.nome = 'Nome é obrigatório';
@@ -79,6 +99,7 @@ function MercadoCadastroProdutos() {
     if (!formData.codigoProduto) newErrors.codigoProduto = 'Código do produto é obrigatório';
     if (!formData.categoria.length) newErrors.categoria = 'Selecione ao menos uma categoria';
     if (!formData.quantidade) newErrors.quantidade = 'Estoque é obrigatório';
+    if (!formData.informacaoAdicional.unidade) newErrors.unidade = 'Unidade é obrigatória';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -90,34 +111,20 @@ function MercadoCadastroProdutos() {
       return;
     }
 
-    console.log(formData);  // Verifique os dados do formulário
-    
+    const newProduct = {
+      ...formData,
+      id: editIndex !== null ? produtosdb[editIndex].id : produtosdb.length + 1,
+    };
+
     if (editIndex !== null) {
       const updatedProdutos = [...produtosdb];
-      updatedProdutos[editIndex] = { ...formData, id: updatedProdutos[editIndex].id };
+      updatedProdutos[editIndex] = newProduct;
       setProdutosdb(updatedProdutos);
-      setEditIndex(null);
     } else {
-      const newProduct = {
-        ...formData,
-        id: produtosdb.length + 1,
-      };
       setProdutosdb([...produtosdb, newProduct]);
     }
 
-    setFormData({
-      nome: '',
-      preco: '',
-      informacaoAdicional: '',
-      quantidade: '',
-      imagem: '',
-      codigoProduto: '',
-      categoria: []
-    });
-    setSelectedCategories([]);
-    setImage(null);
-    setPrice('');
-    setErrors({});
+    handleCancelEdit();
   };
 
   const handleCancelEdit = () => {
@@ -125,11 +132,12 @@ function MercadoCadastroProdutos() {
     setFormData({
       nome: '',
       preco: '',
-      informacaoAdicional: '',
+      informacaoAdicional: { peso: '', unidade: '' },
       quantidade: '',
       imagem: '',
       codigoProduto: '',
-      categoria: []
+      categoria: [],
+      detalhes: '',
     });
     setSelectedCategories([]);
     setImage(null);
@@ -137,20 +145,18 @@ function MercadoCadastroProdutos() {
     setErrors({});
   };
 
-  console.log(produtosdb)
-
   return (
     <div>
       <Sidebar />
-      <div className='container-CadastroProdutos'>
-        <div className='titulo'>
+      <div className="container-CadastroProdutos">
+        <div className="titulo">
           <h1>{editIndex !== null ? 'Editar Produto' : 'Novo Produto'}</h1>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="container-formulario">
             <div className="container-vitrine">
               <div className="container-image" onClick={handleDivClick}>
-                <div className='imagemProduto'>
+                <div className="imagemProduto">
                   {image ? (
                     <img src={image} alt="Imagem carregada" style={{ maxWidth: '100%' }} />
                   ) : (
@@ -165,8 +171,7 @@ function MercadoCadastroProdutos() {
                   id="file-input"
                 />
               </div>
-
-              <h2 className='titulo-vitrine'>Vitrine</h2>
+              <h2 className="titulo-vitrine">Vitrine</h2>
               <p>Nome do Produto</p>
               <input
                 type="text"
@@ -174,15 +179,16 @@ function MercadoCadastroProdutos() {
                 placeholder="Ex: Banana Prata"
                 value={formData.nome}
                 onChange={handleChange}
-                className={errors.nome ? 'error' : ''} />
+                className={errors.nome ? 'error' : ''}
+              />
               {errors.nome && <span className="error">{errors.nome}</span>}
 
               <p>Descrição</p>
               <input
                 type="text"
-                name="informacaoAdicional"
+                name="detalhes"
                 placeholder="Ex: 500g"
-                value={formData.informacaoAdicional}
+                value={formData.detalhes}
                 onChange={handleChange}
               />
 
@@ -190,9 +196,10 @@ function MercadoCadastroProdutos() {
               <input
                 type="text"
                 placeholder="Preço de Venda"
-                value={price ? `R$ ${price.replace('.', ',')}` : ''} // Formata para exibição
+                value={price ? `R$ ${price.replace('.', ',')}` : ''}
                 onChange={handlePriceChange}
-                className={errors.preco ? 'error' : ''} />
+                className={errors.preco ? 'error' : ''}
+              />
               {errors.preco && <span className="error">{errors.preco}</span>}
             </div>
 
@@ -206,7 +213,8 @@ function MercadoCadastroProdutos() {
                 placeholder="Ex: 1234567890"
                 value={formData.codigoProduto}
                 onChange={handleChange}
-                className={errors.codigoProduto ? 'error' : ''} />
+                className={errors.codigoProduto ? 'error' : ''}
+              />
               {errors.codigoProduto && <span className="error">{errors.codigoProduto}</span>}
 
               <p>Categoria</p>
@@ -223,7 +231,8 @@ function MercadoCadastroProdutos() {
                     maxHeight: 160,
                     overflowY: 'auto',
                   }),
-                }} />
+                }}
+              />
               {errors.categoria && <span className="error">{errors.categoria}</span>}
 
               <p>Estoque</p>
@@ -233,10 +242,33 @@ function MercadoCadastroProdutos() {
                 placeholder="Quantidade em estoque"
                 value={formData.quantidade}
                 onChange={handleChange}
-                className={errors.quantidade ? 'error' : ''} />
+                className={errors.quantidade ? 'error' : ''}
+              />
               {errors.quantidade && <span className="error">{errors.quantidade}</span>}
 
-              <div className='borda-botoes'>
+              <p>Unidade de medida</p>
+              <div style={{ display: 'flex', gap: '30px', alignItems: 'center' }}>
+                <input
+                  type="text"
+                  name="peso"
+                  placeholder="Peso"
+                  value={formData.informacaoAdicional.peso}
+                  onChange={handleChange}
+                  className={errors.valorUnidade ? 'error' : ''}
+                />
+
+                <Select
+                  options={unidadeOptions}
+                  placeholder="Unidade"
+                  onChange={handleUnidadeChange}
+                  value={unidadeOptions.find((option) => option.value === formData.informacaoAdicional.unidade)}
+                  className="select-unidade"
+                  styles={{ minWidth: '150px', width: 'auto' }}
+                />
+              </div>
+              {errors.unidade && <span className="error">{errors.unidade}</span>}
+
+              <div className="borda-botoes">
                 <div className="botoes">
                   <button type="submit" className="salvar">Salvar Alterações</button>
                   <button type="button" className="cancelar" onClick={handleCancelEdit}>Cancelar</button>

@@ -49,7 +49,7 @@ function PerfilGerente() {
         <div className='tela-gerente'>
 
         <div className='cabecario-perfil-gerente'>
-          <h1>Perfil Mercado</h1>
+          <h1>Perfil Gerente</h1>
         </div>
         <div className='container-info-gerente'>
           <div className='cabecalio-info-gerente'>

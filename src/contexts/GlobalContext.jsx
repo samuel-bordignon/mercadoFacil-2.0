@@ -18,17 +18,88 @@ export const GlobalContextProvider = ({ children }) => {
         { id: 6, idMercado: 3, nome: "Farinha de Trigo", preco: 4.20, quantidade: 1, imagem: "farinha.png", informacaoAdicional: { peso: "1", unidade: "kg" } },
     ])
 
+    const unidadeOptions = [
+        { value: 'kg', label: 'Kg' },
+        { value: 'g', label: 'g' },
+        { value: 'l', label: 'L' },
+        { value: 'ml', label: 'ml' },
+        { value: 'un', label: 'Unidade' }
+      ];
+
     // Estado para mercados
     const [mercadosdb, setMercadosdb] = useState([
-        { id: 1, nome: "Mercado do João", cnpj: "00000000000000", logo: "1.png", telefone: 554899749819, email: "joao.mercado@gmail.com" },
-        { id: 2, nome: "Mercado do José", cnpj: "00000001111111", logo: "2.png", telefone: 554893583919, email: "jose.mercado@gmail.com" },
-        { id: 3, nome: "Mercado do Pedro", cnpj: "11111111111111", logo: "3.png", telefone: 554899749820, email: "pedro.mercado@gmail.com" },
-        { id: 4, nome: "Mercadinho Logo Ali", cnpj: "22222222222222", logo: "mercadinho-logo-ali.png", telefone: 554899749821, email: "logo.ali.mercado@gmail.com" },
-        { id: 5, nome: "Mercado da Lua", cnpj: "33333333333333", logo: "5.png", telefone: 554899749822, email: "lua.mercado@gmail.com" },
-        { id: 6, nome: "Mercadinho da Esquina", cnpj: "44444444444444", logo: "6.png", telefone: 554899749823, email: "esquina.mercado@gmail.com" },
-        { id: 7, nome: "Mercado do Carlos", cnpj: "55555555555555", logo: "7.png", telefone: 554899749824, email: "carlos.mercado@gmail.com" },
-        { id: 8, nome: "Mercado da Ana", cnpj: "66666666666666", logo: "8.png", telefone: 554899749825, email: "ana.mercado@gmail.com" },
-        { id: 9, nome: "Mercado do Rodrigo", cnpj: "77777777777777", logo: "9.png", telefone: 554899749826, email: "rodrigo.mercado@gmail.com" },
+        {
+            id: 1,
+            nome: "Mercado do João",
+            cnpj: "00000000000000",
+            logo: "1.png",
+            telefone: 554899749819,
+            email: "joao.mercado@gmail.com",
+        },
+        {
+            id: 2,
+            nome: "Mercado do José",
+            cnpj: "00000001111111",
+            logo: "2.png",
+            telefone: 554893583919,
+            email: "jose.mercado@gmail.com",
+        },
+        {
+            id: 3,
+            nome: "Mercado do Pedro",
+            cnpj: "11111111111111",
+            logo: "3.png",
+            telefone: 554899749820,
+            email: "pedro.mercado@gmail.com",
+        },
+        {
+            id: 4,
+            nome: "Mercadinho Logo Ali",
+            cnpj: "22222222222222",
+            logo: "mercadinho-logo-ali.png",
+            telefone: 554899749821,
+            email: "logo.ali.mercado@gmail.com",
+        },
+        {
+            id: 5,
+            nome: "Lua Mercado",
+            cnpj: "33333333333333",
+            logo: "lua-mercado.png",
+            telefone: 554899749822,
+            email: "lua.mercado@gmail.com",
+        },
+        {
+            id: 6,
+            nome: "Mercado da Terra",
+            cnpj: "44444444444444",
+            logo: "mercado-da-terra.jpg",
+            telefone: 554899749823,
+            email: "terra.mercado@gmail.com",
+        },
+        {
+            id: 7,
+            nome: "Mercadinho Estrela",
+            cnpj: "55555555555555",
+            logo: "mercadinho-estrela.png",
+            telefone: 554899749824,
+            email: "estrela.mercadinho@gmail.com",
+        },
+        {
+            id: 8,
+            nome: "Mercadinho Cipriani",
+            cnpj: "66666666666666",
+            logo: "mercadinho-cipriani.jpg",
+            telefone: 554899749825,
+            email: "cipriani.mercadinho@gmail.com",
+        },
+        {
+            id: 9,
+            nome: "Mercado Sempre Farto",
+            cnpj: "77777777777777",
+            logo: "mercado-sempre-farto.jpg",
+            telefone: 554899749826,
+            email: "sempre_Farto.mercado@gmail.com",
+        },
     ])
 
     const [enderecoMercadodb, setEnderecoMercadodb] = useState([
@@ -278,7 +349,7 @@ export const GlobalContextProvider = ({ children }) => {
     return (
         <GlobalContext.Provider value={{
             enderecosdb, setEnderecosdb,
-            produtosdb, setProdutosdb,
+            produtosdb, setProdutosdb, unidadeOptions,
             mercadosdb, setMercadosdb,
             clientedb, setClientedb,
             enderecoMercadodb, setEnderecoMercadodb,

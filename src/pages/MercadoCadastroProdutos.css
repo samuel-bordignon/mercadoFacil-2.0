@@ -122,6 +122,7 @@
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    width: 180px;
     transition: background-color 0.3s;
 }
 
@@ -139,6 +140,7 @@
     border: 1px solid white;
     transition: background-color 0.3s;
     width: 180px;
+    margin-right: 10px;
     
 }
 
@@ -209,6 +211,34 @@
  .error {
   color: red;
   font-size: 0.9em;
-  
-  
+}
+
+/* Ajuste para o select da Unidade e o input de Valor */
+.select-unidade select,
+.input-valor input {
+    width: 100%; /* Garantir que ambos ocupem a mesma largura */
+    padding: 8px; /* Ajuste de padding para ficar do mesmo tamanho */
+    border-radius: 5px;
+    border: 1px solid #898989;
+    background-color: #FAFAFA;
+    font-size: 14px;
+    box-sizing: border-box; /* Garantir que o padding não altere o tamanho */
+    max-width: 200px; /* Definir um limite para a largura */
+}
+
+/* Ajuste de layout para garantir que fiquem no mesmo tamanho */
+.select-unidade,
+.input-valor {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 20px;
+    width: 200px; /* Tamanho fixo e consistente */
+}
+
+/* Garantir que o select da Unidade e o input de Valor tenham comportamento consistente */
+.select-unidade select:focus,
+.input-valor input:focus {
+    outline: none;
+    border-color: #4A90E2; /* Mudança de cor ao focar */
 }
