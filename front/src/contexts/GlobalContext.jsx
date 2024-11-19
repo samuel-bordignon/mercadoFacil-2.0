@@ -203,6 +203,8 @@ export const GlobalContextProvider = ({ children }) => {
             })
 
             const result = await response.json()
+            consolog.log('passou o result' + result)
+
 
             if (response.ok && result) {
                 // Confirma se a resposta contém a chave de identificação esperada

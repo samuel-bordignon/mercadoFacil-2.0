@@ -64,6 +64,7 @@ function TelaDentroMercado() {
             <p>Email: {mercadoAtual.email}</p>
           </div>
         </div>
+
         <div className="todos-produtos-container">
           <div className="primeiro-topico-produtos">
             <h4>Enlatados</h4>
@@ -72,11 +73,17 @@ function TelaDentroMercado() {
           <div className="primeira-sessao-produtos-container">
             <div className="card-produto">
               <div className="espaco-colocar-img">
-                <img src="" alt="" />
+                <img src="acucar.png" alt="" />
               </div>
-              <p>R$ 00,00</p>
-              <p>Descrição básica sobre o produto</p>
-              
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img src="acucar.png" alt="" />
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
             </div>
           </div>
 

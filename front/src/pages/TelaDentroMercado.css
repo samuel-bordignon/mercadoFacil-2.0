@@ -118,7 +118,22 @@ p {
 }
 
 .card-produto {
-    width: fit-content;
+    width: 22rem;
     height: fit-content;
     border: 1px solid black;
+}
+
+.preco-produto {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #00C677;
+}
+
+.descricao-produto {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 450;
+    text-align: justify;
+    color: #3d3d3d;
 }
