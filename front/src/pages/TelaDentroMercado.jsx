@@ -66,11 +66,19 @@ function TelaDentroMercado() {
         </div>
 
         <div className="todos-produtos-container">
-          <div className="primeiro-topico-produtos">
-            <h4>Enlatados</h4>
+          <div className="topico-produtos">
+            <h4>Confeitaria</h4>
             <p className="sub-titulo-verde">Ver todos</p>
           </div>
-          <div className="primeira-sessao-produtos-container">
+          <div className="sessao-produtos-container">
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img src="acucar.png" alt="" />
+                <button className="botaoAdd">+</button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+            </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img src="acucar.png" alt="" />
@@ -84,6 +92,64 @@ function TelaDentroMercado() {
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img src="acucar.png" alt="" />
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img src="acucar.png" alt="" />
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+            </div>
+          </div>
+           {/* segunda sessão */}
+           <div className="topico-produtos">
+            <h4>Enlatados</h4>
+            <p className="sub-titulo-verde">Ver todos</p>
+          </div>
+          <div className="sessao-produtos-container">
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img src="acucar.png" alt="" />
+                <button className="botaoAdd">+</button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img src="acucar.png" alt="" />
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img src="acucar.png" alt="" />
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img src="acucar.png" alt="" />
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img src="acucar.png" alt="" />
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+              
             </div>
           </div>
 
