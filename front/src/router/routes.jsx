@@ -16,7 +16,7 @@ import LoginParceiro from "../pages/LoginParceiro";
 import EscolhaLogin from "../pages/EscolhaLogin";
 import EscolhaCadastro from "../pages/EscolhaCadastro";
 import CadastroCliente2 from "../pages/CadastroCliente2";
-import TelaDentroMercado from "../pages/TeladentroMercado";
+import TelaDentroMercado from "../pages/TelaDentroMercado";
 import FormularioTeste from "../pages/FormularioTeste";
 import Sidebar from "../components/Sidebar";
 import PerfilMercado from "../pages/PerfilMercado";
