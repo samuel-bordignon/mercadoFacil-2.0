@@ -78,7 +78,7 @@ p {
 }
 
 .horarios-funcion-container {
-    margin-top: 14%;
+    margin-top: 17.2%;
 }
 
 .contato-container {
@@ -98,7 +98,7 @@ p {
 
 .topico-produtos {
     margin-top: 1%;
-    scale: 0.91;
+    scale: 0.98;
     width: 100%;
     height: fit-content;
     display: flex;
@@ -125,27 +125,45 @@ p {
     height: fit-content;
     /* border: 1px solid black; */
     /* border-radius: 3%; */
-    /* background-color: #f8f8f8;  */
+   
 }
 
 .espaco-colocar-img {
     display: flex;
     justify-content: center;
-    height: 120px;
+    padding: 1%;
+    height: 130px;
+    border-radius: 4%;
+    background-color: #f1f1f1; 
+    position: relative;
 }
 
-/* .botaoAdd {
-    height: 60px;
-    border-radius: 50%;
-    font-size: 40px;
+.imagem-produto {
+    z-index: 0;
+}
+
+.botaoAdd {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
     border: none;
-    background-color: #e9e9e9;
-    color: #00C677;
-} */
+    background-color: #dddddd;
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    bottom: 5px; 
+    right: 5px;
+}
+
+.iconsvgMais {
+    height: 16px;
+    width: 16px;
+}
 
 .preco-produto {
+    margin-top: 7%;
     font-family: 'Poppins', sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     color: #00C677;
 }

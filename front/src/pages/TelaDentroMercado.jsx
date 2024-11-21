@@ -73,57 +73,80 @@ function TelaDentroMercado() {
           <div className="sessao-produtos-container">
             <div className="card-produto">
               <div className="espaco-colocar-img">
-                <img src="acucar.png" alt="" />
-                {/* <button className="botaoAdd">+</button> */}
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick=''>
+                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                </button>
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
-                <img src="acucar.png" alt="" />
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick=''>
+                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                </button>
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
-                <img src="acucar.png" alt="" />
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick=''>
+                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                </button>
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
-                <img src="acucar.png" alt="" />
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick=''>
+                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                </button>
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
-                <img src="acucar.png" alt="" />
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick=''>
+                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                </button>
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
-                <img src="acucar.png" alt="" />
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick=''>
+                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                </button>
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
-                <img src="acucar.png" alt="" />
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick=''>
+                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                </button>
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
-                <img src="acucar.png" alt="" />
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick=''>
+                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                </button>
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
@@ -137,35 +160,50 @@ function TelaDentroMercado() {
           <div className="sessao-produtos-container">
             <div className="card-produto">
               <div className="espaco-colocar-img">
-                <img src="acucar.png" alt="" />
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick=''>
+                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                </button>
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
-                <img src="acucar.png" alt="" />
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick=''>
+                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                </button>
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
-                <img src="acucar.png" alt="" />
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick=''>
+                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                </button>
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
-                <img src="acucar.png" alt="" />
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick=''>
+                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                </button>
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
-                <img src="acucar.png" alt="" />
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick=''>
+                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                </button>
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>

@@ -25,6 +25,7 @@ import PerfilGerente from "../pages/PerfilGerente";
 import MercadoEstoque from "../pages/MercadoEstoque";
 import ComparacaoLista from "../pages/ComparacaoLista";
 import GerenciaListas from "../pages/GerenciaListas";
+import TelaInfoProduto from "../pages/TelaInfoProduto";
 
 const router = createBrowserRouter([
     {path: "/mercados", element: <HomeMercados />},
@@ -50,10 +51,11 @@ const router = createBrowserRouter([
     {path: "/sidebar", element: <Sidebar />},
     {path: "/perfilMercado", element: <PerfilMercado />},
     {path: "/perfilGerente", element: <PerfilGerente />},
-    {path: "/mercadoEstoque", element: <MercadoEstoque/>},
-    {path: "/cadastroProdutos", element: <MercadoCadastroProdutos/>},
-    {path: "/comparacaoLista", element: <ComparacaoLista/>},
+    {path: "/mercadoEstoque", element: <MercadoEstoque />},
+    {path: "/cadastroProdutos", element: <MercadoCadastroProdutos />},
+    {path: "/comparacaoLista", element: <ComparacaoLista />},
     {path: "/gerencialistas", element: <GerenciaListas />},
+    {path: "/telaInfoProduto", element: <TelaInfoProduto />}
 
 ])
 
