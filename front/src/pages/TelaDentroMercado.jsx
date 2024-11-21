@@ -74,38 +74,59 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img src="acucar.png" alt="" />
-                <button className="botaoAdd">+</button>
+                {/* <button className="botaoAdd">+</button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
-              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img src="acucar.png" alt="" />
               </div>
               <p className="preco-produto">R$ 00,00</p>
-              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img src="acucar.png" alt="" />
               </div>
               <p className="preco-produto">R$ 00,00</p>
-              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img src="acucar.png" alt="" />
               </div>
               <p className="preco-produto">R$ 00,00</p>
-              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img src="acucar.png" alt="" />
               </div>
               <p className="preco-produto">R$ 00,00</p>
-              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img src="acucar.png" alt="" />
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img src="acucar.png" alt="" />
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img src="acucar.png" alt="" />
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
           </div>
            {/* segunda sessão */}
@@ -117,38 +138,37 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img src="acucar.png" alt="" />
-                <button className="botaoAdd">+</button>
               </div>
               <p className="preco-produto">R$ 00,00</p>
-              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img src="acucar.png" alt="" />
               </div>
               <p className="preco-produto">R$ 00,00</p>
-              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img src="acucar.png" alt="" />
               </div>
               <p className="preco-produto">R$ 00,00</p>
-              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img src="acucar.png" alt="" />
               </div>
               <p className="preco-produto">R$ 00,00</p>
-              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
             </div>
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img src="acucar.png" alt="" />
               </div>
               <p className="preco-produto">R$ 00,00</p>
-              <p className="descricao-produto">Descrição básica sobre o produto bla bla bla bla bla bla</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
               
             </div>
           </div>
