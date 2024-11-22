@@ -157,7 +157,7 @@ function Navbar() {
         </div>
         <div id="links-container">
           <NavLink
-            to="/mercado"
+            to="/mercados"
             className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}
           >
             Mercados

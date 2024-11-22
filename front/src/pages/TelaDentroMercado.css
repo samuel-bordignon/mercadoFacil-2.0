@@ -148,8 +148,10 @@ p {
     border-radius: 100%;
     border: none;
     background-color: #dddddd;
-    cursor: pointer;
     position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 1;
     bottom: 5px; 
     right: 5px;
