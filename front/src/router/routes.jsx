@@ -25,6 +25,8 @@ import PerfilGerente from "../pages/PerfilGerente";
 import MercadoEstoque from "../pages/MercadoEstoque";
 import ComparacaoLista from "../pages/ComparacaoLista";
 import GerenciaListas from "../pages/GerenciaListas";
+import Footer from "../components/Footer";
+
 
 const router = createBrowserRouter([
     {path: "/mercados", element: <HomeMercados />},
@@ -54,6 +56,7 @@ const router = createBrowserRouter([
     {path: "/cadastroProdutos", element: <MercadoCadastroProdutos/>},
     {path: "/comparacaoLista", element: <ComparacaoLista/>},
     {path: "/gerencialistas", element: <GerenciaListas />},
+    {path: "/footer", element: <Footer />},
 
 ])
 

@@ -3,6 +3,7 @@ import './HomeMercados.css';
 import { useNavigate } from "react-router-dom"
 import Navbar from '../components/Navbar';
 import { GlobalContext } from '../contexts/GlobalContext';
+import Footer from '../components/Footer';
 
 function HomeMercados() {
   const { mercadosdb, setLocalStorage, chaveMercadoLocal } = useContext(GlobalContext);
@@ -142,6 +143,7 @@ function HomeMercados() {
           </button>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }
