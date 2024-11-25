@@ -14,18 +14,11 @@ function TelaDentroMercado() {
   enderecoMercadodb.forEach((element) => console.log(element.idMercado))
   mercadosdb.forEach((element) => console.log(element.cnpj))
 
-
-
-  
-
   const [icon, setIcon] = useState('Mais')
 
   const AlteraIcon = () => {
     setIcon((prevIcon) => (prevIcon === 'Mais' ? 'check' : 'Mais'))
   }
-
-
-
 
   function uuu() {
     console.log(mercadoAtual.cnpj)
