@@ -17,23 +17,23 @@ import EscolhaLogin from "../pages/EscolhaLogin";
 import EscolhaLoginCadastro from "../pages/EscolhaLoginCadastro";
 import Footer from "../components/Footer";
 import FormularioTeste from "../pages/FormularioTeste";
-import GerenciaLista from "../pages/GerenciaLista";
+// import GerenciaLista from "../pages/GerenciaLista";
 import GerenciaListas from "../pages/GerenciaListas";
 import HomeLogin from "../pages/HomeLogin";
-import HomeMercados from "../pages/HomeMercados";
+// import HomeMercados from "../pages/HomeMercados";
 import LoginCliente from "../pages/LoginCliente";
 import LoginParceiro from "../pages/LoginParceiro";
 import MenuCadastro from "../pages/MenuCadastro";
 import MenuLogin from "../pages/MenuLogin";
 import MercadoCadastroProdutos from "../pages/MercadoCadastroProdutos";
 import MercadoEstoque from "../pages/MercadoEstoque";
-import PerfilCliente from "../pages/PerfilCliente";
+// import PerfilCliente from "../pages/PerfilCliente";
 import PerfilGerente from "../pages/PerfilGerente";
 import PerfilMercado from "../pages/PerfilMercado";
 import Sidebar from "../components/Sidebar";
 import TelaDentroMercado from "../pages/TelaDentroMercado";
 import TelaInfoProduto from "../pages/TelaInfoProduto";
-import TesteAnimacao from "../pages/TesteAnimacao";
+// import TesteAnimacao from "../pages/TesteAnimacao";
 
 const router = createBrowserRouter([
     { path: "/", element: <HomeLogin /> },

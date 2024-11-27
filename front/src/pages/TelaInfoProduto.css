@@ -16,68 +16,92 @@
 .geral-produto-container {
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
 }
 
 .produto-especifico-container {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 5%;
     background-color: #F4F4F4;
-    width: 80%;
+    width: 100%;
     height: 60%;
-    border-radius: 2%;
+    padding: 3%;
+    /* border-radius: 2%; */
+    /* box-shadow: 5px 5px 5px rgb(222, 222, 222); */
 }
 
 .espaco-img-prod-container {
-   width: 40%;
+   width: 30%;
+   display: flex;
+   align-items: center;
 }
 
 .fundo-img {
-    margin-top: 8.8%;
     display: flex;
     justify-content: center;
     padding: 1%;
-    height: 480px;
-    border-radius: 4%;
-    background-color: #E4E4E4;
+    height: 100%;
+    width: 100%;
+    border-radius: 2%;
+    /* background-color: #E4E4E4; */
 }
 
 .fundo-img img {
-   
     width: 85%;
-    
 }
 
 .infos-produto-container {
-    width: 35%;
+    width: 50%;
     display: flex;
     flex-direction: column;
+    padding: 3%;
+    height: 100%;
+    background-color: #ffffff;
+    border-radius: 2%;
 }
 
-.nome-produto {
-    font-family: 'Poppins', sans-serif;
+.parte-superior {
+    width: 100%;
+    height: 50%;
+
 }
 
-.descricao-produto {
-    font-family: 'Poppins', sans-serif;
-    font-size: 20px;
-    color: rgb(82, 82, 82);
+.parte-inferior {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
-.preco-produto {
-    font-family: 'Poppins', sans-serif;
-    font-size: 36px;
-    font-weight: 500;
-    color: #00C677;
-}
-
-.infos-produto-container button {
+.parte-inferior button {
     color: #ffffff;
     background-color: #00C677;
     font-size: 24px;
     font-weight: 600;
     border: none;
     border-radius: 9px;
-    height: 10%;
+    width: 100%;
+    height: 19%;
+}
+
+.nome-info-produto {
+    font-family: 'Poppins', sans-serif;
+    font-size: 30px;
+}
+
+.descricao-info-produto {
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+    color: rgb(66, 66, 66);
+}
+
+.preco-info-produto {
+    font-family: 'Poppins', sans-serif;
+    font-size: 33px;
+    font-weight: 500;
+    color: #00C677;
 }

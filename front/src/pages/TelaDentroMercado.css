@@ -18,7 +18,7 @@
     width: 20%;
     height: 100%;
     background-color: rgb(255, 255, 255);
-    box-shadow: 5px 5px 5px rgb(228, 228, 228);
+    box-shadow: 5px 5px 5px  rgba(226, 226, 226, 0.307);
 }
 
 .nome-mercado-container {
