@@ -139,25 +139,6 @@ function LoginParceiro() {
                         />
                     </div>
                 </div>
-            )}
-            {paginaAtual === 'loginParceiro2' && (
-                <div className="esquerdaAcesso loginM">
-                    <div className='espacamento'>
-                        <div className='cabecalho-acesso'>
-                            <h1 className='poppins-semibold'>Acesse Fácil</h1>
-                            <img 
-                              className='botao-voltar' 
-                              src='Voltar.png' 
-                              alt="Botão voltar" 
-                              onClick={() => setPaginaAtual('loginParceiro')} 
-                              style={{ cursor: 'pointer' }}
-                            />
-                        </div>
-
-                <div className="btn-container-login">
-                    <button type="submit" className='btn-acessar-login'>Acessar</button>
-                </div>
-
             </form>
         </div>
     );
