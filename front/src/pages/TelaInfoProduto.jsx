@@ -11,11 +11,6 @@ function TelaInfoProduto() {
 
 
     const idMercado = getLocalStorage(chaveMercadoLocal)
-  
-    const mercadoAtual = mercadosdb.find((mercado) => mercado.id === idMercado)
-    const enderecoAtual = enderecoMercadodb.find((endereco) => endereco.idMercado === idMercado)
-    enderecoMercadodb.forEach((element) => console.log(element.idMercado))
-    mercadosdb.forEach((element) => console.log(element.cnpj))
 
     const mercadoAtual = mercadosdb.find((mercado) => mercado.id === idMercado)
     const enderecoAtual = enderecoMercadodb.find((endereco) => endereco.idMercado === idMercado)
@@ -25,7 +20,7 @@ function TelaInfoProduto() {
     const idProduto = getLocalStorage(chaveProdutoLocal)
 
     const ProdutoAtual = produtosdb.find((produto) => produtosdb.id === idProduto)
-    produtosdb.forEach((element) => console.log(element.cnpj))
+    // produtosdb.forEach((element) => console.log(element.cnpj))
 
     return (
         <div className='tudo-tela'>
@@ -79,7 +74,11 @@ function TelaInfoProduto() {
                             </div>
                         </div>
                         <div className="infos-produto-container">
-                            <h3>Açúcar</h3>
+                            <h1 className="nome-produto">Açúcar Refinado</h1>
+                            <p className="descricao-produto">Açúcar refinado da Marca União pacote de 1 kilo</p>
+                            <p className="preco-produto">R$00,00</p>
+                            <hr />
+                            <button>Adicionar à Lista</button>
                         </div>
                     </div>
                 </div>
