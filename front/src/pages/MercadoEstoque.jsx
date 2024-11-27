@@ -5,7 +5,7 @@ import './MercadoEstoque.css';
 import { useNavigate } from "react-router-dom";
 
 function MercadoEstoque() {
-  const { produtosdb } = useContext(GlobalContext);
+  const { produtosdb, setLocalStorage } = useContext(GlobalContext);
   const [busca, setBusca] = useState("");
   const [activeItem, setActiveItem] = useState(null);
   const navigate = useNavigate();
@@ -17,18 +17,20 @@ function MercadoEstoque() {
 
   
   const handleItemClick = () => {
+    localStorage.clear()
     // Quando o botão "Novo Produto" for clicado, redireciona para a página de cadastro de produto
     setActiveItem('novoProduto');
     navigate('/cadastroProdutos');  // Certifique-se de que a rota '/cadastroProdutos' está definida corretamente
   };
-
+  
   // Filtra os produtos com base no termo de busca
   const produtosFiltrados = produtosdb.filter((produto) =>
-    produto.nome.toLowerCase().includes(busca.toLowerCase())
+  produto.nome.toLowerCase().includes(busca.toLowerCase())
   );
-
+  
   // Função para redirecionar para a página de cadastro com os dados do produto
   const handleProdutoClick = (produto) => {
+    setLocalStorage('id_produto', produto.id)
     // Navega para a página de cadastro de produtos passando os dados do produto
     navigate('/cadastroProdutos', { state: { produto } });
   };

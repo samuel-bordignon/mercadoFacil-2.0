@@ -75,11 +75,12 @@ function ComparacaoLista() {
 
           <div className='produto-nao-encontrado'>
           <h2>Não encontramos 2 itens da lista</h2>
-          <div className='lugar-da-foto-quadrada'></div>
+          <div className='detalhe'>
           <h3>Nome do mercado</h3>
           <h5>Peso/Qualquer coisa</h5>
-          <h3>R$ 0,00</h3>
-          <p>Remover</p>
+            <h3>R$ 0,00</h3>
+          </div>
+          <p className='remover'>Remover</p>
           </div>
           
           <div className='add'>
@@ -88,13 +89,18 @@ function ComparacaoLista() {
           <i class="bi bi-plus"></i>
           </div>
           <hr />
+          <div className='detalhe'>
           <h3>Nome do mercado</h3>
           <h5>Peso/Qualquer coisa</h5>
           <h3>R$ 0,00</h3>
-          <p>Remover</p>
+          </div>
+          <p className='remover'>Remover</p>
+          <div className='add-icon'>
           <i class="bi bi-dash"></i>
           <h3>1</h3>
           <i class="bi bi-plus"></i>
+
+          </div>
 
         </div>
 
