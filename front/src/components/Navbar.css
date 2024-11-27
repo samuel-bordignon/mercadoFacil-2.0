@@ -171,3 +171,11 @@
   color: #717171;
   margin-top: -4px;
 }
+
+.navbarLogo {
+  margin: 2rem;
+}
+
+.navbarLogo img {
+   max-width: 11rem;
+}
