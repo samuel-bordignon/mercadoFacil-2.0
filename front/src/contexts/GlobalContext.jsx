@@ -12,10 +12,10 @@ export const GlobalContextProvider = ({ children }) => {
     const [produtosdb, setProdutosdb] = useState([
         { id: 1, idMercado: 2, nome: "Arroz Branco", preco: 10.00, quantidade: 1, imagem: "arroz.png", informacaoAdicional: { peso: "5", unidade: "kg" } },
         { id: 2, idMercado: 1, nome: "Fardo Skol", preco: 5.50, quantidade: 1, imagem: "skol.png", informacaoAdicional: { peso: "12", unidade: "unidades" } },
-        { id: 3, idMercado: 5, nome: "Farinha de Trigo", preco: 4.20, quantidade: 1, imagem: "farinha.png", informacaoAdicional: { peso: "1", unidade: "kg" } },
-        { id: 4, idMercado: 4, nome: "Farinha de Trigo", preco: 4.20, quantidade: 1, imagem: "farinha.png", informacaoAdicional: { peso: "1", unidade: "kg" } },
+        { id: 3, idMercado: 5, nome: "Farinha de Trigo", preco: 4.20, quantidade: 0, imagem: "farinha.png", informacaoAdicional: { peso: "1", unidade: "kg" } },
+        { id: 4, idMercado: 4, nome: "Farinha de Trigo", preco: 4.20, quantidade: 10, imagem: "farinha.png", informacaoAdicional: { peso: "1", unidade: "kg" } },
         { id: 5, idMercado: 6, nome: "Farinha de Trigo", preco: 4.20, quantidade: 1, imagem: "farinha.png", informacaoAdicional: { peso: "1", unidade: "kg" } },
-        { id: 6, idMercado: 3, nome: "Farinha de Trigo", preco: 4.20, quantidade: 1, imagem: "farinha.png", informacaoAdicional: { peso: "1", unidade: "kg" } },
+        { id: 6, idMercado: 3, nome: "Farinha de Trigo", preco: 4.20, quantidade: 0, imagem: "farinha.png", informacaoAdicional: { peso: "1", unidade: "kg" } },
     ])
 
     const unidadeOptions = [

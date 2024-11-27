@@ -9,7 +9,7 @@ const PopUpWelcome = ({ closeWelcome }) => {
         <div className="popup-left">
           <h2>Bem-vindo(a)</h2>
           <p>O ponto de partida para o sucesso do seu negócio!</p>
-          <img src="logo.png" alt="Mercado Fácil" className="popup-logo" />
+          <img src="mercadoFacilLogoCirculo.png" alt="Mercado Fácil" className="popup-logo" />
         </div>
         {/* Seção Branca */}
         <div className="popup-right">

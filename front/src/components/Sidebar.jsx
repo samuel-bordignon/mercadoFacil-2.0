@@ -1,18 +1,27 @@
 import './Sidebar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PopUpWelcome from './PopUpWelcome'; // Importe o componente PopUpWelcome
 
 const Sidebar = () => {
   const [activeItem, setActiveItem] = useState(null);
-  const [showWelcome, setShowWelcome] = useState(true); // Estado para controlar a exibição do pop-up
+  const [showWelcome, setShowWelcome] = useState(false); // Estado inicial como falso
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Verifica no localStorage se o pop-up já foi exibido
+    const hasSeenWelcome = localStorage.getItem('hasSeenWelcome');
+    if (!hasSeenWelcome) {
+      setShowWelcome(true); // Exibe o pop-up se ainda não foi visto
+    }
+  }, []);
 
   // Função para fechar o pop-up de boas-vindas
   const closeWelcomePopup = () => {
-    setShowWelcome(false); // Altera o estado para fechar o pop-up
+    setShowWelcome(false);
+    localStorage.setItem('hasSeenWelcome', 'true'); // Salva no localStorage que o pop-up já foi exibido
   };
 
   // Função para navegação

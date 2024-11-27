@@ -17,7 +17,6 @@ function MercadoEstoque() {
 
   
   const handleItemClick = () => {
-    localStorage.clear()
     // Quando o botão "Novo Produto" for clicado, redireciona para a página de cadastro de produto
     setActiveItem('novoProduto');
     navigate('/cadastroProdutos');  // Certifique-se de que a rota '/cadastroProdutos' está definida corretamente
