@@ -78,7 +78,7 @@ p {
 }
 
 .horarios-funcion-container {
-    margin-top: 14%;
+    margin-top: 17.2%;
 }
 
 .contato-container {
@@ -96,29 +96,84 @@ p {
     flex-direction: column;
 }
 
-.primeiro-topico-produtos {
+.topico-produtos {
+    margin-top: 1%;
+    scale: 0.98;
     width: 100%;
     height: fit-content;
     display: flex;
     justify-content: space-between;
     padding: 1.5%;
-    border: 1px solid black;
 }
 
-.primeiro-topico-produtos h4 {
+.topico-produtos h4 {
     font-family: 'Poppins', sans-serif;
+    font-size: 25px; 
 }
 
-.primeira-sessao-produtos-container {
+.sessao-produtos-container {
     width: 100%;
     height: fit-content;
     display: flex;
     justify-content: space-evenly;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .card-produto {
-    width: fit-content;
+    padding: 0.6%;
+    width: 10rem;
     height: fit-content;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    /* border-radius: 3%; */
+   
+}
+
+.espaco-colocar-img {
+    display: flex;
+    justify-content: center;
+    padding: 1%;
+    height: 130px;
+    border-radius: 4%;
+    background-color: #f1f1f1; 
+    position: relative;
+}
+
+.imagem-produto {
+    z-index: 0;
+}
+
+.botaoAdd {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    border: none;
+    background-color: #dddddd;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    bottom: 5px; 
+    right: 5px;
+}
+
+.iconsvgMais {
+    height: 16px;
+    width: 16px;
+}
+
+.preco-produto {
+    margin-top: 7%;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #00C677;
+}
+
+.descricao-produto {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 450;
+    text-align: justify;
+    color: #3d3d3d;
 }

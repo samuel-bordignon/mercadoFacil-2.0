@@ -72,23 +72,248 @@ function TelaDentroMercado() {
           </div>
           <div className="contato-container">
             <p className="sub-titulo-verde">Contato</p>
-            <p>Telefone: +{mercadoAtual.telefone}</p>
-            <p>Email: {mercadoAtual.email}</p>
+            <p>+{mercadoAtual.telefone}</p>
+            <p>{mercadoAtual.email}</p>
           </div>
         </div>
+
         <div className="todos-produtos-container">
-          <div className="primeiro-topico-produtos">
-            <h4>Enlatados</h4>
+          <div className="topico-produtos">
+            <h4>Confeitaria</h4>
             <p className="sub-titulo-verde">Ver todos</p>
           </div>
-          <div className="primeira-sessao-produtos-container">
+          <div className="sessao-produtos-container">
             <div className="card-produto">
               <div className="espaco-colocar-img">
-                <img src="" alt="" />
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
               </div>
-              <p>R$ 00,00</p>
-              <p>Descrição básica sobre o produto</p>
-              
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img className="imagem-produto" src="acucar.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
+            </div>
+          </div>
+          {/* segunda sessão */}
+          <div className="topico-produtos">
+            <h4>Almoço</h4>
+            <p className="sub-titulo-verde">Ver todos</p>
+          </div>
+          <div className="sessao-produtos-container">
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img className="imagem-produto" src="oleo.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Óleo de Soja Lisa 2 Litros</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img className="imagem-produto" src="skol.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Fardo de cerveja Skoll 12 latinhas de 269 ml</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img className="imagem-produto" src="arroz.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img className="imagem-produto" src="arroz.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img className="imagem-produto" src="arroz.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img className="imagem-produto" src="arroz.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img className="imagem-produto" src="arroz.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
+            </div>
+            <div className="card-produto">
+              <div className="espaco-colocar-img">
+                <img className="imagem-produto" src="arroz.png" alt="" />
+                <button className="botaoAdd" onClick={AlteraIcon}>
+                  {icon === 'Mais' ? (
+                    <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  ) : (
+                    <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                  )}
+                </button>
+              </div>
+              <p className="preco-produto">R$ 00,00</p>
+              <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
+
             </div>
           </div>
 

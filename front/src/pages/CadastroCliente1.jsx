@@ -6,8 +6,9 @@ import { z } from 'zod'
 import { GlobalContext } from '../contexts/GlobalContext'
 import InputMask from 'react-input-mask'
 import './Cadastrese.css'
-import Voltar from '../assets/flechaAzul.svg'
-import Cover from '../assets/Cover.png'
+import Voltar from '../assets/images/Voltar.png'  // Corrigido o caminho da imagem
+import Cover from '../assets/images/cover.png'  // Imagem de capa
+import NavbarLogo from '../components/NavbarLogo'  // Logo da navbar
 
 function CadastroCliente1() {
   const navigate = useNavigate()
@@ -83,102 +84,115 @@ function CadastroCliente1() {
   }
 
   return (
-    <div className='background-cadastro'>
-      <div className='image-container'>
-        <img src={Cover} alt="" />
-      </div>
-      <div className="cadastrese-container">
-        <div className='cabecalho-cadastro'>
-          <h1>Cadastre-se</h1>
-          <button className='btn-cadastro'>
-            <img className='botao-voltar' onClick={() => (navigate('/criarConta'))} src={Voltar} alt="Botão voltar" />
-          </button>
-        </div>
-        <div className='detalhes-container'>
-          <p>Torne sua vida fácil</p>
-          <h2 className='etapa1'>Informações pessoais</h2>
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="form-container">
-          <div className="container-inputs">
-            <label className="label">Nome Completo</label>
-            <input
-              {...register('nome')}
-              type="text"
-              className="input"
-            />
-            <p className='error'>{errors.nome?.message}</p>
+    <div>
+      <NavbarLogo /> {/* Logo da Navbar */}
 
-            <label className="label">CPF</label>
-            <input
-              {...register('cpf')}
-              type="text"
-              className="input"
-            />
-            <p className='error'>{errors.cpf?.message}</p>
+      <div className="container">
+        {/* Imagem de Capa */}
+        <img className="direita" src={Cover} alt="Imagem de capa" />
 
-            <label className="label">E-mail</label>
-            <input
-              {...register('email')}
-              type="email"
-              className="input"
-            />
-            <p className='error'>{errors.email?.message}</p>
+        <div className="cadastrese-containerCliente">
+          <div className='cabecalhoCadastroCliente'>
+            <h1>Cadastre-se</h1>
 
-            <label className="label">Telefone</label>
-            <input
-              {...register('telefone')}
-              type="text"
-              className="input"
-            />
-            <p className='error'>{errors.telefone?.message}</p>
+            <button className="btn-cadastro">
+              <img
+                className="botao-voltarCliente"
+                onClick={() => navigate('/criarConta')}
+                src={Voltar}
+                alt="Botão voltar"
+              />
+            </button>
           </div>
-          <div className="container-inputs">
-            <label className="label">Data de Nascimento</label>
-            <input
-              {...register('dataNascimento')}
-              type="date"
-              className="input"
-              max={new Date().toISOString().split("T")[0]}
-            />
-            <p className='error'>{errors.dataNascimento?.message}</p>
 
-            <label className="label">Senha</label>
-            <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+          <div className='detalhes-container'>
+            <p>Torne sua vida fácil</p>
+
+            <h2 className='etapa1'>1 - Insira seus dados</h2>
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmit)} className="form-containerClientes">
+            <div className="container-inputsClientes1">
+              <label className="label">Nome Completo</label>
               <input
-                {...register('senha')}
+                {...register('nome')}
+                type="text"
+                className="input"
+              />
+              <p className='error'>{errors.nome?.message}</p>
+
+              <label className="label">CPF</label>
+              <input
+                {...register('cpf')}
+                type="text"
+                className="input"
+              />
+              <p className='error'>{errors.cpf?.message}</p>
+
+              <label className="label">E-mail</label>
+              <input
+                {...register('email')}
+                type="email"
+                className="input"
+              />
+              <p className='error'>{errors.email?.message}</p>
+
+              <label className="label">Telefone</label>
+              <input
+                {...register('telefone')}
+                type="text"
+                className="input"
+              />
+              <p className='error'>{errors.telefone?.message}</p>
+            </div>
+            <div className="container-inputsClientes2">
+              <label className="label">Data de Nascimento</label>
+              <input
+                {...register('dataNascimento')}
+                type="date"
+                className="input"
+                max={new Date().toISOString().split("T")[0]}
+              />
+              <p className='error'>{errors.dataNascimento?.message}</p>
+
+              <label className="label">Senha</label>
+              <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                <input
+                  {...register('senha')}
+                  type={showPassword ? 'text' : 'password'}
+                  className="input"
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  style={{
+                    position: 'absolute',
+                    right: 10,
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <i id='icone-olho' className={`bi ${showPassword ? 'bi-eye-slash' : 'bi-eye'}`} style={{ fontSize: '23px' }}></i>
+                </button>
+              </div>
+              <p className='error'>{errors.senha?.message}</p>
+
+              <label className="label">Confirmar Senha</label>
+              <input
+                {...register('confirmarSenha')}
                 type={showPassword ? 'text' : 'password'}
                 className="input"
               />
-              <button
-                type="button"
-                onClick={togglePasswordVisibility}
-                style={{
-                  position: 'absolute',
-                  right: 10,
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer'
-                }}
-              >
-                <i id='icone-olho' className={`bi ${showPassword ? 'bi-eye-slash' : 'bi-eye'}`} style={{ fontSize: '23px' }}></i>
-              </button>
+              <p className='error'>{errors.confirmarSenha?.message}</p>
+
+              <button type="submit" className='acessarCadastroCliente'>Próximo</button>
             </div>
-            <p className='error'>{errors.senha?.message}</p>
-
-            <label className="label">Confirmar Senha</label>
-            <input
-              {...register('confirmarSenha')}
-              type={showPassword ? 'text' : 'password'}
-              className="input"
-            />
-            <p className='error'>{errors.confirmarSenha?.message}</p>
-
-            <button type="submit" className='acessarCadastro'>Próximo</button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   )
 }
 
-export default CadastroCliente1
+export default CadastroCliente1;

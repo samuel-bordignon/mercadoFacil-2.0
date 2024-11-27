@@ -194,7 +194,7 @@ function MercadoCadastroProdutos() {
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
+      const reader = new FileReader()
       reader.onloadend = () => {
         const base64String = reader.result;
         setImage(base64String); // Atualiza o estado localx     

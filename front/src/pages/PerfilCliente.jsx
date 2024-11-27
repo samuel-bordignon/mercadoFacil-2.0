@@ -17,10 +17,7 @@ function PerfilCliente() {
   const storageLocal = getLocalStorage('ClienteData')
   const [activeBtn, setActiveBtn] = useState(null)
   const [popPupAtivo, setPopPupAtivo] = useState(false)
-  const [clientedb, setClientedb] = useState(null)
-  const [podeExcluir, setPodeExcluir] = useState(false)
   const navigate = useNavigate()
-  const [contador, setContador] = useState(0)
 
   // Esquema de validação para dados pessoais e contato
   const validationSchemaPessoal = z.object({

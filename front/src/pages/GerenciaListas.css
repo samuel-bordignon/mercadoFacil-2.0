@@ -175,6 +175,7 @@ h2 {
 }
 
 .container-gerenciaListas {
+    background: #ffffffeb;
     display: flex;
     gap: 3rem;
 }

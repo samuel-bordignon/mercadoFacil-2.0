@@ -34,6 +34,10 @@
     /* 75% */
 }
 
+.espacamento-acessoM {
+    padding: 3.5rem;
+}
+
 .informacao {
     border: none;
     width: 360px;
@@ -76,6 +80,16 @@
     gap: 12.2rem
 }
 
+.cabecalho-acessoM2 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-top: 9%;
+    justify-content: initial;
+    gap: 12.2rem
+}
+
 .container-botoes {
     display: flex;
     flex-direction: column;
@@ -84,4 +98,30 @@
     flex-wrap: wrap;
     align-content: space-around;
     align-items: center;
+}
+
+.botao-voltar {
+    width: 19px;
+    height: 23px;
+}
+
+.botao-voltarCliente {
+    width: 19px;
+    height: 23px;
+}
+
+.container-inputs, 
+.container-inputs2 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 3rem;
+    width: 48%;
+}
+
+.container-inputsClientes1, 
+.container-inputsClientes2 {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
 }

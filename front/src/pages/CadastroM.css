@@ -1,4 +1,5 @@
-/* .esquerda-cadastrese {
+/* Estilo do container principal onde o formulário está */
+.container-cadastro-parceiro {
     width: 979px;
     height: 617px;
     flex-shrink: 0;
@@ -9,15 +10,17 @@
     filter: drop-shadow(30px 30px rgba(217, 217, 217, 0.28));
 }
 
-.container-cadastrese {
+/* Estilo para a área que contém o cabeçalho e os dados */
+.cabecalho-formulario-cadastro {
     display: flex;
-    justify-content: space-between;
-    
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 31.7rem;
 }
 
-.esquerda-cadastrese .cabecalho {
-    width: 100;
-    flex-shrink: 0;
+/* Cabeçalho principal do formulário */
+.cabecalho-cadastroMercado {
     color: var(--Azul-Principal, #0C194E);
     font-feature-settings: 'liga' off, 'clig' off;
     font-family: Poppins;
@@ -25,11 +28,26 @@
     font-style: normal;
     font-weight: 600;
     line-height: 12px;
-   
-    padding: 0.4rem;
+    padding: 0.2rem;
+    margin-bottom: 1rem;
+    margin-left: 3rem;
 }
 
-.esquerda-cadastrese .dados {
+.cadastroMercado2 {
+    color: var(--Azul-Principal, #0C194E);
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 12px;
+    padding: 0.2rem;
+    margin-bottom: 1rem;
+    margin-left: 3rem;
+}
+
+/* Estilo para a descrição abaixo do cabeçalho */
+.dados-cadastroMercado {
     color: var(--Verde-Principal, #00C677);
     font-feature-settings: 'liga' off, 'clig' off;
     font-family: Poppins;
@@ -37,29 +55,35 @@
     font-style: normal;
     font-weight: 600;
     line-height: 12px;
-    
     margin-top: auto;
     padding: 0.5rem;
+    margin-left: 2.7rem;
+    margin-bottom: 1.6rem;
+
 }
 
-.cabecalho-cadastroM {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: initial;
-    gap: 33.5rem
+/* Estilo do botão de voltar */
+.botao-voltar {
+    width: 24px;
+    height: 24px;
 }
 
-.container-inputs,
-.container-inputs2 {
+/* Estilo para a imagem de capa (direita) */
+.direita {
+    width: 100%;
+    height: auto;
+}
+
+/* Estilo para os containers de inputs */
+.inputs-cadastro-parceiro {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    margin-top: 3rem;
-    width: 48%;
+    gap: 0.2rem;  /* Menor espaçamento entre os inputs */
+    margin-top: 1rem;
+    margin-left: 1.7rem;
 }
 
+/* Estilo para os inputs */
 .input {
     width: 420px;
     height: 52px;
@@ -69,56 +93,84 @@
     background: #FFF;
 }
 
-.etapas {
-    width: 423px;
-    height: 56px;
-    flex-shrink: 0;
-    border-radius: 50px;
-    background: var(--Azul-Principal, #0C194E);
-    color: #FFF;
-    font-feature-settings: 'liga' off, 'clig' off;
-    font-family: Poppins;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 12px;
-    border: var(--Azul-Principal, #0C194E);
-    margin-top: 1rem;
-}
-
-.etapas1 {
-    width: 423px;
-    height: 56px;
-    flex-shrink: 0;
-    border-radius: 50px;
-    background: var(--Azul-Principal, #0C194E);
-    color: #FFF;
-    font-feature-settings: 'liga' off, 'clig' off;
-    font-family: Poppins;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 12px;
-    border: var(--Azul-Principal, #0C194E);
-    margin-top: 1.78rem;
-}
-
-.etapas:hover {
-    background: #FFF;
-    border: 1px solid var(--Azul-Principal, #0C194E);
+/* Estilo para os rótulos (labels) dos campos */
+.labelCM {
     color: #0C194E;
-    transition: 0.5s;
-}
-
-.revisarInfo {
-    border: none;
-    background-color: #FFF;
-    color: var(--Verde-Principal, #00C677);
     font-feature-settings: 'liga' off, 'clig' off;
     font-family: Poppins;
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
-    line-height: 12px;
-    
-} */
+    line-height: 12px; /* 75% */
+    margin-bottom: 0.5rem;
+}
+
+.botao-proximo-cadastro {
+    color: #FFF;
+    width: 420px;
+    height: 52px;
+    border-radius: 50px;
+    border: 2px solid #0C194E;  /* Ajuste a espessura da borda, caso necessário */
+    background: var(--Azul-Principal, #0C194E); /* Azul */
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 1.4rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.botao-proximo-cadastro:hover {
+    color: #0C194E; /* Texto azul */
+    background: #FFF;
+    border-color: #0C194E; /* Borda azul */
+}
+
+
+/* Estilo para os erros de validação */
+.error {
+    color: red;
+    font-size: 15px;
+    margin-top: 0.5rem;
+}
+
+/* Estilo para o campo de senha com o ícone de olho */
+.input[type="password"], .input[type="text"] {
+    position: relative;
+}
+
+/* Estilo para o ícone do olho (mostrar/esconder senha) */
+#icone-olho {
+    font-size: 23px;
+}
+
+/* Estilo para o botão de "Voltar" */
+.btn-cadastro {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Estilo do botão de "Voltar" ao passar o mouse */
+.botao-voltar:hover {
+    opacity: 0.7;
+}
+
+/* Estilo para o formulário */
+.form-containerCM {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    margin-left: 1.4rem;
+}
+
+/* Estilos gerais do formulário */
+.container-cadastrese {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.espacamentoCM{
+    margin-top: 2.2rem;
+}

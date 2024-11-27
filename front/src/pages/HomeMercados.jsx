@@ -133,6 +133,7 @@ function HomeMercados() {
         {/* Carousel de mercados perto de você */}
         <Carousel slides={slidesPerto}/>
       </div>
+      <Footer/>
     </div>
   )
 }

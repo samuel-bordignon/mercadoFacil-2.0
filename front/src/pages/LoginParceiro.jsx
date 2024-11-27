@@ -71,8 +71,8 @@ function LoginParceiro() {
 
 
     const handleChange = (selectedOption) => {
-        setSelectedOption(selectedOption)
-    }
+        setSelectedOption(selectedOption);
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -138,17 +138,21 @@ function LoginParceiro() {
                             styles={customStyles}
                         />
                     </div>
-                    <label className="label">Senha</label>
-                    <input
-                        type="password"
-                        className="input-login"
-                        name="senha"
-                        value={formLog.senha}
-                        onChange={handleInputChange}
-                        placeholder="Digite sua senha"
-                    />
-                    {message && <p className="message">{message}</p>}
                 </div>
+            )}
+            {paginaAtual === 'loginParceiro2' && (
+                <div className="esquerdaAcesso loginM">
+                    <div className='espacamento'>
+                        <div className='cabecalho-acesso'>
+                            <h1 className='poppins-semibold'>Acesse Fácil</h1>
+                            <img 
+                              className='botao-voltar' 
+                              src='Voltar.png' 
+                              alt="Botão voltar" 
+                              onClick={() => setPaginaAtual('loginParceiro')} 
+                              style={{ cursor: 'pointer' }}
+                            />
+                        </div>
 
                 <div className="btn-container-login">
                     <button type="submit" className='btn-acessar-login'>Acessar</button>
@@ -156,7 +160,7 @@ function LoginParceiro() {
 
             </form>
         </div>
-    )
+    );
 }
 
-export default LoginParceiro
+export default LoginParceiro;

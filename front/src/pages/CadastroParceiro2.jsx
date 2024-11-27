@@ -4,14 +4,16 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { GlobalContext } from '../contexts/GlobalContext'
-import './Cadastrese.css'
-import Voltar from '../assets/flechaAzul.svg'
-import Cover from '../assets/Cover.png'
-import User from '../assets/user_default.webp'
+import InputMask from 'react-input-mask'
+import './CadastroM.css'  // Usando o CSS antigo
+import './Cadastrese.css'  // Usando o CSS antigo
+import Voltar from '../assets/images/Voltar.png'  // Corrigido o caminho da imagem
+import Cover from '../assets/images/cover.png'  // Imagem de capa
+import EtapasContador1 from '../assets/images/EtapasContador.png'  // Imagem de capa
+import NavbarLogo from '../components/NavbarLogo'  // Logo da navbar
+// import User from '../assets/user_default.webp'
 
-
-
-function CadastroPerceiro2() {
+function CadastroParceiro2() {
   const navigate = useNavigate()
   const { addData, checkEmailExists, updateData, getLocalStorage, setLocalStorage, chaveMercadoData, chaveGerenteData } = useContext(GlobalContext)
   const [showPassword, setShowPassword] = useState(false)
@@ -28,7 +30,7 @@ function CadastroPerceiro2() {
         if (storageLocal && storageLocal.email === email) return true
 
         //se o email cadastrado for igual ao email do gerente, retorna true
-        if(storageGerenteLocal && storageGerenteLocal.email === email) return true
+        if (storageGerenteLocal && storageGerenteLocal.email === email) return true
 
         // Verifica em cada tabela (clientes, gerentes, mercados)
         const checkCliente = await checkEmailExists('clientes', email)
@@ -73,68 +75,90 @@ function CadastroPerceiro2() {
     setLocalStorage(chaveMercadoData, data)
     navigate('/criarConta/CadastroParceiro3')
   }
+
   return (
-    <div className='background-cadastro'>
-      <div className='image-container'>
-        <img src={Cover} alt="voltar" />
-      </div>
-      <div className="cadastrese-container">
-        <div className='cabecalho-cadastro'>
-          <h1>Cadastre-se</h1>
-          <button className='btn-cadastro'>
-            <img className='botao-voltar' onClick={() => (navigate('/criarConta/CadastroParceiro2'))} src={Voltar} alt="Botão voltar" />
-          </button>
-        </div>
-        <div className='detalhes-container'>
-          <p>Torne sua vida fácil</p>
-          <h2 className='etapa1'>Informações da Empresa</h2>
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="form-container" id='form-endereco'>
-          <div className='form-endereco-cliente'>
+    <div>
+      <NavbarLogo /> {/* Logo da Navbar */}
 
-            <div className="container-inputs">
-              <label className="label">Nome do estabelecimento</label>
-              <input
-                {...register('nome')}
-                type="text"
-                className="input"
-              />
-              <p className='error'>{errors.nome?.message}</p>
+      <div className="container">
+        {/* Imagem de Capa */}
+        <img className="direita" src={Cover} alt="Imagem de capa" />
+
+        <div className="container-cadastro-parceiro">
+
+          <div className="esquerda-cadastrese">
+            <div className='espacamentoCM'>
+              <div className='cabecalho-formulario-cadastro'>
+                <h4 className='cabecalho-cadastroMercado'>Segunda Etapa do Cadastro</h4>
+                <button className="btn-cadastro">
+                  <img
+                    className="botao-voltar"
+                    onClick={() => navigate('/criarConta')}
+                    src={Voltar}
+                    alt="Botão voltar"
+                  />
+                </button>
+              </div>
+              <h2 className='dados-cadastroMercado'>Insira os dados do mercado</h2>
+
+              <form onSubmit={handleSubmit(onSubmit)} className="form-containerCM" id='form-endereco'>
+                <div className='form-endereco-cliente'>
+
+                  <div className="container-inputs">
+                    <label className="labelCM">Nome do estabelecimento</label>
+                    <input
+                      {...register('nome')}
+                      type="text"
+                      className="input"
+                    />
+                    <p className='error'>{errors.nome?.message}</p>
 
 
-              <label className="label">E-mail</label>
-              <input
-                {...register('email')}
-                type="email"
-                className="input"
-              />
-              <p className='error'>{errors.email?.message}</p>
+                    <label className="labelCM">
+                      E-mail do Mercado (empresarial)
+                    </label>
+                    <input
+                      {...register('email')}
+                      type="email"
+                      className="input"
+                    />
+                    <p className='error'>{errors.email?.message}</p>
 
-            </div>
-            <div className="container-inputs">
-              <label className="label">Telefone </label>
-              <input
-                {...register('telefone')}
-                type="text"
-                className="input"
-              />
-              <p className='error'>{errors.telefone?.message}</p>
+                    <img className='contador' src={EtapasContador1} alt="Etapa Contador" />
 
-              <label className="label">CNPJ</label>
-              <input
-                {...register('cnpj')}
-                type="number"
-                className="input"
-              />
-              <p className='error'>{errors.cnpj?.message}</p>
+                  </div>
+                  <div className="container-inputs">
+                    <label className="labelCM">
+                      Telefone do Mercado 
+                    </label>
+                    <input
+                      {...register('telefone')}
+                      type="text"
+                      className="input"
+                    />
+                    <p className='error'>{errors.telefone?.message}</p>
+
+                    <label className="labelCM">CNPJ</label>
+                    <input
+                      {...register('cnpj')}
+                      type="number"
+                      className="input"
+                    />
+                    <p className='error'>{errors.cnpj?.message}</p>
+                                
+                <button type="submit" className='acessarCadastro2'>
+                  Próximo
+                </button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
-          <button type="submit" className='acessarCadastro'>Próximo</button>
-        </form>
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
 
-export default CadastroPerceiro2
+export default CadastroParceiro2;

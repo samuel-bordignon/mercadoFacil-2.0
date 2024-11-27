@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { GlobalContext } from '../contexts/GlobalContext'
+import InputMask from 'react-input-mask'
 import './Cadastrese.css'
 import Voltar from '../assets/flechaAzul.svg'
 import Cover from '../assets/Cover.png'
@@ -52,7 +53,7 @@ function CadastroCliente2() {
             fetchEndereco()
         }
     }, [cep, setValue, getEndereco])
-
+ 
     const onSubmit = async (data) => {
         if (verificaDadosObjeto(storageLocal)) {
             await updateData('enderecoclientes', id, {
@@ -77,34 +78,34 @@ function CadastroCliente2() {
                 complemento: data.complemento
             })
         }
-
+    
         // Atualize o LocalStorage com os dados do endereço
         setLocalStorage(chaveEnderecoClienteLocal, data)
-
+    
         // Verifique as condições para realizar o POST na tabela de relação e avançar de tela
         const isClienteUpdated = getLocalStorage('isClienteVality') === true
         const isEnderecoUpdated = getLocalStorage('isEnderecoClienteVality') === true
         const idCliente = getLocalStorage('id_cliente')
         const idEndereco = getLocalStorage('id_enderecocliente')
-
+    
         if (isClienteUpdated && isEnderecoUpdated && idCliente && idEndereco) {
             console.log('Adicionando a tabela enderecoclientes...')
             await addData('endereco_cliente_relecao', {
                 fk_id_cliente: idCliente,
                 fk_id_enderecocliente: idEndereco
             })
-
+    
             // Atualize os indicadores no LocalStorage
             setLocalStorage('isClienteVality', false)
             setLocalStorage('isEnderecoClienteVality', false)
-
+    
             // Avance para a próxima tela
             navigate('/mercados')
         } else {
             console.error('Erro: Cliente ou Endereço não foram atualizados corretamente.')
         }
     }
-
+    
 
     // Verificar se o objeto tem dados válidos
     function verificaDadosObjeto(obj) {
@@ -114,7 +115,7 @@ function CadastroCliente2() {
     return (
         <div className='background-cadastro'>
             <div className='image-container'>
-                <img src={Cover} alt="Imagem de capa" />
+                <img src={Cover} alt="" />
             </div>
             <div className="cadastrese-container">
                 <div className='cabecalho-cadastro'>
@@ -125,7 +126,7 @@ function CadastroCliente2() {
                     <p>Torne sua vida fácil</p>
                     <h2 className='etapa1'>Endereço</h2>
                 </div>
-                <form onSubmit={handleSubmit(onSubmit)} className="form-container" id='form-endereco'>
+                <form onSubmit={handleSubmit(onSubmitEndereco)} className="form-container" id='form-endereco'>
                     <div className='form-endereco-cliente'>
                         <div className="container-inputs">
                             <label className="label">CEP</label>
