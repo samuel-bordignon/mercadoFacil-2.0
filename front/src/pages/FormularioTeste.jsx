@@ -51,7 +51,7 @@ function FormularioTeste() {
             
             const emailExists = await checkEmailExists('clientes', email)
             if (emailExists) {
-                alert('Email já cadastrado!')
+            alert('Email já cadastrado!')
                 return
             }
 

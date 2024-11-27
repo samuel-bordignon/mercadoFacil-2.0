@@ -8,64 +8,58 @@ import 'react-toastify/dist/ReactToastify.css'
 import './Navbar.css'
 import './PopUpListaCompras.css'
 import './PopUpEnderecos.css'
-import AddEndereco from "../pages/AddEndereco"
-import { p } from "framer-motion/client"
 
 
 function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { getDataById, getLocalStorage, setLocalStorage, getDataByForeignKey } = useContext(GlobalContext)
-
+  const [enderecosCliente, setEnderecosCliente] = useState([])
   const [cliente, setCliente] = useState()
-  const [dataTabelaRelacao, setDataTabelaRelacao] = useState([''])
-  const [enderecos, setEnderecos] = useState([{ cep: '', logradouro: '', numero: '', complemento: '', bairro: '', apelido: '', atual: false }])
+  const { getLocalStorage, setLocalStorage, getDataById, getDataByForeignKey, idEnderecoCliente } = useContext(GlobalContext)
   const idCliente = getLocalStorage('id_cliente')
+
+  useEffect(() => {
+    if (!idCliente) return // Evita executar se idCliente não está disponível
+    const fetchData = async () => {
+      try {
+        const cliente = await getDataById("clientes", idCliente)
+        setCliente(cliente)
+
+        const tabelaRelacao = await getDataByForeignKey("endereco_cliente_relecao", "fk_id_cliente", idCliente)
+        const enderecosRelacionados = await Promise.all(
+          tabelaRelacao.map(item => getDataById("enderecoclientes", item.fk_id_enderecocliente))
+        )
+        setEnderecosCliente(enderecosRelacionados)
+      } catch (error) {
+        toast.error("Erro ao carregar dados do cliente ou endereços.")
+        console.error("Erro:", error)
+      }
+    }
+    fetchData()
+  }, [idCliente])
+
   const [enderecoAtualId, setEnderecoAtualId] = useState(() =>
-    getLocalStorage("id_enderecocliente") || null
+    idEnderecoCliente || null
   )
 
   // Estado único para controlar qual pop-up está aberto
   const [activePopup, setActivePopup] = useState(null)
-  const [enderecoAtivo, setEnderecoAtivo] = useState(null)
   const [prontaEnviar, setProntaEnviar] = useState(false)
 
   const [listaComprasNavdb, setListaComprasNavdb] = useState([])
   const [produtosdb, setProdutosdb] = useState([])
-
-  useEffect(() => {
-    if (!idCliente) return
-
-    const fetchData = async () => {
-      try {
-        // Busca as relações entre cliente e endereços
-        const tabelaRelacao = await getDataByForeignKey("endereco_cliente_relecao", "fk_id_cliente", idCliente)
-
-        // Busca os endereços relacionados com base na tabela de relação
-        const enderecosRelacionados = await Promise.all(
-          tabelaRelacao.map((item) => getDataById("enderecoclientes", item.fk_id_enderecocliente))
-        )
-
-        setEnderecos(enderecosRelacionados)
-      } catch (error) {
-        toast.error("Erro ao carregar endereços.")
-        console.error("Erro ao buscar endereços:", error)
-      }
-    }
-
-    fetchData()
-  }, [idCliente])
 
   // Define o ID do endereço atual e salva no localStorage
   const setEnderecoAtual = (id) => {
     setEnderecoAtualId(id)
     setLocalStorage("id_enderecocliente", id) // Salva no localStorage
     toast.success("Endereço atual definido com sucesso!")
+    window.location.reload()
   }
 
   // Obtém o endereço atual com base no ID salvo
   const getEnderecoAtual = () => {
-    return enderecos.find((endereco) => endereco.id_enderecocliente === parseInt(enderecoAtualId)) || {}
+    return enderecosCliente.find((endereco) => endereco.id_enderecocliente === parseInt(enderecoAtualId)) || {}
   }
 
   const togglePopup = (popupName) => {
@@ -139,14 +133,14 @@ function Navbar() {
   // Função para enviar a mensagem para o WhatsApp
   useEffect(() => {
     if (prontaEnviar) {
-      const mensagem = `Olá! Gostaria de fazer um pedido com os seguintes itens:\n\n${concatenaProdutos()}\n\n*Endereço de entrega:* ${enderecos.find(e => e.atual === true)?.endereco}, ${enderecos.find(e => e.atual === true)?.numero}\n\n*Total* ${calcularTotal()}\n\nAtenciosamente, ${cliente.nome}`
+      const mensagem = `Olá! Gostaria de fazer um pedido com os seguintes itens:\n\n${concatenaProdutos()}\n\n*Endereço de entrega:* ${enderecosCliente.find(e => e.atual === true)?.endereco}, ${enderecosCliente.find(e => e.atual === true)?.numero}\n\n*Total* ${calcularTotal()}\n\nAtenciosamente, ${cliente.nome}`
       const numero = mercadosdb.find(mercado => mercado.atual === true).telefone
       const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`
       window.open(url, '_blank')
       setProntaEnviar(false)
     }
 
-  }, [produtosdb, listaComprasNavdb, prontaEnviar, enderecos])
+  }, [produtosdb, listaComprasNavdb, prontaEnviar, enderecosCliente])
 
   return (
     <div className="navbar">
@@ -157,7 +151,7 @@ function Navbar() {
         </div>
         <div id="links-container">
           <NavLink
-            to="/mercado"
+            to="/mercados"
             className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}
           >
             Mercados
@@ -184,7 +178,7 @@ function Navbar() {
           <div className="endereco-container">
             <span className="endereco-text">
               {getEnderecoAtual()?.logradouro || "Selecione um endereço"}
-              <span className="endereco-number">{getEnderecoAtual()?.numero || ""}</span>
+              <span className="endereco-number">{getEnderecoAtual().numero ? `, ${getEnderecoAtual().numero}` : ''}</span>
             </span>
 
             <img src="flecha.svg" alt="Flecha" className="arrow-icon" />
@@ -205,7 +199,7 @@ function Navbar() {
                 </div>
                 <span className="add-text">Adicionar Endereço</span>
               </button>
-              {enderecos.map((endereco) => (
+              {enderecosCliente.map((endereco) => (
                 <button
                   key={endereco.id_enderecocliente}
                   className={enderecoAtualId == endereco.id_enderecocliente ? "adderess-atual" : "adderess"}
@@ -213,7 +207,7 @@ function Navbar() {
                 >
                   <span className="cep-text-pop">{endereco.apelido}</span>
                   <span className="adderess-text-pop">
-                    {endereco.logradouro}, {endereco.numero}
+                    {endereco.logradouro} {endereco.numero ? `, ${endereco.numero}` : ''}
                   </span>
                 </button>
               ))}

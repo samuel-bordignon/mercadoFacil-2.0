@@ -70,7 +70,7 @@
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
-    border: 1px solid #898989;
+    border: 1px solid #ccc;
     background-color: #FAFAFA;
     font-size: 14px;
 }
@@ -241,4 +241,34 @@
 .input-valor input:focus {
     outline: none;
     border-color: #4A90E2; /* Mudança de cor ao focar */
+}
+
+
+/* mudanças do samuel */
+
+.input-unidade-container {
+    display: flex; /* Alinha os itens horizontalmente */
+    gap: 1%; /* Espaçamento entre o input e o select */
+    height: 45px; /* Altura fixa para o contêiner */
+}
+
+.input-unidade-container input {
+    height: 100%; /* Garante que o input ocupe a altura do contêiner */
+    padding: 0 10px; /* Espaçamento interno */
+    font-size: 16px; /* Ajusta o texto para corresponder ao select */
+    border: 1px solid #ccc; /* Estilo da borda */
+    border-radius: 4px; /* Mesma borda do Select */
+    flex: 1; /* Permite ajuste do tamanho do input */
+}
+
+.input-unidade-container .select-unidade {
+    width: 150px; /* Define a largura do Select */
+}
+
+.input-unidade-container .select-unidade div {
+    align-items: center;
+}
+
+.error-message{
+    color: red;
 }

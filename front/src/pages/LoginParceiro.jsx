@@ -1,115 +1,160 @@
-import './AcessoM.css'
+import './LoginMercado.css'
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useContext } from 'react'
 import { GlobalContext } from '../contexts/GlobalContext'
+import Voltar from '../assets/flechaAzul.svg'
+import Select from 'react-select'
 
 function LoginParceiro() {
+    const options = [
+        { value: 'cpf', label: 'CPF' },
+        { value: 'cnpj', label: 'CNPJ' },
+        { value: 'mei', label: 'MEI' },
+        { value: 'email', label: 'Email' }
+    ]
+
+    const customStyles = {
+        control: (provided, state) => ({
+            ...provided,
+            backgroundColor: 'white',
+            borderColor: state.isFocused ? '#00C677' : ' rgba(150, 150, 150, 0.39)',
+            boxShadow: state.isFocused ? 'none' : 'none',
+            '&:hover': {
+                borderColor: '#0C194E',
+            },
+            borderRadius: 'var(--Corner-Extra-small, 4px)',
+            padding: '7px 5px',
+            width: '111px', // Corrigido para ocupar todo o espaço disponível
+        }),
+        placeholder: (provided) => ({
+            ...provided,
+            color: 'gray',
+            fontSize: '14px',
+        }),
+        singleValue: (provided) => ({
+            ...provided,
+            color: '#0C194E',
+            fontWeight: '600',
+        }),
+        dropdownIndicator: (provided) => ({
+            ...provided,
+            color: '#00C677',
+            '&:hover': {
+                color: '#00C677',
+            },
+        }),
+        menu: (provided) => ({
+            ...provided,
+            backgroundColor: 'white',
+            borderRadius: '8px',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            width: '100%', // Alinha o dropdown com o controle
+        }),
+        option: (provided, state) => ({
+            ...provided,
+            backgroundColor: state.isFocused ? 'rgba(0, 123, 255, 0.1)' : 'white',
+            color: state.isSelected ? '#0C194E' : 'black',
+            fontWeight: state.isSelected ? '600' : '400',
+            padding: '10px',
+            '&:active': {
+                backgroundColor: 'rgba(0, 123, 255, 0.2)',
+            },
+        }),
+    }
+
     const navigate = useNavigate()
-    const [paginaAtual, setPaginaAtual] = useState('loginParceiro')
-    const [selectedOption, setSelectedOption] = useState('')
-    const [submittedValue, setSubmittedValue] = useState(null)
-    const [formLog, setFormLog] = useState({ identificador: '', senha: '' }) // Correção aqui: removeu "nome"
+    const [selectedOption, setSelectedOption] = useState(options[3]) // Email como default
+    const [formLog, setFormLog] = useState({ identificador: '', senha: '' }) // Captura dados do login
+    const [message, setMessage] = useState('') // Exibe mensagens de sucesso/erro
 
     const { login } = useContext(GlobalContext)
 
-    const handleChange = (event) => {
-        setSelectedOption(event.target.value)
+
+    const handleChange = (selectedOption) => {
+        setSelectedOption(selectedOption)
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        if (!selectedOption) {
-            alert('Por favor, selecione uma informação antes de continuar.')
-            return
-        }
-        setSubmittedValue(selectedOption)
-        console.log(selectedOption) // Use o valor diretamente
-        setPaginaAtual('loginParceiro2')
+    const handleInputChange = (e) => {
+        const { name, value } = e.target
+        setFormLog((prevState) => ({ ...prevState, [name]: value }))
     }
 
     const handleLogin = async (e) => {
         e.preventDefault()
-        // const { email, senha } = formLog
-
-        const result = await login('parceiros', selectedOption, 'senha', 'senha')
-
-        if (result.success) {
-            // setMessage(result.message)  // Exibe mensagem de sucesso
-            // Redirecionar ou atualizar o estado da aplicação após login bem-sucedido
-            navigate('/mercados')
-        } else {
-            // setMessage(result.message)  // Exibe mensagem de erro
+        const { identificador, senha } = formLog
+        if (!identificador || !senha) {
+            setMessage('Por favor, preencha todos os campos.')
+            return
         }
 
+        const identificadorNome = selectedOption.value
+        const table = identificadorNome === 'cnpj' ? 'mercados' : 'gerentes'
+
+        const result = await login(table, identificadorNome, identificador, senha)
+
+        if (result.success) {
+            setMessage(result.message) // Exibe mensagem de sucesso
+            navigate('/mercados') // Redirecionar após login bem-sucedido
+        } else {
+            setMessage(result.message) // Exibe mensagem de erro
+        }
     }
-    
 
     return (
-        <div>
-            {paginaAtual === 'loginParceiro' && (
-                <div className="esquerda login">
-                    <div className='espacamento-acessoM'>
-                        <div className='cabecalho-acessoM'>
-                            <h1 className='acesso-h1'>Acesse Fácil</h1>
-                            <img 
-                              className='botao-voltar' 
-                              src="Voltar.png" 
-                              alt="Botão voltar" 
-                              onClick={() => navigate(-1)} 
-                              style={{ cursor: 'pointer' }}
-                            />
-                        </div>
-                        <form className="container-inputs" onSubmit={handleSubmit}>
-                            <label className="informacao">Qual informação você quer usar?</label>
-                            <select 
-                                className="input-select" 
-                                value={selectedOption} 
-                                onChange={handleChange}
-                            >
-                                <option value="" disabled>Selecione</option>
-                                <option value="cpf">CPF</option>
-                                <option value="cnpj">CNPJ</option>
-                                <option value="mei">MEI</option>
-                                <option value="email">Email</option>
-                            </select>
+        <div className="login-container">
+            <div className='cabecalho-login'>
+                <h1 className='poppins-semibold'>Acesse Fácil</h1>
+                <img
+                    className='botao-voltar'
+                    src={Voltar}
+                    alt="Botão voltar"
+                    onClick={() => navigate('/loginDois')}
+                    style={{ cursor: 'pointer' }}
+                />
+            </div>
+            <div className="detalhes-container-login">
+                <p>Escolha como quer logar</p>
+            </div>
 
-                            <span className='Span'>Selecione uma informação</span>
+            <form className="form-container-login" onSubmit={handleLogin}>
+                <div className="inputs-conainer-login">
 
-                            <div className="container-botoes">
-                                <button className='continuar' type='submit'>Continuar</button>
-                            </div>
-                        </form>
+                    <label className="label">{selectedOption.label}</label>
+                    <div className='identificador-container'>
+                        <input
+                            type="text"
+                            className="input-login"
+                            name="identificador"
+                            value={formLog.identificador}
+                            onChange={handleInputChange}
+                            placeholder={`Digite seu ${selectedOption.label}`}
+                        />
+                        <Select
+                            options={options}
+                            value={selectedOption}
+                            onChange={handleChange}
+                            placeholder="Escolha uma opção"
+                            isClearable={false}
+                            styles={customStyles}
+                        />
                     </div>
+                    <label className="label">Senha</label>
+                    <input
+                        type="password"
+                        className="input-login"
+                        name="senha"
+                        value={formLog.senha}
+                        onChange={handleInputChange}
+                        placeholder="Digite sua senha"
+                    />
+                    {message && <p className="message">{message}</p>}
                 </div>
-            )}
-            {paginaAtual === 'loginParceiro2' && (
-                <div className="esquerdaAcesso loginM">
-                    <div className='espacamento'>
-                        <div className='cabecalho-acesso'>
-                            <h1 className='poppins-semibold'>Acesse Fácil</h1>
-                            <img 
-                              className='botao-voltar' 
-                              src='Voltar.png' 
-                              alt="Botão voltar" 
-                              onClick={() => setPaginaAtual('loginParceiro')} 
-                              style={{ cursor: 'pointer' }}
-                            />
-                        </div>
 
-                        <form className="container-inputsM" onClick={handleLogin}>
-                            <label className="label">{submittedValue}</label>
-                            <input type="text" className="input" />
-
-                            <label className="label">Senha</label>
-                            <input type="password" className="input" />
-
-                            <span className='Span'>A senha precisa ter 8 ou mais caracteres.</span>
-                            <button className='reset-senha'>Esqueci a senha</button>
-                            <button className='acessar' onClick={() => navigate('/mercados')}>Acessar</button>
-                        </form>
-                    </div>
+                <div className="btn-container-login">
+                    <button type="submit" className='btn-acessar-login'>Acessar</button>
                 </div>
-            )}
+
+            </form>
         </div>
     )
 }

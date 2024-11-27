@@ -1,156 +1,23 @@
-import { createContext, useState } from "react"
+import { use } from "framer-motion/client"
+import { createContext, useState, useEffect } from "react"
+import axios from "axios"
 
 // Cria o contexto
 export const GlobalContext = createContext()
 
 // Provedor do contexto que irá envolver o app
 export const GlobalContextProvider = ({ children }) => {
-    // Estado para endereços
-    const [enderecosdb, setEnderecosdb] = useState([])
+    const [loading, setLoading] = useState(false)
 
-    // Estado para produtos
-    const [produtosdb, setProdutosdb] = useState([
-        { id: 1, idMercado: 2, nome: "Arroz Branco", preco: 10.00, quantidade: 1, imagem: "arroz.png", informacaoAdicional: { peso: "5", unidade: "kg" } },
-        { id: 2, idMercado: 1, nome: "Fardo Skol", preco: 5.50, quantidade: 1, imagem: "skol.png", informacaoAdicional: { peso: "12", unidade: "unidades" } },
-        { id: 3, idMercado: 5, nome: "Farinha de Trigo", preco: 4.20, quantidade: 1, imagem: "farinha.png", informacaoAdicional: { peso: "1", unidade: "kg" } },
-        { id: 4, idMercado: 4, nome: "Farinha de Trigo", preco: 4.20, quantidade: 1, imagem: "farinha.png", informacaoAdicional: { peso: "1", unidade: "kg" } },
-        { id: 5, idMercado: 6, nome: "Farinha de Trigo", preco: 4.20, quantidade: 1, imagem: "farinha.png", informacaoAdicional: { peso: "1", unidade: "kg" } },
-        { id: 6, idMercado: 3, nome: "Farinha de Trigo", preco: 4.20, quantidade: 1, imagem: "farinha.png", informacaoAdicional: { peso: "1", unidade: "kg" } },
-    ])
+    // Estados globais
+    const categoryOptions = [
+        { value: 'categoria1', label: 'Hórtifrute' },
+        { value: 'categoria2', label: 'Açougue' },
+        { value: 'categoria3', label: 'Padaria' },
+        { value: 'categoria4', label: 'Bebidas' },
+        { value: 'categoria5', label: 'Freezer' },
+    ]
 
-    const unidadeOptions = [
-        { value: 'kg', label: 'Kg' },
-        { value: 'g', label: 'g' },
-        { value: 'l', label: 'L' },
-        { value: 'ml', label: 'ml' },
-        { value: 'un', label: 'Unidade' }
-    ];
-
-    // Estado para mercados
-    const [mercadosdb, setMercadosdb] = useState([
-        {
-            id: 1,
-            nome: "Mercado do João",
-            cnpj: "00000000000000",
-            logo: "1.png",
-            telefone: 554899749819,
-            email: "joao.mercado@gmail.com",
-        },
-        {
-            id: 2,
-            nome: "Mercado do José",
-            cnpj: "00000001111111",
-            logo: "2.png",
-            telefone: 554893583919,
-            email: "jose.mercado@gmail.com",
-        },
-        {
-            id: 3,
-            nome: "Mercado do Pedro",
-            cnpj: "11111111111111",
-            logo: "3.png",
-            telefone: 554899749820,
-            email: "pedro.mercado@gmail.com",
-        },
-        {
-            id: 4,
-            nome: "Mercadinho Logo Ali",
-            cnpj: "22222222222222",
-            logo: "mercadinho-logo-ali.png",
-            telefone: 554899749821,
-            email: "logo.ali.mercado@gmail.com",
-        },
-        {
-            id: 5,
-            nome: "Lua Mercado",
-            cnpj: "33333333333333",
-            logo: "lua-mercado.png",
-            telefone: 554899749822,
-            email: "lua.mercado@gmail.com",
-        },
-        {
-            id: 6,
-            nome: "Mercado da Terra",
-            cnpj: "44444444444444",
-            logo: "mercado-da-terra.jpg",
-            telefone: 554899749823,
-            email: "terra.mercado@gmail.com",
-        },
-        {
-            id: 7,
-            nome: "Mercadinho Estrela",
-            cnpj: "55555555555555",
-            logo: "mercadinho-estrela.png",
-            telefone: 554899749824,
-            email: "estrela.mercadinho@gmail.com",
-        },
-        {
-            id: 8,
-            nome: "Mercadinho Cipriani",
-            cnpj: "66666666666666",
-            logo: "mercadinho-cipriani.jpg",
-            telefone: 554899749825,
-            email: "cipriani.mercadinho@gmail.com",
-        },
-        {
-            id: 9,
-            nome: "Mercado Sempre Farto",
-            cnpj: "77777777777777",
-            logo: "mercado-sempre-farto.jpg",
-            telefone: 554899749826,
-            email: "sempre_Farto.mercado@gmail.com",
-        },
-    ])
-
-    const [enderecoMercadodb, setEnderecoMercadodb] = useState([
-        { id: 1, idMercado: 1, cep: 89122234, logradouro: "Rua das Flores" },
-        { id: 2, idMercado: 2, cep: 86869274, logradouro: "Rua das Águas" },
-        { id: 3, idMercado: 3, cep: 91543867, logradouro: "Rua das Praias" },
-        { id: 4, idMercado: 4, cep: 76924013, logradouro: "Av. dos Cristais" },
-        { id: 5, idMercado: 5, cep: 82054185, logradouro: "Rua dos Papagaios" },
-        { id: 6, idMercado: 6, cep: 80346573, logradouro: "Rua da Figueira" },
-        { id: 7, idMercado: 7, cep: 81205743, logradouro: "Av. do Beija-Flor" },
-        { id: 8, idMercado: 8, cep: 70456332, logradouro: "Av. da Lua" },
-        { id: 9, idMercado: 9, cep: 23479643, logradouro: "Rua da Estrela" },
-    ])
-
-    const [horarioFuncionamento, setHorarioFuncionamento] = useState([
-        {
-            domingo: { inicio: "08:00", fim: "20:00" },
-            segunda: { inicio: "08:00", fim: "20:00" },
-            terca: { inicio: "08:00", fim: "20:00" },
-            quarta: { inicio: "08:00", fim: "20:00" },
-            quinta: { inicio: "08:00", fim: "20:00" },
-            sexta: { inicio: "08:00", fim: "20:00" },
-            sabado: { inicio: "08:00", fim: "20:00" },
-            idMercado: 1,
-            id: 1,
-        },
-        // Adicione mais objetos de horários conforme necessário
-    ])
-
-    const [gerentedb, setGerentedb] = useState([
-        {
-            id: 1,
-            idMercado: 1,
-            nome: "João da Silva",
-            cpf: "123456789",
-            dataNascimento: "2000-01-01",
-            senha: "123456",
-            telefone: "48999999999",
-            email: "",
-        },
-        {
-            id: 2,
-            idMercado: 2,
-            nome: "Maria da Silva",
-            cpf: "987654321",
-            dataNascimento: "2001-01-01",
-            senha: "123456",
-            telefone: "48988888888",
-            email: "",
-        },
-    ])
     // Funções de Local Storage
     const getLocalStorage = (chave) => JSON.parse(localStorage.getItem(chave)) ?? []
     const setLocalStorage = (chave, dado) => localStorage.setItem(chave, JSON.stringify(dado))
@@ -161,179 +28,170 @@ export const GlobalContextProvider = ({ children }) => {
     const chaveGerenteData = 'GerenteData'
     const chaveEnderecoClienteLocal = 'EnderecoClienteData'
     const chaveEnderecoMercadoLocal = 'EnderecoMercadoData'
-    const chaveProdutodbLocal = 'produtodbLocal'
-    const chaveGerentedbLocal = 'gerentedbLocal'
 
-    // Estado para Usuário logado
-    const [clientedb, setClientedb] = useState({})
-
+    // funções para manipular os dados do banco de dados
     const getData = async (table) => {
         try {
-            const response = await fetch(`http://localhost:3000/${table}`)
-            return await response.json()
+            setLoading(true)
+            const response = await axios.get(`http://localhost:3000/${table}`)
+            return response.data
         } catch (error) {
             console.error('Erro ao buscar dados:', error)
+        } finally {
+            setLoading(false)
         }
     }
-
     const getDataById = async (table, id) => {
         try {
-            const response = await fetch(`http://localhost:3000/${table}/${id}`)
-            return await response.json()
+            setLoading(true)
+            const response = await axios.get(`http://localhost:3000/${table}/${id}`)
+            return response.data
         } catch (error) {
             console.error('Erro ao buscar registro:', error)
+        } finally {
+            setLoading(false)
         }
     }
-
     const getDataByForeignKey = async (table, fk_colum, fk_value) => {
         try {
-            const response = await fetch(`http://localhost:3000/${table}/${fk_colum}/${fk_value}`)
-            return await response.json()
+            setLoading(true)
+            const response = await axios.get(`http://localhost:3000/${table}/${fk_colum}/${fk_value}`)
+            return response.data
         } catch (error) {
             console.error('Erro ao buscar registro:', error)
+        } finally {
+            setLoading(false)
         }
     }
-
     const addData = async (table, data) => {
         try {
-            const response = await fetch(`http://localhost:3000/${table}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            })
+            setLoading(true)
+            const response = await axios.post(`http://localhost:3000/${table}`, data)
 
-            const result = await response.json()
-
-            if (response.ok && result) {
+            if (response.status === 200 && response.data) {
                 // Confirma se a resposta contém a chave de identificação esperada
-                const primaryKey = Object.keys(result).find(key => key.startsWith("id_"))
+                const primaryKey = Object.keys(response.data).find(key => key.startsWith("id_"))
                 if (primaryKey) {
-                    setLocalStorage(primaryKey, result[primaryKey])
-                    console.log(`ID salvo: ${result[primaryKey]}`)
+                    setLocalStorage(primaryKey, response.data[primaryKey])
+                    console.log(`ID salvo: ${response.data[primaryKey]}`)
                 }
             } else {
-                console.error("Erro ao salvar dados:", result?.message || "Resposta inválida do servidor")
+                console.error("Erro ao salvar dados:", response.data?.message || "Resposta inválida do servidor")
             }
 
             // Lógica para validar cliente e endereço
-            if (table === 'clientes') setLocalStorage('isClienteVality', true)
-            if (table === 'enderecoclientes') setLocalStorage('isEnderecoClienteVality', true)
+            if (table === "clientes") setLocalStorage("isClienteVality", true)
+            if (table === "enderecoclientes") setLocalStorage("isEnderecoClienteVality", true)
 
-            return result
+            return response.data
         } catch (error) {
-            console.error('Erro ao adicionar registro:', error)
+            console.error("Erro ao adicionar registro:", error)
             throw error
+        } finally {
+            setLoading(false)
         }
-    }
 
-    const addRelation = async (idCliente, idEndereco) => {
-        if (!idCliente || !idEndereco) {
-            console.error("IDs para relacionamento não fornecidos")
+    }
+    const addRelation = async (table, data) => {
+        if (!data) {
+            console.error("Dados não foras fornecidos")
             return
         }
 
         try {
-            const response = await fetch('http://localhost:3000/endereco_cliente_relecao', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    fk_id_cliente: idCliente,
-                    fk_id_enderecocliente: idEndereco,
-                }),
-            })
+            setLoading(true)
+            const response = await axios.post(`http://localhost:3000/${table}`, data)
 
-            if (response.ok) {
+            if (response.status === 200) {
                 console.log("Relacionamento salvo com sucesso")
-
             } else {
-                console.error("Erro ao salvar relacionamento:", await response.json())
+                console.error("Erro ao salvar relacionamento:", response.data)
             }
         } catch (error) {
             console.error("Erro ao criar relacionamento:", error)
+        } finally {
+            setLoading(false)
         }
     }
-
     const updateData = async (table, id, data) => {
         try {
-            const response = await fetch(`http://localhost:3000/${table}/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            })
-            return await response.json()
+            setLoading(true)
+            const response = await axios.put(`http://localhost:3000/${table}/${id}`, data)
+
+            if (table === "clientes") {
+                setLocalStorage("isClienteVality", true)
+            }
+            if (table === "enderecoclientes") {
+                setLocalStorage("isEnderecoClienteVality", true)
+            }
+
+            return response.data
         } catch (error) {
-            console.error('Erro ao atualizar registro:', error)
-        }
-        if (table === 'clientes') {
-            setLocalStorage('isClienteVality', true)
-        }
-        if (table === 'enderecoclientes') {
-            setLocalStorage('isEnderecoClienteVality', true)
+            console.error("Erro ao atualizar registro:", error)
+        } finally {
+            setLoading(false)
         }
     }
-
     const deleteData = async (table, id) => {
         try {
-            const response = await fetch(`http://localhost:3000/${table}/${id}`, {
-                method: 'DELETE',
-            })
-            return await response.json()
+            setLoading(true)
+            const response = await axios.delete(`http://localhost:3000/${table}/${id}`)
+            return response.data
         } catch (error) {
-            console.error('Erro ao deletar registro:', error)
+            console.error("Erro ao deletar registro:", error)
+        } finally {
+            setLoading(false)
         }
     }
-
     const checkEmailExists = async (table, email) => {
         try {
-            const response = await fetch(`http://localhost:3000/${table}/email-exists/${email}`)
-            const data = await response.json()
-            return data.exists
+            setLoading(true)
+            const response = await axios.get(`http://localhost:3000/${table}/email-exists/${email}`)
+            return response.data.exists
         } catch (error) {
-            console.error('Erro ao verificar e-mail:', error)
-            console.error(response.json())
+            console.error("Erro ao verificar e-mail:", error)
             return false
+        } finally {
+            setLoading(false)
         }
     }
-
-    const login = async (table, email, columName, columValue) => {
+    const login = async (table, identificador, identificadorValor, senhaValor) => {
         try {
-            const response = await fetch(`http://localhost:3000/${table}/password-vality/${email}/${columName}/${columValue}`)
-            const data = await response.json()
+            setLoading(true)
+            const response = await axios.get(
+                `http://localhost:3000/${table}/password-vality/${identificador}/${identificadorValor}/${senhaValor}`
+            )
+
+            const data = response.data
 
             if (data.loginSuccess) {
-                const primaryKey = Object.keys(data).find(key => key.startsWith("id_"))
-                
+                console.log("Login bem-sucedido:", data)
+
+                // Identificar a chave primária no objeto retornado
+                const primaryKey = Object.keys(data.user).find((key) => key.startsWith("id_"))
+                console.log("Chave primária:", primaryKey)
+
                 if (primaryKey) {
-                    setLocalStorage(primaryKey, data[primaryKey])
-                    console.log(`ID salvo: ${data[primaryKey]}`)
+                    setLocalStorage(primaryKey, data.user[primaryKey])
+                    console.log(`ID salvo: ${data.user[primaryKey]}`)
                 }
 
-                return { success: true, message: 'Login bem-sucedido' }
-
+                return { success: true, message: "Login bem-sucedido" }
             } else {
                 return { success: false, message: data.message }
             }
         } catch (error) {
-            console.error('Erro ao tentar logar:', error)
-            return { success: false, message: 'Erro ao tentar logar' }
+            console.error("Erro ao tentar logar:", error)
+
+            // Capturando mensagens específicas do erro, se disponíveis
+            const errorMessage =
+                error.response?.data?.message || "Erro ao tentar logar"
+
+            return { success: false, message: errorMessage }
+        } finally {
+            setLoading(false)
         }
     }
-
-    const mercadosVisitados = [
-        { nome: 'Big by Carrefour', distancia: '5.6 km', tempo: '146-156 min', logo: 'image1.png' },
-        { nome: 'Nome do Mercado 2', distancia: '3.2 km', tempo: '120-130 min', logo: 'image2.avif' },
-        // Adicione mais mercados conforme necessário
-    ]
-
-    // Exemplo de categorias
-    const categoryOptions = [
-        { value: 'categoria1', label: 'Hórtifrute' },
-        { value: 'categoria2', label: 'Açougue' },
-        { value: 'categoria3', label: 'Padaria' },
-        { value: 'categoria4', label: 'Bebidas' },
-        { value: 'categoria5', label: 'Freezer' },
-    ]
-
     const getEndereco = async (cep) => {
         try {
             const response = await fetch(`https://cep.awesomeapi.com.br/json/${cep}`)
@@ -349,25 +207,252 @@ export const GlobalContextProvider = ({ children }) => {
             return null
         }
     }
+    const calcularDistanciaRaio = (lat1, lon1, lat2, lon2) => {
+        const R = 6371e3 // Raio da Terra em metros
+        const rad = Math.PI / 180
+        const dLat = (lat2 - lat1) * rad
+        const dLon = (lon2 - lon1) * rad
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * rad) * Math.cos(lat2 * rad) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2)
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+        const distancia = R * c // Distância em metros
+        return distancia
+    }
+    // Função para obter as coordenadas de dois CEPs e calcular a distância entre eles
+    const calcularDistanciaRota = async (endereco1, endereco2) => {
+        if (endereco1 && endereco2) {
+            const osrmProfile = 'car'
+            const startPoint = [endereco1.longitude, endereco1.latitude] // Longitude e Latitude do primeiro CEP
+            const endPoint = [endereco2.longitude, endereco2.latitude] // Longitude e Latitude do segundo CEP
+
+            const veloCaminhada = 1.728 // Velocidade média de caminhada em m/s
+
+            const url = `http://router.project-osrm.org/route/v1/${osrmProfile}/${startPoint.join(',')};${endPoint.join(',')}?overview=false&geometries=polyline`
+
+
+            try {
+                const response = await fetch(url)
+                const data = await response.json()
+                const route = data.routes[0]
+                const distanceInMeters = route.distance
+                const distanceInKm = (distanceInMeters / 1000).toFixed(2)
+                const durationInHours = (distanceInMeters / veloCaminhada) / 60
+
+                return { distanceInKm, durationInHours }
+
+                if (!data.routes || data.routes.length === 0) {
+                    console.error('Nenhuma rota encontrada');
+                    return null;
+                }
+                
+
+            } catch (error) {
+                console.error('Erro:', error)
+            }
+        } else {
+            console.error('endereços não encontardos não encontrados')
+        }
+    }
+    const uploadImage = async (base64Image) => {
+        try {
+            const response = await axios.post(
+                'http://localhost:3000/api/images/upload',
+                { image: base64Image },
+                { headers: { 'Content-Type': 'application/json' } }
+            )
+    
+            // O caminho do arquivo salvo no servidor
+            return response.data.filePath
+        } catch (error) {
+            console.error('Erro ao enviar a imagem:', error)
+            throw error
+        }
+    }
+    
+    // Exemplo de uso no componente
+    const handleImageUpload = async (base64Image) => {
+        const filePath = await uploadImage(base64Image)
+        console.log('Caminho da imagem salva:', filePath)
+    }
+    
+    
+
+    const idCliente = getLocalStorage('id_cliente')
+    const idGerente = getLocalStorage('id_gerente')
+    const idEnderecoCliente = getLocalStorage("id_enderecocliente")
+
+
+
+    const [enderecosCliente, setEnderecosCliente] = useState([{ cep: '', logradouro: '', numero: '', complemento: '', bairro: '', apelido: '' }])
+    const [cliente, setCliente] = useState({ nome: '', cpf: '', data_nasc: '', telefone: '', email: '', senha: '' })
+    const [gerente, setGerente] = useState(null) // Inicializa como null para evitar inconsistência
+    const [mercado, setMercado] = useState(null) // Também inicializa como null
+    const [mercados, setMercados] = useState([])
+    const [enderecoMercado, setEnderecoMercado] = useState(null)
+    const [produtos, setProdutos] = useState([])
+    const [categorias, setCategorias] = useState([])
+    const [enderecosMercados, setEnderecosMercados] = useState([])
+    const unidadeOptions = [{value:'Kg', label:'Kg'},{value:'g', label:'g'},{value:'L', label:'L'},{value:'ml', label:'ml'}]
+
+
+    // Dados do Cliente
+    useEffect(() => {
+        if (!idCliente) return // Evita executar se idCliente não está disponível
+        const fetchData = async () => {
+            try {
+                const cliente = await getDataById("clientes", idCliente)
+                setCliente(cliente)
+
+                const tabelaRelacao = await getDataByForeignKey("endereco_cliente_relecao", "fk_id_cliente", idCliente)
+                const enderecosRelacionados = await Promise.all(
+                    tabelaRelacao.map(item => getDataById("enderecoclientes", item.fk_id_enderecocliente))
+                )
+                setEnderecosCliente(enderecosRelacionados)
+            } catch (error) {
+                toast.error("Erro ao carregar dados do cliente ou endereços.")
+                console.error("Erro:", error)
+            }
+        }
+        fetchData()
+    }, [idCliente])
+    // Dados do Gerente
+    useEffect(() => {
+        if (!idGerente) return // Evita executar se idGerente não está disponível
+        const fetchData = async () => {
+            try {
+                const gerente = await getDataById("gerentes", idGerente)
+                setGerente(gerente)
+            } catch (error) {
+                toast.error("Erro ao carregar dados do gerente.")
+                console.error("Erro:", error)
+            }
+        }
+        fetchData()
+    }, [idGerente])
+    // Dados do Mercado (somente se idGerente for válido)
+    useEffect(() => {
+        if (!idGerente) return // Verifica idGerente antes
+
+        const fetchData = async () => {
+            try {
+                const mercado = await getDataByForeignKey("mercados", "fk_id_gerente", idGerente)
+                setMercado(...mercado)
+            } catch (error) {
+                toast.error("Erro ao carregar mercado.")
+                console.error("Erro:", error)
+            }
+        }
+        fetchData()
+    }, [idGerente])
+    // Endereço do Mercado (somente se mercado existir)
+    useEffect(() => {
+        if (!mercado) return
+        const fetchData = async () => {
+            try {
+                const enderecoMercado = await getDataByForeignKey("enderecomercados", "fk_id_mercado", mercado.id_mercado)
+                setEnderecoMercado(enderecoMercado)
+            } catch (error) {
+                toast.error("Erro ao carregar endereço do mercado.")
+                console.error("Erro:", error)
+            }
+        }
+        fetchData()
+    }, [mercado])
+    // Mercados em geral (somente se mercado existir)
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const mercados = await getData("mercados")
+                setMercados(mercados)
+            } catch (error) {
+                toast.error("Erro ao carregar endereço do mercado.")
+                console.error("Erro:", error)
+            }
+        }
+        fetchData()
+    }, [mercado])
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const enderecoMercado = await getData("enderecomercados")
+                setEnderecosMercados(enderecoMercado)
+            } catch (error) {
+                toast.error("Erro ao carregar endereço do mercado.")
+                console.error("Erro:", error)
+            }
+        }
+        fetchData()
+    }, [])
+    // // Produtos do Mercado
+    // useEffect(() => {
+    //     if (!mercado) return
+    //     const fetchData = async () => {
+    //         try {
+    //             const produtos = await getDataByForeignKey("produtos", "fk_id_mercado", mercado.id_mercado)
+    //             setProdutos(produtos)
+    //         } catch (error) {
+    //             toast.error("Erro ao carregar produtos.")
+    //             console.error("Erro:", error)
+    //         }
+    //     }
+    //     fetchData()
+    // }, [mercado])
+
+    // Palavras-Chave/Categorias
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const categorias = await getData("palavrachave")
+                setCategorias(categorias)
+            } catch (error) {
+                toast.error("Erro ao carregar palavras-chave.")
+                console.error("Erro:", error)
+            }
+        }
+        fetchData()
+    }, [])
+
 
     // Prover estados e funções aos componentes filhos
     return (
         <GlobalContext.Provider value={{
-            enderecosdb, setEnderecosdb,
-            produtosdb, setProdutosdb, unidadeOptions,
-            mercadosdb, setMercadosdb,
-            clientedb, setClientedb,
-            enderecoMercadodb, setEnderecoMercadodb,
-            horarioFuncionamento, setHorarioFuncionamento,
-            categoryOptions,
+            idEnderecoCliente,
+            loading,
 
-            getEndereco,
+            unidadeOptions,
 
             getLocalStorage, setLocalStorage,
 
-            chaveMercadoData, chaveClienteData, chaveEnderecoClienteLocal, chaveEnderecoMercadoLocal, chaveGerenteData,
-            gerentedb, setGerentedb,
-            getData, updateData, deleteData, addData, addRelation, getDataById, getDataByForeignKey, checkEmailExists, login
+            enderecosCliente, setEnderecosCliente,
+            cliente, setCliente,
+            gerente, setGerente,
+            mercado, setMercado,
+            mercados, setMercados,
+            enderecoMercado, setEnderecoMercado,
+            produtos, setProdutos,
+            categorias, setCategorias,
+            enderecosMercados, setEnderecosMercados,
+
+            chaveMercadoData,
+            chaveClienteData,
+            chaveEnderecoClienteLocal,
+            chaveEnderecoMercadoLocal,
+            chaveGerenteData,
+
+            getData,
+            updateData,
+            deleteData,
+            addData,
+            addRelation,
+            getDataById,
+            getDataByForeignKey,
+            checkEmailExists,
+            login,
+            getEndereco,
+            calcularDistanciaRota,
+            calcularDistanciaRaio,
+            uploadImage
         }}>
             {children}
         </GlobalContext.Provider>

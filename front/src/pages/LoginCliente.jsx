@@ -39,11 +39,11 @@ function LoginCliente() {
     e.preventDefault()
     const { email, senha } = formLog
 
-    const result = await login('clientes', email, 'senha', senha)
+    const result = await login('clientes', 'email', email, senha)
 
     if (result.success) {
         setMessage(result.message)  // Exibe mensagem de sucesso
-        // Redirecionar ou atualizar o estado da aplicação após login bem-sucedido
+        navigate('/mercados')// Redirecionar ou atualizar o estado da aplicação após login bem-sucedido
     } else {
         setMessage(result.message)  // Exibe mensagem de erro
     }

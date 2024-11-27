@@ -2,22 +2,34 @@ import Navbar from "../components/Navbar"
 import "./TelaDentroMercado.css"
 
 import { GlobalContext } from '../contexts/GlobalContext'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 
 function TelaDentroMercado() {
-  const { getLocalStorage, chaveMercadoLocal, mercadosdb, enderecoMercadodb } = useContext(GlobalContext)
+  const { getLocalStorage, getDataById, getDataByForeignKey} = useContext(GlobalContext)
 
-  const idMercado = getLocalStorage(chaveMercadoLocal)
+  const [mercadoAtual, setMercadoAtual] = useState({})
+  const [enderecoMercadoAtual, setEnderecoMercadoAtual] = useState({})
 
-  const mercadoAtual = mercadosdb.find((mercado) => mercado.id === idMercado)
-  const enderecoAtual = enderecoMercadodb.find((endereco) => endereco.idMercado === idMercado)
-  enderecoMercadodb.forEach((element) => console.log(element.idMercado));
-  mercadosdb.forEach((element) => console.log(element.cnpj));
+  const idMercado = getLocalStorage('id_mercado')
+
+  useEffect(() => {
+    getDataById('mercados', idMercado).then((data) => {
+    setMercadoAtual(data)
+    }).catch((error) => {
+      console.error('Erro ao buscar mercado:', error)
+    })
+    getDataByForeignKey('enderecomercados', 'fk_id_mercado', idMercado).then((data) => {
+      setEnderecoMercadoAtual(data)
+    }).catch((error) => {
+      console.error('Erro ao buscar endereço:', error)
+      })
+  }, [])
+
 
   function uuu() {
     console.log(mercadoAtual.cnpj)
     console.log(idMercado)
-    console.log(enderecoAtual)
+    console.log(enderecoMercadoAtual)
   }
 
   return (
@@ -31,9 +43,9 @@ function TelaDentroMercado() {
           </div>
           <div className="endereco-cnpj-container">
             <p className="sub-titulo-verde">Sobre</p>
-            {/* <h5>{mercadosdb.find((endereco) => endereco.idMercado === idMercadoAtivo)}</h5> */}
+            {/* <h5>{mercados.find((endereco) => endereco.idMercado === idMercadoAtivo)}</h5> */}
             <p>Informações sobre o endereço do mercado</p>
-            <p>{enderecoAtual.cep}</p>
+            <p>{enderecoMercadoAtual.cep}</p>
             <h5 className="titulo-outras-info">Outras informações</h5>
             <p>CNPJ: {mercadoAtual.cnpj}</p>
           </div>

@@ -1,37 +1,93 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import { GlobalContext } from '../contexts/GlobalContext';
 import './MercadoEstoque.css';
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 function MercadoEstoque() {
-  const { produtosdb } = useContext(GlobalContext);
+  const { getLocalStorage, setLocalStorage, getDataByForeignKey } = useContext(GlobalContext);
   const [busca, setBusca] = useState("");
   const [activeItem, setActiveItem] = useState(null);
+  const [mercado, setMercado] = useState(null);
+  const [produtos, setProdutos] = useState([]);
+  const [estoque, setEstoque] = useState({});
   const navigate = useNavigate();
+
+  const idGerente = getLocalStorage('id_gerente');
+
+  // Dados do Mercado
+  useEffect(() => {
+    if (!idGerente) return;
+    const fetchData = async () => {
+      try {
+        const mercado = await getDataByForeignKey("mercados", "fk_id_gerente", idGerente);
+        setMercado(...mercado);
+      } catch (error) {
+        toast.error("Erro ao carregar mercado.");
+        console.error("Erro:", error);
+      }
+    };
+    fetchData();
+  }, [idGerente]);
+
+  // Produtos do Mercado
+  useEffect(() => {
+    if (!mercado) return;
+    const fetchData = async () => {
+      try {
+        const produtos = await getDataByForeignKey("produtos", "fk_id_mercado", mercado.id_mercado);
+        setProdutos(produtos);
+      } catch (error) {
+        toast.error("Erro ao carregar produtos.");
+        console.error("Erro:", error);
+      }
+    };
+    fetchData();
+  }, [mercado]);
+
+  // Carregar estoque
+  useEffect(() => {
+    if (produtos.length === 0) return;
+    const carregarEstoque = async () => {
+      const novoEstoque = {};
+      for (const produto of produtos) {
+        const data = await estoqueProdutos(produto.id_produto);
+        novoEstoque[produto.id_produto] = data[0]; // Supondo que `data` seja um array e queremos o primeiro objeto
+      }
+      setEstoque(novoEstoque);
+    };
+    carregarEstoque();
+  }, [produtos]);
+
+  // Função para buscar estoque de um produto
+  const estoqueProdutos = async (idProduto) => {
+    try {
+      const data = await getDataByForeignKey('estoqueprodutos', 'fk_id_produto', idProduto);
+      return data;
+    } catch (error) {
+      console.error('Erro ao buscar estoque:', error);
+      return [];
+    }
+  };
 
   // Função para lidar com mudanças no campo de busca
   const handleBuscaChange = (event) => {
     setBusca(event.target.value);
   };
 
-  
-  const handleItemClick = () => {
-    // Quando o botão "Novo Produto" for clicado, redireciona para a página de cadastro de produto
-    setActiveItem('novoProduto');
-    navigate('/cadastroProdutos');  // Certifique-se de que a rota '/cadastroProdutos' está definida corretamente
-  };
+  const handleItemClick = () => { /* implementar */ };
 
-  // Filtra os produtos com base no termo de busca
-  const produtosFiltrados = produtosdb.filter((produto) =>
+  const clikItem = (item) => {
+    setLocalStorage('id_produto', item.id_produto)
+    setLocalStorage('produtoData', item)
+    navigate('/cadastroProdutos')
+  }
+
+  // Filtrar produtos
+  const produtosFiltrados = produtos.filter((produto) =>
     produto.nome.toLowerCase().includes(busca.toLowerCase())
   );
-
-  // Função para redirecionar para a página de cadastro com os dados do produto
-  const handleProdutoClick = (produto) => {
-    // Navega para a página de cadastro de produtos passando os dados do produto
-    navigate('/cadastroProdutos', { state: { produto } });
-  };
 
   return (
     <div className="mercado-estoque">
@@ -50,7 +106,7 @@ function MercadoEstoque() {
               onChange={handleBuscaChange}
             />
           </div>
-          <button 
+          <button
             className={`botao-novo-produto ${activeItem === 'novoProduto' ? 'active' : ''}`}
             onClick={handleItemClick}
           >
@@ -69,7 +125,7 @@ function MercadoEstoque() {
           </thead>
           <tbody>
             {produtosFiltrados.map((produto, index) => (
-              <tr key={index} onClick={() => handleProdutoClick(produto)}>
+              <tr key={index} onClick={() => clikItem(produto)}>
                 <td>
                   <div className="produto-info">
                     <div className="produto-imagem-placeholder">
@@ -78,8 +134,8 @@ function MercadoEstoque() {
                     <div>
                       <p>{produto.nome}</p>
                       <p className="produto-detalhes">
-                        {produto.informacaoAdicional
-                          ? `${produto.informacaoAdicional.peso} ${produto.informacaoAdicional.unidade}`
+                        {produto.quantidade && produto.unidademedida
+                          ? `${produto.quantidade} ${produto.unidademedida}`
                           : 'Sem detalhes'}
                       </p>
                     </div>
@@ -92,11 +148,17 @@ function MercadoEstoque() {
                 </td>
                 <td>
                   <span className="disponivel">
-                    <span className={`circulo-disponivel ${produto.quantidade > 0 ? 'verde' : 'vermelho'}`}></span>
-                    {produto.quantidade > 0 ? 'Sim' : 'Não'}
+                    <span
+                      className={`circulo-disponivel ${estoque[produto.id_produto]?.quantidade_estoque > 0 ? 'verde' : 'vermelho'
+                        }`}
+                    ></span>
+                    {estoque[produto.id_produto]?.quantidade_estoque > 0 ? 'Sim' : 'Não'}
                   </span>
                 </td>
-                <td>{produto.quantidade} unidades</td>
+                <td>
+
+                  {estoque[produto.id_produto]?.quantidade_estoque || 0} {estoque[produto.id_produto]?.quantidade_estoque === 1 ? 'unidade' : 'unidades'}
+                </td>
               </tr>
             ))}
           </tbody>

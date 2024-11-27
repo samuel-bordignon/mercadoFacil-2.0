@@ -13,6 +13,7 @@ function PerfilCliente() {
   const { getDataById, getLocalStorage, updateData, checkEmailExists, deleteData } = useContext(GlobalContext)
 
   const idCliente = getLocalStorage('id_cliente')
+  const idEndereco = getLocalStorage('id_enderecocliente')
   const storageLocal = getLocalStorage('ClienteData')
   const [activeBtn, setActiveBtn] = useState(null)
   const [popPupAtivo, setPopPupAtivo] = useState(false)
@@ -119,7 +120,8 @@ function PerfilCliente() {
   const handleDeleteAccount = async () => {
     try {
       const success = await deleteData('clientes', idCliente)
-      if (success) {
+      const success2 = await deleteData('enderecoclientes', idEndereco)
+      if (success && success2) {
         toast.success('Conta excluída com sucesso! Esperamos te ver novamente em breve.')
         // Limpa os dados do localStorage e redireciona para a página inicial
         localStorage.clear()

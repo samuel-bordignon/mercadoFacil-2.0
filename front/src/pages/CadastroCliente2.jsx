@@ -9,7 +9,7 @@ import Voltar from '../assets/flechaAzul.svg'
 import Cover from '../assets/Cover.png'
 
 function CadastroCliente2() {
-    const { addData, updateData, getLocalStorage, setLocalStorage, chaveEnderecoClienteLocal, getEndereco, addRelation} = useContext(GlobalContext)
+    const { addData, updateData, getLocalStorage, setLocalStorage, chaveEnderecoClienteLocal, getEndereco, addRelation } = useContext(GlobalContext)
 
     const navigate = useNavigate()
     const id = getLocalStorage('id_enderecocliente')
@@ -52,7 +52,7 @@ function CadastroCliente2() {
             fetchEndereco()
         }
     }, [cep, setValue, getEndereco])
- 
+
     const onSubmit = async (data) => {
         if (verificaDadosObjeto(storageLocal)) {
             await updateData('enderecoclientes', id, {
@@ -77,34 +77,34 @@ function CadastroCliente2() {
                 complemento: data.complemento
             })
         }
-    
+
         // Atualize o LocalStorage com os dados do endereço
         setLocalStorage(chaveEnderecoClienteLocal, data)
-    
+
         // Verifique as condições para realizar o POST na tabela de relação e avançar de tela
         const isClienteUpdated = getLocalStorage('isClienteVality') === true
         const isEnderecoUpdated = getLocalStorage('isEnderecoClienteVality') === true
         const idCliente = getLocalStorage('id_cliente')
         const idEndereco = getLocalStorage('id_enderecocliente')
-    
+
         if (isClienteUpdated && isEnderecoUpdated && idCliente && idEndereco) {
             console.log('Adicionando a tabela enderecoclientes...')
             await addData('endereco_cliente_relecao', {
                 fk_id_cliente: idCliente,
                 fk_id_enderecocliente: idEndereco
             })
-    
+
             // Atualize os indicadores no LocalStorage
             setLocalStorage('isClienteVality', false)
             setLocalStorage('isEnderecoClienteVality', false)
-    
+
             // Avance para a próxima tela
             navigate('/mercados')
         } else {
             console.error('Erro: Cliente ou Endereço não foram atualizados corretamente.')
         }
     }
-    
+
 
     // Verificar se o objeto tem dados válidos
     function verificaDadosObjeto(obj) {
@@ -130,6 +130,7 @@ function CadastroCliente2() {
                         <div className="container-inputs">
                             <label className="label">CEP</label>
                             <input
+                                type='number'
                                 className="input"
                                 {...register('cep')}
                             />
@@ -155,7 +156,7 @@ function CadastroCliente2() {
                             <label className="label">Número</label>
                             <input
                                 placeholder='Opcional'
-                                type='text'
+                                type='number'
                                 className="input"
                                 {...register('numero')}
                             />

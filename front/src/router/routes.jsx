@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom"; 
+import { createBrowserRouter } from "react-router-dom";
 import HomeMercados from "../pages/HomeMercados";
 import GerenciaLista from "../pages/GerenciaLista";
 import PerfilCliente from "../pages/PerfilCliente";
@@ -27,33 +27,33 @@ import ComparacaoLista from "../pages/ComparacaoLista";
 import GerenciaListas from "../pages/GerenciaListas";
 
 const router = createBrowserRouter([
-    {path: "/mercados", element: <HomeMercados />},
-    {path: "/listaCompras", element: <GerenciaLista />},
-    {path: "/perfilCliente", element: <PerfilCliente />},
-    {path: "/ccdsf", element: <EscolhaLoginCadastro />},
-    {path: "/", element: <EscolhaLoginCadastro />},
-    {path: "/loginDois", element: <EscolhaLogin />},
-    {path: "/criarConta", element: <EscolhaCadastro />},
-    {path: "/loginParceiro", element: <LoginParceiro />},
-    {path: "/loginCliente", element: <LoginCliente />},
-    {path: "/criarConta/CadastroCliente", element: <CadastroCliente1 />},
-    {path: "/cadastroEnderecoCliente", element: <CadastroCliente2 />},
-    {path: "/criarConta/CadastroParceiro1", element: <CadastroPerceiro1 />},
-    {path: "/criarConta/CadastroParceiro2", element: <CadastroPerceiro2 />},
-    {path: "/criarConta/CadastroParceiro3", element: <CadastroPerceiro3 />},
-    {path: "/acessoParceiro", element: <AcessoParceiro />},
+    { path: "/mercados", element: <HomeMercados /> },
+    { path: "/listaCompras", element: <GerenciaLista /> },
+    { path: "/perfilCliente", element: <PerfilCliente /> },
+    { path: "/ccdsf", element: <EscolhaLoginCadastro /> },
+    { path: "/", element: <EscolhaLoginCadastro /> },
+    { path: "/loginDois", element: <EscolhaLogin /> },
+    { path: "/criarConta", element: <EscolhaCadastro /> },
+    { path: "/loginParceiro", element: <LoginParceiro /> },
+    { path: "/loginCliente", element: <LoginCliente /> },
+    { path: "/criarConta/CadastroCliente", element: <CadastroCliente1 /> },
+    { path: "/cadastroEnderecoCliente", element: <CadastroCliente2 /> },
+    { path: "/criarConta/CadastroParceiro1", element: <CadastroPerceiro1 /> },
+    { path: "/criarConta/CadastroParceiro2", element: <CadastroPerceiro2 /> },
+    { path: "/criarConta/CadastroParceiro3", element: <CadastroPerceiro3 /> },
+    { path: "/acessoParceiro", element: <AcessoParceiro /> },
     // {path: "/dragoes", element: <Dragoes />},
-    {path: "/anima", element: <TesteAnimacao />},
-    {path: "/addEndereco", element: <AddEndereco />},
-    {path: "/telaDentroMercado", element: <TelaDentroMercado />},
-    {path: "/formulario", element: <FormularioTeste />},
-    {path: "/sidebar", element: <Sidebar />},
-    {path: "/perfilMercado", element: <PerfilMercado />},
-    {path: "/perfilGerente", element: <PerfilGerente />},
-    {path: "/mercadoEstoque", element: <MercadoEstoque/>},
-    {path: "/cadastroProdutos", element: <MercadoCadastroProdutos/>},
-    {path: "/comparacaoLista", element: <ComparacaoLista/>},
-    {path: "/gerencialistas", element: <GerenciaListas />},
+    { path: "/anima", element: <TesteAnimacao /> },
+    { path: "/addEndereco", element: <AddEndereco /> },
+    { path: "/telaDentroMercado", element: <TelaDentroMercado /> },
+    { path: "/formulario", element: <FormularioTeste /> },
+    { path: "/sidebar", element: <Sidebar /> },
+    { path: "/perfilMercado", element: <PerfilMercado /> },
+    { path: "/perfilGerente", element: <PerfilGerente /> },
+    { path: "/mercadoEstoque", element: <MercadoEstoque /> },
+    { path: "/cadastroProdutos", element: <MercadoCadastroProdutos /> },
+    { path: "/comparacaoLista", element: <ComparacaoLista /> },
+    { path: "/gerencialistas", element: <GerenciaListas /> },
 
 ])
 

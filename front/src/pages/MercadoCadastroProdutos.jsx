@@ -1,285 +1,424 @@
-import React, { useState, useContext } from 'react';
-import Select from 'react-select';
-import Sidebar from '../components/Sidebar';
-import './MercadoCadastroProdutos.css';
-import { GlobalContext } from '../contexts/GlobalContext';
-import InputMask from 'react-input-mask';
+import React, { useState, useContext, useEffect } from "react"
+import Select from "react-select"
+import Sidebar from "../components/Sidebar"
+import "./MercadoCadastroProdutos.css"
+import { GlobalContext } from "../contexts/GlobalContext"
+import { useForm, Controller } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { div } from "framer-motion/client"
 
 function MercadoCadastroProdutos() {
-  const { categoryOptions, produtosdb, setProdutosdb, unidadeOptions } = useContext(GlobalContext);
+  const { unidadeOptions, uploadImage, getLocalStorage, getDataByForeignKey, getDataById, getData, loading, updateData , addRelation } = useContext(GlobalContext)
+  const [image, setImage] = useState(null)
+  const [filePath, setFilePath] = useState('')
+  const idProduto = getLocalStorage('id_produto')
+  const storageLocal = getLocalStorage('produtoData')
+  const [categoriaProdutos, setCategoriaProdutos] = useState([])
+  const [idEstoqueProduto, setIdEstoqueProduto] = useState(null)
 
-  const [formData, setFormData] = useState({
-    nome: '',
-    preco: '',
-    informacaoAdicional: { peso: '', unidade: '' },
-    quantidade: '',
-    imagem: '',
-    codigoProduto: '',
-    categoria: [],
-    detalhes: '',
-  });
+  const produtoSchema = z.object({
+    nome: z.string().min(1, "Nome é obrigatório"),
+    preco: z
+      .string()
+      .regex(/^\d+(\.\d{1,2})?$/, "Preço deve ser um número válido")
+      .transform((val) => parseFloat(val).toFixed(2)),
+    codigo: z
+      .string()
+      .min(5, "O código do produto deve ter pelo menos 5 caracteres")
+      .max(20, "O código do produto não pode exceder 20 caracteres"),
+    quantidade_estoque: z
+      .string()
+      .regex(/^\d+$/, "Quantidade deve ser um número inteiro")
+      .transform((val) => parseInt(val, 10).toString()), // Retorna string
+    quantidade: z
+      .string()
+      .regex(/^\d+$/, "Quantidade deve ser um número inteiro")
+      .transform((val) => parseInt(val, 10).toString()), // Retorna string
+    categoria: z.array(z.object({ value: z.string(), label: z.string() })), // Formato esperado pelo Select
+    imagem_file_path: z
+      .string()
+      .min(1, { message: "A imagem é obrigatória" })
+      .regex(/^data:image\/[a-zA-Z]+;base64,/, "O formato da imagem deve ser Base64"),
+    descricao: z
+      .string()
+      .max(255, "A descrição não pode ultrapassar 255 caracteres")
+      .optional(),
+    unidade: z.object({
+      value: z.string(),
+      label: z.string(),
+    }),
 
-  const [image, setImage] = useState(null);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [editIndex, setEditIndex] = useState(null);
-  const [price, setPrice] = useState('');
-  const [errors, setErrors] = useState({});
+  })
 
-  const handleFileChange = (event) => {
+
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(produtoSchema),
+    defaultValues: {
+      codigo: "",
+      descricao: "",
+      imagem_file_path: "",
+      nome: "",
+      preco: "",
+      quantidade: "",
+      categoria: [], // Inicial vazio, preenchido dinamicamente
+      unidade: {}, // `null` para começar vazio no react-select,
+    },
+  })
+
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      backgroundColor: '#FAFAFA',
+      borderColor: ' #ccc',
+      boxShadow: state.isFocused ? 'none' : 'none',
+      '&:hover': {
+        borderColor: '#0C194E',
+      },
+      borderRadius: 'var(--Corner-Extra-small, 4px)',
+      padding: '7px 5px',
+      width: '100%', // Corrigido para ocupar todo o espaço disponível
+      height: "45px", // Define a altura do Select
+      minHeight: "45px",
+      borderRadius: "4px", // Certifique-se de usar o mesmo estilo do input
+      fontSize: "16px",
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      color: 'gray',
+      fontSize: '14px',
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: '#0C194E',
+      fontWeight: '600',
+    }),
+    dropdownIndicator: (provided) => ({
+      ...provided,
+      color: '#898989',
+      '&:hover': {
+        color: '#00C677',
+      },
+    }),
+    menu: (provided) => ({
+      ...provided,
+      backgroundColor: 'white',
+      borderRadius: '8px',
+      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      width: '100%', // Alinha o dropdown com o controle
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isFocused ? 'rgba(0, 123, 255, 0.1)' : 'white',
+      color: state.isSelected ? '#0C194E' : 'black',
+      fontWeight: state.isSelected ? '600' : '400',
+      padding: '10px',
+      '&:active': {
+        backgroundColor: 'rgba(0, 123, 255, 0.2)',
+      },
+    }),
+  }
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!idProduto) return
+      try {
+        const produto = getLocalStorage("produtoData")
+        const tabelaRelacao = await getDataByForeignKey(
+          "palavrachave_produto_relacao",
+          "fk_id_produto",
+          produto.id_produto
+        )
+        const categoriasRelacionadas2 = await Promise.all(
+          tabelaRelacao.map((item) =>
+            getDataById("palavrachave", item.fk_id_palavrachave)
+          )
+        )
+
+        const categoriasFormatadasDefout = categoriasRelacionadas2.map(
+          (categoria) => ({
+            value: categoria.id_palavrachave.toString(), // Converte para string
+            label: categoria.nome_palavra,
+          })
+        )
+
+        const estoque = await getDataByForeignKey(
+          "estoqueprodutos",
+          "fk_id_produto",
+          produto.id_produto
+        )
+
+        // Garantir que os valores estejam no formato correto
+        setValue("nome", produto.nome || "")
+        setValue("preco", produto.preco?.toFixed(2).toString() || "") // Converte para string
+        setValue("descricao", produto.descricao || "")
+        setValue("codigo", produto.codigo || "")
+        setValue(
+          "quantidade_estoque",
+          estoque[0]?.quantidade_estoque?.toString() || "0" // Converte para string
+        )
+        setValue("quantidade", produto.quantidade?.toString() || "") // Converte para string
+        setValue("unidade", produto.unidademedida
+          ? { value: produto.unidademedida, label: produto.unidademedida }
+          : null
+        );
+        setValue("unidade", { value: produto.unidademedida, label: produto.unidademedida } || "") // Certifique-se de que é string
+        setValue("categoria", categoriasFormatadasDefout) // Certifique-se de que está no formato correto
+        setValue("imagem_file_path", produto.imagem_file_path || "")
+
+        const data = await getData("palavrachave")
+        const categorias = data.map((item) => ({
+          value: item.id_palavrachave.toString(), // Converte para string
+          label: item.nome_palavra,
+        }))
+
+        setCategoriaProdutos(categorias)
+      } catch (error) {
+        console.error("Erro ao carregar dados:", error)
+      }
+    }
+
+    fetchData()
+  }, [setValue, idProduto])
+
+
+
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result);
-        setFormData((prevData) => ({
-          ...prevData,
-          imagem: reader.result,
-        }));
+        const base64String = reader.result;
+        setImage(base64String); // Atualiza o estado localx     
+        setValue("imagem_file_path", base64String); // Define o valor do campo no formulário
       };
       reader.readAsDataURL(file);
     }
   };
 
   const handleDivClick = () => {
-    document.getElementById('file-input').click();
-  };
+    document.getElementById('file-input').click()
+  }
 
-  const handlePriceChange = (event) => {
-    let value = event.target.value.replace(/\D/g, '');
-    if (value) {
-      value = (Number(value) / 100).toFixed(2);
-    }
-    setPrice(value);
-    setFormData((prevData) => ({
-      ...prevData,
-      preco: value ? Number(value) : '',
-    }));
-  };
+  const onSubmit = async (data) => {
+    if (idProduto) {
+      // const filePath = await uploadImage(data.imagem_file_path)
+      // setFilePath(filePath)
+      // await updateData('produtos', idProduto, {
+      //   nome: data.nome,
+      //   preco: data.preco,
+      //   descricao: data.descricao,
+      //   codigo: data.codigo,
+      //   quantidade: data.quantidade,
+      //   unidade: data.unidade.value,
+      //   imagem_file_path: filePath
+      // })
+      // const idEstoqueProduto = await getDataByForeignKey('estoqueprodutos', 'fk_id_produto', idProduto)
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === 'peso') {
-      setFormData((prevData) => ({
-        ...prevData,
-        informacaoAdicional: {
-          ...prevData.informacaoAdicional,
-          peso: value,
-        },
-      }));
+      // await updateData('estoqueprodutos', idEstoqueProduto, {
+      //   quantidade_estoque: data.quantidade_estoque
+      // })  
+
+      data.categoria.map(async (categoria) => {
+        const result = await getDataByForeignKey('palavrachave_produto_relacao', 'fk_id_produto', idProduto);
+        const categoriasRelacionadas = result.map((item) => {
+          console.log(item.fk_id_palavrachave)
+          console.log(categoria.value)
+          if (item.fk_id_palavrachave === parseInt(categoria.value)) {
+            return item
+          }else{
+            const newCategory = addRelation('palavrachave_produto_relacao', idProduto, categoria.value)
+          }
+        })
+        console.log(categoriasRelacionadas)
+        
+      })
     } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
+      const newEndereco = await addData('enderecoclientes', {
+        cep: data.cep,
+        bairro: data.bairro,
+        logradouro: data.logradouro,
+        numero: data.numero,
+        latitude: lat,
+        longitude: lng,
+        apelido: data.apelido,
+        complemento: data.complemento,
+      })
+      await addRelation('endereco_cliente_relecao', idCliente, newEndereco.id_enderecocliente)
+      setEnderecosCliente([...enderecosCliente, newEndereco])
     }
-  };
-
-  const handleCategoryChange = (selected) => {
-    setSelectedCategories(selected);
-    setFormData((prevData) => ({
-      ...prevData,
-      categoria: selected ? selected.map((cat) => cat.value) : [],
-    }));
-  };
-
-  const handleUnidadeChange = (selected) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      informacaoAdicional: {
-        ...prevData.informacaoAdicional,
-        unidade: selected ? selected.value : '', 
-      },
-    }));
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.nome) newErrors.nome = 'Nome é obrigatório';
-    if (!formData.preco) newErrors.preco = 'Preço é obrigatório';
-    if (!formData.codigoProduto) newErrors.codigoProduto = 'Código do produto é obrigatório';
-    if (!formData.categoria.length) newErrors.categoria = 'Selecione ao menos uma categoria';
-    if (!formData.quantidade) newErrors.quantidade = 'Estoque é obrigatório';
-    if (!formData.informacaoAdicional.unidade) newErrors.unidade = 'Unidade é obrigatória';
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!validateForm()) {
-      return;
-    }
-
-    const newProduct = {
-      ...formData,
-      id: editIndex !== null ? produtosdb[editIndex].id : produtosdb.length + 1,
-    };
-
-    if (editIndex !== null) {
-      const updatedProdutos = [...produtosdb];
-      updatedProdutos[editIndex] = newProduct;
-      setProdutosdb(updatedProdutos);
-    } else {
-      setProdutosdb([...produtosdb, newProduct]);
-    }
-
-    handleCancelEdit();
-  };
-
-  const handleCancelEdit = () => {
-    setEditIndex(null);
-    setFormData({
-      nome: '',
-      preco: '',
-      informacaoAdicional: { peso: '', unidade: '' },
-      quantidade: '',
-      imagem: '',
-      codigoProduto: '',
-      categoria: [],
-      detalhes: '',
-    });
-    setSelectedCategories([]);
-    setImage(null);
-    setPrice('');
-    setErrors({});
   };
 
   return (
     <div>
       <Sidebar />
-      <div className="container-CadastroProdutos">
-        <div className="titulo">
-          <h1>{editIndex !== null ? 'Editar Produto' : 'Novo Produto'}</h1>
+      {loading ? (
+        <div className="loading">
+          <div className="spinner"></div>
         </div>
-        <form onSubmit={handleSubmit}>
-          <div className="container-formulario">
-            <div className="container-vitrine">
-              <div className="container-image" onClick={handleDivClick}>
-                <div className="imagemProduto">
-                  {image ? (
-                    <img src={image} alt="Imagem carregada" style={{ maxWidth: '100%' }} />
-                  ) : (
-                    <p>Clique para adicionar uma imagem</p>
-                  )}
-                </div>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  style={{ display: 'none' }}
-                  id="file-input"
-                />
-              </div>
-              <h2 className="titulo-vitrine">Vitrine</h2>
-              <p>Nome do Produto</p>
-              <input
-                type="text"
-                name="nome"
-                placeholder="Ex: Banana Prata"
-                value={formData.nome}
-                onChange={handleChange}
-                className={errors.nome ? 'error' : ''}
-              />
-              {errors.nome && <span className="error">{errors.nome}</span>}
+      ) : (
 
-              <p>Descrição</p>
-              <input
-                type="text"
-                name="detalhes"
-                placeholder="Ex: 500g"
-                value={formData.detalhes}
-                onChange={handleChange}
-              />
-
-              <p>Preço de venda</p>
-              <input
-                type="text"
-                placeholder="Preço de Venda"
-                value={price ? `R$ ${price.replace('.', ',')}` : ''}
-                onChange={handlePriceChange}
-                className={errors.preco ? 'error' : ''}
-              />
-              {errors.preco && <span className="error">{errors.preco}</span>}
-            </div>
-
-            <div className="container-detalhes">
-              <h2>Detalhes</h2>
-              <p>Código do Produto</p>
-              <InputMask
-                mask="9999999999999"
-                type="text"
-                name="codigoProduto"
-                placeholder="Ex: 1234567890"
-                value={formData.codigoProduto}
-                onChange={handleChange}
-                className={errors.codigoProduto ? 'error' : ''}
-              />
-              {errors.codigoProduto && <span className="error">{errors.codigoProduto}</span>}
-
-              <p>Categoria</p>
-              <Select
-                options={categoryOptions}
-                isMulti
-                placeholder="Buscar por palavra-chave"
-                onChange={handleCategoryChange}
-                value={selectedCategories}
-                className="select-category"
-                styles={{
-                  menu: (provided) => ({
-                    ...provided,
-                    maxHeight: 160,
-                    overflowY: 'auto',
-                  }),
-                }}
-              />
-              {errors.categoria && <span className="error">{errors.categoria}</span>}
-
-              <p>Estoque</p>
-              <input
-                type="text"
-                name="quantidade"
-                placeholder="Quantidade em estoque"
-                value={formData.quantidade}
-                onChange={handleChange}
-                className={errors.quantidade ? 'error' : ''}
-              />
-              {errors.quantidade && <span className="error">{errors.quantidade}</span>}
-
-              <p>Unidade de medida</p>
-              <div style={{ display: 'flex', gap: '30px', alignItems: 'center' }}>
-                <input
-                  type="text"
-                  name="peso"
-                  placeholder="Peso"
-                  value={formData.informacaoAdicional.peso}
-                  onChange={handleChange}
-                  className={errors.valorUnidade ? 'error' : ''}
-                />
-
-                <Select
-                  options={unidadeOptions}
-                  placeholder="Unidade"
-                  onChange={handleUnidadeChange}
-                  value={unidadeOptions.find((option) => option.value === formData.informacaoAdicional.unidade)}
-                  className="select-unidade"
-                  styles={{ minWidth: '150px', width: 'auto' }}
-                />
-              </div>
-              {errors.unidade && <span className="error">{errors.unidade}</span>}
-
-              <div className="borda-botoes">
-                <div className="botoes">
-                  <button type="submit" className="salvar">Salvar Alterações</button>
-                  <button type="button" className="cancelar" onClick={handleCancelEdit}>Cancelar</button>
-                </div>
-              </div>
-            </div>
+        <div className="container-CadastroProdutos">
+          <div className="titulo">
+            <h1>{idProduto !== null ? "Editar Produto" : "Novo Produto"}</h1>
           </div>
-        </form>
-      </div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="container-formulario">
+              <div className="container-vitrine">
+                <div className="container-image" onClick={handleDivClick}>
+                  <div className="imagemProduto">
+                    {image ? (
+                      <img src={image} alt="Imagem carregada" style={{ maxWidth: "100%" }} />
+                    ) : (
+                      <p>Clique para adicionar uma imagem</p>
+                    )}
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    {...register("imagem_file_path")}
+                    onChange={handleFileChange}
+                    style={{ display: "none" }}
+                    id="file-input"
+                  />
+                </div>
+                {errors.imagem_file_path && <span className="error-message">{errors.imagem_file_path.message}</span>}
+                {/* Nome do Produto */}
+                <p>Nome do Produto</p>
+                <input
+                  {...register("nome")}
+                  type="text"
+                  placeholder="Ex: Banana Prata"
+                  className={errors.nome}
+                />
+                {errors.nome && <span className="error-message">{errors.nome.message}</span>}
+
+                {/* descricao */}
+                <p>Descrição</p>
+                <input
+                  {...register("descricao")}
+                  type="text"
+                  placeholder="Ex: 500g"
+                />
+                {errors.descricao && (
+                  <span className="error-message">{errors.descricao.message}</span>
+                )}
+
+                {/* Preço */}
+                <p>Preço de venda</p>
+                <input
+                  {...register("preco")}
+                  type="text"
+                  placeholder="Preço de Venda"
+                  className={errors.preco}
+                />
+                {errors.preco && <span className="error-message">{errors.preco.message}</span>}
+              </div>
+
+              {/* descricao */}
+              <div className="container-detalhes">
+                {/* Código do Produto */}
+                <p>Código do Produto</p>
+                <input
+                  {...register("codigo")}
+                  type="text"
+                  placeholder="Ex: 1234567890"
+                />
+                {errors.codigo && (
+                  <span className="error-message">{errors.codigo.message}</span>
+                )}
+
+                {/* Categoria */}
+                <p>Categoria</p>
+                <Controller
+                  control={control}
+                  name="categoria"
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      options={categoriaProdutos} // Todas as opções disponíveis
+                      isMulti
+                      placeholder="Busque por palavra-chave"
+                      className={`select-category`}
+                    />
+                  )}
+                />
+                {errors.categoria && (
+                  <span className="error-message">{errors.categoria.message}</span>
+                )}
+
+
+                {/* Quantidade */}
+                <p>Quantidade em estoque</p>
+                <input
+                  {...register("quantidade_estoque")}
+                  type="text"
+                  placeholder="Quantidade em estoque"
+                  className={errors.quantidade_estoque}
+                />
+                {errors.quantidade_estoque && (
+                  <span className="error-message">{errors.quantidade_estoque.message}</span>
+                )}
+
+                {/* Unidade */}
+                <p>Peso, volume ou unidade de medida</p>
+                <div className="input-unidade-container">
+                  <input
+                    {...register("quantidade")}
+                    type="text"
+                    id="quantidade-input"
+                    placeholder="Quantidade em estoque"
+                    className={errors.quantidade}
+                  />
+                  {errors.quantidade && (
+                    <span className="error-message">{errors.quantidade.message}</span>
+                  )}
+                  <Controller
+                    control={control}
+                    name="unidade"
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        options={unidadeOptions} // Certifique-se de que unidadeOptions está no formato [{value, label}]
+                        placeholder="Selecione a unidade"
+                        className={`select-unidade ${errors.unidade}`}
+                        styles={customStyles}
+                      />
+                    )}
+                  />
+                </div>
+                {errors.unidade && (
+                  <span className="error-message">{errors.unidade.message}</span>
+                )}
+
+
+                {/* Botões */}
+                <div className="borda-botoes">
+                  <div className="botoes">
+                    <button type="submit" className="salvar">
+                      Salvar Alterações
+                    </button>
+                    <button type="button" className="cancelar">
+                      Cancelar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
-  );
+  )
+
 }
 
-export default MercadoCadastroProdutos;
+export default MercadoCadastroProdutos

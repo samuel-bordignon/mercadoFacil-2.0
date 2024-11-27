@@ -71,14 +71,16 @@
 
 
 .enderecos-salvos {
-    position: relative; /* Adiciona posicionamento relativo para controle do z-index */
+    position: relative;
+    /* Adiciona posicionamento relativo para controle do z-index */
     width: 29%;
     background-color: #f9f9f9;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     height: 990px;
-    z-index: 1; /* Camada geral para o container */
+    z-index: 1;
+    /* Camada geral para o container */
 }
 
 .enderecos-salvos h3 {
@@ -105,8 +107,10 @@
 .enderecos-salvos li .info-endereco {
     display: flex;
     flex-direction: column;
-    position: relative; /* Posiciona em relação a cada item da lista */
-    z-index: 1; /* Ajuste para garantir que o conteúdo esteja acima do fundo */
+    position: relative;
+    /* Posiciona em relação a cada item da lista */
+    z-index: 1;
+    /* Ajuste para garantir que o conteúdo esteja acima do fundo */
     right: 15%;
 }
 
@@ -127,14 +131,15 @@
     right: 0;
     top: 10px;
     font-size: 16px;
-    z-index: 2; /* Apelido acima dos demais detalhes */
+    z-index: 2;
+    /* Apelido acima dos demais detalhes */
 }
 
 .botao-editar {
-    background-color: #f1f1f1; 
-    color: #0C194E; 
-    border: 1px solid #ddd; 
-    border-radius: 5px; 
+    background-color: #f1f1f1;
+    color: #0C194E;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
     position: absolute;
@@ -142,52 +147,53 @@
     bottom: 10px;
     font-size: 14px;
     font-weight: bold;
-    z-index: 3; /* Botão acima de todos */
+    z-index: 3;
+    /* Botão acima de todos */
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .botao-editar:hover {
-    background-color: #0C194E; 
-    color: #fff; 
-    border-color: #0C194E; 
+    background-color: #0C194E;
+    color: #fff;
+    border-color: #0C194E;
 }
 
 .botao-cancelar {
-    background-color: #D9D9D9; 
-    color: #0C194E; 
-    padding: 15px; 
-    width: 100%; 
-    border: none; 
-    border-radius: 5px; 
-    font-size: 16px; 
-    cursor: pointer; 
-    margin-top: 10px; 
+    background-color: #D9D9D9;
+    color: #0C194E;
+    padding: 15px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
     transition: background-color 0.3s ease;
     flex-direction: column;
 }
 
 .botao-cancelar:hover {
-    background-color: rgb(192, 190, 190); 
+    background-color: rgb(192, 190, 190);
 }
 
 .botao-deletar {
     background-color: #0C194E;
     color: white;
     padding: 15px;
-    border: none; 
-    border-radius: 5px; 
-    font-size: 16px; 
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
     width: 49%;
 }
 
 .botao-deletar:hover {
-    background-color: #132777; 
+    background-color: #132777;
 }
 
 .botoes-alterar-deletar {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     position: relative;
 }
 
@@ -198,8 +204,9 @@
 
 .botoes-alterar-deletar {
     display: flex;
-    width: 100%; 
+    width: 100%;
 }
+
 .botao-salvar {
     background-color: #28a745;
     color: white;
@@ -212,17 +219,44 @@
 }
 
 .botao-salvar:hover {
-    background-color: #28a746e7; 
+    background-color: #28a746e7;
 }
 
 .botao-salvar.large {
-    padding: 15px; 
-    width: 100%; 
+    padding: 15px;
+    width: 100%;
 }
 
 .botao-salvar.small {
-    padding: 10px; 
-    width: 49%; 
+    padding: 10px;
+    width: 49%;
 }
 
 
+.loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.spinner {
+    width: 130px;
+    height: 130px;
+    border: 6px solid transparent; /* Mantém o fundo transparente */
+    border-top: 6px solid #00C677; /* Define a cor da parte giratória */
+    border-radius: 50%; /* Garante bordas arredondadas */
+    animation: spin 1s linear infinite;
+    box-shadow: 0 0 0 6px transparent; /* Garante uniformidade visual */
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
