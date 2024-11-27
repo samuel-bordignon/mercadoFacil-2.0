@@ -76,17 +76,16 @@ function MercadoEstoque() {
     setBusca(event.target.value);
   };
 
-  const handleItemClick = () => { /* implementar */ };
-
-  const clikItem = (item) => {
-    setLocalStorage('id_produto', item.id_produto)
-    setLocalStorage('produtoData', item)
-    navigate('/cadastroProdutos')
-  }
-
-  // Filtrar produtos
-  const produtosFiltrados = produtos.filter((produto) =>
-    produto.nome.toLowerCase().includes(busca.toLowerCase())
+  
+  const handleItemClick = () => {
+    // Quando o botão "Novo Produto" for clicado, redireciona para a página de cadastro de produto
+    setActiveItem('novoProduto');
+    navigate('/cadastroProdutos');  // Certifique-se de que a rota '/cadastroProdutos' está definida corretamente
+  };
+  
+  // Filtra os produtos com base no termo de busca
+  const produtosFiltrados = produtosdb.filter((produto) =>
+  produto.nome.toLowerCase().includes(busca.toLowerCase())
   );
 
   return (

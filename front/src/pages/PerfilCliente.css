@@ -55,11 +55,10 @@
 
 }
 
-.informacoes-detalhadas {
-    margin: 3%;
+.informacoes-detalhadas label{
+    margin-left: 3%;
 
 }
-
 
 .informacoes-detalhadas input {
     border: none;
@@ -70,13 +69,14 @@
 }
 
 .informacoes-detalhadas hr {
-    width: 95%;
+    width: 90%;
+    margin-left: 3%;
 
 }
 
 .container-contato {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.301);
-    height: 55%;
+    width: 100%;
     margin-top: 10%;
 
 }
@@ -99,11 +99,6 @@
     border-radius: 20px;
     margin-right: 3.5%;
     margin-top: 1.5%;
-
-}
-
-.informacoes-detalhadas-contato {
-    margin-left: 3%;
 
 }
 

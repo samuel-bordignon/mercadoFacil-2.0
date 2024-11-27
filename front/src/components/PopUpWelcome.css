@@ -1,37 +1,76 @@
-
-
-/* Centralização do pop-up no interior da sidebar */
+/* Centralização do pop-up no centro da tela */
 .popup-overlay {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
+  position: fixed; /* Fixar na tela */
+  top: 50%; /* Centralizar verticalmente */
+  left: 50%; /* Centralizar horizontalmente */
+  transform: translate(-50%, -50%);
   z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 80%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+  width: 100vw; /* Ocupa largura total */
+  height: 100vh; /* Ocupa altura total */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Container do pop-up */
 .popup-welcome {
   display: flex;
+  flex-direction: row;
   background-color: white;
-  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  width: 80%;
+  max-width: 900px; /* Largura máxima */
+  height: auto;
+  overflow: hidden;
 }
 
+/* Seção azul à esquerda */
 .popup-left {
   flex: 1;
-  padding-right: 20px;
+  padding: 20px;
+  background-color: #0C194E;
+  color: #fff;
+  border-radius: 8px 0 0 8px;
+  text-align: center;
 }
 
-.popup-right {
-  flex: 1;
+.popup-left h2 {
+  color: #fff;
+  font-size: 20px;
+  margin: 20px 0;
+}
+
+.popup-left p {
+  margin: 20px 0;
 }
 
 .popup-logo {
-  width: 100px;
-  margin-top: 20px;
+  width: 200px;
+  margin: 20px auto;
+  display: block;
+}
+
+/* Seção branca à direita */
+.popup-right {
+  flex: 1;
+  padding: 20px;
+  text-align: left;
+  font-size: 16px;
+}
+
+.popup-right h3 {
+  color: #0C194E;
+  font-size: 20px;
+  margin-bottom: 10px;
+  
+}
+
+.popup-right p {
+  margin: 10px 0;
+  color: #333;
+  font-size: 16px;
 }
 
 .popup-button {
@@ -41,8 +80,12 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-top: 20px;
+  margin-left: 20%;
 }
 
 .popup-button:hover {
   background-color: #2bb78b;
 }
+
+
