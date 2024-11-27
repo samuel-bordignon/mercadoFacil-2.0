@@ -75,12 +75,15 @@ function ComparacaoLista() {
 
           <div className='produto-nao-encontrado'>
           <h2>Não encontramos 2 itens da lista</h2>
+          <div className='foto-quadrada'>
+          <img src="oleo.png" alt="" />
           <div className='detalhe'>
           <h3>Nome do mercado</h3>
           <h5>Peso/Qualquer coisa</h5>
-            <h3>R$ 0,00</h3>
+          <h3>R$ 0,00</h3>
           </div>
-          <p className='remover'>Remover</p>
+          </div>
+          <button className='remover'>Remover</button>
           </div>
           
           <div className='add'>

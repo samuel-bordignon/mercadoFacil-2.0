@@ -126,7 +126,6 @@
     margin-left: 73%;
     border: 1.5px solid #acabab9c; 
     box-shadow: 3px 1px 3px rgba(124, 124, 124, 0.301);
-    width: 25%;
 
 }
 
@@ -161,15 +160,6 @@
 
 }
 
-.lugar-da-foto-quadrada{
-    border-radius: 8%;
-    height: 70px;
-    width: 70px;
-    border: none;
-    background-color: #dbdada;
-
-}
-
 .cabecario-list p{
     margin-top: 3%;
     margin-left: 2%;
@@ -192,19 +182,34 @@
 .remover{
     color: #969595;
     margin-top: 4%;
+    border: none;
+    background-color: #00c67700;
+
+}
+
+.remover:hover{
+    color: #6d6c6c;
 
 }
 
 .detalhe{
-    margin-left: 89px;
+    font-size: 24px;
 
 }
+
 
 .add{
     display: flex;
     position: relative;
     left: 76%;
-    top: -40px;
+    top: 8%;
+
+}
+
+.foto-quadrada{
+    display: flex;
+    height: 70px;
+    margin-left: 3%;
 
 }
 
@@ -215,9 +220,8 @@
 
 .add-icon{
     display: flex;
-    position: relative;
-    left: 76%;
-    top: -40px;
+    margin-left: 76%;
+    margin-top: 5%;
 
 }
 
