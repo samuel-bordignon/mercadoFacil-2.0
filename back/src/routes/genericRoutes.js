@@ -210,4 +210,29 @@ router.delete('/:table/:id', async (req, res) => {
     }
 })
 
+// Rota para deletar um registro de qualquer tabela
+router.delete('/:table/:columName/:columValue', async (req, res) => {
+    const { table, columName, columValue } = req.params
+    try {
+        if (!(await checkTableExists(table))) {
+            return res.status(404).json({ error: 'Tabela não encontrada' })
+        }
+
+        // Executar o delete usando o nome da chave primária
+        const result = await pool.query(
+            `DELETE FROM ${table} WHERE ${columName} = $1 RETURNING *`,
+            [columValue]
+        )
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Registro não encontrado' })
+        }
+
+        res.json({ message: 'Registro deletado com sucesso' })
+    } catch (err) {
+        console.error("Erro ao deletar registro:", err.message)
+        res.status(500).json({ error: 'Erro ao deletar registro' })
+    }
+})
+
 module.exports = router;

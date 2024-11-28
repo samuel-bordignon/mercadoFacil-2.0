@@ -31,7 +31,6 @@ function Navbar() {
         )
         setEnderecosCliente(enderecosRelacionados)
       } catch (error) {
-        toast.error("Erro ao carregar dados do cliente ou endereços.")
         console.error("Erro:", error)
       }
     }

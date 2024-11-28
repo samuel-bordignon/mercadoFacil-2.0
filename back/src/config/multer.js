@@ -5,7 +5,7 @@ const path = require('path')
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         // Caminho absoluto para a pasta de uploads no front-end
-        const uploadPath = path.join(__dirname, '../../front/src/assets/uploads_images')
+        const uploadPath = path.join(__dirname, '../../../front/public/uploads_images')
         cb(null, uploadPath)
     },
     filename: (req, file, cb) => {

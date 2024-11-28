@@ -83,22 +83,26 @@ function ComparacaoLista() {
           <h3>R$ 0,00</h3>
           </div>
           </div>
-          <button className='remover'>Remover</button>
           </div>
-          
+
           <div className='add'>
+          <button className='but-remover'>Remover</button>
+          <div className='menosÉmais'>
           <i class="bi bi-dash"></i>
           <h5>1</h5>
           <i class="bi bi-plus"></i>
           </div>
+          </div>
+          
           <hr />
+
           <div className='detalhe'>
           <h3>Nome do mercado</h3>
           <h5>Peso/Qualquer coisa</h5>
           <h3>R$ 0,00</h3>
           </div>
-          <p className='remover'>Remover</p>
           <div className='add-icon'>
+          <p className='remover'>Remover</p>
           <i class="bi bi-dash"></i>
           <h3>1</h3>
           <i class="bi bi-plus"></i>

@@ -143,6 +143,17 @@ export const GlobalContextProvider = ({ children }) => {
             setLoading(false)
         }
     }
+    const deleteDataByColumn = async (table, columName, columValue) => {
+        try {
+            setLoading(true)
+            const response = await axios.delete(`http://localhost:3000/${table}/${columName}/${columValue}`)
+            return response.data
+        } catch (error) {
+            console.error("Erro ao deletar registro:", error)
+        } finally {
+            setLoading(false)
+        }
+    }
     const checkEmailExists = async (table, email) => {
         try {
             setLoading(true)
@@ -310,7 +321,7 @@ export const GlobalContextProvider = ({ children }) => {
                 )
                 setEnderecosCliente(enderecosRelacionados)
             } catch (error) {
-                toast.error("Erro ao carregar dados do cliente ou endereços.")
+               
                 console.error("Erro:", error)
             }
         }
@@ -324,7 +335,7 @@ export const GlobalContextProvider = ({ children }) => {
                 const gerente = await getDataById("gerentes", idGerente)
                 setGerente(gerente)
             } catch (error) {
-                toast.error("Erro ao carregar dados do gerente.")
+                
                 console.error("Erro:", error)
             }
         }
@@ -339,7 +350,7 @@ export const GlobalContextProvider = ({ children }) => {
                 const mercado = await getDataByForeignKey("mercados", "fk_id_gerente", idGerente)
                 setMercado(...mercado)
             } catch (error) {
-                toast.error("Erro ao carregar mercado.")
+               
                 console.error("Erro:", error)
             }
         }
@@ -353,7 +364,7 @@ export const GlobalContextProvider = ({ children }) => {
                 const enderecoMercado = await getDataByForeignKey("enderecomercados", "fk_id_mercado", mercado.id_mercado)
                 setEnderecoMercado(enderecoMercado)
             } catch (error) {
-                toast.error("Erro ao carregar endereço do mercado.")
+               
                 console.error("Erro:", error)
             }
         }
@@ -366,7 +377,7 @@ export const GlobalContextProvider = ({ children }) => {
                 const mercados = await getData("mercados")
                 setMercados(mercados)
             } catch (error) {
-                toast.error("Erro ao carregar endereço do mercado.")
+               
                 console.error("Erro:", error)
             }
         }
@@ -378,7 +389,7 @@ export const GlobalContextProvider = ({ children }) => {
                 const enderecoMercado = await getData("enderecomercados")
                 setEnderecosMercados(enderecoMercado)
             } catch (error) {
-                toast.error("Erro ao carregar endereço do mercado.")
+               
                 console.error("Erro:", error)
             }
         }
@@ -392,7 +403,7 @@ export const GlobalContextProvider = ({ children }) => {
     //             const produtos = await getDataByForeignKey("produtos", "fk_id_mercado", mercado.id_mercado)
     //             setProdutos(produtos)
     //         } catch (error) {
-    //             toast.error("Erro ao carregar produtos.")
+    //
     //             console.error("Erro:", error)
     //         }
     //     }
@@ -406,7 +417,7 @@ export const GlobalContextProvider = ({ children }) => {
                 const categorias = await getData("palavrachave")
                 setCategorias(categorias)
             } catch (error) {
-                toast.error("Erro ao carregar palavras-chave.")
+        
                 console.error("Erro:", error)
             }
         }
@@ -443,6 +454,7 @@ export const GlobalContextProvider = ({ children }) => {
             getData,
             updateData,
             deleteData,
+            deleteDataByColumn,
             addData,
             addRelation,
             getDataById,

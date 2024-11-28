@@ -6,6 +6,10 @@ import { GlobalContext } from '../contexts/GlobalContext'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import './AddEndereco.css'
+import Voltar from '../assets/images/Voltar.png'  // Corrigido o caminho da imagem
+import Casa from '../assets/images/casaIcone.png'  // Corrigido o caminho da imagem
+import Cafe from '../assets/images/cafeIcone.png'  // Corrigido o caminho da imagem
+
 
 function AddEndereco() {
   const {
@@ -65,8 +69,8 @@ function AddEndereco() {
       setEnderecosCliente(enderecosRelacionados)
     } catch (error) {
       console.error('Erro ao carregar dados:', error)
-    }finally {
-      setLoading(false) 
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -186,7 +190,79 @@ function AddEndereco() {
   return (
     <div>
       <Navbar />
-        <div className="conteiner">
+
+      <div className="container">
+        <div className="adicionarEndereco">
+          <div className="cabecalhoEndereco">
+            <h1>Adicionar meu endereço</h1>
+
+            <button className="btn-cadastro">
+              <img
+                className="botao-voltarCliente"
+                onClick={() => navigate('/criarConta')}
+                src={Voltar}
+                alt="Botão voltar"
+              />
+            </button>
+
+            <h2>Onde você quer receber seu pedido?</h2>
+
+            <div className="divEsquerda">
+              <div className="inputsEndereco">
+                <div className="primeiraLinha"></div>
+                <label className="label">Rua/Logradouro</label>
+                <input
+                  type="text"
+                  className="input"
+                />
+
+                <label className="label">Número</label>
+                <input
+                  type="number"
+                  className="input"
+                />
+              </div>
+
+              <label className="label">Complemento</label>
+              <input
+                type="text"
+                className="input"
+              />
+
+              <div className="terceiraLinha"></div>
+              <label className="label">CEP</label>
+              <input
+                type="text"
+                className="input"
+              />
+
+              <label className="label">Bairro</label>
+              <input
+                type="text"
+                className="input"
+              />
+            </div>
+
+            <label className="label">Ponto de Referência</label>
+            <input
+              type="text"
+              className="input"
+            />
+          </div>
+
+          <h3>Favoritar endereço</h3>
+
+          <div className="botoes">
+
+          <img src={Casa} alt="icone de casa" />
+          <button>Casa</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {/* <div className="conteiner">
           <div className="secao-formulario">
             <h2>{activeBtnDelete ? 'Editar endereço' : 'Adicionar meu endereço'}</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -259,7 +335,7 @@ function AddEndereco() {
               </div>
 
               <div className="botoes-formulario">
-                <button type="submit" className={`botao-salvar`}>
+                <button type="submit" className={botao-salvar}>
                   {activeBtnDelete ? 'Atualizar endereço' : 'Adicionar endereço'}
                 </button>
 
@@ -307,7 +383,8 @@ function AddEndereco() {
             </ul>
           </div>
         </div>
-    </div>
+    </div> */}
+    </div> */}
   )
 }
 
