@@ -135,6 +135,8 @@
 
 }
 
+/* Parte da lista onde mostra os itens que não foram encontrados e precisaram ser substituidos */
+
 .lugar-da-foto-redonda{
     border-radius: 100%;
     height: 40px;
@@ -179,36 +181,39 @@
 
 }
 
-.remover{
-    color: #969595;
-    margin-top: 4%;
-    border: none;
-    background-color: #00c67700;
+
+.detalhe{
+    font-size: 24px;
+    
+}
+
+.but-remover{
+    margin-left: 3%;
 
 }
 
-.remover:hover{
+.but-remover:hover{
     color: #6d6c6c;
 
 }
 
-.detalhe{
-    font-size: 24px;
+.add{
+    display: flex;  
+    justify-content: space-around;
 
 }
 
+.add button{
+    color: #969595;
+    border: none;
+    background-color: #00c67700;
 
-.add{
-    display: flex;
-    position: relative;
-    left: 76%;
-    top: 8%;
 
 }
 
 .foto-quadrada{
     display: flex;
-    height: 70px;
+    height: 90px;
     margin-left: 3%;
 
 }
@@ -220,13 +225,18 @@
 
 .add-icon{
     display: flex;
-    margin-left: 76%;
+    margin-left: 3%;
     margin-top: 5%;
 
 }
 
 .add-icon i{
     color: #00c677;
+
+}
+
+.menosÉmais{
+    display: flex;
 
 }
 
