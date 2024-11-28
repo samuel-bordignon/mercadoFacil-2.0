@@ -39,15 +39,15 @@ function TelaDentroMercado() {
         <div className="sideBar-dentro-mercado">
           <div className="nome-mercado-container">
 
-            <h5>{mercadoAtual.nome}</h5>
+            {/* <h5>{mercadoAtual.nome}</h5> */}
           </div>
           <div className="endereco-cnpj-container">
             <p className="sub-titulo-verde">Sobre</p>
             {/* <h5>{mercados.find((endereco) => endereco.idMercado === idMercadoAtivo)}</h5> */}
             <p>Informações sobre o endereço do mercado</p>
-            <p>{enderecoMercadoAtual.cep}</p>
+            {/* <p>{enderecoMercadoAtual.cep}</p> */}
             <h5 className="titulo-outras-info">Outras informações</h5>
-            <p>CNPJ: {mercadoAtual.cnpj}</p>
+            {/* <p>CNPJ: {mercadoAtual.cnpj}</p> */}
           </div>
           <div className="horario-container">
             <div className="dias-funcion-container">
@@ -72,8 +72,8 @@ function TelaDentroMercado() {
           </div>
           <div className="contato-container">
             <p className="sub-titulo-verde">Contato</p>
-            <p>+{mercadoAtual.telefone}</p>
-            <p>{mercadoAtual.email}</p>
+            {/* <p>+{mercadoAtual.telefone}</p>
+            <p>{mercadoAtual.email}</p> */}
           </div>
         </div>
 
@@ -86,13 +86,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="acucar.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
@@ -100,13 +100,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="acucar.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
@@ -114,13 +114,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="acucar.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
@@ -128,13 +128,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="acucar.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
@@ -142,13 +142,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="acucar.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
@@ -156,13 +156,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="acucar.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
@@ -170,13 +170,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="acucar.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
@@ -184,13 +184,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="acucar.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Áçucar refinado União Pacote  1 kilo</p>
@@ -205,13 +205,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="oleo.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Óleo de Soja Lisa 2 Litros</p>
@@ -219,13 +219,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="skol.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Fardo de cerveja Skoll 12 latinhas de 269 ml</p>
@@ -233,13 +233,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="arroz.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
@@ -247,13 +247,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="arroz.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
@@ -261,13 +261,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="arroz.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
@@ -275,13 +275,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="arroz.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
@@ -289,13 +289,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="arroz.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
@@ -303,13 +303,13 @@ function TelaDentroMercado() {
             <div className="card-produto">
               <div className="espaco-colocar-img">
                 <img className="imagem-produto" src="arroz.png" alt="" />
-                <button className="botaoAdd" onClick={AlteraIcon}>
+                {/* <button className="botaoAdd" onClick={AlteraIcon}>
                   {icon === 'Mais' ? (
                     <img className="iconsvgMais" src="IconMais.svg" alt="" />
                   ) : (
                     <img className="iconsvgMais" src="CheckMark.svg" alt="" />
                   )}
-                </button>
+                </button> */}
               </div>
               <p className="preco-produto">R$ 00,00</p>
               <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
