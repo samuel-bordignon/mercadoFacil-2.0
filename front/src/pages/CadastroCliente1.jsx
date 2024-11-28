@@ -84,7 +84,7 @@ function CadastroCliente1() {
   }
 
   return (
-    <div>
+    <div className="containerAzul">
       <NavbarLogo /> {/* Logo da Navbar */}
 
       <div className="container">
@@ -167,7 +167,7 @@ function CadastroCliente1() {
                   onClick={togglePasswordVisibility}
                   style={{
                     position: 'absolute',
-                    right: 10,
+                    right: 55,
                     background: 'none',
                     border: 'none',
                     cursor: 'pointer'

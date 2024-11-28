@@ -4,7 +4,7 @@ const path = require('path')
 // Função para converter Base64 em arquivo e salvá-lo
 const saveBase64ToFile = (base64Data) => {
     // Caminho absoluto para a pasta do front-end
-    const uploadPath = path.resolve(__dirname, '../../../front/src/assets/uploads_images')
+    const uploadPath = path.resolve(__dirname, '../../../front/public/uploads_images')
     
     // Certifique-se de que a pasta existe
     if (!fs.existsSync(uploadPath)) {
@@ -31,7 +31,7 @@ const saveBase64ToFile = (base64Data) => {
     fs.writeFileSync(filePath, buffer)
 
     console.log(`Arquivo salvo em: ${filePath}`)
-    return filePath // Retorna o caminho do arquivo
+    return fileName // Retorna o caminho do arquivo
 }
 
 module.exports = saveBase64ToFile

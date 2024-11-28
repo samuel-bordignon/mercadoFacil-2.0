@@ -260,3 +260,26 @@
         transform: rotate(360deg);
     }
 }
+
+
+.adicionarEndereco{
+    width: 1188.646px;
+    height: 749.126px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: #FFF;
+    backdrop-filter: blur(54.650001525878906px);
+}
+
+.containerEndereço {
+    background: rgba(255, 255, 255, 0.82);
+}
+
+.cabecalhoEndereco{
+    display: flex;
+    
+}
+
+.botao-endereco {
+    border: none;
+}

@@ -113,7 +113,7 @@ function CadastroCliente2() {
     }
 
     return (
-        <div className='background-cadastro'>
+        <div className="containerAzul">
             <div className='image-container'>
                 <img src={Cover} alt="" />
             </div>
