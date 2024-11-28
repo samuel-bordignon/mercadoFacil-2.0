@@ -1,7 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import HomeMercados from "../pages/HomeMercados";
-import GerenciaLista from "../pages/GerenciaLista";
-import PerfilCliente from "../pages/PerfilCliente";
 // import Dragoes from "../pages/Dragoes";
 import TesteAnimacao from "../pages/TesteAnimacao";
 import AddEndereco from "../pages/AddEndereco";
@@ -20,20 +17,19 @@ import FormularioTeste from "../pages/FormularioTeste";
 // import GerenciaLista from "../pages/GerenciaLista";
 import GerenciaListas from "../pages/GerenciaListas";
 import HomeLogin from "../pages/HomeLogin";
-// import HomeMercados from "../pages/HomeMercados";
+import HomeMercados from "../pages/HomeMercados";
 import LoginCliente from "../pages/LoginCliente";
 import LoginParceiro from "../pages/LoginParceiro";
 import MenuCadastro from "../pages/MenuCadastro";
 import MenuLogin from "../pages/MenuLogin";
 import MercadoCadastroProdutos from "../pages/MercadoCadastroProdutos";
 import MercadoEstoque from "../pages/MercadoEstoque";
-// import PerfilCliente from "../pages/PerfilCliente";
+import PerfilCliente from "../pages/PerfilCliente";
 import PerfilGerente from "../pages/PerfilGerente";
 import PerfilMercado from "../pages/PerfilMercado";
 import Sidebar from "../components/Sidebar";
 import TelaDentroMercado from "../pages/TelaDentroMercado";
 import TelaInfoProduto from "../pages/TelaInfoProduto";
-// import TesteAnimacao from "../pages/TesteAnimacao";
 
 const router = createBrowserRouter([
     { path: "/", element: <HomeLogin /> },
