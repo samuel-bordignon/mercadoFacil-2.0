@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import Select from "react-select"
 import Sidebar from "../components/Sidebar"
 import "./MercadoCadastroProdutos.css"
@@ -9,13 +10,17 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { div } from "framer-motion/client"
 
 function MercadoCadastroProdutos() {
-  const { unidadeOptions, uploadImage, getLocalStorage, getDataByForeignKey, getDataById, getData, loading, updateData , addRelation } = useContext(GlobalContext)
+  const { unidadeOptions, uploadImage, getLocalStorage, getDataByForeignKey, getDataById, getData, updateData, addRelation  , deleteDataByColumn, addData } = useContext(GlobalContext)
   const [image, setImage] = useState(null)
+  const [mercado, setMercado] = useState(null)
   const [filePath, setFilePath] = useState('')
   const idProduto = getLocalStorage('id_produto')
   const storageLocal = getLocalStorage('produtoData')
+  const idGerente = getLocalStorage('id_gerente')
   const [categoriaProdutos, setCategoriaProdutos] = useState([])
   const [idEstoqueProduto, setIdEstoqueProduto] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const produtoSchema = z.object({
     nome: z.string().min(1, "Nome é obrigatório"),
@@ -38,8 +43,7 @@ function MercadoCadastroProdutos() {
     categoria: z.array(z.object({ value: z.string(), label: z.string() })), // Formato esperado pelo Select
     imagem_file_path: z
       .string()
-      .min(1, { message: "A imagem é obrigatória" })
-      .regex(/^data:image\/[a-zA-Z]+;base64,/, "O formato da imagem deve ser Base64"),
+      .min(1, { message: "A imagem é obrigatória" }),
     descricao: z
       .string()
       .max(255, "A descrição não pode ultrapassar 255 caracteres")
@@ -126,54 +130,82 @@ function MercadoCadastroProdutos() {
     }),
   }
 
+   // Dados do Mercado
+   useEffect(() => {
+    if (!idGerente) return
+    const fetchData = async () => {
+      try {
+        const mercado = await getDataByForeignKey("mercados", "fk_id_gerente", idGerente)
+        setMercado(...mercado)
+      } catch (error) {
+        toast.error("Erro ao carregar mercado.")
+        console.error("Erro:", error)
+      }
+    }
+    fetchData()
+  }, [idGerente])
+
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!idProduto) return
-      try {
-        const produto = getLocalStorage("produtoData")
-        const tabelaRelacao = await getDataByForeignKey(
-          "palavrachave_produto_relacao",
-          "fk_id_produto",
-          produto.id_produto
-        )
-        const categoriasRelacionadas2 = await Promise.all(
-          tabelaRelacao.map((item) =>
-            getDataById("palavrachave", item.fk_id_palavrachave)
+      if (idProduto.length > 0) {
+        try {
+          const produto = getLocalStorage("produtoData")
+          const tabelaRelacao = await getDataByForeignKey(
+            "palavrachave_produto_relacao",
+            "fk_id_produto",
+            produto.id_produto
           )
-        )
+          const categoriasRelacionadas2 = await Promise.all(
+            tabelaRelacao.map((item) =>
+              getDataById("palavrachave", item.fk_id_palavrachave)
+            )
+          )
 
-        const categoriasFormatadasDefout = categoriasRelacionadas2.map(
-          (categoria) => ({
-            value: categoria.id_palavrachave.toString(), // Converte para string
-            label: categoria.nome_palavra,
-          })
-        )
+          const categoriasFormatadasDefout = categoriasRelacionadas2.map(
+            (categoria) => ({
+              value: categoria.id_palavrachave.toString(), // Converte para string
+              label: categoria.nome_palavra,
+            })
+          )
 
-        const estoque = await getDataByForeignKey(
-          "estoqueprodutos",
-          "fk_id_produto",
-          produto.id_produto
-        )
+          const estoque = await getDataByForeignKey(
+            "estoqueprodutos",
+            "fk_id_produto",
+            produto.id_produto
+          )
 
-        // Garantir que os valores estejam no formato correto
-        setValue("nome", produto.nome || "")
-        setValue("preco", produto.preco?.toFixed(2).toString() || "") // Converte para string
-        setValue("descricao", produto.descricao || "")
-        setValue("codigo", produto.codigo || "")
-        setValue(
-          "quantidade_estoque",
-          estoque[0]?.quantidade_estoque?.toString() || "0" // Converte para string
-        )
-        setValue("quantidade", produto.quantidade?.toString() || "") // Converte para string
-        setValue("unidade", produto.unidademedida
-          ? { value: produto.unidademedida, label: produto.unidademedida }
-          : null
-        );
-        setValue("unidade", { value: produto.unidademedida, label: produto.unidademedida } || "") // Certifique-se de que é string
-        setValue("categoria", categoriasFormatadasDefout) // Certifique-se de que está no formato correto
-        setValue("imagem_file_path", produto.imagem_file_path || "")
+          // Garantir que os valores estejam no formato correto
+          setValue("nome", produto.nome || "")
+          setValue("preco", produto.preco?.toFixed(2).toString() || "") // Converte para string
+          setValue("descricao", produto.descricao || "")
+          setValue("codigo", produto.codigo || "")
+          setValue(
+            "quantidade_estoque",
+            estoque[0]?.quantidade_estoque?.toString() || "0" // Converte para string
+          )
+          setValue("quantidade", produto.quantidade?.toString() || "") // Converte para string
+          setValue("unidade", produto.unidademedida
+            ? { value: produto.unidademedida, label: produto.unidademedida }
+            : null
+          )
+          setValue("unidade", { value: produto.unidademedida, label: produto.unidademedida } || "") // Certifique-se de que é string
+          setValue("categoria", categoriasFormatadasDefout) // Certifique-se de que está no formato correto
+          setValue("imagem_file_path", produto.imagem_file_path || "")
 
+          const data = await getData("palavrachave")
+          const categorias = data.map((item) => ({
+            value: item.id_palavrachave.toString(), // Converte para string
+            label: item.nome_palavra,
+          }))
+
+          setCategoriaProdutos(categorias)
+        } catch (error) {
+          console.error("Erro ao carregar dados:", error)
+        } finally {
+          setLoading(false)
+        }
+      } else {
         const data = await getData("palavrachave")
         const categorias = data.map((item) => ({
           value: item.id_palavrachave.toString(), // Converte para string
@@ -181,81 +213,162 @@ function MercadoCadastroProdutos() {
         }))
 
         setCategoriaProdutos(categorias)
-      } catch (error) {
-        console.error("Erro ao carregar dados:", error)
+        setLoading(false)
       }
     }
-
     fetchData()
   }, [setValue, idProduto])
 
 
 
   const handleFileChange = async (event) => {
-    const file = event.target.files[0];
+    const file = event.target.files[0]
     if (file) {
       const reader = new FileReader()
       reader.onloadend = () => {
-        const base64String = reader.result;
-        setImage(base64String); // Atualiza o estado localx     
-        setValue("imagem_file_path", base64String); // Define o valor do campo no formulário
-      };
-      reader.readAsDataURL(file);
+        const base64String = reader.result
+        setImage(base64String) // Atualiza o estado localx     
+        setValue("imagem_file_path", base64String) // Define o valor do campo no formulário
+      }
+      reader.readAsDataURL(file)
     }
-  };
+  }
 
   const handleDivClick = () => {
     document.getElementById('file-input').click()
   }
 
   const onSubmit = async (data) => {
-    if (idProduto) {
-      // const filePath = await uploadImage(data.imagem_file_path)
-      // setFilePath(filePath)
-      // await updateData('produtos', idProduto, {
-      //   nome: data.nome,
-      //   preco: data.preco,
-      //   descricao: data.descricao,
-      //   codigo: data.codigo,
-      //   quantidade: data.quantidade,
-      //   unidade: data.unidade.value,
-      //   imagem_file_path: filePath
-      // })
-      // const idEstoqueProduto = await getDataByForeignKey('estoqueprodutos', 'fk_id_produto', idProduto)
-
-      // await updateData('estoqueprodutos', idEstoqueProduto, {
-      //   quantidade_estoque: data.quantidade_estoque
-      // })  
-
-      data.categoria.map(async (categoria) => {
-        const result = await getDataByForeignKey('palavrachave_produto_relacao', 'fk_id_produto', idProduto);
-        const categoriasRelacionadas = result.map((item) => {
-          console.log(item.fk_id_palavrachave)
-          console.log(categoria.value)
-          if (item.fk_id_palavrachave === parseInt(categoria.value)) {
-            return item
-          }else{
-            const newCategory = addRelation('palavrachave_produto_relacao', idProduto, categoria.value)
-          }
+    if (idProduto.length > 0) {
+      console.log('pinto')
+      let filePath
+      if (storageLocal.imagem_file_path === data.imagem_file_path) {
+        filePath = storageLocal.imagem_file_path
+      } else {
+        filePath = await uploadImage(data.imagem_file_path)
+      }
+      console.log('meu pinto')
+      try {
+        console.log("Caminho do arquivo:", filePath)
+        setFilePath(filePath)
+        await updateData('produtos', idProduto, {
+          nome: data.nome,
+          preco: data.preco,
+          descricao: data.descricao,
+          codigo: data.codigo,
+          quantidade: parseInt(data.quantidade, 10),
+          unidademedida: data.unidade.value,
+          imagem_file_path: filePath
         })
-        console.log(categoriasRelacionadas)
-        
-      })
+        const idEstoqueProdutoData = await getDataByForeignKey('estoqueprodutos', 'fk_id_produto', idProduto)
+        const idEstoqueProduto = Array.isArray(idEstoqueProdutoData)
+          ? idEstoqueProdutoData[0]?.id_estoque_produto // Pega o primeiro ID, caso seja uma lista
+          : idEstoqueProdutoData?.id_estoque_produto // Caso seja um único objeto
+
+        await updateData('estoqueprodutos', idEstoqueProduto, {
+          quantidade_estoque: parseInt(data.quantidade_estoque, 10)
+        })
+
+        const result = await getDataByForeignKey(
+          "palavrachave_produto_relacao",
+          "fk_id_produto",
+          idProduto
+        )
+
+        // Extrair IDs de palavras-chave relacionadas
+        const idsRelacionados = result.map((item) => item.fk_id_palavrachave)
+
+        // Categorias selecionadas pelo usuário
+        const categoriasSelecionadas = data.categoria.map((categoria) =>
+          parseInt(categoria.value, 10)
+        )
+
+        // Categorias que já estão relacionadas
+        const categoriasExistentes = categoriasSelecionadas.filter((id) =>
+          idsRelacionados.includes(id)
+        )
+
+        // Categorias que precisam ser adicionadas
+        const novasCategorias = categoriasSelecionadas.filter(
+          (id) => !idsRelacionados.includes(id)
+        )
+
+        // Categorias que precisam ser removidas
+        const categoriasRemovidas = idsRelacionados.filter(
+          (id) => !categoriasSelecionadas.includes(id)
+        )
+
+        // Adicionar novas relações
+        if (novasCategorias.length > 0) {
+          await Promise.all(
+            novasCategorias.map((categoriaId) =>
+              addRelation("palavrachave_produto_relacao", {
+                fk_id_produto: idProduto,
+                fk_id_palavrachave: categoriaId,
+              })
+            )
+          )
+        }
+
+        // Remover categorias desmarcadas
+        if (categoriasRemovidas.length > 0) {
+          await Promise.all(
+            categoriasRemovidas.map((categoriaId) =>
+              deleteDataByColumn("palavrachave_produto_relacao", "fk_id_palavrachave", categoriaId)
+            )
+          )
+        }
+
+        console.log("Categorias existentes:", categoriasExistentes)
+        console.log("Novas categorias adicionadas:", novasCategorias)
+        console.log("Categorias removidas:", categoriasRemovidas)
+      } catch (error) {
+        console.error("Erro ao atualizar categorias:", error)
+      }
     } else {
-      const newEndereco = await addData('enderecoclientes', {
-        cep: data.cep,
-        bairro: data.bairro,
-        logradouro: data.logradouro,
-        numero: data.numero,
-        latitude: lat,
-        longitude: lng,
-        apelido: data.apelido,
-        complemento: data.complemento,
-      })
-      await addRelation('endereco_cliente_relecao', idCliente, newEndereco.id_enderecocliente)
-      setEnderecosCliente([...enderecosCliente, newEndereco])
+      console.log('piroca')
+      try {
+        // Fazer o upload da imagem, se necessário
+        const filePath = await uploadImage(data.imagem_file_path)
+        console.log(data)
+
+        // Adicionar o novo produto
+        const novoProduto = await addData('produtos', {
+          nome: data.nome,
+          preco: data.preco,
+          descricao: data.descricao,
+          codigo: data.codigo,
+          quantidade: parseInt(data.quantidade, 10),
+          unidademedida: data.unidade.value,
+          imagem_file_path: filePath,
+          fk_id_mercado: mercado.id_mercado, // Relacionar o produto ao mercado atual
+        })
+        console.log("Novo produto adicionado:", novoProduto)
+
+        // Adicionar o estoque inicial do produto
+        await addData('estoqueprodutos', {
+          fk_id_produto: novoProduto.id_produto,
+          quantidade_estoque: parseInt(data.quantidade_estoque, 10),
+        })
+
+        // Relacionar o produto com as categorias (palavras-chave)
+        if (data.categoria && data.categoria.length > 0) {
+          await Promise.all(
+            data.categoria.map((categoria) =>
+              addRelation('palavrachave_produto_relacao', {
+                fk_id_produto: novoProduto.id_produto,
+                fk_id_palavrachave: parseInt(categoria.value, 10),
+              })
+            )
+          )
+        }
+        navigate('/mercadoEstoque')
+      } catch (error) {
+        console.error('Erro ao adicionar produto:', error)
+      }
     }
-  };
+    navigate('/mercadoEstoque')
+  }
 
   return (
     <div>
@@ -276,11 +389,22 @@ function MercadoCadastroProdutos() {
                 <div className="container-image" onClick={handleDivClick}>
                   <div className="imagemProduto">
                     {image ? (
-                      <img src={image} alt="Imagem carregada" style={{ maxWidth: "100%" }} />
+                      <img
+                        src={image}
+                        alt="Imagem carregada"
+                        style={{ maxWidth: "100%" }}
+                      />
+                    ) : storageLocal && storageLocal.imagem_file_path ? (
+                      <img
+                        src={`/uploads_images/${storageLocal.imagem_file_path}`}
+                        alt="Imagem carregadaoooooooooooooooooooooooooooooooooooooooooooooo"
+                        style={{ maxWidth: "100%" }}
+                      />
                     ) : (
                       <p>Clique para adicionar uma imagem</p>
                     )}
                   </div>
+
                   <input
                     type="file"
                     accept="image/*"
@@ -297,7 +421,6 @@ function MercadoCadastroProdutos() {
                   {...register("nome")}
                   type="text"
                   placeholder="Ex: Banana Prata"
-                  className={errors.nome}
                 />
                 {errors.nome && <span className="error-message">{errors.nome.message}</span>}
 

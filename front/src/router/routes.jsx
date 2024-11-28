@@ -50,6 +50,7 @@ const router = createBrowserRouter([
     { path: "/loginParceiro", element: <LoginParceiro /> },
     { path: "/mercados", element: <HomeMercados /> },
     { path: "/mercadoEstoque", element: <MercadoEstoque /> },
+    { path: "/mercadoCadastroProdutos", element: <MercadoCadastroProdutos /> },
     { path: "/menuCadastro", element: <MenuCadastro /> },
     { path: "/menuLogin", element: <MenuLogin /> },
     { path: "/perfilCliente", element: <PerfilCliente /> },

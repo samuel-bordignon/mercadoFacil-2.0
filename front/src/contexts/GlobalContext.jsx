@@ -143,6 +143,17 @@ export const GlobalContextProvider = ({ children }) => {
             setLoading(false)
         }
     }
+    const deleteDataByColumn = async (table, columName, columValue) => {
+        try {
+            setLoading(true)
+            const response = await axios.delete(`http://localhost:3000/${table}/${columName}/${columValue}`)
+            return response.data
+        } catch (error) {
+            console.error("Erro ao deletar registro:", error)
+        } finally {
+            setLoading(false)
+        }
+    }
     const checkEmailExists = async (table, email) => {
         try {
             setLoading(true)
@@ -443,6 +454,7 @@ export const GlobalContextProvider = ({ children }) => {
             getData,
             updateData,
             deleteData,
+            deleteDataByColumn,
             addData,
             addRelation,
             getDataById,
