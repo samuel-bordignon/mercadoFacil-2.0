@@ -5,32 +5,55 @@ import { GlobalContext } from '../contexts/GlobalContext'
 import React, { useContext, useState, useEffect } from 'react'
 
 function TelaDentroMercado() {
-  const { getLocalStorage, getDataById, getDataByForeignKey} = useContext(GlobalContext)
-
+  const { getLocalStorage, getDataById, getDataByForeignKey } = useContext(GlobalContext)
   const [mercadoAtual, setMercadoAtual] = useState({})
   const [enderecoMercadoAtual, setEnderecoMercadoAtual] = useState({})
-
-  const idMercado = getLocalStorage('id_mercado')
+  const [produtos, setProdutos] = useState([])
+  const [icon, setIcon] = useState('Mais')
+  const idGerente = getLocalStorage('id_gerente')
 
   useEffect(() => {
-    getDataById('mercados', idMercado).then((data) => {
-    setMercadoAtual(data)
-    }).catch((error) => {
-      console.error('Erro ao buscar mercado:', error)
-    })
-    getDataByForeignKey('enderecomercados', 'fk_id_mercado', idMercado).then((data) => {
-      setEnderecoMercadoAtual(data)
-    }).catch((error) => {
-      console.error('Erro ao buscar endereço:', error)
-      })
-  }, [])
+    const fetchMercado = async () => {
+      try {
+        const mercadoAtual = await getDataByForeignKey('mercados', 'fk_id_gerente', idGerente);
+        setMercadoAtual(mercadoAtual);
+      } catch (error) {
+        console.error('Erro ao buscar mercado:', error);
+      }
+    };
+  
+    fetchMercado();
+  }, [idGerente]);
+  
+  useEffect(() => {
+    const fetchProdutosEEnderecos = async () => {
+      if (mercadoAtual.length > 0) {
+        try {
+          const [enderecosMercados, produtos] = await Promise.all([
+            getDataByForeignKey('enderecomercados', 'fk_id_mercado', mercadoAtual[0].id_mercado),
+            getDataByForeignKey('produtos', 'fk_id_mercado', mercadoAtual[0].id_mercado),
+          ]);
+  
+          setEnderecoMercadoAtual(...enderecosMercados);
+          setProdutos(produtos);
+
+          console.log('Produtos:', produtos);
+          console.log('Endereços:', enderecosMercados);
+          console.log('Endereços:', enderecosMercados[0]);
+          console.log('Endereços:', enderecosMercados);
+          console.log('Mercado:', mercadoAtual);
+        } catch (error) {
+          console.error('Erro ao buscar dados dependentes:', error);
+        }
+      }
+    };
+  
+    fetchProdutosEEnderecos();
+  }, [mercadoAtual]); // Depende de mercadoAtual
+  
 
 
-  function uuu() {
-    console.log(mercadoAtual.cnpj)
-    console.log(idMercado)
-    console.log(enderecoMercadoAtual)
-  }
+  const AlteraIcon = () => { }
 
   return (
     <div className="tudo">
@@ -43,11 +66,10 @@ function TelaDentroMercado() {
           </div>
           <div className="endereco-cnpj-container">
             <p className="sub-titulo-verde">Sobre</p>
-            {/* <h5>{mercados.find((endereco) => endereco.idMercado === idMercadoAtivo)}</h5> */}
-            <p>Informações sobre o endereço do mercado</p>
+            <h5>{enderecoMercadoAtual.logradouro}</h5>
             <p>{enderecoMercadoAtual.cep}</p>
             <h5 className="titulo-outras-info">Outras informações</h5>
-            <p>CNPJ: {mercadoAtual.cnpj}</p>
+            <p>CNPJ: {mercadoAtual[0].cnpj}</p>
           </div>
           <div className="horario-container">
             <div className="dias-funcion-container">

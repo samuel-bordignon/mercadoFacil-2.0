@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import { GlobalContext } from '../contexts/GlobalContext'
 import Carousel from '../components/Carousel'
+import Footer from '../components/Footer'
 
 function HomeMercados() {
   const {
-    setLocalStorage,
     calcularDistanciaRota,
     calcularDistanciaRaio,
     getDataById,
@@ -16,7 +16,6 @@ function HomeMercados() {
     getData,
   } = useContext(GlobalContext)
 
-  const navigate = useNavigate()
   const idEnderecoClienteAtual = getLocalStorage('id_enderecocliente')
   const idCliente = getLocalStorage('id_cliente')
 
@@ -133,7 +132,7 @@ function HomeMercados() {
         {/* Carousel de mercados perto de você */}
         <Carousel slides={slidesPerto}/>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   )
 }
