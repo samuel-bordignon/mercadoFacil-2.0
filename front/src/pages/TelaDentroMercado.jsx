@@ -99,8 +99,8 @@ function TelaDentroMercado() {
           </div>
           <div className="contato-container">
             <p className="sub-titulo-verde">Contato</p>
-            <p>+{mercadoAtual.telefone}</p>
-            <p>{mercadoAtual.email}</p>
+            {/* <p>+{mercadoAtual.telefone}</p>
+            <p>{mercadoAtual.email}</p> */}
           </div>
         </div>
 

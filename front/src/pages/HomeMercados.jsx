@@ -76,7 +76,7 @@ function HomeMercados() {
         })
       )
 
-      setMercadosDentro(mercadosFiltrados.filter(Boolean))
+      setMercadosDentro(mercadosFiltrados.filter(Boolean) || [])
     } catch (err) {
       console.error('Erro ao carregar dados:', err)
       setError(err.message)

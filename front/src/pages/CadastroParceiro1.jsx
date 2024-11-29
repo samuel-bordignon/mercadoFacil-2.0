@@ -89,7 +89,7 @@ function CadastroParceiro1() {
   }
 
   return (
-    <div>
+    <div className="containerAzul">
       <NavbarLogo /> {/* Logo da Navbar */}
 
       <div className="container">
