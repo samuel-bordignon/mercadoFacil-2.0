@@ -156,21 +156,22 @@ export const GlobalContextProvider = ({ children }) => {
     }
     const checkEmailExists = async (table, email) => {
         try {
-            setLoading(true)
-            const response = await axios.get(`http://localhost:3000/${table}/email-exists/${email}`)
-            return response.data.exists
+            setLoading(true);
+            const response = await axios.get(`http://localhost:3000/auth/${table}/email-exists/${email}`);
+            return response.data.exists;
         } catch (error) {
-            console.error("Erro ao verificar e-mail:", error)
-            return false
+            console.error("Erro ao verificar e-mail:", error.message, "Tabela:", table, "Email:", email);            
+            return false;
         } finally {
-            setLoading(false)
+            setLoading(false);
+            console.log(`Verificando email: ${email}, tabela: ${table}`);
         }
-    }
+    };
     const login = async (table, identificador, identificadorValor, senhaValor) => {
         try {
             setLoading(true)
             const response = await axios.get(
-                `http://localhost:3000/${table}/password-vality/${identificador}/${identificadorValor}/${senhaValor}`
+                `http://localhost:3000/${table}/password-vality/auth/${identificador}/${identificadorValor}/${senhaValor}`
             )
 
             const data = response.data
@@ -305,125 +306,6 @@ export const GlobalContextProvider = ({ children }) => {
     const [categorias, setCategorias] = useState([])
     const [enderecosMercados, setEnderecosMercados] = useState([])
     const unidadeOptions = [{value:'Kg', label:'Kg'},{value:'g', label:'g'},{value:'L', label:'L'},{value:'ml', label:'ml'}]
-
-
-    // Dados do Cliente
-    useEffect(() => {
-        if (!idCliente) return // Evita executar se idCliente não está disponível
-        const fetchData = async () => {
-            try {
-                const cliente = await getDataById("clientes", idCliente)
-                setCliente(cliente)
-
-                const tabelaRelacao = await getDataByForeignKey("endereco_cliente_relecao", "fk_id_cliente", idCliente)
-                const enderecosRelacionados = await Promise.all(
-                    tabelaRelacao.map(item => getDataById("enderecoclientes", item.fk_id_enderecocliente))
-                )
-                setEnderecosCliente(enderecosRelacionados)
-            } catch (error) {
-                toast.error("Erro ao carregar dados do cliente ou endereços.")
-                console.error("Erro:", error)
-            }
-        }
-        fetchData()
-    }, [idCliente])
-    // Dados do Gerente
-    useEffect(() => {
-        if (!idGerente) return // Evita executar se idGerente não está disponível
-        const fetchData = async () => {
-            try {
-                const gerente = await getDataById("gerentes", idGerente)
-                setGerente(gerente)
-            } catch (error) {
-                toast.error("Erro ao carregar dados do gerente.")
-                console.error("Erro:", error)
-            }
-        }
-        fetchData()
-    }, [idGerente])
-    // Dados do Mercado (somente se idGerente for válido)
-    useEffect(() => {
-        if (!idGerente) return // Verifica idGerente antes
-
-        const fetchData = async () => {
-            try {
-                const mercado = await getDataByForeignKey("mercados", "fk_id_gerente", idGerente)
-                setMercado(...mercado)
-            } catch (error) {
-                toast.error("Erro ao carregar mercado.")
-                console.error("Erro:", error)
-            }
-        }
-        fetchData()
-    }, [idGerente])
-    // Endereço do Mercado (somente se mercado existir)
-    useEffect(() => {
-        if (!mercado) return
-        const fetchData = async () => {
-            try {
-                const enderecoMercado = await getDataByForeignKey("enderecomercados", "fk_id_mercado", mercado.id_mercado)
-                setEnderecoMercado(enderecoMercado)
-            } catch (error) {
-                toast.error("Erro ao carregar endereço do mercado.")
-                console.error("Erro:", error)
-            }
-        }
-        fetchData()
-    }, [mercado])
-    // Mercados em geral (somente se mercado existir)
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const mercados = await getData("mercados")
-                setMercados(mercados)
-            } catch (error) {
-                toast.error("Erro ao carregar endereço do mercado.")
-                console.error("Erro:", error)
-            }
-        }
-        fetchData()
-    }, [mercado])
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const enderecoMercado = await getData("enderecomercados")
-                setEnderecosMercados(enderecoMercado)
-            } catch (error) {
-                toast.error("Erro ao carregar endereço do mercado.")
-                console.error("Erro:", error)
-            }
-        }
-        fetchData()
-    }, [])
-    // // Produtos do Mercado
-    // useEffect(() => {
-    //     if (!mercado) return
-    //     const fetchData = async () => {
-    //         try {
-    //             const produtos = await getDataByForeignKey("produtos", "fk_id_mercado", mercado.id_mercado)
-    //             setProdutos(produtos)
-    //         } catch (error) {
-    //             toast.error("Erro ao carregar produtos.")
-    //             console.error("Erro:", error)
-    //         }
-    //     }
-    //     fetchData()
-    // }, [mercado])
-
-    // Palavras-Chave/Categorias
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const categorias = await getData("palavrachave")
-                setCategorias(categorias)
-            } catch (error) {
-                toast.error("Erro ao carregar palavras-chave.")
-                console.error("Erro:", error)
-            }
-        }
-        fetchData()
-    }, [])
-
 
     // Prover estados e funções aos componentes filhos
     return (

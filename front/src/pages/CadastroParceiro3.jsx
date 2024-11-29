@@ -15,6 +15,7 @@ function CadastroParceiro3() {
 
     const navigate = useNavigate()
     const id = getLocalStorage('id_enderecomercado')
+    const idMercado = getLocalStorage('id_mercado')
     const storageLocal = getLocalStorage(chaveEnderecoMercadoLocal)
     const [lat, setLat] = useState('')
     const [lng, setLng] = useState('')
@@ -24,6 +25,7 @@ function CadastroParceiro3() {
         logradouro: z.string().nonempty('Logradouro é obrigatório'),
         bairro: z.string().nonempty('Bairro é obrigatório'),
         numero: z.string().optional(),
+        complemento: z.string().optional(),
     })
     const { register, handleSubmit, setValue, formState: { errors }, watch } = useForm({
         resolver: zodResolver(validationSchema),
@@ -54,29 +56,44 @@ function CadastroParceiro3() {
     const onSubmit = async (data) => {
 
         if (verificaDadosObjeto(storageLocal)) {
-            updateData('enderecomercados', id, {
-                cep: data.cep,
-                bairro: data.bairro,
-                logradouro: data.logradouro,
-                numero: data.numero,
-                latitude: lat,
-                longitude: lng,
-                fk_id_mercado: getLocalStorage('id_mercado')
+            try {
+                updateData('enderecomercados', id, {
+                    cep: data.cep,
+                    bairro: data.bairro,
+                    logradouro: data.logradouro,
+                    complemento: data.complemento,
+                    numero: data.numero,
+                    latitude: lat,
+                    longitude: lng,
+                    fk_id_mercado: idMercado
 
-            })
+                })
+                navigate('/mercadoEstoque')
+                setLocalStorage(chaveEnderecoMercadoLocal, data)
+                setLocalStorage('cadastroConcluido', true)
+            } catch (e) {
+                console.log(e)
+            }
+
         } else {
-            addData('enderecomercados', {
-                cep: data.cep,
-                bairro: data.bairro,
-                logradouro: data.logradouro,
-                numero: data.numero,
-                latitude: lat,
-                longitude: lng,
-                fk_id_mercado: getLocalStorage('id_mercado')
-            })
+            try {
+                addData('enderecomercados', {
+                    cep: data.cep,
+                    bairro: data.bairro,
+                    logradouro: data.logradouro,
+                    complemento: data.complemento,
+                    numero: data.numero,
+                    latitude: lat,
+                    longitude: lng,
+                    fk_id_mercado: idMercado
+                })
+                navigate('/mercadoEstoque')
+                setLocalStorage(chaveEnderecoMercadoLocal, data)
+                setLocalStorage('cadastroConcluido', true)
+            } catch (e) {
+                console.log(e)
+            }
         }
-        setLocalStorage(chaveEnderecoMercadoLocal, data)
-        navigate('/mercados')
     }
 
     // Verificar se o objeto tem dados válidos
@@ -101,7 +118,7 @@ function CadastroParceiro3() {
                                 <button className="btn-cadastro">
                                     <img
                                         className="botao-voltar"
-                                        onClick={() => navigate('/criarConta')}
+                                        onClick={() => navigate('/criarConta/CadastroParceiro2')}
                                         src={Voltar}
                                         alt="Botão voltar"
                                     />
@@ -128,16 +145,6 @@ function CadastroParceiro3() {
                                     />
                                     <p className='error'>{errors.bairro?.message}</p>
 
-                                    <label className="labelCM">Rua</label>
-                                    <input
-                                        type='text'
-                                        className="input"
-                                        {...register('rua')}
-                                    />
-                                    <p className='error'>{errors.rua?.message}</p>
-
-                                </div>
-                                <div className="container-inputs">
                                     <label className="labelCM">Logradouro</label>
                                     <input
                                         type='text'
@@ -146,6 +153,9 @@ function CadastroParceiro3() {
                                     />
                                     <p className='error'>{errors.logradouro?.message}</p>
 
+                                </div>
+                                <div className="container-inputs">
+
                                     <label className="labelCM">Número</label>
                                     <input
                                         placeholder='Opcional'
@@ -153,8 +163,17 @@ function CadastroParceiro3() {
                                         className="input"
                                         {...register('numero')}
                                     />
-                                    <p style={{ visibility: 'hidden' }} className='error'></p>
-                                    
+                                    <p className='error'>{errors.numero?.message}</p>
+
+                                    <label className="labelCM">Complemento</label>
+                                    <input
+                                        type='text'
+                                        className="input"
+                                        placeholder='Opcional'
+                                        {...register('complemento')}
+                                    />
+                                    <p className='error'>{errors.complemento?.message}</p>
+
                                     <button type="submit" className='acessarCadastro'>Acessar</button>
 
                                 </div>

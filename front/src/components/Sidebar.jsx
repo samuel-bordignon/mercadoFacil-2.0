@@ -11,18 +11,20 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Verifica no localStorage se o pop-up já foi exibido
+    // Verifica no localStorage se o pop-up já foi exibido ou se o cadastro foi concluído
     const hasSeenWelcome = localStorage.getItem('hasSeenWelcome');
-    if (!hasSeenWelcome) {
-      setShowWelcome(true); // Exibe o pop-up se ainda não foi visto
+    const cadastroConcluido = localStorage.getItem('cadastroConcluido');
+    if (!hasSeenWelcome && cadastroConcluido) {
+        setShowWelcome(true); // Exibe o pop-up se o cadastro foi concluído e o pop-up ainda não foi visto
     }
-  }, []);
+}, []);
 
   // Função para fechar o pop-up de boas-vindas
   const closeWelcomePopup = () => {
     setShowWelcome(false);
     localStorage.setItem('hasSeenWelcome', 'true'); // Salva no localStorage que o pop-up já foi exibido
-  };
+};
+
 
   // Função para navegação
   const handleItemClick = (item) => {

@@ -44,7 +44,7 @@ const router = createBrowserRouter([
     { path: "/footer", element: <Footer /> },
     { path: "/formulario", element: <FormularioTeste /> },
     { path: "/gerencialistas", element: <GerenciaListas /> },
-    { path: "/listaCompras", element: <GerenciaLista /> },
+    { path: "/listaCompras", element: <GerenciaListas /> },
     { path: "/loginCliente", element: <LoginCliente /> },
     { path: "/loginParceiro", element: <LoginParceiro /> },
     { path: "/loginDois", element: <EscolhaLogin /> },
