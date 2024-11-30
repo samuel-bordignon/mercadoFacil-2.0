@@ -21,21 +21,42 @@
     box-shadow: 5px 5px 5px  rgba(226, 226, 226, 0.307);
 }
 
-.nome-mercado-container {
+.cabecalio-mercado-container {
     scale: 0.95;
     display: flex;
     justify-content: center;
-    /* flex-direction: column;
-    justify-content: space-between;
-    align-items: center; */
-    width: 88%;
+    align-items: center;
+    padding: 10px 0;
+    width: 100%;
     border-bottom: 2px rgb(218, 218, 218) solid;
-    height: 12%;
+    height: 17%;
+}
+
+.logo-container-mercado{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.logo-mercado{
+    width: 70%;
+    height: 100%;
+    border-radius: 100%;
+}
+
+.nome-mercado-container{
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 .nome-mercado-container h5 {
+    margin: 0;
     font-family: 'Poppins', sans-serif;
-    margin-top: 13%;
 }
 
 .endereco-cnpj-container {
@@ -141,6 +162,10 @@ p {
 
 .imagem-produto {
     z-index: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    object-fit: cover;
 }
 
 .botaoAdd {
@@ -175,6 +200,6 @@ p {
     font-family: 'Poppins', sans-serif;
     font-size: 15px;
     font-weight: 450;
-    text-align: justify;
+    
     color: #3d3d3d;
 }

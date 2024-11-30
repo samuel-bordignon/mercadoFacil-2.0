@@ -1,7 +1,9 @@
 /* Estilo do container principal onde o formulário está */
 .container-cadastro-parceiro {
     width: 979px;
-    height: 617px;
+    min-height: 617px;/*ajustes do samuelson*/
+    height: fit-content;/*ajustes do samuelson*/
+    padding: 0 0 2.2rem 0;/*ajustes do samuelson*/
     flex-shrink: 0;
     border-radius: 8px;
     border: 2px solid rgba(0, 0, 0, 0.14);
@@ -17,6 +19,10 @@
     flex-wrap: nowrap;
     align-items: center;
     gap: 31.7rem;
+}
+
+.error{
+    margin: 0;/*ajustes do samuelson*/
 }
 
 /* Cabeçalho principal do formulário */
@@ -103,6 +109,9 @@
     font-weight: 500;
     line-height: 12px; /* 75% */
     margin-bottom: 0.5rem;
+    margin-top: 1.4rem;/*ajustes do samuelson*/
+    position: relative;/*ajustes do samuelson*/
+    z-index: 1;
 }
 
 .botao-proximo-cadastro {

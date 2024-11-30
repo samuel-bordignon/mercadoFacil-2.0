@@ -1,18 +1,19 @@
-.comparacaoLista{
+.navBar-comparaLista{
     display: flex;
-    border: rgb(255, 255, 255) solid;
+    height: 10%;
+    width: 100%;
     box-shadow: 3px 1px 3px rgba(124, 124, 124, 0.301);
-
-}
-
-.comparacaoLista img{
+  
+  }
+  
+  .navBar-comparaLista img{
     margin-left: 42%;
     width: 9%;
     height: 24%;
-
-}
-
-.comparacaoLista button{
+  
+  }
+  
+  .navBar-comparaLista button{
     display: flex;
     border: none;
     background-color: #00c67700;
@@ -21,222 +22,235 @@
     font-weight: 600;
     margin-top: 0.5%;
     margin-left: 4%;
-
-}
-
-.info-localizacao{
+  
+  }
+  
+  .info-localizacao{
     display: flex;
     margin-top: 5%;
-
-}
-
-.text-loc{
+  
+  }
+  
+  .text-loc{
     display: flex;
     flex-direction: column;
     margin-left: 3%;
-
-}
-
-.text-loc h4{
+  
+  }
+  
+  .text-loc h4{
     font-size: 19px;
     color: #737373;
-
-}
-
-.horario-atendimento{
+  
+  }
+  
+  .horario-atendimento{
     position: absolute;
     top: 64%;
-
-}
-
-.container-comparaLista{
+  
+  }
+  
+  .container-comparaLista{
     position: absolute;
     top: 23%;
     left: 3%;
-
-}
-
-.container-comparaLista i{
+  
+  }
+  
+  .container-comparaLista i{
     font-size: 40px;
     padding: 0 15px;
     margin-top: 2%;
     color: #0C194E;
-
-}
-
-.container-card-mer{
+  
+  }
+  
+  .container-card-mer{
     display: flex;
     margin-top: 12%;
     justify-content: space-around; 
     column-gap: 20px;
-
-}
-
-.card-mer{
+  
+  }
+  
+  .card-mer{
+    display: flex;
+    flex-direction: column;
+    width: 193px;
     border: 1.5px solid;
     border-color: #00c677;
     border-radius: 5px;
-    width: 43%;
-
-}
-
-.card-mer h4{
+  
+  }
+  
+  .cabecario-mer{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2%;
+  
+  }
+  
+  .card-mer h3{
     color: #00c677;
-
-}
-
-.card-mer p{
-    color: #737373;
-
-}
-
-.card-mer-2{
+    font-size: 17px;
+  
+  }
+  
+  .card-mer h4{
+    line-height: 1.9%; /* Espaço entre linhas */
+    margin-left: 5%;
+  
+  }
+  
+  .card-mer-2{
+    display: flex;
+    flex-direction: column;
+    width: 193px;
     border: 1.5px solid;
     border-color: #969595;
     border-radius: 5px;
-    width: 43%;
-
-}
-
-.card-mer-2 h4{
-    color: #737373;
-
-}
-
-.card-mer-2 p{
-    color: #737373;
-
-}
-
-.bot-enviar-lista button{
+  
+  }
+  
+  .card-mer h3{
+    font-size: 17px;
+  
+  }
+  
+  .card-mer-2 h4{
+    line-height: 1.9%; /* Espaço entre linhas */
+    margin-left: 5%;
+  
+  }
+  
+  .bot-enviar-lista button{
     position: absolute;
     border: none;
     border-radius: 8px;
     font-size: 28px;
     background-color: #00c677;
     color: aliceblue;
-    top: 480px;
+    top: 578px;
     left: 15%;
     width: 64%;
     height: 10%;
-
-}
-
-.lista-merc{
+  
+  }
+  
+  /* Parte da lista onde mostra os itens que não foram encontrados e precisaram ser substituidos */
+  
+  .lista-merc{
     margin-left: 73%;
     border: 1.5px solid #acabab9c; 
     box-shadow: 3px 1px 3px rgba(124, 124, 124, 0.301);
-
-}
-
-.lista-merc hr{
+  
+  }
+  
+  .lista-merc hr{
     margin-left: 2%;
     width: 95%;
-
-}
-
-/* Parte da lista onde mostra os itens que não foram encontrados e precisaram ser substituidos */
-
-.lugar-da-foto-redonda{
-    border-radius: 100%;
-    height: 40px;
-    width: 40px;
-    border: none;
-    background-color: #737373;
-
-}
-
-.foto-redonda{
-    border-radius: 100%;
-    height: 40px;
-    width: 40px;
-    border: none;
-    background-color: #737373;
-
-}
-
-.cabecario-list{
+  
+  }
+  
+  .cabecario-list{
     display: flex;
     margin-left: 3%;
     margin-top: 2%;
-
-}
-
-.cabecario-list p{
+  
+  }
+  
+  .cabecario-list p{
     margin-top: 3%;
     margin-left: 2%;
-
-}
-
-.cabecario-list button{
+  
+  }
+  
+  .cabecario-list button{
     border: none;
     background-color: #00c67700;
     color: #00c677;
     margin-left: 120px;
-
-}
-
-.produto-nao-encontrado{
-    margin-left: 4%;
-
-}
-
-
-.detalhe{
-    font-size: 24px;
-    
-}
-
-.but-remover{
-    margin-left: 3%;
-
-}
-
-.but-remover:hover{
-    color: #6d6c6c;
-
-}
-
-.add{
-    display: flex;  
-    justify-content: space-around;
-
-}
-
-.add button{
-    color: #969595;
+  
+  }
+  .logo-mercado-compara-lista{
+    border-radius: 100%;
+    height: 40px;
+    width: 40px;
     border: none;
-    background-color: #00c67700;
-
-
-}
-
-.foto-quadrada{
+    background-color: #737373;
+  
+  }
+  
+  .foto-redonda{
+    border-radius: 100%;
+    height: 40px;
+    width: 40px;
+    border: none;
+    background-color: #737373;
+  
+  }
+  
+  
+  .produto-nao-encontrado{
+    margin-left: 4%;
+  
+  }
+  
+  .foto-produto{
     display: flex;
     height: 90px;
     margin-left: 3%;
-
-}
-
-.add i{
+  
+  }
+  
+  .detalhe h5{
+    color: #969595;
+  
+  }
+  
+  .add{
+    display: flex;  
+    justify-content: space-around;
+  
+  }
+  
+  .add button{
+    margin-right: 48%; 
+    color: #969595;
+    border: none;
+    background-color: #00c67700;
+  
+  
+  }
+  
+  .add i{
     color: #00c677;
-
-}
-
-.add-icon{
+  
+  }
+  
+  .add-icon{
     display: flex;
     margin-left: 3%;
     margin-top: 5%;
-
-}
-
-.add-icon i{
+  
+  }
+  
+  .add-icon i{
     color: #00c677;
-
-}
-
-.menosÉmais{
+  
+  }
+  
+  .menosÉmais{
     display: flex;
-
-}
-
+  
+  }
+  
+  .but-remover{
+    margin-left: 3%;
+  
+  }
+  
+  .but-remover:hover{
+    color: #6d6c6c;
+  
+  }

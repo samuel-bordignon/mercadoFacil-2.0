@@ -11,7 +11,7 @@ import Voltar from '../assets/images/Voltar.png'  // Corrigido o caminho da imag
 import Cover from '../assets/images/cover.png'  // Imagem de capa
 import EtapasContador1 from '../assets/images/EtapasContador.png'  // Imagem de capa
 import NavbarLogo from '../components/NavbarLogo'  // Logo da navbar
-// import User from '../assets/user_default.webp'
+import User from '../assets/user_default.webp'
 
 function CadastroParceiro2() {
   const navigate = useNavigate()
@@ -19,7 +19,7 @@ function CadastroParceiro2() {
   const [showPassword, setShowPassword] = useState(false)
   const storageLocal = getLocalStorage(chaveMercadoData)
   const storageGerenteLocal = getLocalStorage(chaveGerenteData)
-  const id = getLocalStorage('id_mercados')
+  const id = getLocalStorage('id_mercado')
 
 
   const validationSchema = z.object({
@@ -93,7 +93,7 @@ function CadastroParceiro2() {
                 <button className="btn-cadastro">
                   <img
                     className="botao-voltar"
-                    onClick={() => navigate('/criarConta')}
+                    onClick={() => navigate('/criarConta/CadastroParceiro1')}
                     src={Voltar}
                     alt="Botão voltar"
                   />
