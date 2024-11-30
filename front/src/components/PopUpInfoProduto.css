@@ -1,40 +1,33 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-.tudo-tela {
+.popUp-overlay {
     width: 100%;
     height: 100%;
-}
-
-
-.tela-info-mercado{
-    width: 100%;
-    height: 100%;
-    display: flex;
-}
-
-
-.geral-produto-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.produto-especifico-container {
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     justify-content: center;
+    align-items: center;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.popUp-infoProd-container {  /* o container base do popUp */
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    z-index: 10;
     gap: 5%;
-    background-color: #F4F4F4;
-    width: 90%;
-    height: 60%;
-    padding: 3%;
-    border-radius: 2%;
-    box-shadow: 5px 5px 5px rgba(222, 222, 222, 0.567);
+    background-color: #ffffff;
+    width: 82%;
+    height: 80%;
+    padding: 2%;
+    border-radius: 10px;
 }
 
 .espaco-img-prod-container {
-   width: 35%;
+   width: 37%;
    display: flex;
    align-items: center;
 }
@@ -55,7 +48,7 @@
 }
 
 .infos-produto-container {
-    width: 45%;
+    width: 46%;
     display: flex;
     flex-direction: column;
     padding: 3%;
@@ -64,6 +57,7 @@
     border-radius: 2%;
 }
 
+/* superior e inferior da div de info dos produtos, como nome descrição e botão */
 .parte-superior {
     width: 100%;
     height: 50%;
@@ -89,6 +83,22 @@
     height: 19%;
 }
 
+.bttn-fecha-PopUp {
+    border: none;
+    background-color: #ffffff;
+    position: absolute; 
+    top: 25px;      
+    right: 30px;         
+    cursor: pointer;
+}
+
+.categoria-info-produto {
+    font-family: 'Poppins', sans-serif;
+    font-size: 35px;
+    color: #00C677;
+    font-weight: 500;
+}
+
 .nome-info-produto {
     font-family: 'Poppins', sans-serif;
     font-size: 30px;
@@ -105,4 +115,4 @@
     font-size: 33px;
     font-weight: 500;
     color: #00C677;
-} */
+}

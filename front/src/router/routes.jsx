@@ -29,7 +29,7 @@ import PerfilGerente from "../pages/PerfilGerente";
 import PerfilMercado from "../pages/PerfilMercado";
 import Sidebar from "../components/Sidebar";
 import TelaDentroMercado from "../pages/TelaDentroMercado";
-import TelaInfoProduto from "../pages/TelaInfoProduto";
+// import TelaInfoProduto from "../pages/TelaInfoProduto";
 
 const router = createBrowserRouter([
     { path: "/", element: <HomeLogin /> },
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
     { path: "/perfilMercado", element: <PerfilMercado /> },
     { path: "/sidebar", element: <Sidebar /> },
     { path: "/telaDentroMercado", element: <TelaDentroMercado /> },
-    { path: "/telaInfoProduto", element: <TelaInfoProduto /> },
+    // { path: "/telaInfoProduto", element: <TelaInfoProduto /> },
     { path: "/anima", element: <TesteAnimacao /> }
 ]);
 

@@ -262,7 +262,7 @@ function AddEndereco() {
       </div>
     </div>
 
-  {/* <div className="conteiner">
+  /* <div className="conteiner">
           <div className="secao-formulario">
             <h2>{activeBtnDelete ? 'Editar endereço' : 'Adicionar meu endereço'}</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -383,8 +383,8 @@ function AddEndereco() {
             </ul>
           </div>
         </div>
-    </div> */}
-    </div> */}
+    </div> 
+    </div> */
   )
 }
 
