@@ -87,7 +87,7 @@ function TelaDentroMercado() {
             <h5>{enderecosMercadoAtual.logradouro}</h5>
             <p>{enderecosMercadoAtual.cep}</p>
             <h5 className="titulo-outras-info">Outras informações</h5>
-            <p>CNPJ: {/*mercadoAtual[0].cnpj*/}</p>
+            <p>CNPJ: {/*mercadoAtual[].cnpj*/}</p>
           </div>
           <div className="horario-container">
             <div className="dias-funcion-container">
