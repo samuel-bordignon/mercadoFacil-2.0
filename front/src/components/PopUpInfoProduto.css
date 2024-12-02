@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     z-index: 999;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.096);
 }
 
 .popUp-infoProd-container {  /* o container base do popUp */
@@ -23,16 +23,17 @@
     width: 82%;
     height: 80%;
     padding: 2%;
+    cursor: default;
     border-radius: 10px;
 }
 
-.espaco-img-prod-container {
+.espaco-img-prod-popUp-container {
    width: 37%;
    display: flex;
    align-items: center;
 }
 
-.fundo-img {
+.fundo-img-popUp {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,12 +43,12 @@
     border-radius: 2%;
 }
 
-.fundo-img img {
+.fundo-img-popUp img {
     width: 80%;
     height: 80%;
 }
 
-.infos-produto-container {
+.infos-produto-popUp-container {
     width: 46%;
     display: flex;
     flex-direction: column;
@@ -58,13 +59,13 @@
 }
 
 /* superior e inferior da div de info dos produtos, como nome descrição e botão */
-.parte-superior {
+.parte-superior-popUp {
     width: 100%;
     height: 50%;
 
 }
 
-.parte-inferior {
+.parte-inferior-popUp {
     width: 100%;
     height: 100%;
     display: flex;
@@ -72,7 +73,7 @@
     justify-content: flex-end;
 }
 
-.parte-inferior button {
+.parte-inferior-popUp button {
     color: #ffffff;
     background-color: #00C677;
     font-size: 24px;
