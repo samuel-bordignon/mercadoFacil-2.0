@@ -149,6 +149,7 @@ function MercadoCadastroProdutos() {
   useEffect(() => {
     const fetchData = async () => {
       if (idProduto.length > 0) {
+        console.log('pinto')
         try {
           const produto = getLocalStorage("produtoData")
           const tabelaRelacao = await getDataByForeignKey(

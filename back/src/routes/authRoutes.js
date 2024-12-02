@@ -15,25 +15,11 @@ const checkTableExists = async (table) => {
     return result.rows[0].exists;
 };
 
-// Rota para verificar se um e-mail existe em uma tabela específica
-const allowedTables = ['clientes', 'gerentes', 'mercados'];
-
 router.get('/:table/email-exists/:email', async (req, res) => {
     const { table, email } = req.params;
 
     try {
         console.log(`Verificando tabela: ${table}, email: ${email}`);
-
-        // Validar tabela
-        if (!allowedTables.includes(table)) {
-            return res.status(400).json({ error: 'Tabela inválida' });
-        }
-
-        // Validar email
-        const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        if (!isValidEmail(email)) {
-            return res.status(400).json({ error: 'Email inválido' });
-        }
 
         // Verificar se a tabela existe no banco
         if (!(await checkTableExists(table))) {
@@ -58,7 +44,6 @@ router.get('/:table/password-vality/:identificadorNome/:identificadorValor/:senh
     const { table, identificadorNome, identificadorValor, senhaValor } = req.params;
     try {
         const result = await pool.query(`SELECT * FROM ${table} WHERE ${identificadorNome} = $1`, [identificadorValor]);
-
         if (result.rows.length === 0) {
             return res.status(404).json({ loginSuccess: false, message: `${identificadorNome} não cadastrado` });
         }

@@ -29,7 +29,7 @@
     padding: 10px 0;
     width: 100%;
     border-bottom: 2px rgb(218, 218, 218) solid;
-    height: 17%;
+    height: 12%;
 }
 
 .logo-container-mercado{
@@ -41,8 +41,8 @@
 }
 
 .logo-mercado{
-    width: 70%;
-    height: 100%;
+    width: 68%;
+    height:70%;
     border-radius: 100%;
 }
 
@@ -153,7 +153,8 @@ p {
     display: flex;
     justify-content: center;
     padding: 1%;
-    height: 130px;
+    height: 127.5px;
+    width: 127.5px;
     border-radius: 4%;
     background-color: #f1f1f1; 
     position: relative;
@@ -161,10 +162,7 @@ p {
 
 .imagem-produto {
     z-index: 0;
-    height: 100%;
-    width: 100%;
     border-radius: 5px;
-    object-fit: cover;
 }
 
 .botaoAdd {
@@ -187,8 +185,13 @@ p {
     width: 16px;
 }
 
+.detalhes-produto-container p{
+    margin: 0;
+}
+
 .preco-produto {
     margin-top: 7%;
+    margin-bottom: 2%;
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
     font-weight: 500;

@@ -1,256 +1,357 @@
-.navBar-comparaLista{
-    display: flex;
-    height: 10%;
-    width: 100%;
-    box-shadow: 3px 1px 3px rgba(124, 124, 124, 0.301);
-  
-  }
-  
-  .navBar-comparaLista img{
-    margin-left: 42%;
-    width: 9%;
-    height: 24%;
-  
-  }
-  
-  .navBar-comparaLista button{
-    display: flex;
-    border: none;
-    background-color: #00c67700;
-    color: #00c677;
-    font-size: 23px;
-    font-weight: 600;
-    margin-top: 0.5%;
-    margin-left: 4%;
-  
-  }
-  
-  .info-localizacao{
-    display: flex;
-    margin-top: 5%;
-  
-  }
-  
-  .text-loc{
-    display: flex;
-    flex-direction: column;
-    margin-left: 3%;
-  
-  }
-  
-  .text-loc h4{
-    font-size: 19px;
-    color: #737373;
-  
-  }
-  
-  .horario-atendimento{
-    position: absolute;
-    top: 64%;
-  
-  }
-  
-  .container-comparaLista{
-    position: absolute;
-    top: 23%;
-    left: 3%;
-  
-  }
-  
-  .container-comparaLista i{
-    font-size: 40px;
-    padding: 0 15px;
-    margin-top: 2%;
-    color: #0C194E;
-  
-  }
-  
-  .container-card-mer{
-    display: flex;
-    margin-top: 12%;
-    justify-content: space-around; 
-    column-gap: 20px;
-  
-  }
-  
-  .card-mer{
-    display: flex;
-    flex-direction: column;
-    width: 193px;
-    border: 1.5px solid;
-    border-color: #00c677;
-    border-radius: 5px;
-  
-  }
-  
-  .cabecario-mer{
-    display: flex;
-    justify-content: space-around;
-    margin-top: 2%;
-  
-  }
-  
-  .card-mer h3{
-    color: #00c677;
-    font-size: 17px;
-  
-  }
-  
-  .card-mer h4{
-    line-height: 1.9%; /* Espaço entre linhas */
-    margin-left: 5%;
-  
-  }
-  
-  .card-mer-2{
-    display: flex;
-    flex-direction: column;
-    width: 193px;
-    border: 1.5px solid;
-    border-color: #969595;
-    border-radius: 5px;
-  
-  }
-  
-  .card-mer h3{
-    font-size: 17px;
-  
-  }
-  
-  .card-mer-2 h4{
-    line-height: 1.9%; /* Espaço entre linhas */
-    margin-left: 5%;
-  
-  }
-  
-  .bot-enviar-lista button{
-    position: absolute;
-    border: none;
-    border-radius: 8px;
-    font-size: 28px;
-    background-color: #00c677;
-    color: aliceblue;
-    top: 578px;
-    left: 15%;
-    width: 64%;
-    height: 10%;
-  
-  }
-  
-  /* Parte da lista onde mostra os itens que não foram encontrados e precisaram ser substituidos */
-  
-  .lista-merc{
-    margin-left: 73%;
-    border: 1.5px solid #acabab9c; 
-    box-shadow: 3px 1px 3px rgba(124, 124, 124, 0.301);
-  
-  }
-  
-  .lista-merc hr{
-    margin-left: 2%;
-    width: 95%;
-  
-  }
-  
-  .cabecario-list{
-    display: flex;
-    margin-left: 3%;
-    margin-top: 2%;
-  
-  }
-  
-  .cabecario-list p{
-    margin-top: 3%;
-    margin-left: 2%;
-  
-  }
-  
-  .cabecario-list button{
-    border: none;
-    background-color: #00c67700;
-    color: #00c677;
-    margin-left: 120px;
-  
-  }
-  .logo-mercado-compara-lista{
-    border-radius: 100%;
-    height: 40px;
-    width: 40px;
-    border: none;
-    background-color: #737373;
-  
-  }
-  
-  .foto-redonda{
-    border-radius: 100%;
-    height: 40px;
-    width: 40px;
-    border: none;
-    background-color: #737373;
-  
-  }
-  
-  
-  .produto-nao-encontrado{
-    margin-left: 4%;
-  
-  }
-  
-  .foto-produto{
-    display: flex;
-    height: 90px;
-    margin-left: 3%;
-  
-  }
-  
-  .detalhe h5{
-    color: #969595;
-  
-  }
-  
-  .add{
-    display: flex;  
-    justify-content: space-around;
-  
-  }
-  
-  .add button{
-    margin-right: 48%; 
-    color: #969595;
-    border: none;
-    background-color: #00c67700;
-  
-  
-  }
-  
-  .add i{
-    color: #00c677;
-  
-  }
-  
-  .add-icon{
-    display: flex;
-    margin-left: 3%;
-    margin-top: 5%;
-  
-  }
-  
-  .add-icon i{
-    color: #00c677;
-  
-  }
-  
-  .menosÉmais{
-    display: flex;
-  
-  }
-  
-  .but-remover{
-    margin-left: 3%;
-  
-  }
-  
-  .but-remover:hover{
-    color: #6d6c6c;
-  
-  }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+.container-comparacao-total{
+  width: 100%;
+  height: 100%;
+}
+
+.navBar-comparaLista {
+  display: flex;
+  height: 8%;
+  width: 100%;
+  box-shadow: 3px 1px 3px rgba(124, 124, 124, 0.301);
+  padding: 0.7%;
+
+}
+
+#popup-list-comparacao {
+  width: 33%;
+  height: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+} 
+
+#popup-list-comparacao .shopping-list {
+  height: 100%;
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  align-items: center;
+}
+
+#popup-list-comparacao .market-list{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 15%;
+  padding: 0 20px;
+  border-bottom: solid 2px #D9D9D9;
+}
+
+.logo-mercado-list-comparacao {
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+}
+
+.market-name-comparacao{
+  font-family: 'poppins';
+  font-size: 22px;
+  font-weight: 400;
+  margin-left: 12px;
+}
+
+#popup-list-comparacao .shopping-list .list-itens{
+  height: fit-content;
+} 
+
+.container-comparacao-lista{
+  display: flex;
+  justify-content: space-between;
+  height: 92%;
+  padding:  0 2%;
+}
+
+.navBar-comparaLista img {
+  margin-left: 35%;
+  width: 150px;
+  height: 100%;
+
+}
+
+.navBar-comparaLista button {
+  display: flex;
+  border: none;
+  background: none;
+  color: #00c677;
+  font-size: 23px;
+  font-weight: 600;
+  margin-top: 0.5%;
+  margin-left: 4%;
+
+}
+
+.info-localizacao {
+  display: flex;
+  padding: 5% 0 6% 0 ; 
+
+}
+
+.text-loc {
+  display: flex;
+  flex-direction: column;
+  margin-left: 3%;
+
+}
+
+.text-loc h4 {
+  font-size: 19px;
+  color: #737373;
+
+}
+
+
+
+.container-comparaLista {
+  padding: 2.5%  0 0 1.5%;
+  display: flex;
+  flex-direction: column;
+  width: 67%;
+}
+
+.container-icons{
+  display: flex;
+  justify-content: flex-start;
+  align-items: end;
+  gap: 66px;
+  height: 12%;
+}
+
+.container-comparaLista i {
+  font-size: 40px;
+  color: #0C194E;
+
+}
+
+.container-card-mer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1% 1% 0 0;
+  height: 18%;
+
+}
+
+.card-mer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 24%;
+  border: 1.5px solid;
+  border-color: #00c677;
+  border-radius: 5px;
+
+}
+
+.cabecario-mer {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 5%;
+}
+
+.cabecario-mer h3 {
+  font-size: 18px;
+  margin: 0;
+  color: #737373;
+  font-weight: 400;
+}
+
+.card-mer h3 {
+  color: #00c677;
+  font-size: 17px;
+
+}
+
+.card-mer h4 {
+  line-height: 1.9%;
+  /* Espaço entre linhas */
+
+}
+
+.distancia-mer{
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+  color: #737373;
+}
+
+.preco-total{
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.card-mer-2 {
+  font-family: 'poppins';
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  width: 24%;
+  border: 1px solid;
+  background-color: white;
+  border-color: #F4F4F4;
+  border-radius: 5px;
+  padding: 11px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.ativo{
+  border: 2px solid;
+  border-color: #00c677;
+  box-shadow: 0px 2px 10px #00c67726;
+}
+.ativo h3{
+  color: #00c677;
+}
+
+.card-mer h3 {
+  font-size: 17px;
+
+}
+
+.bot-enviar-lista{
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  height: 14%;
+}
+
+.bot-enviar-lista button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 8px;
+  font-size: 28px;
+  background-color: #00c677;
+  color: aliceblue;
+  width: 64%;
+  height: 65px;
+
+}
+
+/* Parte da lista onde mostra os itens que não foram encontrados e precisaram ser substituidos */
+
+.lista-merc {
+  margin-left: 73%;
+  border: 1.5px solid #acabab9c;
+  box-shadow: 3px 1px 3px rgba(124, 124, 124, 0.301);
+
+}
+
+.lista-merc hr {
+  margin-left: 2%;
+  width: 95%;
+
+}
+
+.cabecario-list {
+  display: flex;
+  margin-left: 3%;
+  margin-top: 2%;
+
+}
+
+.cabecario-list p {
+  margin-top: 3%;
+  margin-left: 2%;
+
+}
+
+.cabecario-list button {
+  border: none;
+  background-color: #00c67700;
+  color: #00c677;
+  margin-left: 120px;
+
+}
+
+.logo-mercado-compara-lista {
+  border-radius: 100%;
+  height: 40px;
+  width: 40px;
+  border: none;
+  background-color: #D9D9D9;
+
+}
+
+.foto-redonda {
+  border-radius: 100%;
+  height: 40px;
+  width: 40px;
+  border: none;
+  background-color: #737373;
+
+}
+
+
+.produto-nao-encontrado {
+  margin-left: 4%;
+
+}
+
+.foto-produto {
+  display: flex;
+  height: 90px;
+  margin-left: 3%;
+
+}
+
+.detalhe h5 {
+  color: #969595;
+
+}
+
+.add {
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.add button {
+  margin-right: 48%;
+  color: #969595;
+  border: none;
+  background-color: #00c67700;
+
+
+}
+
+.add i {
+  color: #00c677;
+
+}
+
+.add-icon {
+  display: flex;
+  margin-left: 3%;
+  margin-top: 5%;
+
+}
+
+.add-icon i {
+  color: #00c677;
+
+}
+
+.menosÉmais {
+  display: flex;
+
+}
+
+.but-remover {
+  margin-left: 3%;
+
+}
+
+.but-remover:hover {
+  color: #6d6c6c;
+
+}

@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
     background-color: #0C194E;
-    height: 100vh;
+    height: 100%;
     position: fixed;
     width: 115px;
     transition: width 0.5s;

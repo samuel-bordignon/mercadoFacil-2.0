@@ -13,13 +13,14 @@ function HomeMercados() {
     getDataById,
     getDataByForeignKey,
     getLocalStorage,
+    setLocalStorage,
     getData,
   } = useContext(GlobalContext)
 
-  const idEnderecoClienteAtual = getLocalStorage('id_enderecocliente')
   const idCliente = getLocalStorage('id_cliente')
 
   const [mercadosDentro, setMercadosDentro] = useState([])
+  const [mercados, setMercados] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -33,20 +34,18 @@ function HomeMercados() {
         getData('enderecomercados'),
       ])
 
+      setMercados(mercados)
+
       // Buscar endereços relacionados ao cliente atual
       const tabelaRelacao = await getDataByForeignKey('endereco_cliente_relecao', 'fk_id_cliente', idCliente)
       const enderecosRelacionados = await Promise.all(
         tabelaRelacao.map((item) => getDataById('enderecoclientes', item.fk_id_enderecocliente))
       )
-
       if (enderecosRelacionados.length === 0) {
         throw new Error('Nenhum endereço relacionado encontrado para o cliente atual.')
       }
 
-      const enderecoAtualCliente = enderecosRelacionados.find(
-        (enderecoCliente) => enderecoCliente.id_enderecocliente === idEnderecoClienteAtual
-      )
-
+      const enderecoAtualCliente = enderecosRelacionados.find((endereco) => endereco.isatual)
       if (!enderecoAtualCliente) {
         throw new Error('Endereço atual do cliente não encontrado.')
       }
@@ -77,6 +76,7 @@ function HomeMercados() {
       )
 
       setMercadosDentro(mercadosFiltrados.filter(Boolean) || [])
+      setLocalStorage('mercadosDentro', mercadosFiltrados.filter(Boolean) || [])
     } catch (err) {
       console.error('Erro ao carregar dados:', err)
       setError(err.message)
@@ -108,29 +108,29 @@ function HomeMercados() {
     return <div>Erro: {error}</div>
   }
 
-  const slidesVisitados = slides(mercadosDentro)
-  const slidesPerto = slidesVisitados // Reutilizando lógica, se necessário
+  const slidesGeral = slides(mercados)
+  const slidesPerto = slides(mercadosDentro) // Reutilizando lógica, se necessário
 
   return (
-    <div>
+    <div className='container-total-home'>
       <Navbar />
-      <div id="container_home" className="container mt-5">
+      <div id="container_home" className="container-home mt-5">
         <div className="TituloHome text-start">
-          <h1 className="titulo">SuperMercados</h1>
-          <div className="sub-titulo">
-            <p className="visitas-mercado">Visitados Recentemente</p>
-          </div>
+          <h1>SuperMercados</h1>
         </div>
-
-        {/* Carousel de mercados visitados */}
-        <Carousel slides={slidesVisitados}/>
-
         <div className="sub-titulo2">
           <p>Perto de você</p>
         </div>
 
-        {/* Carousel de mercados perto de você */}
+        {/* Carousel de mercados perto */}
         <Carousel slides={slidesPerto}/>
+
+        <div className="sub-titulo2">
+          <p>Outros Mercados</p>
+        </div>
+
+        {/* Carousel de todos osmercados */}
+        <Carousel slides={slidesGeral}/>
       </div>
       <Footer />
     </div>

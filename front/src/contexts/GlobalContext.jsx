@@ -171,14 +171,11 @@ export const GlobalContextProvider = ({ children }) => {
         try {
             setLoading(true)
             const response = await axios.get(
-                `http://localhost:3000/${table}/password-vality/auth/${identificador}/${identificadorValor}/${senhaValor}`
+                `http://localhost:3000/auth/${table}/password-vality/${identificador}/${identificadorValor}/${senhaValor}`
             )
-
             const data = response.data
 
             if (data.loginSuccess) {
-                console.log("Login bem-sucedido:", data)
-
                 // Identificar a chave primária no objeto retornado
                 const primaryKey = Object.keys(data.user).find((key) => key.startsWith("id_"))
                 console.log("Chave primária:", primaryKey)
@@ -197,7 +194,7 @@ export const GlobalContextProvider = ({ children }) => {
 
             // Capturando mensagens específicas do erro, se disponíveis
             const errorMessage =
-                error.response?.data?.message || "Erro ao tentar logar"
+                error.response?.data?.message
 
             return { success: false, message: errorMessage }
         } finally {
@@ -293,19 +290,8 @@ export const GlobalContextProvider = ({ children }) => {
     const idCliente = getLocalStorage('id_cliente')
     const idGerente = getLocalStorage('id_gerente')
     const idEnderecoCliente = getLocalStorage("id_enderecocliente")
-
-
-
-    const [enderecosCliente, setEnderecosCliente] = useState([{ cep: '', logradouro: '', numero: '', complemento: '', bairro: '', apelido: '' }])
-    const [cliente, setCliente] = useState({ nome: '', cpf: '', data_nasc: '', telefone: '', email: '', senha: '' })
-    const [gerente, setGerente] = useState(null) // Inicializa como null para evitar inconsistência
-    const [mercado, setMercado] = useState(null) // Também inicializa como null
-    const [mercados, setMercados] = useState([])
-    const [enderecoMercado, setEnderecoMercado] = useState(null)
-    const [produtos, setProdutos] = useState([])
-    const [categorias, setCategorias] = useState([])
-    const [enderecosMercados, setEnderecosMercados] = useState([])
     const unidadeOptions = [{value:'Kg', label:'Kg'},{value:'g', label:'g'},{value:'L', label:'L'},{value:'ml', label:'ml'}]
+    const [listaDefoutAtual, setListaDefoutAtual] = useState([])
 
     // Prover estados e funções aos componentes filhos
     return (
@@ -314,19 +300,10 @@ export const GlobalContextProvider = ({ children }) => {
             loading,
 
             unidadeOptions,
+            listaDefoutAtual, setListaDefoutAtual,
+            
 
             getLocalStorage, setLocalStorage,
-
-            enderecosCliente, setEnderecosCliente,
-            cliente, setCliente,
-            gerente, setGerente,
-            mercado, setMercado,
-            mercados, setMercados,
-            enderecoMercado, setEnderecoMercado,
-            produtos, setProdutos,
-            categorias, setCategorias,
-            enderecosMercados, setEnderecosMercados,
-
             chaveMercadoData,
             chaveClienteData,
             chaveEnderecoClienteLocal,

@@ -5,43 +5,38 @@ import { GlobalContext } from '../contexts/GlobalContext'
 import React, { useContext, useState, useEffect } from 'react'
 
 function TelaDentroMercado() {
-  const { getLocalStorage, getDataById, getDataByForeignKey } = useContext(GlobalContext)
+  const { getLocalStorage, setLocalStorage, getDataById, getDataByForeignKey, listaDefoutAtual, setListaDefoutAtual,} = useContext(GlobalContext)
   const [mercadoAtual, setMercadoAtual] = useState([])
   const [enderecoMercadoAtual, setEnderecoMercadoAtual] = useState([])
   const [produtos, setProdutos] = useState([])
   const [icon, setIcon] = useState('Mais')
-  const idGerente = getLocalStorage('id_gerente')
+  const idMercado = getLocalStorage('id_mercado')
+  const listaDefout = getLocalStorage('listaDefout')
+
 
   useEffect(() => {
     const fetchMercado = async () => {
       try {
-        const mercadoAtual = await getDataByForeignKey('mercados', 'fk_id_gerente', idGerente);
-        setMercadoAtual(...mercadoAtual);
+        const mercadoAtual = await getDataById('mercados', idMercado);
+        setMercadoAtual(mercadoAtual);
       } catch (error) {
         console.error('Erro ao buscar mercado:', error);
       }
     };
 
     fetchMercado();
-  }, [idGerente]);
-
+  }, [idMercado]);
   useEffect(() => {
     const fetchProdutosEEnderecos = async () => {
-      if (mercadoAtual.length > 0) {
+      if (mercadoAtual) {
         try {
           const [enderecosMercados, produtos] = await Promise.all([
-            getDataByForeignKey('enderecomercados', 'fk_id_mercado', mercadoAtual[0].id_mercado),
-            getDataByForeignKey('produtos', 'fk_id_mercado', mercadoAtual[0].id_mercado),
+            getDataByForeignKey('enderecomercados', 'fk_id_mercado', mercadoAtual.id_mercado),
+            getDataByForeignKey('produtos', 'fk_id_mercado', mercadoAtual.id_mercado),
           ]);
 
           setEnderecoMercadoAtual(...enderecosMercados);
           setProdutos(produtos);
-
-          console.log('Produtos:', produtos);
-          console.log('Endereços:', enderecosMercados);
-          console.log('Endereços:', enderecosMercados[0]);
-          console.log('Endereços:', enderecosMercados);
-          console.log('Mercado:', mercadoAtual);
         } catch (error) {
           console.error('Erro ao buscar dados dependentes:', error);
         }
@@ -53,7 +48,24 @@ function TelaDentroMercado() {
 
 
 
-  const AlteraIcon = () => { }
+  const adicionaLista = (produto) => {
+    // Verifica se o produto já está na lista
+    const produtoJaNaLista = listaDefout.some(item => item.id_produto === produto.id_produto);
+
+    if (produtoJaNaLista) {
+      const novaLista = listaDefout.filter(item => item.id_produto !== produto.id_produto);
+      setListaDefoutAtual(novaLista)
+      setLocalStorage('listaDefout', novaLista.map((produto) => ({ ...produto, quantidade_lista: 1 })))
+    } else {
+      const novaLista = [...listaDefout, produto]
+      setListaDefoutAtual(novaLista)
+      setLocalStorage('listaDefout', novaLista.map((produto) => ({ ...produto, quantidade_lista: 1 })))
+      
+    }
+  
+  }
+
+  const abreInfoProduto = () => { }
 
   return (
     <div className="tudo">
@@ -71,8 +83,9 @@ function TelaDentroMercado() {
           </div>
           <div className="endereco-cnpj-container">
             <p className="sub-titulo-verde">Sobre</p>
-            <h5>{enderecoMercadoAtual.logradouro}</h5>
-            <p>{enderecoMercadoAtual.cep}</p>
+            <h5 className="titulo-outras-info">Endereço</h5>
+            <p>{enderecoMercadoAtual.logradouro}</p>
+            <p>CEP: {enderecoMercadoAtual.cep}</p>
             <h5 className="titulo-outras-info">Outras informações</h5>
             <p>CNPJ: {mercadoAtual.cnpj}</p>
           </div>
@@ -110,138 +123,46 @@ function TelaDentroMercado() {
             <p className="sub-titulo-verde">Ver todos</p>
           </div>
           <div className="sessao-produtos-container">
-            {produtos.map((produto, index) => (
-              <div className="card-produto">
+            {produtos.map((produto) => (
+              <div
+                className="card-produto"
+                onClick={() => abreInfoProduto()}
+                key={produto.id_produto}
+              >
                 <div className="espaco-colocar-img">
-                  <img className="imagem-produto" src={`/uploads_images/${produto.imagem_file_path}`} alt="" />
-                  <button className="botaoAdd" onClick={AlteraIcon}>
-                    {icon === 'Mais' ? (
-                      <img className="iconsvgMais" src="IconMais.svg" alt="" />
+                  <img
+                    className="imagem-produto"
+                    src={`/uploads_images/${produto.imagem_file_path}`}
+                    alt=""
+                  />
+                  <button
+                    className="botaoAdd"
+                    onClick={(e) => {
+                      e.stopPropagation(); // Impede que o clique no botão acione o onClick do pai
+                      adicionaLista(produto);
+                    }}
+                  >
+                    {/* Exibe o ícone baseado na presença do produto na lista */}
+                    {listaDefout.some(item => item.id_produto === produto.id_produto) ? (
+                      <img className="iconsvgMais" src="CheckMark.svg" alt="Check" />
                     ) : (
-                      <img className="iconsvgMais" src="CheckMark.svg" alt="" />
+                      <img className="iconsvgMais" src="IconMais.svg" alt="Mais" />
                     )}
                   </button>
                 </div>
                 <p className="preco-produto">R${produto.preco}</p>
-                <p className="descricao-produto">{produto.nome}</p>
+                <div className="detalhes-produto-container">
+                  <p className="descricao-produto">{produto.nome}</p>
+                </div>
               </div>
+
             ))}
-
-
-
-
-
-
-
-
           </div>
           {/* segunda sessão */}
           <div className="topico-produtos">
             <h4>Almoço</h4>
             <p className="sub-titulo-verde">Ver todos</p>
           </div>
-
-          <div className="card-produto">
-            <div className="espaco-colocar-img">
-              <img className="imagem-produto" src="skol.png" alt="" />
-              <button className="botaoAdd" onClick={AlteraIcon}>
-                {icon === 'Mais' ? (
-                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
-                ) : (
-                  <img className="iconsvgMais" src="CheckMark.svg" alt="" />
-                )}
-              </button>
-            </div>
-            <p className="preco-produto">R$ 00,00</p>
-            <p className="descricao-produto">Fardo de cerveja Skoll 12 latinhas de 269 ml</p>
-          </div>
-          <div className="card-produto">
-            <div className="espaco-colocar-img">
-              <img className="imagem-produto" src="arroz.png" alt="" />
-              <button className="botaoAdd" onClick={AlteraIcon}>
-                {icon === 'Mais' ? (
-                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
-                ) : (
-                  <img className="iconsvgMais" src="CheckMark.svg" alt="" />
-                )}
-              </button>
-            </div>
-            <p className="preco-produto">R$ 00,00</p>
-            <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
-          </div>
-          <div className="card-produto">
-            <div className="espaco-colocar-img">
-              <img className="imagem-produto" src="arroz.png" alt="" />
-              <button className="botaoAdd" onClick={AlteraIcon}>
-                {icon === 'Mais' ? (
-                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
-                ) : (
-                  <img className="iconsvgMais" src="CheckMark.svg" alt="" />
-                )}
-              </button>
-            </div>
-            <p className="preco-produto">R$ 00,00</p>
-            <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
-          </div>
-          <div className="card-produto">
-            <div className="espaco-colocar-img">
-              <img className="imagem-produto" src="arroz.png" alt="" />
-              <button className="botaoAdd" onClick={AlteraIcon}>
-                {icon === 'Mais' ? (
-                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
-                ) : (
-                  <img className="iconsvgMais" src="CheckMark.svg" alt="" />
-                )}
-              </button>
-            </div>
-            <p className="preco-produto">R$ 00,00</p>
-            <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
-          </div>
-          <div className="card-produto">
-            <div className="espaco-colocar-img">
-              <img className="imagem-produto" src="arroz.png" alt="" />
-              <button className="botaoAdd" onClick={AlteraIcon}>
-                {icon === 'Mais' ? (
-                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
-                ) : (
-                  <img className="iconsvgMais" src="CheckMark.svg" alt="" />
-                )}
-              </button>
-            </div>
-            <p className="preco-produto">R$ 00,00</p>
-            <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
-          </div>
-          <div className="card-produto">
-            <div className="espaco-colocar-img">
-              <img className="imagem-produto" src="arroz.png" alt="" />
-              <button className="botaoAdd" onClick={AlteraIcon}>
-                {icon === 'Mais' ? (
-                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
-                ) : (
-                  <img className="iconsvgMais" src="CheckMark.svg" alt="" />
-                )}
-              </button>
-            </div>
-            <p className="preco-produto">R$ 00,00</p>
-            <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
-          </div>
-          <div className="card-produto">
-            <div className="espaco-colocar-img">
-              <img className="imagem-produto" src="arroz.png" alt="" />
-              <button className="botaoAdd" onClick={AlteraIcon}>
-                {icon === 'Mais' ? (
-                  <img className="iconsvgMais" src="IconMais.svg" alt="" />
-                ) : (
-                  <img className="iconsvgMais" src="CheckMark.svg" alt="" />
-                )}
-              </button>
-            </div>
-            <p className="preco-produto">R$ 00,00</p>
-            <p className="descricao-produto">Arroz Parboilizado Camil Pacote 1 kilo</p>
-
-
-          </div>
-
         </div>
       </div>
     </div>
