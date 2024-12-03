@@ -5,7 +5,22 @@ import './PerfilMercado.css'
 
 function PerfilMercado() {
   // Garantir que mercadosdb tenha um valor padrão (fallback)
-  const { mercadosdb, setMercadosdb, enderecosdb, setEnderecosdb } = useContext(GlobalContext)
+  const {} = useContext(GlobalContext)
+
+  const mercadosdb = [{nome:',je.hkf.hkr',
+    cnpj:'11111111111',
+    senha:'1234',
+    telefone:'4899999999',
+    email:'vifhev@gmail.com'}]
+
+  const enderecosdb = [{
+    atual: 'rua Lauro Lihares',
+    cep: '4444444',
+    bairro: 'trindade',
+    logradouro: 'casa da mae joana',
+    numero: '17',
+    complemento: 'casa amarela neon'
+  }]
 
   const [inputNome, setInputNome] = useState(mercadosdb[0].nome)
   const [inputCnpj, setInputCnpj] = useState(mercadosdb[0].cnpj)
@@ -65,13 +80,14 @@ function PerfilMercado() {
         <div className='tela-mercado'>
 
         <div className='cabecario-perfil-mercado'>
+        <div className='foto-mercado'></div>
           <h1>Perfil Mercado</h1>
         </div>
         <div className='container-info-mercado'>
           <div className='cabecalio-info-mercado'>
-            <h2>Informações Mercado</h2>
+            <h2>Dados do mercado</h2>
             {activeBtn == 'pessoal' ? <button onClick={() => (atualizaDados(), trocaBotao())}>Salvar</button> :
-              <button onClick={() => (trocaBotao('pessoal'))}>editar</button>}
+              <button onClick={() => (trocaBotao('pessoal'))}><i class="bi bi-pencil-square"></i>editar</button>}
           </div>
           <div className='informacoes-detalhadas-mercado'>
             <label htmlFor='nome'>Nome do Mercado</label><br />
@@ -112,7 +128,7 @@ function PerfilMercado() {
           <div className="cabecario-contato-mercado">
             <h2>Contato</h2>
             {activeBtn == 'contato' ? <button onClick={() => (atualizaDados(), trocaBotao())}>Salvar</button> :
-              <button onClick={() => (trocaBotao('contato'))}>editar</button>}
+              <button onClick={() => (trocaBotao('contato'))}><i class="bi bi-pencil-square"></i>editar</button>}
           </div>
           <div className='informacoes-detalhadas-contato-mercado'>
             <label htmlFor='telefone'>Telefone</label><br />
@@ -142,7 +158,7 @@ function PerfilMercado() {
           <div className='cabecario-endereco'>
             <h2>Endereço</h2>
             {activeBtn == 'endereco' ? <button onClick={() => (atualizaDados(), trocaBotao())}>Salvar</button> :
-              <button onClick={() => (trocaBotao('endereco'))}>editar</button>}
+              <button onClick={() => (trocaBotao('endereco'))}><i class="bi bi-pencil-square"></i>editar</button>}
           </div>
           <div className='informacoes-detalhadas-endereco'>
             <label htmlFor='cep'>CEP</label><br />
