@@ -1,5 +1,7 @@
 import Navbar from "../components/Navbar"
 import "./TelaDentroMercado.css"
+import "../components/PopUpInfoProduto.css"
+
 
 import { GlobalContext } from '../contexts/GlobalContext'
 import React, { useContext, useState, useEffect } from 'react'
@@ -46,6 +48,7 @@ function TelaDentroMercado() {
     fetchProdutosEEnderecos();
   }, [mercadoAtual]); // Depende de mercadoAtual
 
+  const [popUpAtivo, setPopUpAtivo] = useState(false) // Estado para controlar a exibição do pop-up
 
 
   const adicionaLista = (produto) => {
@@ -157,6 +160,38 @@ function TelaDentroMercado() {
               </div>
 
             ))}
+
+            {popUpAtivo && (
+              <div className="popUp-overlay">
+                <div className="popUp-infoProd-container"
+                 onClick={(e) => e.stopPropagation()}>      
+
+
+                  <div className="espaco-img-prod-popUp-container">
+                    <div className="fundo-img-popUp">
+                      <img src="acucar.png" alt="" />
+                    </div>
+                  </div>
+                  <div className="infos-produto-popUp-container">
+                    <div className="parte-superior-popUp">
+                      <button className="bttn-fecha-PopUp" onClick={() => setPopUpAtivo(false)}>
+                        <img src="CloseIcon.svg" alt="" />
+                      </button>
+                      <h1 className="categoria-info-produto">Padaria</h1>
+                      <h1 className="nome-info-produto">Açúcar Refinado</h1>
+                      <p className="descricao-info-produto">Açúcar refinado da Marca União pacote de 1 kilo</p>
+                    </div>
+                    <div className="parte-inferior-popUp">
+                      <p className="preco-info-produto">R$00,00</p>
+                      <hr />
+                      <button>Adicionar à Lista</button>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+            )}
           </div>
           {/* segunda sessão */}
           <div className="topico-produtos">

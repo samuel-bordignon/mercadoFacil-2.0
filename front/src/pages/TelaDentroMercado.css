@@ -137,16 +137,17 @@ p {
     height: fit-content;
     display: flex;
     justify-content: space-evenly;
-    /* border: 1px solid black; */
 }
 
 .card-produto {
     padding: 0.6%;
     width: 10rem;
     height: fit-content;
-    /* border: 1px solid black; */
-    /* border-radius: 3%; */
-   
+}
+
+.card-produto:hover {
+    cursor: pointer;
+    background-color: #eeeeee60;
 }
 
 .espaco-colocar-img {
