@@ -44,8 +44,8 @@ function LoginCliente() {
     const result = await login('clientes', 'email', email, senha)
 
     if (result.success) {
-        setMessage(result.message)  // Exibe mensagem de sucesso
-        navigate('/mercados')// Redirecionar ou atualizar o estado da aplicação após login bem-sucedido
+      setMessage(result.message)  // Exibe mensagem de sucesso
+      navigate('/mercados')// Redirecionar ou atualizar o estado da aplicação após login bem-sucedido
     } else {
       setMessage(result.message)  // Exibe mensagem de erro
     }
@@ -53,39 +53,42 @@ function LoginCliente() {
 
   return (
     <div>
-      <NavbarLogo />
+      <div className="sujismundoDois">
 
-      <div className="container">
-        {/* Imagem de Capa */}
-        <img className="direita" src={Cover} alt="Imagem de capa" />
+        <NavbarLogo />
 
-        <div className="esquerdaAcesso login">
-          <div className="espacamento">
-            <div className="cabecalho-acesso">
-              <h1 className="poppins-semibold">Acesse Fácil</h1>
-              {/* Botão Voltar */}
-              <img
-                className="botao-voltar"
-                src={Voltar} // Aqui estamos usando a variável Voltar que já foi importada corretamente
-                alt="Botão voltar"
-                onClick={() => navigate(-1)} // Função de navegação para voltar à página anterior
-              />
-            </div>
+        <div className="container">
+          {/* Imagem de Capa */}
+          <img className="direita" src={Cover} alt="Imagem de capa" />
 
-            <div className="container-inputsLoginCliente">
-              <label className="label">CPF</label>
-              <input type="text" className="input-LoginCliente" />
+          <div className="esquerdaAcesso login">
+            <div className="espacamento">
+              <div className="cabecalho-acesso">
+                <h1 className="poppins-semibold">Acesse Fácil</h1>
+                {/* Botão Voltar */}
+                <img
+                  className="botao-voltar"
+                  src={Voltar} // Aqui estamos usando a variável Voltar que já foi importada corretamente
+                  alt="Botão voltar"
+                  onClick={() => navigate(-1)} // Função de navegação para voltar à página anterior
+                />
+              </div>
 
-              <label className="label">Senha</label>
-              <input type="password" className="input-LoginCliente" />
+              <div className="container-inputsLoginCliente">
+                <label className="label">CPF</label>
+                <input type="text" className="input-LoginCliente" />
 
-              <span className="Span">A senha precisa ter 8 ou mais caracteres.</span>
+                <label className="label">Senha</label>
+                <input type="password" className="input-LoginCliente" />
 
-              <button className="reset-senha">Esqueci a senha</button>
-              <button className="acessar" onClick={() => navigate('/mercados')}>
-                Acessar
-                <img className='seta' src={SetaBranca} alt="Seta branca apontando para direita" />
-              </button>
+                <span className="Span">A senha precisa ter 8 ou mais caracteres.</span>
+
+                <button className="reset-senha">Esqueci a senha</button>
+                <button className="acessar" onClick={() => navigate('/mercados')}>
+                  Acessar
+                  <img className='seta' src={SetaBranca} alt="Seta branca apontando para direita" />
+                </button>
+              </div>
             </div>
           </div>
         </div>

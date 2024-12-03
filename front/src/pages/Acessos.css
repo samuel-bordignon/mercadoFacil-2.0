@@ -110,7 +110,7 @@
     height: 23px;
 }
 
-.container-inputs, 
+.container-inputs,
 .container-inputs2 {
     display: flex;
     flex-direction: column;
@@ -119,13 +119,18 @@
     width: 48%;
 }
 
-.container-inputsClientes1, 
+.container-inputsClientes1,
 .container-inputsClientes2 {
     display: flex;
     flex-direction: column;
     width: 48%;
 }
 
-.containerAzul{
-    
+.meioLogin {
+    color: #00C677;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
 }

@@ -15,7 +15,7 @@
 }
 
 
-.login-container{
+.login-container {
     width: 590px;
     height: 574px;
     flex-shrink: 0;
@@ -31,7 +31,7 @@
     padding: 2.5rem;
 }
 
-.cabecalho-login{
+.cabecalho-login {
     width: 100%;
     height: 10%;
     display: flex;
@@ -39,7 +39,7 @@
     align-items: center;
 }
 
-.detalhes-container-login{
+.detalhes-container-login {
     display: flex;
     align-items: start;
     justify-content: start;
@@ -47,28 +47,29 @@
     height: 20%;
 }
 
-.detalhes-container-login p{
-    font-family: 'poppins', sans-serif; ;
+.detalhes-container-login p {
+    font-family: 'poppins', sans-serif;
     color: #00C677;
     font-weight: 500;
     font-size: 18px;
+    margin-top: 0.5rem;
 }
 
-.form-container-login{
+.form-container-login {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 70%;
 }
 
-.inputs-conainer-login{
+.inputs-conainer-login {
     height: 70%;
     display: flex;
     flex-direction: column;
-    gap: 10%;
+    gap: 4%;
 }
 
-.btn-container-login{
+.btn-container-login {
     display: flex;
     flex-direction: column;
     justify-content: end;
@@ -77,30 +78,41 @@
     height: 30%;
 }
 
-.identificador-container .input-login{
+.identificador-container .input-login {
     width: 75%;
     height: 52px;
     flex-shrink: 0;
-    padding:0 15px ;
+    padding: 0 15px;
     font-size: 18px;
     border-radius: var(--Corner-Extra-small, 4px);
     border: 0.5px solid rgba(150, 150, 150, 0.39);
     background: #FFF;
 }
 
-.input-login{
+.input-login {
     width: 100%;
     height: 52px;
     flex-shrink: 0;
-    padding:0 15px ;
+    padding: 0 15px;
     font-size: 18px;
     border-radius: var(--Corner-Extra-small, 4px);
     border: 0.5px solid rgba(150, 150, 150, 0.39);
     background: #FFF;
 }
 
-.identificador-container{
+.identificador-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+
+.labelEscolha {
+    color: var(--Azul-Principal, #0C194E);
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    margin-bottom: 0.5rem;
 }

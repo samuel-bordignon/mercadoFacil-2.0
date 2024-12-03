@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom'; // useNavigate para navegação
 import './PopUpListaCompras.css';
-
+import Carrinho from "../assets/images/CarrinhoIcone.png"
 const ListaCompras = () => {
     const [produtosdb, setProdutosdb] = useState([
         { id: 1, nome: "Arroz Branco", preco: 10.00, quantidade: 1, imagem: "arroz.png", informacaoAdicional: { peso: "5", unidade: "kg" } },
@@ -48,7 +48,7 @@ const ListaCompras = () => {
                             <div key={mercado.id} className="market-list2">
                                 <div className="logo-name">
                                     <img src={mercado.logo} alt="Logo do mercado" className="logo-mercado" />
-                                    <span className="market-name">{mercado.nome}</span>
+                                    <span className="market-name2">{mercado.nome}</span>
                                 </div>
                                 <NavLink to="/mercado" className="visitar-mercado2">Ver Catálogo</NavLink>
                             </div>
@@ -94,7 +94,10 @@ const ListaCompras = () => {
                         </div>
                     ))
                 ) : (
-                    <span className="empty-list">Sua lista de compras está vazia.</span>
+                    <span className="sujismunda">
+                        <img src= {Carrinho} alt="Lista Vazia" className="carrinhoVazio" />
+                        Sua lista de compras está vazia.
+                    </span>
                 )}
             </div>
             <div className="total-container2">

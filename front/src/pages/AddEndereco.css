@@ -1,3 +1,7 @@
+.backgroundCinza {
+    background: rgba(6, 4, 4, 0.212);
+}
+
 .conteiner {
     display: flex;
     justify-content: center;
@@ -280,6 +284,22 @@
     
 }
 
-.botao-endereco {
-    border: none;
+.botao-com-icone {
+    width: 123px;
+    height: 40px;
+    flex-shrink: 0;
+    border: #B5EBD5;
+    border-radius: 17px;
+    background: #B5EBD5;
+    display: flex;
+    
+}
+
+.cabecalhoEndereco {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: initial;
+    gap: 12.2rem
 }

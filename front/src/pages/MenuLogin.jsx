@@ -8,19 +8,22 @@ function EscolhaLogin() {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <NavbarLogo />
+    <div className="containerAzul">
 
-      <div className="container">
-        <img className="direita" src={Cover} alt="Cover" />
+      <div>
+        <NavbarLogo />
 
-        <div className="esquerda login">
-          <div className="espacamentoHome">
-            <h1 className='poppins-semibold'>Falta pouco para economizar!</h1>
-            <p className='paragrafo-verde'>Como deseja continuar?</p>
-            <div className='container-buttons'>
-              <button className="primary" onClick={() => navigate('/loginParceiro')}>Sou parceiro</button>
-              <button className="second" onClick={() => navigate('/loginCliente')}>Sou cliente</button>
+        <div className="container">
+          <img className="direita" src={Cover} alt="Cover" />
+
+          <div className="esquerda login">
+            <div className="espacamentoHome">
+              <h1 className='poppins-semibold'>Falta pouco para economizar!</h1>
+              <p className='paragrafo-verde'>Como deseja continuar?</p>
+              <div className='container-buttons'>
+                <button className="primary" onClick={() => navigate('/loginParceiro')}>Sou parceiro</button>
+                <button className="second" onClick={() => navigate('/loginCliente')}>Sou cliente</button>
+              </div>
             </div>
           </div>
         </div>

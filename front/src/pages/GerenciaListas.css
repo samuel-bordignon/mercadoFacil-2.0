@@ -318,6 +318,11 @@ h2 {
     line-height: normal;
 }
 
+.list-itens {
+    max-height: 500px; /* Defina o limite máximo para a lista */
+    overflow-y: auto; /* Permite rolagem se necessário */
+}
+
 .dataLista {
     color: #737373;
     font-family: Poppins;
@@ -361,3 +366,25 @@ h2 {
 .container3-listas {
     margin-top: 2.5rem;
 }
+
+.shopping-list2 {
+    position: relative; /* O contêiner que envolve a lista */
+}
+
+.total-container2 {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    z-index: 10;
+}
+
+.total-container2 {
+    width: 25%;
+    height: 17%;
+    margin-left: 0.1rem;
+    margin-right: 0.5rem;
+    margin-top: 3.5rem;
+}
+
