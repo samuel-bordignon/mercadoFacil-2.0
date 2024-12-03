@@ -34,7 +34,7 @@ function HomeMercados() {
       ])
 
       // Buscar endereços relacionados ao cliente atual
-      const tabelaRelacao = await getDataByForeignKey('endereco_cliente_relecao', 'fk_id_cliente', idCliente)
+      const tabelaRelacao = await getDataByForeignKey('endereco_cliente_relacao', 'fk_id_cliente', idCliente)
       const enderecosRelacionados = await Promise.all(
         tabelaRelacao.map((item) => getDataById('enderecoclientes', item.fk_id_enderecocliente))
       )
@@ -76,7 +76,7 @@ function HomeMercados() {
         })
       )
 
-      setMercadosDentro(mercadosFiltrados.filter(Boolean))
+      setMercadosDentro(mercadosFiltrados.filter(Boolean) || [])
     } catch (err) {
       console.error('Erro ao carregar dados:', err)
       setError(err.message)

@@ -3,23 +3,55 @@ const pool = require('../config/db');
 
 const router = express.Router();
 
-//função para verificar se o email existe
-router.get('/:table/email-exists/:email', async (req, res) => {
-    const { table, email } = req.params
-    try {
-        // Sanitize o nome da tabela, se necessário, para evitar SQL Injection
-        const result = await pool.query(`SELECT 1 FROM ${table} WHERE email = $1 LIMIT 1`, [email])
+const checkTableExists = async (table) => {
+    const result = await pool.query(
+        `SELECT EXISTS (
+            SELECT 1
+            FROM information_schema.tables
+            WHERE table_name = $1
+        )`,
+        [table]
+    );
+    return result.rows[0].exists;
+};
 
-        if (result.rows.length > 0) {
-            return res.json({ exists: true })
+// Rota para verificar se um e-mail existe em uma tabela específica
+const allowedTables = ['clientes', 'gerentes', 'mercados'];
+
+router.get('/:table/email-exists/:email', async (req, res) => {
+    const { table, email } = req.params;
+
+    try {
+        console.log(`Verificando tabela: ${table}, email: ${email}`);
+
+        // Validar tabela
+        if (!allowedTables.includes(table)) {
+            return res.status(400).json({ error: 'Tabela inválida' });
         }
 
-        res.json({ exists: false })
+        // Validar email
+        const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!isValidEmail(email)) {
+            return res.status(400).json({ error: 'Email inválido' });
+        }
+
+        // Verificar se a tabela existe no banco
+        if (!(await checkTableExists(table))) {
+            return res.status(404).json({ error: 'Tabela não encontrada' });
+        }
+
+        // Executar consulta
+        const result = await pool.query(`SELECT 1 FROM ${table} WHERE email = $1`, [email]);
+        console.log(`Resultado da consulta: ${JSON.stringify(result.rows)}`);
+
+        res.json({ exists: result.rows.length > 0 });
     } catch (err) {
-        console.error('Erro ao verificar e-mail:', err.message)
-        res.status(500).json({ error: 'Erro ao verificar e-mail' })
+        console.error("Erro ao verificar e-mail:", err.message);
+        console.error("Erro ao processar requisição:", err.stack);
+        res.status(500).json({ error: 'Erro ao verificar e-mail' });
     }
-})
+});
+
 
 // Rota para verificar login (e-mail e senha)
 router.get('/:table/password-vality/:identificadorNome/:identificadorValor/:senhaValor', async (req, res) => {

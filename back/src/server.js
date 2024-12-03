@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const genericRoutes = require('./routes/genericRoutes.js');
 const authRoutes = require('./routes/authRoutes.js');
-const imageRoutes = require('./routes/imageRoutes.js');  // Corrigido
+const imageRoutes = require('./routes/imageRoutes.js');
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' })); // Para dados no
 // Rotas
 app.use('/', genericRoutes);
 app.use('/auth', authRoutes);
-app.use('/api/images', imageRoutes)  // Atualizado para evitar conflitos de rota
+app.use('/api/images', imageRoutes);
 
 // Servidor
 app.listen(3000, () => {

@@ -268,6 +268,7 @@ function AddEndereco() {
       </div>
     </div>
 
+<<<<<<< HEAD
     /* <div className="conteiner">
             <div className="secao-formulario">
               <h2>{activeBtnDelete ? 'Editar endereço' : 'Adicionar meu endereço'}</h2>
@@ -293,6 +294,22 @@ function AddEndereco() {
                     />
                     <p className='error'>{errors.logradouro?.message}</p>
                   </div>
+=======
+  /* <div className="conteiner">
+          <div className="secao-formulario">
+            <h2>{activeBtnDelete ? 'Editar endereço' : 'Adicionar meu endereço'}</h2>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="form-row">
+                <div className="grupo-formulario input-pequeno">
+                  <label>Número</label>
+                  <input
+                    type="text"
+                    name="numero"
+                    {...register('numero')}
+                    placeholder="exemplo: XXXX"
+                  />
+                  <p className='error'>{errors.numero?.message}</p>
+>>>>>>> 608dd686127f88c6fb3e1dbd3e353212d2cc4e2b
                 </div>
   
                 <div className="form-row">
@@ -389,7 +406,36 @@ function AddEndereco() {
               </ul>
             </div>
           </div>
+<<<<<<< HEAD
       </div> */
+=======
+
+          <div className="enderecos-salvos">
+            <h3>Endereços salvos</h3>
+            <ul>
+              {enderecosCliente.map((endereco, index) => (
+                <li key={index}>
+                  <div className="info-endereco">
+                    <span>CEP: {endereco.cep}</span>
+                    <p>Logradouro: {endereco.logradouro}, {endereco.numero || 'Sem número'}</p>
+                    <p>Complemento: {endereco.complemento || 'Sem complemento'}</p>
+                    <p>Bairro: {endereco.bairro}</p>
+                  </div>
+                  <span className="apelido-endereco">{endereco.apelido}</span>
+                  <button
+                    className="botao-editar"
+                    onClick={() => handleEdit(endereco)}
+                  >
+                    Editar✏️
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+    </div> 
+    </div> */
+>>>>>>> 608dd686127f88c6fb3e1dbd3e353212d2cc4e2b
   )
 }
 
