@@ -9,6 +9,7 @@ import './AddEndereco.css'
 import Voltar from '../assets/images/Voltar.png'  // Corrigido o caminho da imagem
 import Casa from '../assets/images/casaIcone.png'  // Corrigido o caminho da imagem
 import Cafe from '../assets/images/cafeIcone.png'  // Corrigido o caminho da imagem
+import Endereco from '../assets/images/EnderecoIMG.png'  // Corrigido o caminho da imagem
 
 
 function AddEndereco() {
@@ -194,80 +195,97 @@ function AddEndereco() {
       <div className="container">
         <div className="adicionarEndereco">
           <div className="cabecalhoEndereco">
-              <h1 className="letrinhaSafada">Adicionar meu endereço</h1>
 
-              <button className="btn-cadastro">
-                <img
-                  className="botao-voltarCliente3"
-                  onClick={() => navigate('/criarConta')}
-                  src={Voltar}
-                  alt="Botão voltar"
-                />
-              </button>
-            </div>
+            <h1 className="letrinhaSafada">Adicionar meu endereço</h1>
+
+            <button className="btn-cadastro">
+              <img
+                className="botao-voltarCliente3"
+                onClick={() => navigate('/criarConta')}
+                src={Voltar}
+                alt="Botão voltar"
+              />
+            </button>
+          </div>
           <h2 className="letrinhaSafada2">Onde você quer receber seu pedido?</h2>
 
-          <div className="divEsquerda">
-            <div className="inputsEndereco">
-              <div className="primeiraLinha"></div>
-              <label className="label">Rua/Logradouro</label>
-              <input
-                type="text"
-                className="input"
-              />
+          <div className="inputs-div">
+            <div className="favEndereco">
 
-              <label className="label">Número</label>
-              <input
-                type="number"
-                className="input"
-              />
+              {/* Primeira linha (input grande 1 e input pequeno) */}
+              <div className="linha">
+                <div className="campo">
+                  <label className="label-endereco" htmlFor="rua">Rua/Logradouro</label>
+                  <input id="rua" className="input-grande1" type="text" {...register("logradouro")} />
+                </div>
+                <div className="campo">
+                  <label className="label-endereco" htmlFor="numero">Número</label>
+                  <input id="numero" className="input-pequeno" type="text" {...register("numero")} />
+                </div>
+              </div>
+
+              {/* Segunda linha (input grande 2) */}
+              <div className="linha">
+                <div className="campo">
+                  <label className="label-endereco" htmlFor="complemento">Complemento</label>
+                  <input id="complemento" className="input-grande" type="text" {...register("complemento")} />
+                </div>
+              </div>
+
+              {/* Terceira linha (dois inputs médios) */}
+              <div className="linha">
+                <div className="campo">
+                  <label className="label-endereco" htmlFor="cep">CEP</label>
+                  <InputMask
+                    mask="99999-999"
+                    id="cep"
+                    className="input-medio"
+                    {...register("cep")}
+                  />
+                </div>
+
+                <div className="campo">
+                  <label className="label-endereco" htmlFor="bairro">Bairro</label>
+                  <input id="bairro" className="input-medio" type="text" {...register("bairro")} />
+                </div>
+              </div>
+
+              {/* Linha final (input grande 2 novamente) */}
+              <div className="linha">
+                <div className="campo">
+                  <label className="label-endereco" htmlFor="pontoReferencia">Ponto de Referência</label>
+                  <input id="pontoReferencia" className="input-grande" type="text" {...register("apelido")} />
+                </div>
+              </div>
             </div>
 
-            <label className="label">Complemento</label>
-            <input
-              type="text"
-              className="input"
-            />
+            <div className="espacamentobotoes">
+              <h3 className="fvEndereco">Favoritar endereço</h3>
 
-            <div className="terceiraLinha"></div>
-            <label className="label">CEP</label>
-            <input
-              type="text"
-              className="input"
-            />
+              <div className="botoesEndereco">
+                <button className="botao-com-icone-cafe">
+                  <img src={Casa} alt="ícone de casa" />
+                  Casa
+                </button>
 
-            <label className="label">Bairro</label>
-            <input
-              type="text"
-              className="input"
-            />
+                <button className="botao-com-icone">
+                  <img src={Cafe} alt="ícone de trabalho" />
+                  Trabalho
+                </button>
+
+                <div className="container-direita">
+                  <img src={Endereco} alt="imagem de endereço" />
+                </div>
+              </div>
+            </div>
           </div>
-
-          <label className="label">Ponto de Referência</label>
-          <input
-            type="text"
-            className="input"
-          />
         </div>
-
-        <h3>Favoritar endereço</h3>
-
-        <div className="botoes">
-          <button className="botao-com-icone">
-            <img src={Casa} alt="icone de casa" />
-            Casa
-          </button>
-
-          <button className="botao-com-icone">
-            <img src={Cafe} alt="icone de trabalho" />
-            Trabalho
-          </button>
-        </div>
-
       </div>
     </div>
 
-    /* <div className="conteiner">
+
+
+    /* </div><div className="conteiner">
             <div className="secao-formulario">
               <h2>{activeBtnDelete ? 'Editar endereço' : 'Adicionar meu endereço'}</h2>
               <form onSubmit={handleSubmit(onSubmit)}>
@@ -388,8 +406,9 @@ function AddEndereco() {
               </ul>
             </div>
           </div>
-      </div> */
+      </div>  */
+
   )
 }
 
-export default AddEndereco
+export default AddEndereco;
