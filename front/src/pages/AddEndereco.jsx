@@ -194,81 +194,79 @@ function AddEndereco() {
       <div className="container">
         <div className="adicionarEndereco">
           <div className="cabecalhoEndereco">
-            <h1>Adicionar meu endereço</h1>
+              <h1 className="letrinhaSafada">Adicionar meu endereço</h1>
 
-            <button className="btn-cadastro">
-              <img
-                className="botao-voltarCliente"
-                onClick={() => navigate('/criarConta')}
-                src={Voltar}
-                alt="Botão voltar"
-              />
-            </button>
-
-            <h2>Onde você quer receber seu pedido?</h2>
-
-            <div className="divEsquerda">
-              <div className="inputsEndereco">
-                <div className="primeiraLinha"></div>
-                <label className="label">Rua/Logradouro</label>
-                <input
-                  type="text"
-                  className="input"
+              <button className="btn-cadastro">
+                <img
+                  className="botao-voltarCliente3"
+                  onClick={() => navigate('/criarConta')}
+                  src={Voltar}
+                  alt="Botão voltar"
                 />
+              </button>
+            </div>
+          <h2 className="letrinhaSafada2">Onde você quer receber seu pedido?</h2>
 
-                <label className="label">Número</label>
-                <input
-                  type="number"
-                  className="input"
-                />
-              </div>
-
-              <label className="label">Complemento</label>
+          <div className="divEsquerda">
+            <div className="inputsEndereco">
+              <div className="primeiraLinha"></div>
+              <label className="label">Rua/Logradouro</label>
               <input
                 type="text"
                 className="input"
               />
 
-              <div className="terceiraLinha"></div>
-              <label className="label">CEP</label>
+              <label className="label">Número</label>
               <input
-                type="text"
-                className="input"
-              />
-
-              <label className="label">Bairro</label>
-              <input
-                type="text"
+                type="number"
                 className="input"
               />
             </div>
 
-            <label className="label">Ponto de Referência</label>
+            <label className="label">Complemento</label>
+            <input
+              type="text"
+              className="input"
+            />
+
+            <div className="terceiraLinha"></div>
+            <label className="label">CEP</label>
+            <input
+              type="text"
+              className="input"
+            />
+
+            <label className="label">Bairro</label>
             <input
               type="text"
               className="input"
             />
           </div>
 
-          <h3>Favoritar endereço</h3>
-
-          <div className="botoes">
-            <button className="botao-com-icone">
-              <img src={Casa} alt="icone de casa" />
-              Casa
-            </button>
-
-            <button className="botao-com-icone">
-              <img src={Cafe} alt="icone de trabalho" />
-              Trabalho
-            </button>
-          </div>
-
+          <label className="label">Ponto de Referência</label>
+          <input
+            type="text"
+            className="input"
+          />
         </div>
+
+        <h3>Favoritar endereço</h3>
+
+        <div className="botoes">
+          <button className="botao-com-icone">
+            <img src={Casa} alt="icone de casa" />
+            Casa
+          </button>
+
+          <button className="botao-com-icone">
+            <img src={Cafe} alt="icone de trabalho" />
+            Trabalho
+          </button>
+        </div>
+
       </div>
     </div>
 
-<<<<<<< HEAD
     /* <div className="conteiner">
             <div className="secao-formulario">
               <h2>{activeBtnDelete ? 'Editar endereço' : 'Adicionar meu endereço'}</h2>
@@ -294,22 +292,6 @@ function AddEndereco() {
                     />
                     <p className='error'>{errors.logradouro?.message}</p>
                   </div>
-=======
-  /* <div className="conteiner">
-          <div className="secao-formulario">
-            <h2>{activeBtnDelete ? 'Editar endereço' : 'Adicionar meu endereço'}</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="form-row">
-                <div className="grupo-formulario input-pequeno">
-                  <label>Número</label>
-                  <input
-                    type="text"
-                    name="numero"
-                    {...register('numero')}
-                    placeholder="exemplo: XXXX"
-                  />
-                  <p className='error'>{errors.numero?.message}</p>
->>>>>>> 608dd686127f88c6fb3e1dbd3e353212d2cc4e2b
                 </div>
   
                 <div className="form-row">
@@ -406,36 +388,7 @@ function AddEndereco() {
               </ul>
             </div>
           </div>
-<<<<<<< HEAD
       </div> */
-=======
-
-          <div className="enderecos-salvos">
-            <h3>Endereços salvos</h3>
-            <ul>
-              {enderecosCliente.map((endereco, index) => (
-                <li key={index}>
-                  <div className="info-endereco">
-                    <span>CEP: {endereco.cep}</span>
-                    <p>Logradouro: {endereco.logradouro}, {endereco.numero || 'Sem número'}</p>
-                    <p>Complemento: {endereco.complemento || 'Sem complemento'}</p>
-                    <p>Bairro: {endereco.bairro}</p>
-                  </div>
-                  <span className="apelido-endereco">{endereco.apelido}</span>
-                  <button
-                    className="botao-editar"
-                    onClick={() => handleEdit(endereco)}
-                  >
-                    Editar✏️
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-    </div> 
-    </div> */
->>>>>>> 608dd686127f88c6fb3e1dbd3e353212d2cc4e2b
   )
 }
 

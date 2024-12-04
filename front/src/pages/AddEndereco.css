@@ -250,23 +250,29 @@
 .spinner {
     width: 130px;
     height: 130px;
-    border: 6px solid transparent; /* Mantém o fundo transparente */
-    border-top: 6px solid #00C677; /* Define a cor da parte giratória */
-    border-radius: 50%; /* Garante bordas arredondadas */
+    border: 6px solid transparent;
+    /* Mantém o fundo transparente */
+    border-top: 6px solid #00C677;
+    /* Define a cor da parte giratória */
+    border-radius: 50%;
+    /* Garante bordas arredondadas */
     animation: spin 1s linear infinite;
-    box-shadow: 0 0 0 6px transparent; /* Garante uniformidade visual */
+    box-shadow: 0 0 0 6px transparent;
+    /* Garante uniformidade visual */
 }
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
 }
 
 
-.adicionarEndereco{
+.adicionarEndereco {
     width: 1188.646px;
     height: 749.126px;
     flex-shrink: 0;
@@ -279,9 +285,9 @@
     background: rgba(255, 255, 255, 0.82);
 }
 
-.cabecalhoEndereco{
+.cabecalhoEndereco {
     display: flex;
-    
+
 }
 
 .botao-com-icone {
@@ -292,7 +298,7 @@
     border-radius: 17px;
     background: #B5EBD5;
     display: flex;
-    
+
 }
 
 .cabecalhoEndereco {
@@ -302,4 +308,35 @@
     align-items: center;
     justify-content: initial;
     gap: 12.2rem
+}
+
+.letrinhaSafada {
+    color: #0C194E;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 12px;
+    margin-left: 3rem;
+    /* 37.5% */
+}
+
+.letrinhaSafada2 {
+    color: #00C677;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    margin-left: 3rem;
+    margin-top: 0.5rem;
+}
+
+.espacamentoCabecalho {
+    gap: 0.3rem;
+}
+
+.botao-voltarCliente3 {
+    margin-top: 2rem;
 }
