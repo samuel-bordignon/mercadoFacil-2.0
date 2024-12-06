@@ -7,7 +7,7 @@ function EscolhaLoginCadastro() {
   const navigate = useNavigate()
   
   return (
-    <div>
+    <div className="containerAzul">
       <div className="esquerda login">
         <div className="espacamento">
           <h1 className='poppins-semibold'>Falta pouco para economizar!</h1>

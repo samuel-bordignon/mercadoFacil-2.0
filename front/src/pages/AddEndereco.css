@@ -1,3 +1,9 @@
+.backgroundCinza {
+    background: rgba(6, 4, 4, 0.212);
+    height: 57.4rem;
+
+}
+
 .conteiner {
     display: flex;
     justify-content: center;
@@ -55,18 +61,7 @@
     width: 100%;
 }
 
-.input-pequeno {
-    flex: 1;
-}
 
-.input-medio {
-    flex: 1;
-}
-
-.input-grande {
-    flex: 2;
-    width: 100%;
-}
 
 
 
@@ -246,23 +241,29 @@
 .spinner {
     width: 130px;
     height: 130px;
-    border: 6px solid transparent; /* Mantém o fundo transparente */
-    border-top: 6px solid #00C677; /* Define a cor da parte giratória */
-    border-radius: 50%; /* Garante bordas arredondadas */
+    border: 6px solid transparent;
+    /* Mantém o fundo transparente */
+    border-top: 6px solid #00C677;
+    /* Define a cor da parte giratória */
+    border-radius: 50%;
+    /* Garante bordas arredondadas */
     animation: spin 1s linear infinite;
-    box-shadow: 0 0 0 6px transparent; /* Garante uniformidade visual */
+    box-shadow: 0 0 0 6px transparent;
+    /* Garante uniformidade visual */
 }
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
 }
 
 
-.adicionarEndereco{
+.adicionarEndereco {
     width: 1188.646px;
     height: 749.126px;
     flex-shrink: 0;
@@ -275,11 +276,195 @@
     background: rgba(255, 255, 255, 0.82);
 }
 
-.cabecalhoEndereco{
+.cabecalhoEndereco {
     display: flex;
-    
+
 }
 
-.botao-endereco {
+.botao-com-icone-cafe {
+    width: 123px;
+    height: 40px;
+    flex-shrink: 0;
+    border: #B5EBD5;
+    border-radius: 17px;
+    background: #B5EBD5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    color: #0C194E;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    /* 75% */
+}
+
+.botao-com-icone {
+    width: 143px;
+    height: 40px;
+    flex-shrink: 0;
+    border: #B5EBD5;
+    border-radius: 17px;
+    background: #B5EBD5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    color: #0C194E;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    /* 75% */
+}
+
+.cabecalhoEndereco {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: initial;
+    gap: 41.5rem;
+    margin-top: 4rem;
+}
+
+.letrinhaSafada {
+    color: #0C194E;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 32px !important;
+    /* Adicionando !important para garantir que a tipografia seja aplicada */
+    font-style: normal;
+    font-weight: 600;
+    line-height: 12px;
+    margin-left: 3rem;
+}
+
+.letrinhaSafada2 {
+    color: #00C677;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    margin-left: 3rem;
+    margin-top: -0.3rem;
+    margin-bottom: 1rem;
+}
+
+.espacamentoCabecalho {
+    gap: 0.3rem;
+}
+
+.botao-voltarCliente3 {
+    margin-top: 2rem;
+}
+
+/* Container geral */
+.divEsquerda {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Caixa que contém todos os inputs */
+.inputsEndereco {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Linha que organiza os inputs lado a lado */
+.linha {
+    display: flex;
+    gap: 10px;
+}
+
+/* Estilo para os campos */
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos dos inputs */
+.input-grande1 {
+    width: 406px;
+    height: 58px;
     border: none;
+    border-radius: 4px;
+    background: #ECECEC;
+}
+
+.input-pequeno {
+    width: 90px;
+    height: 58px;
+    border: none;
+    border-radius: 4px;
+    background: #ECECEC;
+}
+
+.input-medio {
+    width: 248px;
+    height: 57px;
+    border: none;
+    border-radius: 4px;
+    background: #ECECEC;
+}
+
+.input-grande {
+    width: 509.94px;
+    height: 58px;
+    border: none;
+    border-radius: 4px;
+    background: #ECECEC;
+}
+
+/* Estilo dos labels */
+.label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.botoesEndereco {
+    display: flex;
+    gap: 1.5rem;
+    align-content: center;
+}
+
+.fvEndereco {
+    color: #3E3E3E;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    margin-bottom: 1.2rem;
+    /* 75% */
+}
+
+.label-endereco {
+    color: #3E3E3E;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    gap: 1rem;
+    margin-bottom: 0.6rem;
+    margin-top: 1rem;
+
+    /* 75% */
+}
+
+.inputs-div {
+    margin-left: 3rem;
+}
+
+.favEndereco {
+    margin-bottom: 2rem;
 }

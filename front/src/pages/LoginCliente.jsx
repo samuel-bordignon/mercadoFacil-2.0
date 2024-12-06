@@ -51,9 +51,9 @@ function LoginCliente() {
     <div>
       <NavbarLogo />
 
-      <div className="container">
-        {/* Imagem de Capa */}
-        <img className="direita" src={Cover} alt="Imagem de capa" />
+        <div className="container">
+          {/* Imagem de Capa */}
+          <img className="direita" src={Cover} alt="Imagem de capa" />
 
         <div className="esquerdaAcesso login">
           <div className="espacamento">

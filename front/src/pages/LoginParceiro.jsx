@@ -4,6 +4,8 @@ import { useState, useContext } from 'react'
 import { GlobalContext } from '../contexts/GlobalContext'
 import Voltar from '../assets/flechaAzul.svg'
 import Select from 'react-select'
+import NavbarLogo from '../components/NavbarLogo';
+import Cover from '../assets/images/cover.png';
 
 function LoginParceiro() {
     const options = [
@@ -101,45 +103,56 @@ function LoginParceiro() {
     }
 
     return (
-        <div className="login-container">
-            <div className='cabecalho-login'>
-                <h1 className='poppins-semibold'>Acesse Fácil</h1>
-                <img
-                    className='botao-voltar'
-                    src={Voltar}
-                    alt="Botão voltar"
-                    onClick={() => navigate('/loginDois')}
-                    style={{ cursor: 'pointer' }}
-                />
-            </div>
-            <div className="detalhes-container-login">
-                <p>Escolha como quer logar</p>
-            </div>
+        <div className="containerAzul">
+            <div>
+                <NavbarLogo />
 
-            <form className="form-container-login" onSubmit={handleLogin}>
-                <div className="inputs-conainer-login">
+                <div className="container">
+                    <img className="direita" src={Cover} alt="" />
 
-                    <label className="label">{selectedOption.label}</label>
-                    <div className='identificador-container'>
-                        <input
-                            type="text"
-                            className="input-login"
-                            name="identificador"
-                            value={formLog.identificador}
-                            onChange={handleInputChange}
-                            placeholder={`Digite seu ${selectedOption.label}`}
-                        />
-                        <Select
-                            options={options}
-                            value={selectedOption}
-                            onChange={handleChange}
-                            placeholder="Escolha uma opção"
-                            isClearable={false}
-                            styles={customStyles}
-                        />
+
+                    <div className="login-container">
+                        <div className='cabecalho-login'>
+                            <h1 className='poppins-semibold'>Acesse Fácil</h1>
+                            <img
+                                className='botao-voltar'
+                                src={Voltar}
+                                alt="Botão voltar"
+                                onClick={() => navigate('/loginDois')}
+                                style={{ cursor: 'pointer' }}
+                            />
+                        </div>
+                        <div className="detalhes-container-login">
+                            <p className='meioLogin'>Escolha como quer logar</p>
+                        </div>
+
+                        <form className="form-container-login" onSubmit={handleLogin}>
+                            <div className="inputs-conainer-login">
+
+                                <label className="labelEscolha">{selectedOption.label}</label>
+                                <div className='identificador-container'>
+                                    <input
+                                        type="text"
+                                        className="input-login"
+                                        name="identificador"
+                                        value={formLog.identificador}
+                                        onChange={handleInputChange}
+                                        placeholder={`Digite seu ${selectedOption.label}`}
+                                    />
+                                    <Select
+                                        options={options}
+                                        value={selectedOption}
+                                        onChange={handleChange}
+                                        placeholder="Escolha uma opção"
+                                        isClearable={false}
+                                        styles={customStyles}
+                                    />
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     );
 }

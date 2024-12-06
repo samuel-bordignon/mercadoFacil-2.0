@@ -8,7 +8,7 @@ function EscolhaCadastro() {
   const navigate = useNavigate()
 
   return (
-    <div>
+    <div className="containerAzul">
 
     <NavbarLogo />
 

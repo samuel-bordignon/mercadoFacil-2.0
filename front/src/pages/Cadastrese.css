@@ -24,6 +24,18 @@
     justify-content: space-evenly;
 }
 
+.sujismundoDois {
+    background-image: url(/src/assets/background.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    /* display: flex; */
+    width: 1900px;
+    height: 910px
+        /* align-items: center; */
+}
+
 .image-container {
     margin-bottom: 5%;
     cursor: pointer;
@@ -89,7 +101,8 @@
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
-    margin-left: 1.4rem;}
+    margin-left: 1.4rem;
+}
 
 .detalhes-container {
     display: flex;
@@ -174,7 +187,7 @@
 
 .container p {
     display: flex;
-   
+
 }
 
 .cadastre-se {
