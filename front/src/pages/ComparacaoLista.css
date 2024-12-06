@@ -29,9 +29,8 @@
 #popup-list-comparacao .shopping-list {
   height: 100%;
   display: flex;
-  padding: 10px;
+  padding: 20px 13px 40px 40px;
   flex-direction: column;
-  align-items: center;
 }
 
 #popup-list-comparacao .market-list{
@@ -39,7 +38,7 @@
   align-items: center;
   justify-content: space-between;
   height: 15%;
-  padding: 0 20px;
+  padding: 30px 20px;
   border-bottom: solid 2px #D9D9D9;
 }
 
@@ -56,8 +55,9 @@
   margin-left: 12px;
 }
 
-#popup-list-comparacao .shopping-list .list-itens{
+#popup-list-comparacao .shopping-list .list-itens-encontrados{
   height: fit-content;
+  overflow-y: auto;
 } 
 
 .container-comparacao-lista{
@@ -230,6 +230,7 @@
   border: none;
   border-radius: 8px;
   font-size: 28px;
+  font-weight: 600;
   background-color: #00c677;
   color: aliceblue;
   width: 64%;
@@ -354,4 +355,27 @@
 .but-remover:hover {
   color: #6d6c6c;
 
+}
+
+/*icones*/
+
+.bi {
+  display: inline-block;
+  margin: 0 10px; /* Espaçamento opcional entre os ícones */
+  cursor: pointer;
+}
+
+.bi.active {
+  position: relative; /* Para permitir o uso de pseudo-elementos */
+}
+
+.bi.active::after {
+  content: ''; /* Adiciona um elemento visual */
+  position: absolute;
+  bottom: -1px; /* Posiciona o sublinhado abaixo do ícone */
+  left: -2px;
+  width: 110%; /* Faz o sublinhado ocupar toda a largura do ícone */
+  height: 5px; /* Altura da linha */
+  background-color: #0C194E; /* Cor do sublinhado (ajuste conforme necessário) */
+  border-radius: 100000px;
 }

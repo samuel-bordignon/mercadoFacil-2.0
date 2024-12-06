@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar'
 import { GlobalContext } from '../contexts/GlobalContext'
 import Carousel from '../components/Carousel'
 import Footer from '../components/Footer'
+import { boolean } from 'zod'
 
 function HomeMercados() {
   const {
@@ -20,6 +21,7 @@ function HomeMercados() {
   const idCliente = getLocalStorage('id_cliente')
 
   const [mercadosDentro, setMercadosDentro] = useState([])
+  const [mercadosFora, setMercadosFora] = useState([])
   const [mercados, setMercados] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -33,11 +35,10 @@ function HomeMercados() {
         getData('mercados'),
         getData('enderecomercados'),
       ])
-
       setMercados(mercados)
 
       // Buscar endereços relacionados ao cliente atual
-      const tabelaRelacao = await getDataByForeignKey('endereco_cliente_relacao', 'fk_id_cliente', idCliente)
+      const tabelaRelacao = await getDataByForeignKey('endereco_cliente_relecao', 'fk_id_cliente', idCliente)
       const enderecosRelacionados = await Promise.all(
         tabelaRelacao.map((item) => getDataById('enderecoclientes', item.fk_id_enderecocliente))
       )
@@ -50,33 +51,47 @@ function HomeMercados() {
         throw new Error('Endereço atual do cliente não encontrado.')
       }
 
-      // Processar dados para mercados dentro do raio
-      const mercadosFiltrados = await Promise.all(
-        enderecosMercados.map(async (enderecoMercado) => {
-          const distanciaRaio = calcularDistanciaRaio(
-            enderecoAtualCliente.latitude,
-            enderecoAtualCliente.longitude,
-            enderecoMercado.latitude,
-            enderecoMercado.longitude
-          )
+      const mercadosDentro = [];
+      const mercadosFora = [];
 
-          if (distanciaRaio <= 1000) {
-            const mercado = await getDataById('mercados', enderecoMercado.fk_id_mercado)
-            const rota = await calcularDistanciaRota(enderecoAtualCliente, enderecoMercado)
+      const processarMercados = async () => {
+        const resultados = await Promise.all(
+          enderecosMercados.map(async (enderecoMercado) => {
+            const distanciaRaio = calcularDistanciaRaio(
+              enderecoAtualCliente.latitude,
+              enderecoAtualCliente.longitude,
+              enderecoMercado.latitude,
+              enderecoMercado.longitude
+            );
 
-            return {
+            const mercado = await getDataById('mercados', enderecoMercado.fk_id_mercado);
+            const rota = await calcularDistanciaRota(enderecoAtualCliente, enderecoMercado, 'walk');
+
+            const mercadoFormatado = {
               ...mercado,
               distancia: rota?.distanceInKm || 'N/A',
               tempo: `${(rota?.durationInHours || 0).toFixed(2)} min`,
+              enderecoMercado
+            };
+
+            if (distanciaRaio <= 1000) {
+              mercadosDentro.push(mercadoFormatado);
+            } else {
+              mercadosFora.push(mercadoFormatado);
             }
-          }
+            return {mercadoFormatado}
+          })
+        );
 
-          return null
-        })
-      )
+        // Atualizar os estados com os dados filtrados
+        setMercadosDentro(mercadosDentro);
+        setMercadosFora(mercadosFora);
+        setLocalStorage('mercadosDentro', mercadosDentro)
+      };
+      
+      processarMercados();
 
-      setMercadosDentro(mercadosFiltrados.filter(Boolean) || [])
-      setLocalStorage('mercadosDentro', mercadosFiltrados.filter(Boolean) || [])
+      // Chamar a função para processar os mercados
     } catch (err) {
       console.error('Erro ao carregar dados:', err)
       setError(err.message)
@@ -90,13 +105,8 @@ function HomeMercados() {
     fetchData()
   }, []) // Carregar apenas uma vez
 
-  const slides = (dados) => {
-    const result = []
-    for (let i = 0; i < dados.length; i += 4) {
-      result.push(dados.slice(i, i + 4))
-    }
-    return result
-  }
+
+
 
   if (loading) {
     return <div className="loading">
@@ -108,8 +118,15 @@ function HomeMercados() {
     return <div>Erro: {error}</div>
   }
 
-  const slidesGeral = slides(mercados)
-  const slidesPerto = slides(mercadosDentro) // Reutilizando lógica, se necessário
+  const slides = (dados) => {
+    const result = []
+    for (let i = 0; i < dados.length; i += 4) {
+      result.push(dados.slice(i, i + 4))
+    }
+    return result
+  }
+  const slidesGeral = slides(mercadosFora)
+  const slidesPerto = slides(mercadosDentro) 
 
   return (
     <div className='container-total-home'>
@@ -121,16 +138,15 @@ function HomeMercados() {
         <div className="sub-titulo2">
           <p>Perto de você</p>
         </div>
-
         {/* Carousel de mercados perto */}
-        <Carousel slides={slidesPerto}/>
+        <Carousel slides={slidesPerto} />
 
         <div className="sub-titulo2">
           <p>Outros Mercados</p>
         </div>
 
         {/* Carousel de todos osmercados */}
-        <Carousel slides={slidesGeral}/>
+        <Carousel slides={slidesGeral} />
       </div>
       <Footer />
     </div>

@@ -60,28 +60,40 @@ function CadastroParceiro1() {
   }
 
   const onSubmit = async (data) => {
-    
+
     if (verificaDadosObjeto(storageLocal)) {
-      updateData('gerentes', id, {
-        nome: data.nome,
-        email: data.email,
-        cpf: data.cpf,
-        telefone: data.telefone,
-        senha: data.senha,
-        data_nasc: data.dataNascimento
-      })
+      try {
+        updateData('gerentes', id, {
+          nome: data.nome,
+          email: data.email,
+          cpf: data.cpf,
+          telefone: data.telefone,
+          senha: data.senha,
+          data_nasc: data.dataNascimento
+        })
+        setLocalStorage(chaveGerenteData, data)
+        navigate('/criarConta/CadastroParceiro2')
+        console.log('Gerente atualizado com sucesso!')
+      } catch (error) {
+        console.error('Erro ao atualizar gerente:', error)
+      }
     } else {
-      addData('gerentes', {
-        nome: data.nome,
-        email: data.email,
-        cpf: data.cpf,
-        telefone: data.telefone,
-        senha: data.senha,
-        data_nasc: data.dataNascimento
-      })
+      try {
+        addData('gerentes', {
+          nome: data.nome,
+          email: data.email,
+          cpf: data.cpf,
+          telefone: data.telefone,
+          senha: data.senha,
+          data_nasc: data.dataNascimento
+        })
+        setLocalStorage(chaveGerenteData, data)
+        navigate('/criarConta/CadastroParceiro2')
+        console.log('Gerente adicionado com sucesso!')
+      } catch (error) {
+        console.error('Erro ao adicionar gerente:', error)
+      }
     }
-    setLocalStorage(chaveGerenteData, data)
-    navigate('/criarConta/CadastroParceiro2')
   }
 
   const togglePasswordVisibility = () => {

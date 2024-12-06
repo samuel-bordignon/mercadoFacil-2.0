@@ -156,17 +156,17 @@ export const GlobalContextProvider = ({ children }) => {
     }
     const checkEmailExists = async (table, email) => {
         try {
-            setLoading(true);
-            const response = await axios.get(`http://localhost:3000/auth/${table}/email-exists/${email}`);
-            return response.data.exists;
+            setLoading(true)
+            const response = await axios.get(`http://localhost:3000/auth/${table}/email-exists/${email}`)
+            return response.data.exists
         } catch (error) {
-            console.error("Erro ao verificar e-mail:", error.message, "Tabela:", table, "Email:", email);            
-            return false;
+            console.error("Erro ao verificar e-mail:", error.message, "Tabela:", table, "Email:", email)
+            return false
         } finally {
-            setLoading(false);
-            console.log(`Verificando email: ${email}, tabela: ${table}`);
+            setLoading(false)
+            console.log(`Verificando email: ${email}, tabela: ${table}`)
         }
-    };
+    }
     const login = async (table, identificador, identificadorValor, senhaValor) => {
         try {
             setLoading(true)
@@ -229,40 +229,65 @@ export const GlobalContextProvider = ({ children }) => {
         return distancia
     }
     // Função para obter as coordenadas de dois CEPs e calcular a distância entre eles
-    const calcularDistanciaRota = async (endereco1, endereco2) => {
-        if (endereco1 && endereco2) {
-            const osrmProfile = 'car'
-            const startPoint = [endereco1.longitude, endereco1.latitude] // Longitude e Latitude do primeiro CEP
-            const endPoint = [endereco2.longitude, endereco2.latitude] // Longitude e Latitude do segundo CEP
+    const calcularDistanciaRota = async (endereco1, endereco2, profile) => {
+        if (endereco1?.longitude && endereco1?.latitude && endereco2?.longitude && endereco2?.latitude && profile) {
+            const startPoint = [endereco1.longitude, endereco1.latitude]; // Longitude e Latitude do primeiro endereço
+            const endPoint = [endereco2.longitude, endereco2.latitude]; // Longitude e Latitude do segundo endereço
 
-            const veloCaminhada = 1.728 // Velocidade média de caminhada em m/s
+            // Velocidades médias em m/s
+            const veloCaminhada = 3.78;
+            const veloBicicleta = 4.7;
+            const veloCarro = 7.88;
 
-            const url = `http://router.project-osrm.org/route/v1/${osrmProfile}/${startPoint.join(',')};${endPoint.join(',')}?overview=false&geometries=polyline`
-
-
+            const url = `http://router.project-osrm.org/route/v1/car/${startPoint.join(',')};${endPoint.join(',')}?overview=false&geometries=polyline`
             try {
-                const response = await fetch(url)
-                const data = await response.json()
-                const route = data.routes[0]
-                const distanceInMeters = route.distance
-                const distanceInKm = (distanceInMeters / 1000).toFixed(2)
-                const durationInHours = (distanceInMeters / veloCaminhada) / 60
-
-                return { distanceInKm, durationInHours }
-
-                if (!data.routes || data.routes.length === 0) {
-                    console.error('Nenhuma rota encontrada');
-                    return null;
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Erro na API: ${response.statusText}`);
                 }
-                
 
+
+                const data = await response.json();
+                const route = data.routes?.[0];
+
+                if (!route) {
+                    throw new Error('Nenhuma rota encontrada entre os pontos especificados.');
+                }
+
+                const distanceInMeters = route.distance; // Distância em metros
+                const distanceInKm = (distanceInMeters / 1000).toFixed(2); // Distância em km
+
+                // Escolher velocidade baseada no perfil
+                let velocidadeEscolhida;
+                switch (profile) {
+                    case 'walk':
+                        velocidadeEscolhida = veloCaminhada;
+                        break;
+                    case 'bike':
+                        velocidadeEscolhida = veloBicicleta;
+                        break;
+                    case 'car':
+                        velocidadeEscolhida = veloCarro;
+                        console.log('escolheu carro')
+                        break;
+                    default:
+                        velocidadeEscolhida = veloCaminhada;
+                        break;
+                }
+
+                // Calcular duração em horas
+                const durationInMin = (distanceInMeters / velocidadeEscolhida / 60).toFixed(2)
+                console.log(velocidadeEscolhida)
+
+                return { distanceInKm, durationInMin };
             } catch (error) {
-                console.error('Erro:', error)
+                console.error('Erro ao calcular a rota:', error.message);
             }
         } else {
-            console.error('endereços não encontardos não encontrados')
+            console.error('Os endereços ou perfil não foram fornecidos corretamente.');
         }
-    }
+    };
+
     const uploadImage = async (base64Image) => {
         try {
             const response = await axios.post(
@@ -270,7 +295,7 @@ export const GlobalContextProvider = ({ children }) => {
                 { image: base64Image },
                 { headers: { 'Content-Type': 'application/json' } }
             )
-    
+
             // O caminho do arquivo salvo no servidor
             return response.data.filePath
         } catch (error) {
@@ -278,19 +303,37 @@ export const GlobalContextProvider = ({ children }) => {
             throw error
         }
     }
-    
-    // Exemplo de uso no componente
-    const handleImageUpload = async (base64Image) => {
-        const filePath = await uploadImage(base64Image)
-        console.log('Caminho da imagem salva:', filePath)
+    const compararListaDeCompras = async (idMercado, listaCompras) => {
+        const apiUrl = 'http://localhost:3000/comparar-lista'
+
+        try {
+            // Enviando a requisição ao backend
+            const response = await axios.post(apiUrl, {
+                idMercado,
+                listaCompras,
+            })
+
+            // Retorna os dados da resposta
+            return response.data
+        } catch (error) {
+            // Tratamento de erros
+            console.error('Erro ao comparar lista de compras:', error)
+            if (error.response) {
+                // O backend retornou um erro
+                return { error: error.response.data.message || 'Erro na API' }
+            } else {
+                // Erro na requisição ou outro problema
+                return { error: error.message || 'Erro desconhecido' }
+            }
+        }
     }
-    
-    
+
+
 
     const idCliente = getLocalStorage('id_cliente')
     const idGerente = getLocalStorage('id_gerente')
     const idEnderecoCliente = getLocalStorage("id_enderecocliente")
-    const unidadeOptions = [{value:'Kg', label:'Kg'},{value:'g', label:'g'},{value:'L', label:'L'},{value:'ml', label:'ml'}]
+    const unidadeOptions = [{ value: 'Kg', label: 'Kg' }, { value: 'g', label: 'g' }, { value: 'L', label: 'L' }, { value: 'ml', label: 'ml' }]
     const [listaDefoutAtual, setListaDefoutAtual] = useState([])
 
     // Prover estados e funções aos componentes filhos
@@ -301,7 +344,6 @@ export const GlobalContextProvider = ({ children }) => {
 
             unidadeOptions,
             listaDefoutAtual, setListaDefoutAtual,
-            
 
             getLocalStorage, setLocalStorage,
             chaveMercadoData,
@@ -323,7 +365,8 @@ export const GlobalContextProvider = ({ children }) => {
             getEndereco,
             calcularDistanciaRota,
             calcularDistanciaRaio,
-            uploadImage
+            uploadImage,
+            compararListaDeCompras
         }}>
             {children}
         </GlobalContext.Provider>

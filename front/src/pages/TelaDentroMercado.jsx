@@ -7,9 +7,10 @@ import { GlobalContext } from '../contexts/GlobalContext'
 import React, { useContext, useState, useEffect } from 'react'
 
 function TelaDentroMercado() {
-  const { getLocalStorage, setLocalStorage, getDataById, getDataByForeignKey, listaDefoutAtual, setListaDefoutAtual,} = useContext(GlobalContext)
+  const { getLocalStorage, setLocalStorage, getDataById, getDataByForeignKey, listaDefoutAtual, setListaDefoutAtual, } = useContext(GlobalContext)
   const [mercadoAtual, setMercadoAtual] = useState([])
   const [enderecoMercadoAtual, setEnderecoMercadoAtual] = useState([])
+  const [idProduto, setIdProduto] = useState('')
   const [produtos, setProdutos] = useState([])
   const [icon, setIcon] = useState('Mais')
   const idMercado = getLocalStorage('id_mercado')
@@ -32,13 +33,24 @@ function TelaDentroMercado() {
     const fetchProdutosEEnderecos = async () => {
       if (mercadoAtual) {
         try {
-          const [enderecosMercados, produtos] = await Promise.all([
+          const [enderecosMercados, produtos,] = await Promise.all([
             getDataByForeignKey('enderecomercados', 'fk_id_mercado', mercadoAtual.id_mercado),
             getDataByForeignKey('produtos', 'fk_id_mercado', mercadoAtual.id_mercado),
           ]);
 
           setEnderecoMercadoAtual(...enderecosMercados);
-          setProdutos(produtos);
+          const produtosComPalavraChave = await Promise.all(
+            produtos.map(async (produto) => {
+              const palavraRelacao = await getDataByForeignKey('palavrachave_produto_relacao', 'fk_id_produto', produto.id_produto);
+              if (palavraRelacao.length > 0) {
+                const palavraChave = await getDataById('palavrachave', palavraRelacao[0].fk_id_palavrachave);
+                return { ...produto, palavraChave: palavraChave.nome_palavra };
+              }
+              return { ...produto, palavraChave: null }; // Se não encontrar palavra-chave
+            })
+          )
+          console.log(produtosComPalavraChave)
+          setProdutos(produtosComPalavraChave || []);
         } catch (error) {
           console.error('Erro ao buscar dados dependentes:', error);
         }
@@ -49,7 +61,6 @@ function TelaDentroMercado() {
   }, [mercadoAtual]); // Depende de mercadoAtual
 
   const [popUpAtivo, setPopUpAtivo] = useState(false) // Estado para controlar a exibição do pop-up
-
 
   const adicionaLista = (produto) => {
     // Verifica se o produto já está na lista
@@ -63,12 +74,11 @@ function TelaDentroMercado() {
       const novaLista = [...listaDefout, produto]
       setListaDefoutAtual(novaLista)
       setLocalStorage('listaDefout', novaLista.map((produto) => ({ ...produto, quantidade_lista: 1 })))
-      
+
     }
-  
+
   }
 
-  const abreInfoProduto = () => { }
 
   return (
     <div className="tudo">
@@ -129,7 +139,7 @@ function TelaDentroMercado() {
             {produtos.map((produto) => (
               <div
                 className="card-produto"
-                onClick={() => abreInfoProduto()}
+                onClick={() => { setPopUpAtivo(!popUpAtivo), setIdProduto(produto.id_produto) }}
                 key={produto.id_produto}
               >
                 <div className="espaco-colocar-img">
@@ -162,14 +172,12 @@ function TelaDentroMercado() {
             ))}
 
             {popUpAtivo && (
-              <div className="popUp-overlay">
+              <div className="popUp-overlay" onClick={() => setPopUpAtivo(false)} >
                 <div className="popUp-infoProd-container"
-                 onClick={(e) => e.stopPropagation()}>      
-
-
+                  onClick={(e) => e.stopPropagation()}>
                   <div className="espaco-img-prod-popUp-container">
                     <div className="fundo-img-popUp">
-                      <img src="acucar.png" alt="" />
+                      <img src={`/uploads_images/${produto.imagem_file_path}`} alt="" />
                     </div>
                   </div>
                   <div className="infos-produto-popUp-container">
@@ -178,17 +186,15 @@ function TelaDentroMercado() {
                         <img src="CloseIcon.svg" alt="" />
                       </button>
                       <h1 className="categoria-info-produto">Padaria</h1>
-                      <h1 className="nome-info-produto">Açúcar Refinado</h1>
-                      <p className="descricao-info-produto">Açúcar refinado da Marca União pacote de 1 kilo</p>
+                      <h1 className="nome-info-produto">{produto.nome}</h1>
+                      <p className="descricao-info-produto">{produto.descricao}</p>
                     </div>
                     <div className="parte-inferior-popUp">
-                      <p className="preco-info-produto">R$00,00</p>
+                      <p className="preco-info-produto">R${produto.preco}</p>
                       <hr />
-                      <button>Adicionar à Lista</button>
+                      <button onClick={() => adicionaLista(produto)}>Adicionar à Lista</button>
                     </div>
                   </div>
-
-
                 </div>
               </div>
             )}

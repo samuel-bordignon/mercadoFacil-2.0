@@ -29,6 +29,7 @@ import PerfilGerente from "../pages/PerfilGerente";
 import PerfilMercado from "../pages/PerfilMercado";
 import Sidebar from "../components/Sidebar";
 import TelaDentroMercado from "../pages/TelaDentroMercado";
+import Teste from "../pages/Teste";
 // import TelaInfoProduto from "../pages/TelaInfoProduto";
 
 const router = createBrowserRouter([
@@ -59,8 +60,8 @@ const router = createBrowserRouter([
     { path: "/perfilMercado", element: <PerfilMercado /> },
     { path: "/sidebar", element: <Sidebar /> },
     { path: "/telaDentroMercado", element: <TelaDentroMercado /> },
-    // { path: "/telaInfoProduto", element: <TelaInfoProduto /> },
-    { path: "/anima", element: <TesteAnimacao /> }
+    { path: "/anima", element: <TesteAnimacao /> },
+    { path: "/testeCompLIsta", element: <Teste/>}
 ]);
 
 export default router;
