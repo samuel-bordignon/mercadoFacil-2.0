@@ -29,35 +29,41 @@ function TelaDentroMercado() {
 
     fetchMercado();
   }, [idMercado]);
-  useEffect(() => {
-    const fetchProdutosEEnderecos = async () => {
-      if (mercadoAtual) {
-        try {
-          const [enderecosMercados, produtos,] = await Promise.all([
-            getDataByForeignKey('enderecomercados', 'fk_id_mercado', mercadoAtual.id_mercado),
-            getDataByForeignKey('produtos', 'fk_id_mercado', mercadoAtual.id_mercado),
-          ]);
+  const fetchProdutosEEnderecos = async () => {
+    if (mercadoAtual) {
+      try {
+        const [enderecosMercados, produtos,] = await Promise.all([
+          getDataByForeignKey('enderecomercados', 'fk_id_mercado', mercadoAtual.id_mercado),
+          getDataByForeignKey('produtos', 'fk_id_mercado', mercadoAtual.id_mercado),
+        ]);
 
-          setEnderecoMercadoAtual(...enderecosMercados);
-          const produtosComPalavraChave = await Promise.all(
-            produtos.map(async (produto) => {
-              const palavraRelacao = await getDataByForeignKey('palavrachave_produto_relacao', 'fk_id_produto', produto.id_produto);
-              if (palavraRelacao.length > 0) {
-                const palavraChave = await getDataById('palavrachave', palavraRelacao[0].fk_id_palavrachave);
-                return { ...produto, palavraChave: palavraChave.nome_palavra };
-              }
-              return { ...produto, palavraChave: null }; // Se não encontrar palavra-chave
-            })
-          )
-          console.log(produtosComPalavraChave)
-          setProdutos(produtosComPalavraChave || []);
-        } catch (error) {
-          console.error('Erro ao buscar dados dependentes:', error);
-        }
+        setEnderecoMercadoAtual(...enderecosMercados);
+        const produtosComPalavraChave = await Promise.all(
+          produtos.map(async (produto) => {
+            const palavraRelacao = await getDataByForeignKey('palavrachave_produto_relacao', 'fk_id_produto', produto.id_produto);
+            if (palavraRelacao.length > 0) {
+              const palavraChave = await getDataById('palavrachave', palavraRelacao[0].fk_id_palavrachave);
+              return { ...produto, palavraChave: palavraChave.nome_palavra };
+            }
+            return { ...produto, palavraChave: null }; // Se não encontrar palavra-chave
+          })
+        )
+        console.log(produtosComPalavraChave)
+        setProdutos(produtosComPalavraChave || []);
+      } catch (error) {
+        console.error('Erro ao buscar dados dependentes:', error);
       }
-    };
+    }
+  };
 
-    fetchProdutosEEnderecos();
+   //Função para validar se um objeto contém alguma informação
+   function verificaDadosObjeto(obj) {
+    return Object.keys(obj).length > 0 && Object.values(obj).every(value => value !== null && value !== undefined);
+  }
+  useEffect(() => {
+    if(verificaDadosObjeto(mercadoAtual)){
+      fetchProdutosEEnderecos()
+    }
   }, [mercadoAtual]); // Depende de mercadoAtual
 
   const [popUpAtivo, setPopUpAtivo] = useState(false) // Estado para controlar a exibição do pop-up
@@ -82,12 +88,12 @@ function TelaDentroMercado() {
 
   return (
     <div className="tudo">
-      <Navbar />
+      <Navbar produtosdb={listaDefout}/>
       <div className="tela-dentro-mercado">
         <div className="sideBar-dentro-mercado">
           <div className="cabecalio-mercado-container">
             <div className="logo-container-mercado">
-              <img className="logo-mercado" src={`${mercadoAtual.logo}`} alt="" />
+              <img className="logo-mercado" src={`/uploads_images/${mercadoAtual.logo}`} alt="" />
             </div>
             <div className="nome-mercado-container">
               <h5>{mercadoAtual.nome}</h5>
@@ -125,8 +131,8 @@ function TelaDentroMercado() {
           </div>
           <div className="contato-container">
             <p className="sub-titulo-verde">Contato</p>
-            {/* <p>+{mercadoAtual.telefone}</p>
-            <p>{mercadoAtual.email}</p> */}
+            <p>{mercadoAtual.telefone}</p>
+            <p>{mercadoAtual.email}</p>
           </div>
         </div>
 
@@ -137,6 +143,7 @@ function TelaDentroMercado() {
           </div>
           <div className="sessao-produtos-container">
             {produtos.map((produto) => (
+
               <div
                 className="card-produto"
                 onClick={() => { setPopUpAtivo(!popUpAtivo), setIdProduto(produto.id_produto) }}

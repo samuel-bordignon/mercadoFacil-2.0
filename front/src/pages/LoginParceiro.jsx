@@ -69,7 +69,7 @@ function LoginParceiro() {
     const [formLog, setFormLog] = useState({ identificador: '', senha: '' }) // Captura dados do login
     const [message, setMessage] = useState('') // Exibe mensagens de sucesso/erro
 
-    const { login } = useContext(GlobalContext)
+    const { login, setLocalStorage } = useContext(GlobalContext)
 
 
     const handleChange = (selectedOption) => {
@@ -96,7 +96,8 @@ function LoginParceiro() {
 
         if (result.success) {
             setMessage(result.message) // Exibe mensagem de sucesso
-            navigate('/mercados') // Redirecionar após login bem-sucedido
+            setLocalStorage('cadastroConcluido', true)
+            navigate('/mercadoEstoque') // Redirecionar após login bem-sucedido
         } else {
             setMessage(result.message) // Exibe mensagem de erro
         }
@@ -148,7 +149,20 @@ function LoginParceiro() {
                                         styles={customStyles}
                                     />
                                 </div>
+                                <label className="labelEscolha">Senha</label>
+                                <input
+                                    type="password"
+                                    className="input-login"
+                                    name="senha"
+                                    value={formLog.senha}
+                                    onChange={handleInputChange}
+                                    placeholder={`Digite sua senha`}
+                                />
+                            {message && <p className="login-message" style={{ color: 'red' }}>{message}</p>}
                             </div>
+                            <button className="acessar" type="submit">
+                                Acessar
+                            </button>
                         </form>
                     </div>
                 </div>

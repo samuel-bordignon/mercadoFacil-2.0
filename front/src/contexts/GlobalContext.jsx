@@ -333,7 +333,7 @@ export const GlobalContextProvider = ({ children }) => {
     const idCliente = getLocalStorage('id_cliente')
     const idGerente = getLocalStorage('id_gerente')
     const idEnderecoCliente = getLocalStorage("id_enderecocliente")
-    const unidadeOptions = [{ value: 'Kg', label: 'Kg' }, { value: 'g', label: 'g' }, { value: 'L', label: 'L' }, { value: 'ml', label: 'ml' }]
+    const unidadeOptions = [{ value: 'Kg', label: 'Kg' }, { value: 'g', label: 'g' }, { value: 'L', label: 'L' }, { value: 'ml', label: 'ml' }, { value: 'un', label: 'un' }]
     const [listaDefoutAtual, setListaDefoutAtual] = useState([])
 
     // Prover estados e funções aos componentes filhos

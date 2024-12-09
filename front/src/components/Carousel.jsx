@@ -79,7 +79,7 @@ function Carousel({ slides }) {
                   <div className="cardMercado" onClick={() => onCardClick(mercado.id_mercado)}>
                     <div className="cardContent">
                       <div className="imagemCard">
-                        <img src={mercado.logo} alt={mercado.nome} />
+                        <img src={`/uploads_images/${mercado.logo}`} alt={mercado.nome} />
                       </div>
                       <div className="info-mercado">
                         <p className="nome-mercado">{mercado.nome}</p>
@@ -96,17 +96,6 @@ function Carousel({ slides }) {
       <button className="btn-custom carousel-control-next" type="button" data-bs-slide="next">
         <span className="carousel-control-next-icon" aria-hidden="true"></span>
       </button>
-      {aviso && (
-        <div className="modal" id="modal">
-          <h1>Tem certeza que quer entrar em outro mercado sem salvar?</h1>
-          <p>Suas compras serão perdidas se entrar em outro mercado sem salvar.</p> 
-          <h4>Deseja Salvar sua Lista?</h4>
-          <div>
-            <button className="btn btn-primary" onClick={() => naoSalvarLista(mercado.id_mercado)}>Não, entrar sem salvar</button>
-            <button className="btn btn-primary" onClick={() =>salvarLista(mercado.id_mercado)}>Sim, salvar lista</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

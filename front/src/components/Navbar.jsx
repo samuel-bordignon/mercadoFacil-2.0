@@ -10,7 +10,7 @@ import './PopUpListaCompras.css'
 import './PopUpEnderecos.css'
 
 
-function Navbar() {
+function Navbar({produtosdb}) {
   const location = useLocation()
   const navigate = useNavigate()
   const [enderecosCliente, setEnderecosCliente] = useState([])
@@ -24,7 +24,6 @@ function Navbar() {
   const [mercadosEmGeral, setMercadosEmGeral] = useState([])
 
   const [listaComprasNavdb, setListaComprasNavdb] = useState([])
-  const [produtosdb, setProdutosdb] = useState([])
 
   const fetchData = async () => {
     if (!idCliente) return
@@ -43,12 +42,9 @@ function Navbar() {
         throw new Error('Nenhum endereço relacionado encontrado para o cliente atual.')
       }
 
-      const produtos = getLocalStorage('listaDefout')
-      
       setCliente(cliente)
       setEnderecosCliente(enderecosRelacionados)
       setMercadoAtual(mercadoAtual)
-      setProdutosdb(produtos)
       setMercadosEmGeral(mercados)
 
     } catch (error) {

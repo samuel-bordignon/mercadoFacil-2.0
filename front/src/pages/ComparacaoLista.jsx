@@ -20,6 +20,7 @@ function ComparacaoLista() {
   const [profile, setProfile] = useState('walk')
   const [cliente, setCliente] = useState({})
   const [loading, setLoading] = useState(false)
+  const [prontaEnviar, setProntaEnviar] = useState(false)
 
 
   const trocaIdMercado = (id) => {
@@ -197,13 +198,13 @@ function ComparacaoLista() {
     })
     ordenarMercados(mercadosProximos, updatedProdutosOriginais)
     setProdutosEncontrados(updatedProdutosdb)
-    setProdutosdb(updatedProdutosOriginais);
-    setLocalStorage('listaDefout', updatedProdutosOriginais);
+    setProdutosdb(updatedProdutosOriginais)
+    setLocalStorage('listaDefout', updatedProdutosOriginais)
   }
   // Função para remover um produto da lista
   const deleteProduto = (produto) => {
-    const updatedProdutosdb = produtosEncontrados.filter((item) => item.id_produto !== produto.id_produto);
-    const updatedProdutosOriginais = produtosdb.filter((item) => item.id_produto !== produto.id_produto_original);
+    const updatedProdutosdb = produtosEncontrados.filter((item) => item.id_produto !== produto.id_produto)
+    const updatedProdutosOriginais = produtosdb.filter((item) => item.id_produto !== produto.id_produto_original) 
     ordenarMercados(mercadosProximos, updatedProdutosOriginais)
     setProdutosEncontrados(updatedProdutosdb)
     setProdutosdb(updatedProdutosOriginais);
@@ -239,6 +240,10 @@ function ComparacaoLista() {
       console.error("Erro ao calcular rotas:", error)
     }
   }
+  // Função para concatenar os nomes e quantidades dos produtos da lista de compras
+  function concatenaProdutos() {
+    return (produtosEncontrados.map((item) => `${item.nome} - ${item.quantidade_lista} un`).join('\n'))
+  }
   useEffect(() => {
     if (listaOrdenadaMercados.length > 0 && verificaDadosObjeto(enderecoCliente) && profile) {
       calcularRotasParaTodosMercados()
@@ -249,6 +254,24 @@ function ComparacaoLista() {
     fetchData()
     handleComparacao(idMercado)
   }, [])
+  useEffect(() => {
+    if (prontaEnviar) {
+      const enderecoAtual = enderecoCliente
+      const mercadoAtual = listaOrdenadaMercados.find((mercado) => mercado.id_mercado === idMercado)
+      const mensagem = `
+  Olá! Gostaria de fazer um pedido com os seguintes itens:
+  ${concatenaProdutos()}
+  *Endereço de entrega:* ${enderecoAtual?.logradouro}, ${enderecoAtual?.numero}
+  *Total*: R$ ${calcularTotalPorMercado(mercadoAtual)}
+  Atenciosamente, ${cliente?.nome}
+`
+      const numero = mercadoAtual.telefone
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`
+      window.open(url, '_blank')
+      setProntaEnviar(false)
+    }
+
+  }, [produtos, prontaEnviar, enderecoCliente])
 
   return (
     <div className='container-comparacao-total'>
@@ -288,18 +311,18 @@ function ComparacaoLista() {
                 onClick={() => trocaIdMercado(mercado.id_mercado)}>
                 <div className='cabecario-mer'>
                   <div >
-                    <img className='logo-mercado-compara-lista' src={mercado.logo} alt="Logo do mercado" />
+                    <img className='logo-mercado-compara-lista'src={`/uploads_images/${mercado.logo}`} alt="Logo do mercado" />
                   </div>
                   <h3 className='nome-mercado'>{mercado.nome}</h3>
                 </div>
                 <h4 className='distancia-mer'>{mercado.distancia} Km</h4>
-                <h4 className='preco-total'>{calcularTotalPorMercado(mercado)}</h4>
+                <h4 className='preco-total'>R$ {calcularTotalPorMercado(mercado)}</h4>
               </div>
             ))}
           </div>
 
           <div className='bot-enviar-lista'>
-            <button>Enviar Lista</button>
+            <button onClick={()=>setProntaEnviar(true)}>Enviar Lista</button>
           </div>
         </div>
         {loading === true ?
@@ -312,7 +335,7 @@ function ComparacaoLista() {
             <div id="popup-list-comparacao" onClick={(e) => e.stopPropagation()}>
               <div className="market-list">
                 <div className="logo-name">
-                  <img src={listaOrdenadaMercados.length > 0 && listaOrdenadaMercados.find((mercado) => mercado.id_mercado === idMercado)?.logo} alt="Logo do mercado" className="logo-mercado-list-comparacao" />
+                  <img src={`/uploads_images/${listaOrdenadaMercados.length > 0 && listaOrdenadaMercados.find((mercado) => mercado.id_mercado === idMercado)?.logo}`} alt="Logo do mercado" className="logo-mercado-list-comparacao" />
                   <span className="market-name-comparacao">{listaOrdenadaMercados.length > 0 && listaOrdenadaMercados.find((mercado) => mercado.id_mercado === idMercado)?.nome}</span>
                 </div>
                 <hr />

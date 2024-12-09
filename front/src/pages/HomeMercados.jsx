@@ -9,7 +9,6 @@ import { boolean } from 'zod'
 
 function HomeMercados() {
   const {
-    calcularDistanciaRota,
     calcularDistanciaRaio,
     getDataById,
     getDataByForeignKey,
@@ -25,6 +24,71 @@ function HomeMercados() {
   const [mercados, setMercados] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const listaCompras = getLocalStorage('listaDefout')
+
+  const calcularDistanciaRota = async (endereco1, endereco2, profile) => {
+    if (endereco1?.longitude && endereco1?.latitude && endereco2?.longitude && endereco2?.latitude && profile) {
+      const startPoint = [endereco1.longitude, endereco1.latitude] // Longitude e Latitude do primeiro endereço
+      const endPoint = [endereco2.longitude, endereco2.latitude] // Longitude e Latitude do segundo endereço
+
+      // Velocidades médias em m/s
+      const veloCaminhada = 3.78
+      const veloBicicleta = 4.7
+      const veloCarro = 7.88
+
+      const url = `http://router.project-osrm.org/route/v1/car/${startPoint.join(',')};${endPoint.join(',')}?overview=false&geometries=polyline`
+      try {
+        const response = await fetch(url)
+        if (!response.ok) {
+          throw new Error(`Erro na API: ${response.statusText}`)
+        }
+
+
+        const data = await response.json()
+        const route = data.routes?.[0]
+
+        if (!route) {
+          throw new Error('Nenhuma rota encontrada entre os pontos especificados.')
+        }
+
+        const distanceInMeters = route.distance // Distância em metros
+        const distanceInKm = (distanceInMeters / 1000).toFixed(2) // Distância em km
+
+        // Escolher velocidade baseada no perfil
+        let velocidadeEscolhida
+        switch (profile) {
+          case 'walk':
+            velocidadeEscolhida = veloCaminhada
+            break
+          case 'bike':
+            velocidadeEscolhida = veloBicicleta
+            break
+          case 'car':
+            velocidadeEscolhida = veloCarro
+            console.log('escolheu carro')
+            break
+          default:
+            velocidadeEscolhida = veloCaminhada
+            break
+        }
+
+        // Calcular duração em horas
+        const durationInMin = (distanceInMeters / velocidadeEscolhida / 60)
+
+        const formataMinutos =
+          durationInMin >= 60
+            ? `${Math.floor(durationInMin / 60)}h ${durationInMin % 60}min`
+            : `${durationInMin.toFixed(0)}min`
+
+
+        return { distanceInKm, formataMinutos }
+      } catch (error) {
+        console.error('Erro ao calcular a rota:', error.message)
+      }
+    } else {
+      console.error('Os endereços ou perfil não foram fornecidos corretamente.')
+    }
+  }
 
   const fetchData = async () => {
     try {
@@ -79,7 +143,7 @@ function HomeMercados() {
             } else {
               mercadosFora.push(mercadoFormatado);
             }
-            return {mercadoFormatado}
+            return { mercadoFormatado }
           })
         );
 
@@ -88,7 +152,7 @@ function HomeMercados() {
         setMercadosFora(mercadosFora);
         setLocalStorage('mercadosDentro', mercadosDentro)
       };
-      
+
       processarMercados();
 
       // Chamar a função para processar os mercados
@@ -126,11 +190,11 @@ function HomeMercados() {
     return result
   }
   const slidesGeral = slides(mercadosFora)
-  const slidesPerto = slides(mercadosDentro) 
+  const slidesPerto = slides(mercadosDentro)
 
   return (
     <div className='container-total-home'>
-      <Navbar />
+      <Navbar produtosdb={listaCompras} />
       <div id="container_home" className="container-home mt-5">
         <div className="TituloHome text-start">
           <h1>SuperMercados</h1>
