@@ -64,7 +64,8 @@ function CadastroCliente2() {
                 latitude: lat,
                 longitude: lng,
                 apelido: data.apelido,
-                complemento: data.complemento
+                complemento: data.complemento,
+                isAtual: true
             })
         } else {
             await addData('enderecoclientes', {
@@ -75,7 +76,8 @@ function CadastroCliente2() {
                 latitude: lat,
                 longitude: lng,
                 apelido: data.apelido,
-                complemento: data.complemento
+                complemento: data.complemento,
+                isAtual: true
             })
         }
     
@@ -126,7 +128,7 @@ function CadastroCliente2() {
                     <p>Torne sua vida fácil</p>
                     <h2 className='etapa1'>Endereço</h2>
                 </div>
-                <form onSubmit={handleSubmit(onSubmitEndereco)} className="form-container" id='form-endereco'>
+                <form onSubmit={handleSubmit(onSubmit)} className="form-container" id='form-endereco'>
                     <div className='form-endereco-cliente'>
                         <div className="container-inputs">
                             <label className="label">CEP</label>

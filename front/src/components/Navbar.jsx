@@ -10,115 +10,109 @@ import './PopUpListaCompras.css'
 import './PopUpEnderecos.css'
 
 
-function Navbar() {
+function Navbar({produtosdb}) {
   const location = useLocation()
   const navigate = useNavigate()
   const [enderecosCliente, setEnderecosCliente] = useState([])
   const [cliente, setCliente] = useState()
-  const { getLocalStorage, setLocalStorage, getDataById, getDataByForeignKey, idEnderecoCliente } = useContext(GlobalContext)
+  const [mercadoAtual, setMercadoAtual] = useState()
+  const { getLocalStorage, setLocalStorage, getDataById, getDataByForeignKey, updateData, getData } = useContext(GlobalContext)
   const idCliente = getLocalStorage('id_cliente')
-
-  useEffect(() => {
-    if (!idCliente) return // Evita executar se idCliente não está disponível
-    const fetchData = async () => {
-      try {
-        const cliente = await getDataById("clientes", idCliente)
-        setCliente(cliente)
-
-        const tabelaRelacao = await getDataByForeignKey("endereco_cliente_relecao", "fk_id_cliente", idCliente)
-        const enderecosRelacionados = await Promise.all(
-          tabelaRelacao.map(item => getDataById("enderecoclientes", item.fk_id_enderecocliente))
-        )
-        setEnderecosCliente(enderecosRelacionados)
-      } catch (error) {
-        console.error("Erro:", error)
-      }
-    }
-    fetchData()
-  }, [idCliente])
-
-  const [enderecoAtualId, setEnderecoAtualId] = useState(() =>
-    idEnderecoCliente || null
-  )
-
-  // Estado único para controlar qual pop-up está aberto
+  const idMercado = getLocalStorage('id_mercado')
   const [activePopup, setActivePopup] = useState(null)
   const [prontaEnviar, setProntaEnviar] = useState(false)
+  const [mercadosEmGeral, setMercadosEmGeral] = useState([])
 
   const [listaComprasNavdb, setListaComprasNavdb] = useState([])
-  const [produtosdb, setProdutosdb] = useState([])
 
+  const fetchData = async () => {
+    if (!idCliente) return
+    try {
+      const [cliente, tabelaRelacao, mercadoAtual, mercados] = await Promise.all([
+        getDataById('clientes', idCliente),
+        getDataByForeignKey('endereco_cliente_relecao', 'fk_id_cliente', idCliente),
+        getDataById('mercados', idMercado),
+        getData('mercados')
+
+      ])
+      const enderecosRelacionados = await Promise.all(
+        tabelaRelacao.map((item) => getDataById('enderecoclientes', item.fk_id_enderecocliente))
+      )
+      if (enderecosRelacionados.length === 0) {
+        throw new Error('Nenhum endereço relacionado encontrado para o cliente atual.')
+      }
+
+      setCliente(cliente)
+      setEnderecosCliente(enderecosRelacionados)
+      setMercadoAtual(mercadoAtual)
+      setMercadosEmGeral(mercados)
+
+    } catch (error) {
+      console.error("Erro:", error)
+    }
+  }
+  useEffect(() => {
+    fetchData()
+  }, [])
   // Define o ID do endereço atual e salva no localStorage
-  const setEnderecoAtual = (id) => {
-    setEnderecoAtualId(id)
-    setLocalStorage("id_enderecocliente", id) // Salva no localStorage
-    toast.success("Endereço atual definido com sucesso!")
-    window.location.reload()
-  }
+  const setEnderecoAtual = async (id) => {
+    try {
+      // Atualiza o campo `isatual` no banco de dados
+      await updateData("enderecoclientes", id, { isatual: true })
 
-  // Obtém o endereço atual com base no ID salvo
-  const getEnderecoAtual = () => {
-    return enderecosCliente.find((endereco) => endereco.id_enderecocliente === parseInt(enderecoAtualId)) || {}
-  }
+      // Opcional: Revertendo o campo `isatual` de outros endereços para `false`
+      const otherAddresses = enderecosCliente.filter((endereco) => endereco.id_enderecocliente !== id)
+      await Promise.all(
+        otherAddresses.map((endereco) => updateData("enderecoclientes", endereco.id_enderecocliente, { isatual: false }))
+      )
 
+      // Atualiza o estado local
+      toast.success("Endereço atual definido com sucesso!")
+      fetchData() // Recarrega a lista de endereços para refletir as mudanças
+    } catch (error) {
+      toast.error("Erro ao definir o endereço atual.")
+      console.error(error)
+    }
+  }
   const togglePopup = (popupName) => {
     setActivePopup((prev) => (prev === popupName ? null : popupName))
   }
-
   useHotkeys('ctrl+l', (event) => {
     event.preventDefault() // Previne o comportamento padrão do navegador
     togglePopup('list') // Abre o pop-up da lista de compras
   })
-  // Função para exibir mensagens de erro/validação
-  const showErrorToast = () => {
-    toast.error("Erro ao carregar dados do usuário!")
-  }
-  // Função para exibir mensagens de sucesso
-  const showValidationToast = () => {
-    toast.success("Dados Salvos com Sucesso!")
-  }
-  // Função para exibir um toast customizado
-  const customImageToast = () => {
-    toast("Pedido confirmado!", {
-      position: "bottom-center",
-      autoClose: 4000,
-      closeOnClick: true,
-      draggable: true,
-      icon: <img src="checkmark.svg" alt="Confirmado" style={{ width: '20px' }} />,  // Ícone como imagem
-      style: {
-        backgroundColor: '#00BFFF',
-        color: '#fff',
-      }
-    })
-  }
   // Função para incrementar a quantidade de um produto
   const incrementaProduto = (idProduto) => {
     const updatedprodutosdb = produtosdb.map((item) => {
-      if (item.id === idProduto) {
-        return { ...item, quantidade: item.quantidade + 1 }
+      if (item.id_produto === idProduto) {
+        return { ...item, quantidade_lista: item.quantidade_lista + 1 }
       }
       return item
     })
     setProdutosdb(updatedprodutosdb)
+    setLocalStorage('listaDefout', updatedprodutosdb)
+
   }
   // Função para decrementar a quantidade de um produto
   const desincrementaProduto = (idProduto) => {
     const updatedprodutosdb = produtosdb.map((item) => {
-      if (item.id === idProduto && item.quantidade > 1) {
-        return { ...item, quantidade: item.quantidade - 1 }
+      if (item.id_produto === idProduto && item.quantidade_lista > 1) {
+        return { ...item, quantidade_lista: item.quantidade_lista - 1 }
       }
       return item
     })
     setProdutosdb(updatedprodutosdb)
+    setLocalStorage('listaDefout', updatedprodutosdb)
   }
   // Função para remover um produto do carrinho
   const deleteProduto = (idProduto) => {
     const updatedprodutosdb = produtosdb.filter((item) => item.id != idProduto)
     setProdutosdb(updatedprodutosdb)
+    setLocalStorage('listaDefout', updatedprodutosdb)
   }
   // Função para calcular o total da compra
   const calcularTotal = () => {
-    return produtosdb.reduce((total, item) => total + (item.preco * item.quantidade), 0).toFixed(2)
+    return produtosdb.reduce((total, item) => total + (item.preco * item.quantidade_lista), 0).toFixed(2)
   }
   // Função para atualizar a lista de compras e abilitar o envio
   const atualizarListaCompras = () => {
@@ -127,13 +121,21 @@ function Navbar() {
   }
   // Função para concatenar os nomes e quantidades dos produtos da lista de compras
   function concatenaProdutos() {
-    return (listaComprasNavdb.produtos.map((item) => `${item.nome} - ${item.quantidade} un`).join('\n'))
+    return (listaComprasNavdb.produtos.map((item) => `${item.nome} - ${item.quantidade_lista} un`).join('\n'))
   }
   // Função para enviar a mensagem para o WhatsApp
   useEffect(() => {
     if (prontaEnviar) {
-      const mensagem = `Olá! Gostaria de fazer um pedido com os seguintes itens:\n\n${concatenaProdutos()}\n\n*Endereço de entrega:* ${enderecosCliente.find(e => e.atual === true)?.endereco}, ${enderecosCliente.find(e => e.atual === true)?.numero}\n\n*Total* ${calcularTotal()}\n\nAtenciosamente, ${cliente.nome}`
-      const numero = mercadosdb.find(mercado => mercado.atual === true).telefone
+      const enderecoAtual = enderecosCliente.find((endereco) => endereco.isatual)
+      const mensagem = `
+  Olá! Gostaria de fazer um pedido com os seguintes itens:
+  ${concatenaProdutos()}
+  *Endereço de entrega:* ${enderecoAtual?.logradouro}, ${enderecoAtual?.numero}
+  *Total*: R$ ${calcularTotal()}
+  Atenciosamente, ${cliente?.nome}
+`
+
+      const numero = mercadoAtual.telefone
       const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`
       window.open(url, '_blank')
       setProntaEnviar(false)
@@ -163,22 +165,20 @@ function Navbar() {
           </NavLink>
         </div>
       </div>
-
       {/* Container Central - SearchBar */}
       <div id="container-centro-nav">
         {location.pathname !== '/listaCompras' &&
-          location.pathname !== '/perfilCliente' && <SearchBar data={['maca', 'banana', 'maçã']} />}
+          location.pathname !== '/perfilCliente' && <SearchBar data={location.pathname === '/mercados' ? mercadosEmGeral.map((mercado) => mercado.nome) : produtosdb.map((produto) => produto.nome)} />}
       </div>
-
       {/* Container Direito */}
       <div id="container-direito-nav">
         {/* Botão Endereço - Pop-up */}
         <button id="endereco-button" onClick={() => togglePopup("endereco")}>
           <div className="endereco-container">
             <span className="endereco-text">
-              {getEnderecoAtual()?.logradouro || "Selecione um endereço"}
-              <span className="endereco-number">{getEnderecoAtual().numero ? `, ${getEnderecoAtual().numero}` : ''}</span>
+              {enderecosCliente.find((endereco) => endereco.isatual)?.logradouro || "Selecione um endereço"}
             </span>
+
 
             <img src="flecha.svg" alt="Flecha" className="arrow-icon" />
           </div>
@@ -201,7 +201,7 @@ function Navbar() {
               {enderecosCliente.map((endereco) => (
                 <button
                   key={endereco.id_enderecocliente}
-                  className={enderecoAtualId == endereco.id_enderecocliente ? "adderess-atual" : "adderess"}
+                  className={endereco.isatual ? "adderess-atual" : "adderess"}
                   onClick={() => setEnderecoAtual(endereco.id_enderecocliente)}
                 >
                   <span className="cep-text-pop">{endereco.apelido}</span>
@@ -210,6 +210,7 @@ function Navbar() {
                   </span>
                 </button>
               ))}
+
             </div>
           </div>
         )}
@@ -218,7 +219,6 @@ function Navbar() {
           <button className="user-button" onClick={() => navigate('/perfilCliente')}>
             <img src="User.svg" alt="Usuário" className="user-icon" />
           </button>
-
           {/* Botão Lista de compras - Pop-up */}
           <button className="list-button" onClick={() => togglePopup('list')}>
             <img src="Order.svg" alt="Carrinho de Compras" className="list-icon" />
@@ -239,30 +239,27 @@ function Navbar() {
                   <img src="XisVerde.svg" alt="X" />
                 </button>
                 <div className="shopping-list">
-                  {mercadosdb.map((mercado) => {
-                    if (mercado.atual) {
-                      return <div key={mercado.id} className="market-list">
-                        <div className="logo-name">
-                          <img src={mercado.logo} alt="Logo do mercado" className="logo-mercado" />
-                          <span className="market-name">{mercado.nome}</span>
-                        </div>
-                        <NavLink to="/mercado" className="visitar-mercado">Ver Catálogo</NavLink>
-                      </div>
-                    }
-                  })}
+                  <div className="market-list">
+                    <div className="logo-name">
+                      <img src={mercadoAtual.logo} alt="Logo do mercado" className="logo-mercado-list" />
+                      <span className="market-name">{mercadoAtual.nome}</span>
+                    </div>
+                    <NavLink to="/telaDentroMercado" className="visitar-mercado">Ver Catálogo</NavLink>
+                  </div>
+
                   <div className="list-itens">
                     {produtosdb.length > 0 ? (
                       produtosdb.map((item) => (
-                        <div key={item.id} className="list-item">
+                        <div key={item.id_produto} className="list-item">
                           <div className="item-info">
                             <div className="img-detaisl">
                               <div className="item-image">
-                                <img src={item.imagem} alt={item.nome} />
+                                <img src={`/uploads_images/${item.imagem_file_path}`} alt={item.nome} />
                               </div>
                               <div className="details">
                                 <span className="item-name">{item.nome}</span>
                                 <span className="item-additional-info">
-                                  {item.informacaoAdicional.peso} {item.informacaoAdicional.unidade}
+                                  {item.quantidade} {item.unidademedida}
                                 </span>
                               </div>
 
@@ -272,15 +269,15 @@ function Navbar() {
                             </div>
                           </div>
                           <div className="quantity-controls-container">
-                            <button className="remove-btn" onClick={() => deleteProduto(item.id)}>
+                            <button className="remove-btn" onClick={() => deleteProduto(item.id_produto)}>
                               Remover
                             </button>
                             <div className="quantity-control">
-                              <button className="decrease-btn" onClick={() => desincrementaProduto(item.id)}>
+                              <button className="decrease-btn" onClick={() => desincrementaProduto(item.id_produto)}>
                                 −
                               </button>
-                              <span className="quantity">{item.quantidade}</span>
-                              <button className="increase-btn" onClick={() => incrementaProduto(item.id)}>
+                              <span className="quantity">{item.quantidade_lista}</span>
+                              <button className="increase-btn" onClick={() => incrementaProduto(item.id_produto)}>
                                 +
                               </button>
                             </div>

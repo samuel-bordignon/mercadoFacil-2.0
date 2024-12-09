@@ -4,6 +4,7 @@ import { GlobalContext } from '../contexts/GlobalContext'
 import './MercadoEstoque.css'
 import { useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify'
+import Swal from 'sweetalert2';
 
 function MercadoEstoque() {
   const { getLocalStorage, setLocalStorage, getDataByForeignKey, deleteData } = useContext(GlobalContext)
@@ -80,20 +81,69 @@ function MercadoEstoque() {
   const handleItemClick = (produto) => {
     setLocalStorage('id_produto', produto.id_produto)
     setLocalStorage('produtoData', produto)
-    navigate('/mercadoCadastroProdutos')   }
+    navigate('/mercadoCadastroProdutos')
+  }
   const clickNovoProduto = () => {
     setLocalStorage('id_produto', null)
     setLocalStorage('produtoData', null)
-    navigate('/mercadoCadastroProdutos') 
+    navigate('/mercadoCadastroProdutos')
   }
 
   const handleDelete = async (produto) => {
-    try {
-      await deleteData('produtos', produto.id_produto)
-    } catch (error) {
-      console.error('Erro ao deletar produto:', error)
+    // Verifica se o usuário escolheu "Não mostrar novamente"
+    if (localStorage.getItem('skipDeleteConfirmation') === 'true') {
+      try {
+        await deleteData('produtos', produto.id_produto);
+        window.location.reload();
+        toast.success('Produto deletado com sucesso!');
+      } catch (error) {
+        console.error('Erro ao deletar produto:', error);
+      }
+      return;
     }
-  }
+  
+    // Exibe a modal com o checkbox para "Não mostrar novamente"
+    Swal.fire({
+      title: 'Tem certeza em deletar esse produto?',
+      text: 'Essa ação não pode ser desfeita.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Deletar produto',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true,
+      customClass: {
+        confirmButton: 'btn-confirm',
+        cancelButton: 'btn-cancel'
+      },
+      html: `
+        <p>Essa ação não pode ser desfeita.</p>
+        <div style="margin-top: 10px;">
+          <input type="checkbox" id="skipConfirmation" />
+          <label for="skipConfirmation">Não mostrar novamente</label>
+        </div>
+      `,
+      preConfirm: () => {
+        // Verifica se o checkbox foi marcado
+        const skipConfirmation = document.getElementById('skipConfirmation').checked;
+        if (skipConfirmation) {
+          localStorage.setItem('skipDeleteConfirmation', 'true');
+        }
+      }
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deleteData('produtos', produto.id_produto);
+          window.location.reload();
+          toast.success('Produto deletado com sucesso!');
+        } catch (error) {
+          console.error('Erro ao deletar produto:', error);
+        }
+      } else {
+        console.log('Usuário optou por não deletar o produto.');
+      }
+    });
+  };
+  
 
   // Filtra os produtos com base no termo de busca
   const produtosFiltrados = produtos.filter((produto) =>
@@ -141,7 +191,6 @@ function MercadoEstoque() {
                   <div className="produto-info">
                     <div className="produto-imagem-placeholder">
                       <img src={`/uploads_images/${produto.imagem_file_path}`} alt="" style={{ maxWidth: '100%' }} />
-                      {console.log(produto.imagem_file_path)}
                     </div>
                     <div className="produto-nome">
                       <p>{produto.nome}</p>

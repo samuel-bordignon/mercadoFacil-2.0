@@ -9,6 +9,8 @@ import router from './router/routes.jsx'
 import { GlobalContextProvider } from './contexts/GlobalContext.jsx'
 // import { ReactDOM } from 'react'
 
+
+
 createRoot(document.getElementById('root')).render(
   <GlobalContextProvider>
     <RouterProvider router={router}>

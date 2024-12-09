@@ -1,4 +1,4 @@
-.tela-mercado{
+.tela-mercado {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,189 +7,119 @@
 
 }
 
-.cabecario-perfil-mercado h1{
+.cabecario-perfil-mercado h1 {
     color: #0C194E;
     font-size: 35px;
-    margin-left: 5%;
-    margin-top: 4.5%
-
+    margin-top: 4.5%;
 }
 
-.foto-mercado{
+.foto-mercado {
     border-radius: 100%;
     height: 100px;
     width: 100px;
     border: none;
     background-color: #737373;
-    margin-top: 1.5%;
-    margin-left: 3%;
-
 }
 
-.cabecario-perfil-mercado{
+.foto {
+    width: 101%;
+    /* Faz a imagem ocupar toda a largura da div */
+    height: 101%;
+    /* Faz a imagem ocupar toda a altura da div */
+    object-fit: cover;
+    /* Faz a imagem cobrir o espaço sem distorcer */
+    border-radius: 100%;
+    /* Mantém o border-radius da imagem para acompanhar a div */
+}
+
+.icon-logo {
+    font-size: 32px;
+    border-radius: 100px;
+    color: #0C194E;
+    background-color: #ffffff;
+    width: 30px;
+    height: 30px;
+    margin: 0 ;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 12%;
+    left: 328px;
+}
+
+.icon-logo .bi{
+    margin: 0;
+    margin-bottom: 1px;
+}
+
+.cabecario-perfil-mercado {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 30px;
     border-radius: 9px;
-    background: linear-gradient(0deg, rgba(255,255,255,1) 50%, rgba(23,23,97,1) 50%);
-    box-shadow: 5px 5px 3px rgba(66, 66, 66, 0.301);
+    background: linear-gradient(0deg, rgb(253, 253, 253) 50%, rgba(23, 23, 97, 1) 50%);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     width: 85%;
     height: 130px;
+    padding: 0 25px;
+    margin-left: 5.8%;
 
 }
 
-.container-info-mercado{
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.301);
+.container-info-mercado {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin-top: 0.5%;
+    margin-top: 30px;
     width: 85%;
-    height: 23%;
-
+    gap: 25px;
+    border-radius: 9px;
+    padding: 30px;
+    margin-left: 5.8%;
 }
 
-.container-info-mercado h2{
+.container-info-mercado h2 {
     font-size: 35px;
     color: #00c677;
 
 }
 
-.cabecalio-info-mercado{
+.cabecalio-info-mercado {
     display: flex;
     color: #0C194E;
     justify-content: space-between;
-    margin-left: 3%;
-    margin-top: 1.5%;
 
 }
 
-.cabecalio-info-mercado button{
+.cabecalio-info-mercado button {
     background-color: #00c67700;
     border: none;
-    font-size: 16px;
+    font-size: 22px;
     color: #999999;
-    margin-right: 3.5%;
-    
+    display: flex;
+    align-items: start;
 }
 
-.informacoes-detalhadas-mercado{
-    margin: 3%;
-
+.informacoes-detalhadas-mercado {
+    font-size: 18px;
 }
 
-.informacoes-detalhadas-mercado input{
+.informacoes-detalhadas-mercado label{
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.informacoes-detalhadas-mercado input {
     border: none;
     outline: none;
     background-color: rgba(240, 255, 255, 0);
     width: 95%;
-
 }
 
-.informacoes-detalhadas-mercado{
-    width: 95%;
-
-}
-
-.container-contato-mercado{
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.301);
-    height: 55%;
-    width: 85%;
-    margin-top: 1.5%;
-
-}
-
-.cabecario-contato-mercado{
-    display: flex;
-    color: #0C194E;
-    justify-content: space-between;
-    margin-left: 3%;
-    margin: 2.5%;
-
-}
-
-.cabecario-contato-mercado h2{
-    font-size: 35px;
-    color: #00c677;
-
-}
-
-.cabecario-contato-mercado button{
-    background-color: #00c67700;
-    border: none;
-    font-size: 16px;
-    color: #999999;
-    margin-right: 3.5%;
-    
-}
-
-.informacoes-detalhadas-contato-mercado{
-    margin-left: 3%;
-
-}
-
-.informacoes-detalhadas-contato-mercado input{
-    border: none;
-    outline: none;
-    background-color: rgba(240, 255, 255, 0);
-    width: 95%;
-
-}
-
-.informacoes-detalhadas-contato-mercado hr{
-    width: 95%;
-
-}
-
-.container-endereco{
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.301);
-    justify-content: center;
-    margin-top: 1.5%;
-    width: 85%;
-    height: 23%;
-
-}
-
-.cabecario-endereco{
-    display: flex;
-    color: #0C194E;
-    justify-content: space-between;
-    margin-left: 3%;
-    margin-top: 2%;
-
-}
-
-.cabecario-endereco h2{
-    font-size: 35px;
-    color: #00c677;
-
-}
-
-.cabecario-endereco button{
-    background-color: #00c67700;
-    border: none;
-    font-size: 16px;
-    color: #999999;
-    margin-right: 3.5%;
-
-
-}
-
-.informacoes-detalhadas-endereco{
-    margin-left: 3%;
-
-}
-
-.informacoes-detalhadas-endereco input{
-    border: none;
-    outline: none;
-    background-color: rgba(240, 255, 255, 0);
-    width: 95%;
-
-}
-
-.cabecario-endereco hr{
-    width: 95%;
-
-}
-
-.excluirConta-mercado{
+.excluirConta-mercado {
     border: none;
     background-color: #0C194E;
     color: aliceblue;
@@ -199,7 +129,7 @@
     font-size: 24px;
     border-radius: 0 0 10px 10px;
     margin-top: 0.5%;
-
+    margin-left: 5.8%;
 }
 
 .pop-container-mer {
@@ -217,12 +147,12 @@
     z-index: 10;
 }
 
-.pop-container-mer h2{
+.pop-container-mer h2 {
     color: #0C194E;
 
 }
 
-.botao-excluir-mer{
+.botao-excluir-mer {
     background-color: #00c677;
     border: none;
     border-radius: 9px;
@@ -232,7 +162,7 @@
 
 }
 
-.botao-cancelar-mer{
+.botao-cancelar-mer {
     background-color: #00c67700;
     border: none;
     border-radius: 9px;
@@ -242,7 +172,7 @@
 
 }
 
-.botao-cancelar-mer:hover{
+.botao-cancelar-mer:hover {
     background-color: rgb(243, 243, 243);
 
 }
@@ -270,3 +200,15 @@
     border-radius: 0 0 10px 10px;
     margin-top: 0.5%;
 }
+
+.btn-confirm-mercado {
+    background-color: #00c677; /* Cor verde */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+  
+  .btn-confirm-mercado:hover {
+    background-color: #00a261; /* Cor verde mais escura ao passar o mouse */
+  }

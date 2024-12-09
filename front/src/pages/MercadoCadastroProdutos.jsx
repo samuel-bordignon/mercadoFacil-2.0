@@ -7,7 +7,6 @@ import { GlobalContext } from "../contexts/GlobalContext"
 import { useForm, Controller } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { div } from "framer-motion/client"
 
 function MercadoCadastroProdutos() {
   const { unidadeOptions, uploadImage, getLocalStorage, getDataByForeignKey, getDataById, getData, updateData, addRelation  , deleteDataByColumn, addData } = useContext(GlobalContext)
@@ -30,7 +29,7 @@ function MercadoCadastroProdutos() {
       .transform((val) => parseFloat(val).toFixed(2)),
     codigo: z
       .string()
-      .min(5, "O código do produto deve ter pelo menos 5 caracteres")
+      .min(3, "O código do produto deve ter pelo menos 3 caracteres")
       .max(20, "O código do produto não pode exceder 20 caracteres"),
     quantidade_estoque: z
       .string()
@@ -65,7 +64,7 @@ function MercadoCadastroProdutos() {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(produtoSchema),
-    defaultValues: {
+    defaultValues: storageLocal || {
       codigo: "",
       descricao: "",
       imagem_file_path: "",
@@ -148,7 +147,8 @@ function MercadoCadastroProdutos() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (idProduto.length > 0) {
+      if (idProduto) {
+        console.log('pinto')
         try {
           const produto = getLocalStorage("produtoData")
           const tabelaRelacao = await getDataByForeignKey(
@@ -239,7 +239,7 @@ function MercadoCadastroProdutos() {
   }
 
   const onSubmit = async (data) => {
-    if (idProduto.length > 0) {
+    if (idProduto) {
       console.log('pinto')
       let filePath
       if (storageLocal.imagem_file_path === data.imagem_file_path) {
@@ -370,6 +370,7 @@ function MercadoCadastroProdutos() {
     navigate('/mercadoEstoque')
   }
 
+
   return (
     <div>
       <Sidebar />
@@ -397,7 +398,7 @@ function MercadoCadastroProdutos() {
                     ) : storageLocal && storageLocal.imagem_file_path ? (
                       <img
                         src={`/uploads_images/${storageLocal.imagem_file_path}`}
-                        alt="Imagem carregadaoooooooooooooooooooooooooooooooooooooooooooooo"
+                        alt="Imagem carregada"
                         style={{ maxWidth: "100%" }}
                       />
                     ) : (

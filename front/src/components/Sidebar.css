@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
     background-color: #0C194E;
-    height: 100vh;
+    height: 100%;
     position: fixed;
     width: 115px;
     transition: width 0.5s;
@@ -49,13 +49,13 @@
 }
 
 #logout {
-    padding: 20px;
+    padding: 10px;
     border-top: 1px solid #ddd;
 }
 
 #logout_btn {
     display: flex;
-    align-items: center;
+    align-items: center;    
     gap: 10px;
     font-size: 16px;
     color: rgb(255, 255, 255);
@@ -74,4 +74,7 @@
     background-color: #c0c0c049; /* Cinza claro para indicar o item ativo */
 }
 
-
+.log-out{
+    height: 40px;
+    margin-right: 2px;
+}

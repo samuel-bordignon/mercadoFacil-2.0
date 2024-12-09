@@ -39,6 +39,8 @@
     width: 474px;
     height: 52px;
     flex-shrink: 0;
+    font-size: 17px;
+    padding: 0 14px;
     border-radius: var(--Corner-Extra-small, 4px);
     border: 0.5px solid rgba(150, 150, 150, 0.39);
     background: #FFF;
