@@ -273,13 +273,13 @@ function AddEndereco() {
                   Trabalho
                 </button>
 
-                <div className="container-direita">
-                  <img src={Endereco} alt="imagem de endereço" />
-                </div>
               </div>
             </div>
           </div>
         </div>
+    <div className="container-direita">
+      <img src={Endereco} alt="imagem de endereço" />
+    </div>
       </div>
     </div>
 
