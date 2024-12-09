@@ -99,7 +99,7 @@ function HomeMercados() {
         getData('mercados'),
         getData('enderecomercados'),
       ])
-      setMercados(mercados)
+      setMercados(mercados || [])
 
       // Buscar endereços relacionados ao cliente atual
       const tabelaRelacao = await getDataByForeignKey('endereco_cliente_relecao', 'fk_id_cliente', idCliente)

@@ -1,0 +1,125 @@
+.schedule-row {
+    display: flex;
+    align-items: center; /* Alinha verticalmente os itens ao centro */
+    gap: 10px; /* Espaçamento entre os itens */
+    margin-bottom: 10px;
+  }
+  
+  .schedule-row input[type="checkbox"] {
+    margin-right: 10px; /* Espaçamento entre o checkbox e o texto */
+  }
+  
+  .schedule-row span {
+    margin-right: 20px;
+    min-width: 40px; /* Largura mínima para garantir alinhamento */
+    text-align: center; /* Alinha o texto do span */
+  }
+  
+  .schedule-row input[type="time"] {
+    margin: 0 10px;
+    padding: 5px;
+    height: 32px; /* Tamanho uniforme para os inputs */
+    box-sizing: border-box; /* Inclui padding e borda no tamanho total */
+  }
+  
+  .schedule-row button {
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .schedule-container {
+    margin-top: 45px;
+    padding: 0 30px;
+    max-height: 300px; /* Limita a altura do contêiner */
+    overflow-y: auto; /* Adiciona rolagem caso o conteúdo seja maior que o tamanho do contêiner */
+  }
+  
+  .add-day-button {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 320px;
+    margin-left: 0px;
+    border: solid 1px;
+  }
+  
+  .add-day-button:hover {
+    background-color: #f7f7f780;
+  }
+  
+  .action-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 40px;
+  }
+  
+  .action-buttons .popup-button {
+    margin-left: 20px;
+    width: 50%;
+    margin-right: 20px;
+  }
+  
+  .popup-button.cancel {
+    background-color: #ffffff;
+    color: black;
+    border: solid 1px;
+    width: 50%;
+    margin-left: 30px;
+  }
+  
+  .popup-button.cancel:hover {
+    background-color: #ffffff96;
+  }
+  
+  /* Container do pop-up */
+  .popup-welcome2 {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 900px; /* Largura máxima */
+    height: 600px; /* Altura ajustada para garantir que o popup não aumente */
+    overflow: hidden; /* Impede que o conteúdo expanda além do tamanho do popup */
+  }
+  
+  .popup-overlay2 {
+    position: fixed; /* Fixar na tela */
+    top: 50%; /* Centralizar verticalmente */
+    left: 50%; /* Centralizar horizontalmente */
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+    width: 100vw; /* Ocupa largura total */
+    height: 100vh; /* Ocupa altura total */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-logo2 {
+    width: 200px;
+    margin: 20px auto;
+    display: block;
+    margin-top: 80px;
+  }
+  
+  .bi-trash3 {
+    color: #949494;
+  }
+  
+  .titulo-right {
+    margin-left: 27%;
+  }
+  
