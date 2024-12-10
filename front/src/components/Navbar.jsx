@@ -10,7 +10,7 @@ import './PopUpListaCompras.css'
 import './PopUpEnderecos.css'
 
 
-function Navbar({produtosdb}) {
+function Navbar({listaCompras, produtosdb, setProdutosdb}) {
   const location = useLocation()
   const navigate = useNavigate()
   const [enderecosCliente, setEnderecosCliente] = useState([])
@@ -83,7 +83,7 @@ function Navbar({produtosdb}) {
   })
   // Função para incrementar a quantidade de um produto
   const incrementaProduto = (idProduto) => {
-    const updatedprodutosdb = produtosdb.map((item) => {
+    const updatedprodutosdb = listaCompras.map((item) => {
       if (item.id_produto === idProduto) {
         return { ...item, quantidade_lista: item.quantidade_lista + 1 }
       }
@@ -95,7 +95,7 @@ function Navbar({produtosdb}) {
   }
   // Função para decrementar a quantidade de um produto
   const desincrementaProduto = (idProduto) => {
-    const updatedprodutosdb = produtosdb.map((item) => {
+    const updatedprodutosdb = listaCompras.map((item) => {
       if (item.id_produto === idProduto && item.quantidade_lista > 1) {
         return { ...item, quantidade_lista: item.quantidade_lista - 1 }
       }
@@ -106,13 +106,13 @@ function Navbar({produtosdb}) {
   }
   // Função para remover um produto do carrinho
   const deleteProduto = (idProduto) => {
-    const updatedprodutosdb = produtosdb.filter((item) => item.id != idProduto)
+    const updatedprodutosdb = listaCompras.filter((item) => item.id_produto != idProduto)
     setProdutosdb(updatedprodutosdb)
     setLocalStorage('listaDefout', updatedprodutosdb)
   }
   // Função para calcular o total da compra
   const calcularTotal = () => {
-    return produtosdb.reduce((total, item) => total + (item.preco * item.quantidade_lista), 0).toFixed(2)
+    return listaCompras.reduce((total, item) => total + (item.preco * item.quantidade_lista), 0).toFixed(2)
   }
   // Função para atualizar a lista de compras e abilitar o envio
   const atualizarListaCompras = () => {
@@ -121,7 +121,7 @@ function Navbar({produtosdb}) {
   }
   // Função para concatenar os nomes e quantidades dos produtos da lista de compras
   function concatenaProdutos() {
-    return (listaComprasNavdb.produtos.map((item) => `${item.nome} - ${item.quantidade_lista} un`).join('\n'))
+    return (listaCompras.map((item) => `${item.nome} - ${item.quantidade_lista} un`).join('\n'))
   }
   // Função para enviar a mensagem para o WhatsApp
   useEffect(() => {
@@ -179,7 +179,6 @@ function Navbar({produtosdb}) {
               {enderecosCliente.find((endereco) => endereco.isatual)?.logradouro || "Selecione um endereço"}
             </span>
 
-
             <img src="flecha.svg" alt="Flecha" className="arrow-icon" />
           </div>
         </button>
@@ -225,7 +224,7 @@ function Navbar({produtosdb}) {
             <div className="span-container">
               <span className="list-total">R$ {calcularTotal()}</span>
               <span className="list-items">
-                <span className="item-count">{produtosdb.length}</span> itens
+                <span className="item-count">{listaCompras.length}</span> itens
               </span>
             </div>
           </button>
@@ -241,15 +240,15 @@ function Navbar({produtosdb}) {
                 <div className="shopping-list">
                   <div className="market-list">
                     <div className="logo-name">
-                      <img src={mercadoAtual.logo} alt="Logo do mercado" className="logo-mercado-list" />
+                      <img src={`/uploads_images/${mercadoAtual.logo}`} alt="Logo do mercado" className="logo-mercado-list" />
                       <span className="market-name">{mercadoAtual.nome}</span>
                     </div>
                     <NavLink to="/telaDentroMercado" className="visitar-mercado">Ver Catálogo</NavLink>
                   </div>
 
                   <div className="list-itens">
-                    {produtosdb.length > 0 ? (
-                      produtosdb.map((item) => (
+                    {listaCompras.length > 0 ? (
+                      listaCompras.map((item) => (
                         <div key={item.id_produto} className="list-item">
                           <div className="item-info">
                             <div className="img-detaisl">

@@ -14,10 +14,8 @@ function PerfilGerente() {
   // Garantir que mercadosdb tenha um valor padrão (fallback)
   const { getDataByForeignKey, getLocalStorage, updateData, checkEmailExists, deleteData, setLocalStorage, getDataById } = useContext(GlobalContext)
   const idGerente = getLocalStorage('id_gerente')
-  const mercadoLocal = getLocalStorage('MercadoData')
-  const gerenteLocal = getLocalStorage('GerenteData')
-  console.log('mercadoLocal:', mercadoLocal)
-  console.log('gerenteLocal:', gerenteLocal)
+  const [emailMercado, setEmailMercado] = useState('')
+  const [emailGerente, setEmailGerente] = useState('')
   const navigate = useNavigate()
 
   // Validação de dados pessoais usando o Zod
@@ -34,8 +32,8 @@ function PerfilGerente() {
     email: z.string().email('E-mail inválido').nonempty('E-mail é obrigatório')
       .refine(async (email) => {
         // Se o e-mail não mudou, não faz a verificação
-        if (mercadoLocal && mercadoLocal.email === email) return true
-        if (gerenteLocal && gerenteLocal.email === email) return true
+        if (emailGerente && emailGerente === email) return true
+        if (emailMercado && emailMercado === email) return true
 
         // Verifica se o e-mail já está cadastrado em outras tabelas
         const checkCliente = await checkEmailExists('clientes', email)
@@ -82,7 +80,7 @@ function PerfilGerente() {
         const dataNascimentoFormatada = data.data_nasc ? data.data_nasc.split('T')[0] : ''
 
         console.log('Dados do gerente:', data)
-
+        setEmailGerente(data.email)
         setValuePessoal('nome', data.nome || '')  // Preenche o campo "nome"
         setValuePessoal('cpf', data.cpf || '')  // Preenche o campo "cpf"
         setValuePessoal('data_nasc', dataNascimentoFormatada)  // Preenche o campo "data_nasc"
@@ -90,6 +88,10 @@ function PerfilGerente() {
         setValueContato('telefone', data.telefone || '')  // Preenche o campo "telefone"
         setValueContato('email', data.email || '')  // Preenche o campo "email"
       })
+      getDataByForeignKey("mercados", "fk_id_gerente", idGerente).then((data) => {
+        setEmailMercado(data.email)
+      }
+    )
     } catch (error) {
       console.error("Erro:", error)
     }
@@ -173,7 +175,7 @@ function PerfilGerente() {
               <button onClick={() => (trocaBotao('pessoal'))} type='submit' ><i class="bi bi-pencil-square"></i>editar</button>}
           </div>
           <div className='informacoes-detalhadas-mercado'>
-            <label htmlFor='nome'>Nome do Mercado</label><br />
+            <label htmlFor='nome'>Nome</label><br />
             <input
               type="text"
               id="nome"

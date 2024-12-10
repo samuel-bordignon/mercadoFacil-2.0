@@ -1,5 +1,5 @@
 import './ComparacaoLista.css'
-import { NavLink, } from 'react-router-dom'
+import { NavLink, useNavigate, } from 'react-router-dom'
 import { GlobalContext } from '../contexts/GlobalContext'
 import { useContext, useState, useEffect } from 'react'
 
@@ -21,6 +21,7 @@ function ComparacaoLista() {
   const [cliente, setCliente] = useState({})
   const [loading, setLoading] = useState(false)
   const [prontaEnviar, setProntaEnviar] = useState(false)
+  const navigate = useNavigate()
 
 
   const trocaIdMercado = (id) => {
@@ -204,7 +205,7 @@ function ComparacaoLista() {
   // Função para remover um produto da lista
   const deleteProduto = (produto) => {
     const updatedProdutosdb = produtosEncontrados.filter((item) => item.id_produto !== produto.id_produto)
-    const updatedProdutosOriginais = produtosdb.filter((item) => item.id_produto !== produto.id_produto_original) 
+    const updatedProdutosOriginais = produtosdb.filter((item) => item.id_produto !== produto.id_produto_original)
     ordenarMercados(mercadosProximos, updatedProdutosOriginais)
     setProdutosEncontrados(updatedProdutosdb)
     setProdutosdb(updatedProdutosOriginais);
@@ -275,9 +276,13 @@ function ComparacaoLista() {
 
   return (
     <div className='container-comparacao-total'>
-      <div className='navBar-comparaLista'>
+      <div
+        className='navBar-comparaLista'
+        onClick={() => navigate('/telaDentroMercado')}
+      >
         <button>Voltar</button>
         <img src="/public/logo.png" alt="" />
+
       </div>
       <div className='container-comparacao-lista'>
         <div className='container-comparaLista'>
@@ -311,7 +316,7 @@ function ComparacaoLista() {
                 onClick={() => trocaIdMercado(mercado.id_mercado)}>
                 <div className='cabecario-mer'>
                   <div >
-                    <img className='logo-mercado-compara-lista'src={`/uploads_images/${mercado.logo}`} alt="Logo do mercado" />
+                    <img className='logo-mercado-compara-lista' src={`/uploads_images/${mercado.logo}`} alt="Logo do mercado" />
                   </div>
                   <h3 className='nome-mercado'>{mercado.nome}</h3>
                 </div>
@@ -322,7 +327,7 @@ function ComparacaoLista() {
           </div>
 
           <div className='bot-enviar-lista'>
-            <button onClick={()=>setProntaEnviar(true)}>Enviar Lista</button>
+            <button onClick={() => setProntaEnviar(true)}>Enviar Lista</button>
           </div>
         </div>
         {loading === true ?
@@ -340,48 +345,88 @@ function ComparacaoLista() {
                 </div>
                 <hr />
               </div>
-              <div className="shopping-list">
-                <div className="list-itens-encontrados">
-                  {produtosEncontrados.length > 0 ? (
-                    produtosEncontrados.map((item) => (
-                      <div key={item.id_produto} className="list-item">
-                        <div className="item-info">
-                          <div className="img-detaisl">
-                            <div className="item-image">
-                              <img src={`/uploads_images/${item.imagem_file_path}`} alt={item.nome} />
-                            </div>
-                            <div className="details">
-                              <span className="item-name">{item.nome}</span>
-                              <span className="item-additional-info">
-                                {item.quantidade} {item.unidademedida}
-                              </span>
-                            </div>
+              <div className="container-itens-total">
+                {produtosNaoEncontrados && produtosNaoEncontrados.length > 0 &&
+                  <div className="shopping-list-NE-comp">
+                    <h4 style={{ color: '#4D453F', marginBottom: '30px', marginTop: '10px'}}>Não encontramos esses itens</h4>
+                    {produtosNaoEncontrados.map((item) => (
+                      <div className="list-itens-nao-encontrados">
+                        <div key={item.id_produto} className="list-item">
+                          <div className="item-info">
+                            <div className="img-detaisl">
+                              <div className="item-image">
+                                <img src={`/uploads_images/${item.imagem_file_path}`} alt={item.nome} />
+                              </div>
+                              <div className="details">
+                                <span className="item-name">{item.nome}</span>
+                                <span className="item-additional-info">
+                                  {item.quantidade} {item.unidademedida}
+                                </span>
+                              </div>
 
+                            </div>
+                            <div className="preco">
+                              <span className="item-preco">R$ {item.preco.toFixed(2)}</span>
+                            </div>
                           </div>
-                          <div className="preco">
-                            <span className="item-preco">R$ {item.preco.toFixed(2)}</span>
-                          </div>
-                        </div>
-                        <div className="quantity-controls-container">
-                          <button className="remove-btn" onClick={() => deleteProduto(item)}>
-                            Remover
-                          </button>
-                          <div className="quantity-control">
-                            <button className="decrease-btn" onClick={() => desincrementaProduto(item)}>
-                              −
+                          <div className="quantity-controls-container">
+                            <button className="remove-btn" onClick={() => deleteProduto(item)} disabled>
+                              Remover
                             </button>
-                            <span className="quantity">{item.quantidade_lista}</span>
-                            <button className="increase-btn" onClick={() => incrementaProduto(item)}>
-                              +
-                            </button>
+                            <div className="quantity-control">
+                              <button className="decrease-btn" onClick={() => desincrementaProduto(item)} disabled>
+                                −
+                              </button>
+                              <span className="quantity">{item.quantidade_lista}</span>
+                              <button className="increase-btn" onClick={() => incrementaProduto(item)} disabled>
+                                +
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    ))
-                  ) : (
-                    <span className="empty-list">Carrinho vazio</span>
-                  )}
-                </div>
+                    ))}
+                  </div>}
+                {produtosEncontrados && produtosEncontrados.length > 0 &&
+                  <div className="shopping-list-comp">
+                    {produtosEncontrados.map((item) => (
+                      <div className="list-itens-encontrados">
+                        <div key={item.id_produto} className="list-item">
+                          <div className="item-info">
+                            <div className="img-detaisl">
+                              <div className="item-image">
+                                <img src={`/uploads_images/${item.imagem_file_path}`} alt={item.nome} />
+                              </div>
+                              <div className="details">
+                                <span className="item-name">{item.nome}</span>
+                                <span className="item-additional-info">
+                                  {item.quantidade} {item.unidademedida}
+                                </span>
+                              </div>
+
+                            </div>
+                            <div className="preco">
+                              <span className="item-preco">R$ {item.preco.toFixed(2)}</span>
+                            </div>
+                          </div>
+                          <div className="quantity-controls-container">
+                            <button className="remove-btn" onClick={() => deleteProduto(item)}>
+                              Remover
+                            </button>
+                            <div className="quantity-control">
+                              <button className="decrease-btn" onClick={() => desincrementaProduto(item)}>
+                                −
+                              </button>
+                              <span className="quantity">{item.quantidade_lista}</span>
+                              <button className="increase-btn" onClick={() => incrementaProduto(item)}>
+                                +
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>}
               </div>
             </div>
           )}

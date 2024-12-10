@@ -46,8 +46,10 @@ const Sidebar = () => {
 
   const logOut = () => {
     setLocalStorage('id_gerente', null)
-    setLocalStorage('mercadoData', null)
-    setLocalStorage('gerenteData', null)
+    setLocalStorage('MercadoData', null)
+    setLocalStorage('GerenteData', null)
+    setLocalStorage('EnderecoMercadoData', null)
+
     navigate('/');
   }
 

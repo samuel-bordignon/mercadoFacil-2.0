@@ -194,6 +194,7 @@ function PerfilMercado() {
 
   return (
     <div>
+      <ToastContainer />
       <Sidebar />
       <div className='tela-mercado'>
         <div className='cabecario-perfil-mercado'>

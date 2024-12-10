@@ -13,7 +13,7 @@ function MercadoCadastroProdutos() {
   const [image, setImage] = useState(null)
   const [mercado, setMercado] = useState(null)
   const [filePath, setFilePath] = useState('')
-  const idProduto = getLocalStorage('id_produto')
+  const idProduto = localStorage.getItem('id_produto')
   const storageLocal = getLocalStorage('produtoData')
   const idGerente = getLocalStorage('id_gerente')
   const [categoriaProdutos, setCategoriaProdutos] = useState([])
@@ -147,7 +147,7 @@ function MercadoCadastroProdutos() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (idProduto) {
+      if (idProduto === null) {
         console.log('pinto')
         try {
           const produto = getLocalStorage("produtoData")
@@ -168,6 +168,7 @@ function MercadoCadastroProdutos() {
               label: categoria.nome_palavra,
             })
           )
+          console.log(categoriasFormatadasDefout)
 
           const estoque = await getDataByForeignKey(
             "estoqueprodutos",
@@ -205,7 +206,8 @@ function MercadoCadastroProdutos() {
         } finally {
           setLoading(false)
         }
-      } else {
+      } else if(idProduto != null) {
+        console.log('piroca')
         const data = await getData("palavrachave")
         const categorias = data.map((item) => ({
           value: item.id_palavrachave.toString(), // Converte para string

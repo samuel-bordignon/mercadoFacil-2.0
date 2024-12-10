@@ -8,12 +8,13 @@
   padding: 10px 16px;
   height: 84px;
   border-bottom: 2px solid #e3e2e2;
-  position: sticky;
-  top: 0;
-  width: 100%;
-  position: relative;
-  z-index: 2;
+  position: fixed;  /* Fixa a navbar no topo da tela */
+  top: 0;           /* Mantém a navbar no topo da janela de visualização */
+  left: 0;          /* Garante que ela comece da borda esquerda */
+  width: 100%;      /* Ocupa toda a largura */
+  z-index: 1000;    /* Mantém a navbar acima de outros elementos */
 }
+
 
 #container-centro-nav {
   display: flex;

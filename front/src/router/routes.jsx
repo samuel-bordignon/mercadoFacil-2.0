@@ -30,6 +30,7 @@ import PerfilMercado from "../pages/PerfilMercado";
 import Sidebar from "../components/Sidebar";
 import TelaDentroMercado from "../pages/TelaDentroMercado";
 import Teste from "../pages/Teste";
+import Vertodos from "../pages/Vertodos";
 // import TelaInfoProduto from "../pages/TelaInfoProduto";
 
 const router = createBrowserRouter([
@@ -61,7 +62,8 @@ const router = createBrowserRouter([
     { path: "/sidebar", element: <Sidebar /> },
     { path: "/telaDentroMercado", element: <TelaDentroMercado /> },
     { path: "/anima", element: <TesteAnimacao /> },
-    { path: "/testeCompLIsta", element: <Teste/>}
+    { path: "/testeCompLIsta", element: <Teste/>},
+    { path: "/vertodos", element: <Vertodos/>}
 ]);
 
 export default router;

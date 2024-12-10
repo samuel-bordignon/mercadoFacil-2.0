@@ -25,6 +25,7 @@ function HomeMercados() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const listaCompras = getLocalStorage('listaDefout')
+  const [produtosdb, setProdutosdb] = useState([])
 
   const calcularDistanciaRota = async (endereco1, endereco2, profile) => {
     if (endereco1?.longitude && endereco1?.latitude && endereco2?.longitude && endereco2?.latitude && profile) {
@@ -133,12 +134,12 @@ function HomeMercados() {
 
             const mercadoFormatado = {
               ...mercado,
-              distancia: rota?.distanceInKm || 'N/A',
-              tempo: `${(rota?.durationInHours || 0).toFixed(2)} min`,
+              distancia: (rota?.distanceInKm) || 'N/A',
+              tempo: `${(rota?.formataMinutos || 0)}`,
               enderecoMercado
             };
 
-            if (distanciaRaio <= 1000) {
+            if (distanciaRaio <= 5000) {
               mercadosDentro.push(mercadoFormatado);
             } else {
               mercadosFora.push(mercadoFormatado);
@@ -194,8 +195,8 @@ function HomeMercados() {
 
   return (
     <div className='container-total-home'>
-      <Navbar produtosdb={listaCompras} />
-      <div id="container_home" className="container-home mt-5">
+      <Navbar listaCompras={listaCompras} produtosdb={[]} setProdutosdb={setProdutosdb}/>
+      <div id="container_home" className="container-home">
         <div className="TituloHome text-start">
           <h1>SuperMercados</h1>
         </div>

@@ -73,7 +73,7 @@
     justify-content: flex-end;
 }
 
-.parte-inferior-popUp button {
+.bttn-add-lista-adicionar {
     color: #ffffff;
     background-color: #00C677;
     font-size: 24px;
@@ -82,6 +82,21 @@
     border-radius: 9px;
     width: 100%;
     height: 19%;
+}
+
+.bttn-add-lista-remover{
+    color: #ffffff;
+    background-color: #0C194E;
+    font-size: 24px;
+    font-weight: 600;
+    border: none;
+    border-radius: 9px;
+    width: 100%;
+    height: 19%;
+}
+
+.parte-inferior-popUp button p{
+    margin: 0;
 }
 
 .bttn-fecha-PopUp {
