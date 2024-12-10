@@ -31,10 +31,13 @@ import Sidebar from "../components/Sidebar";
 import TelaDentroMercado from "../pages/TelaDentroMercado";
 import Teste from "../pages/Teste";
 import Vertodos from "../pages/Vertodos";
+import SelectTimeDay from "../components/SelectTimeDay";
+import Alelec from "../pages/alelec";
 // import TelaInfoProduto from "../pages/TelaInfoProduto";
 
 const router = createBrowserRouter([
     { path: "/", element: <HomeLogin /> },
+    { path: "/alelec", element: <Alelec /> },
     { path: "/acessoParceiro", element: <AcessoParceiro /> },
     { path: "/addEndereco", element: <AddEndereco /> },
     { path: "/cadastroEnderecoCliente", element: <CadastroCliente2 /> },
@@ -61,9 +64,11 @@ const router = createBrowserRouter([
     { path: "/perfilMercado", element: <PerfilMercado /> },
     { path: "/sidebar", element: <Sidebar /> },
     { path: "/telaDentroMercado", element: <TelaDentroMercado /> },
+    // { path: "/telaInfoProduto", element: <TelaInfoProduto /> },
     { path: "/anima", element: <TesteAnimacao /> },
     { path: "/testeCompLIsta", element: <Teste/>},
-    { path: "/vertodos", element: <Vertodos/>}
+    { path: "/vertodos", element: <Vertodos/>},
+    { path: "/select-time-day", element: <SelectTimeDay /> },
 ]);
 
 export default router;

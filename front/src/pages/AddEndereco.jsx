@@ -273,141 +273,15 @@ function AddEndereco() {
                   Trabalho
                 </button>
 
-                <div className="container-direita">
-                  <img src={Endereco} alt="imagem de endereço" />
-                </div>
               </div>
             </div>
           </div>
         </div>
+    <div className="container-direita">
+      <img src={Endereco} alt="imagem de endereço" />
+    </div>
       </div>
     </div>
-
-
-
-    /* </div><div className="conteiner">
-            <div className="secao-formulario">
-              <h2>{activeBtnDelete ? 'Editar endereço' : 'Adicionar meu endereço'}</h2>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="form-row">
-                  <div className="grupo-formulario input-pequeno">
-                    <label>Número</label>
-                    <input
-                      type="text"
-                      name="numero"
-                      {...register('numero')}
-                      placeholder="exemplo: XXXX"
-                    />
-                    <p className='error'>{errors.numero?.message}</p>
-                  </div>
-                  <div className="grupo-formulario input-grande">
-                    <label>Logradouro</label>
-                    <input
-                      type="text"
-                      name="logradouro"
-                      {...register('logradouro')}
-                      placeholder="exemplo: Rua/Av."
-                    />
-                    <p className='error'>{errors.logradouro?.message}</p>
-                  </div>
-                </div>
-  
-                <div className="form-row">
-                  <div className="grupo-formulario input-medio">
-                    <label>CEP</label>
-                    <input
-                      name="cep"
-                      {...register('cep')}
-                      placeholder="XXXXX-XXX"
-                    />
-                    <p className='error'>{errors.cep?.message}</p>
-                  </div>
-                  <div className="grupo-formulario input-medio">
-                    <label>Bairro</label>
-                    <input
-                      type="text"
-                      name="bairro"
-                      {...register('bairro')}
-                      placeholder="Bairro"
-                    />
-                    <p className='error'>{errors.bairro?.message}</p>
-                  </div>
-                </div>
-  
-                <div className="form-row">
-                  <div className="grupo-formulario input-medio">
-                    <label>Complemento</label>
-                    <input
-                      type="text"
-                      name="complemento"
-                      {...register('complemento')}
-                      placeholder="exemplo: Apartamento"
-                    />
-                    <p className='error'>{errors.complemento?.message}</p>
-                  </div>
-                  <div className="grupo-formulario input-medio">
-                    <label>Apelido</label>
-                    <input
-                      type="text"
-                      name="apelido"
-                      {...register('apelido')}
-                      placeholder="exemplo: Minha casa"
-                    />
-                    <p className='error'>{errors.apelido?.message}</p>
-                  </div>
-                </div>
-  
-                <div className="botoes-formulario">
-                  <button type="submit" className={botao-salvar}>
-                    {activeBtnDelete ? 'Atualizar endereço' : 'Adicionar endereço'}
-                  </button>
-  
-                  {activeBtnDelete && (
-                    <button
-                      type="button"
-                      className="botao-deletar"
-                      onClick={() => handleDelete(enderecoSendoEditado)}
-                    >
-                      Deletar
-                    </button>
-                  )}
-                </div>{activeBtnDelete && (
-                  <button
-                    type="button"
-                    onClick={handleCancelEdit}
-                    className="botao-cancelar"
-                  >
-                    Cancelar
-                  </button>
-                )}
-              </form>
-            </div>
-  
-            <div className="enderecos-salvos">
-              <h3>Endereços salvos</h3>
-              <ul>
-                {enderecosCliente.map((endereco, index) => (
-                  <li key={index}>
-                    <div className="info-endereco">
-                      <span>CEP: {endereco.cep}</span>
-                      <p>Logradouro: {endereco.logradouro}, {endereco.numero || 'Sem número'}</p>
-                      <p>Complemento: {endereco.complemento || 'Sem complemento'}</p>
-                      <p>Bairro: {endereco.bairro}</p>
-                    </div>
-                    <span className="apelido-endereco">{endereco.apelido}</span>
-                    <button
-                      className="botao-editar"
-                      onClick={() => handleEdit(endereco)}
-                    >
-                      Editar✏️
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-      </div>  */
-
   )
 }
 

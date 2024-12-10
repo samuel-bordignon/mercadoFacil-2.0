@@ -1,38 +1,40 @@
 import './Sidebar.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { useContext } from 'react';
-import PopUpWelcome from './PopUpWelcome'; // Importe o componente PopUpWelcome
+import PopUpWelcome from './PopUpWelcome';
+import SairLogo from '../assets/images/sairLogo.png';
+import SelectTimeDay from './SelectTimeDay';
 
 const Sidebar = () => {
   const [activeItem, setActiveItem] = useState(null);
-  const [showWelcome, setShowWelcome] = useState(false); // Estado inicial como falso
+  const [currentPopup, setCurrentPopup] = useState(null); // Controla qual pop-up está ativo (welcome ou timeDay)
   const navigate = useNavigate();
   const { setLocalStorage, getLocalStorage } = useContext(GlobalContext);
 
   useEffect(() => {
-    // Verifica no localStorage se o pop-up já foi exibido ou se o cadastro foi concluído
-    
+    // Checar se o cadastro está concluído e se o pop-up já foi visto
     const cadastroConcluido = getLocalStorage('cadastroConcluido');
     const hasSeenWelcome = getLocalStorage('hasSeenWelcome');
-    if (hasSeenWelcome && cadastroConcluido) {
-      setShowWelcome(true); // Exibe o pop-up se o cadastro foi concluído e o pop-up ainda não foi visto
-      console.log('mstrou o pop-up');
+
+    if (cadastroConcluido && !hasSeenWelcome) {
+      setCurrentPopup('welcome'); // Exibe o pop-up se ainda não foi visto
     }
   }, []);
 
-  // Função para fechar o pop-up de boas-vindas
-  const closeWelcomePopup = () => {
-    setShowWelcome(false);
-    localStorage.setItem('hasSeenWelcome', 'false'); // Salva no localStorage que o pop-up já foi exibido
+  // Fechar o PopUpWelcome e abrir o SelectTimeDay
+  const handleWelcomeClose = () => {
+    setLocalStorage('hasSeenWelcome', true); // Salva no localStorage que o PopUpWelcome foi visto
+    setCurrentPopup('timeDay'); // Troca para o pop-up de horário
   };
 
+  // Fechar o SelectTimeDay
+  const closeTimeDayPopup = () => {
+    setCurrentPopup(null); // Fecha o pop-up de horário
+  };
 
-
-  // Função para navegação
+  // Navegação entre itens do menu
   const handleItemClick = (item) => {
     setActiveItem(item);
     if (item === 'gerente') {
@@ -44,6 +46,7 @@ const Sidebar = () => {
     }
   };
 
+  // Função de logout
   const logOut = () => {
     setLocalStorage('id_gerente', null)
     setLocalStorage('MercadoData', null)
@@ -52,11 +55,14 @@ const Sidebar = () => {
     setLocalStorage('hasSeenWelcome', true)
 
     navigate('/');
-  }
+  };
 
   return (
     <div id="sidebar-container">
-      {showWelcome && <PopUpWelcome closeWelcome={closeWelcomePopup} />} {/* Renderiza o PopUpWelcome se showWelcome for true */}
+      {/* Renderiza o PopUpWelcome somente se currentPopup for "welcome" */}
+      {currentPopup === 'welcome' && <PopUpWelcome closeWelcome={handleWelcomeClose} />}
+      {/* Renderiza o SelectTimeDay somente se currentPopup for "timeDay" */}
+      {currentPopup === 'timeDay' && <SelectTimeDay closePopup={closeTimeDayPopup} />}
 
       <nav id="sidebar">
         <div id="sidebar_content">
@@ -90,8 +96,7 @@ const Sidebar = () => {
 
         <div id="logout">
           <button id="logout_btn" onClick={() => logOut()}>
-            <img src="./logOut.svg" alt="" className='log-out' />
-            <span>Sair</span>
+            <img src={SairLogo} alt="" className="log-out" />
           </button>
         </div>
       </nav>

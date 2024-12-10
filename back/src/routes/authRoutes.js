@@ -44,6 +44,7 @@ router.get('/:table/password-vality/:identificadorNome/:identificadorValor/:senh
     const { table, identificadorNome, identificadorValor, senhaValor } = req.params;
     try {
         const result = await pool.query(`SELECT * FROM ${table} WHERE ${identificadorNome} = $1`, [identificadorValor]);
+        
         if (result.rows.length === 0) {
             return res.status(404).json({ loginSuccess: false, message: `${identificadorNome} não cadastrado` });
         }

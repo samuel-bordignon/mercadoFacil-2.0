@@ -102,89 +102,89 @@ router.get('/:table/:fk_column/:fk_value', async (req, res) => {
 // Rota para comparar a lista de compras com os produtos do mercado
 router.post('/comparar-lista', async (req, res) => {
     const { idMercado, listaCompras } = req.body;
-  
+
     if (!idMercado || !listaCompras || !Array.isArray(listaCompras)) {
-      return res.status(400).json({ error: 'Parâmetros inválidos!' });
+        return res.status(400).json({ error: 'Parâmetros inválidos!' });
     }
-  
+
     try {
-      // Busca os produtos do mercado com base na palavra-chave, categoria ou nome
-      const produtosMercado = await pool.query(
-        `SELECT p.id_produto, p.nome, p.preco, p.imagem_file_path, p.unidademedida, p.quantidade, 
-                k.nome_palavra AS palavra_chave, k.categoria 
+        // Busca os produtos do mercado com base na palavra-chave, categoria ou nome
+        const produtosMercado = await pool.query(
+            `SELECT p.id_produto, p.nome, p.preco, p.imagem_file_path, p.unidademedida, p.quantidade, 
+        k.nome_palavra AS palavra_chave, k.categoria 
          FROM produtos p
          JOIN palavrachave_produto_relacao pk ON p.id_produto = pk.fk_id_produto
          JOIN palavrachave k ON pk.fk_id_palavrachave = k.id_palavrachave
          WHERE p.fk_id_mercado = $1`,
-        [idMercado]
-      );
-  
-      const produtosEncontrados = [];
-      const produtosNaoEncontrados = [];
-  
-    //   console.log('--- Iniciando comparação da lista de compras ---');
-  
-      // Comparação da lista de compras com os produtos disponíveis
-      listaCompras.forEach((item, index) => {
-        // console.log(`Comparando item da lista [${index + 1}]:`, item);
-  
-        const produto = produtosMercado.rows.find((produto) => {
-          // Comparações exatas e por categoria
-          const nomeCorresponde = produto.nome.toLowerCase().includes(item.nome.toLowerCase());
-          const palavraChaveCorresponde = produto.palavra_chave.toLowerCase().includes(item.palavraChave.toLowerCase());
-          const categoriaCorresponde = produto.categoria && produto.categoria.toLowerCase().includes(item.nome.toLowerCase());
-          const quantidadeCorresponde = produto.quantidade === item.quantidade && produto.unidademedida.toLowerCase() === item.unidademedida.toLowerCase();
-  
-          // Fuzzy matching
-          const fuzzyScore = fuzz.partial_ratio(item.nome.toLowerCase(), produto.nome.toLowerCase());
-  
-          // Log de cada tentativa de correspondência
-        //   console.log(`  Comparando com produto do mercado:`, produto);
-        //   console.log(`    Nome corresponde: ${nomeCorresponde}`);
-        //   console.log(`    Palavra-chave corresponde: ${palavraChaveCorresponde} ${produto.palavra_chave.toLowerCase()} ${item.nome.toLowerCase()}`);
-        //   console.log(`    Categoria corresponde: ${categoriaCorresponde}`);
-        //   console.log(`    Quantidade corresponde: ${quantidadeCorresponde}`);
-        //   console.log(`    Fuzzy Score: ${fuzzyScore}`);
-  
-          return nomeCorresponde || palavraChaveCorresponde || categoriaCorresponde || quantidadeCorresponde && fuzzyScore > 80;
+            [idMercado]
+        );
+
+        const produtosEncontrados = [];
+        const produtosNaoEncontrados = [];
+
+        //   console.log('--- Iniciando comparação da lista de compras ---');
+
+        // Comparação da lista de compras com os produtos disponíveis
+        listaCompras.forEach((item, index) => {
+            // console.log(`Comparando item da lista [${index + 1}]:`, item);
+
+            const produto = produtosMercado.rows.find((produto) => {
+                // Comparações exatas e por categoria
+                const nomeCorresponde = produto.nome.toLowerCase().includes(item.nome.toLowerCase());
+                const palavraChaveCorresponde = produto.palavra_chave.toLowerCase().includes(item.palavraChave.toLowerCase());
+                const categoriaCorresponde = produto.categoria && produto.categoria.toLowerCase().includes(item.nome.toLowerCase());
+                const quantidadeCorresponde = produto.quantidade === item.quantidade && produto.unidademedida.toLowerCase() === item.unidademedida.toLowerCase();
+
+                // Fuzzy matching
+                const fuzzyScore = fuzz.partial_ratio(item.nome.toLowerCase(), produto.nome.toLowerCase());
+
+                // Log de cada tentativa de correspondência
+                //   console.log(`  Comparando com produto do mercado:`, produto);
+                //   console.log(`    Nome corresponde: ${nomeCorresponde}`);
+                //   console.log(`    Palavra-chave corresponde: ${palavraChaveCorresponde} ${produto.palavra_chave.toLowerCase()} ${item.nome.toLowerCase()}`);
+                //   console.log(`    Categoria corresponde: ${categoriaCorresponde}`);
+                //   console.log(`    Quantidade corresponde: ${quantidadeCorresponde}`);
+                //   console.log(`    Fuzzy Score: ${fuzzyScore}`);
+
+                return nomeCorresponde || palavraChaveCorresponde || categoriaCorresponde || quantidadeCorresponde && fuzzyScore > 80;
+            });
+
+
+            if (produto) {
+                //   console.log(`✅ Produto encontrado para "${item.nome}":`, produto);
+                produtosEncontrados.push({
+                    ...produto,
+                    quantidade_lista: item.quantidade_lista,
+                    categoria: item.categoria,
+                    id_produto_original: item.id_produto,
+                    id_mercado: idMercado
+                });
+
+            } else {
+                //   console.log(`❌ Nenhum produto encontrado para "${item.nome}".`);
+                produtosNaoEncontrados.push({
+                    ...item,
+                });
+            }
         });
-        
-  
-        if (produto) {
-        //   console.log(`✅ Produto encontrado para "${item.nome}":`, produto);
-          produtosEncontrados.push({
-            ...produto,
-            quantidade_lista: item.quantidade_lista, 
-            categoria: item.categoria,
-            id_produto_original: item.id_produto,
-            id_mercado: idMercado
-          });
-          
-        } else {
-        //   console.log(`❌ Nenhum produto encontrado para "${item.nome}".`);
-          produtosNaoEncontrados.push({
-            ...item,
-          });
-        }
-      });
-  
-    //   console.log('--- Comparação concluída ---');
-    //   console.log('Produtos encontrados:', produtosEncontrados);
-    //   console.log('Produtos não encontrados:', produtosNaoEncontrados);
-    console.log(produtosEncontrados);
-  
-      return res.json({
-        listaCompras,
-        produtosEncontrados,
-        produtosNaoEncontrados,
-        produtosMercado: produtosMercado.rows, // Incluindo todos os produtos do mercado na resposta
-      });
+
+        //   console.log('--- Comparação concluída ---');
+        //   console.log('Produtos encontrados:', produtosEncontrados);
+        //   console.log('Produtos não encontrados:', produtosNaoEncontrados);
+        console.log(produtosEncontrados);
+
+        return res.json({
+            listaCompras,
+            produtosEncontrados,
+            produtosNaoEncontrados,
+            produtosMercado: produtosMercado.rows, // Incluindo todos os produtos do mercado na resposta
+        });
     } catch (error) {
-      console.error('Erro ao comparar lista:', error);
-      res.status(500).json({ error: 'Erro interno do servidor!' });
+        console.error('Erro ao comparar lista:', error);
+        res.status(500).json({ error: 'Erro interno do servidor!' });
     }
-  });
-  
+});
+
 // Rota para adicionar um registro a qualquer tabela
 router.post('/:table', async (req, res) => {
     const { table } = req.params

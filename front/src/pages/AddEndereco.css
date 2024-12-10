@@ -4,6 +4,15 @@
 
 }
 
+.containerEnderecos {
+    display: flex;
+    align-items: center;
+    margin: 0rem 8rem;
+    justify-content: space-between;
+    gap: 20px;
+    height: 100vh;
+}
+
 .conteiner {
     display: flex;
     justify-content: center;
@@ -270,6 +279,49 @@
     border-radius: 8px;
     background: #FFF;
     backdrop-filter: blur(54.650001525878906px);
+    padding: 6rem 3rem;
+}
+
+.divTotalEsqDir {
+    display: flex;
+    width: 100%;
+
+}
+
+.ladoEsquerdo {
+    width: 50%;
+
+}
+
+.ladoDireito {
+    display: flex;
+    flex-direction: column;
+    gap: 5.8rem;
+    align-items: center;
+    width: 50%;
+}
+
+.bonequinha {
+    width: 451px;
+    height: 256px;
+    margin-top: 2rem;
+    margin-bottom: 2.2rem;
+}
+
+.btn-salvar {
+    width: 502.655px;
+    height: 67.992px;
+    border-radius: 50px;
+    border: none;
+    background: #0C194E;
+    color: #FFF;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 12px;
+    /* 60% */
 }
 
 .containerEndereço {
@@ -328,7 +380,6 @@
     align-items: center;
     justify-content: initial;
     gap: 41.5rem;
-    margin-top: 4rem;
 }
 
 .letrinhaSafada {
@@ -340,7 +391,6 @@
     font-style: normal;
     font-weight: 600;
     line-height: 12px;
-    margin-left: 3rem;
 }
 
 .letrinhaSafada2 {
@@ -350,8 +400,6 @@
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
-    margin-left: 3rem;
-    margin-top: -0.3rem;
     margin-bottom: 1rem;
 }
 
@@ -360,7 +408,10 @@
 }
 
 .botao-voltarCliente3 {
-    margin-top: 2rem;
+    margin-top: -1.8rem;
+    width: 1.1rem;
+    height: auto;
+    flex-shrink: 0;
 }
 
 /* Container geral */
@@ -462,9 +513,134 @@
 }
 
 .inputs-div {
-    margin-left: 3rem;
+    margin-left: 0;
 }
 
 .favEndereco {
     margin-bottom: 2rem;
+}
+
+.alinhamentoBotoes {
+    display: flex;
+}
+
+.enderecosSalvos {
+    position: fixed;
+    /* Usa 'fixed' para manter a div fixa na tela mesmo ao rolar a página */
+    right: 0;
+    /* Alinha a div à direita */
+    top: 0;
+    /* Você pode ajustar o valor de 'top' conforme necessário para o alinhamento vertical */
+    width: 481px;
+    /* Defina a largura que você deseja para a div */
+    height: 100%;
+    /* Se quiser que a div ocupe a altura total da tela */
+    background: #F0F0F0;
+    ;
+    /* Cor de fundo da div */
+    z-index: 10;
+    /* Garante que a div fique acima de outros elementos */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    /* Sombra para destacar a div */
+}
+
+.quadradinhoBranco {
+    width: 481px;
+    height: 222px;
+    background-color: #FFF;
+}
+
+.setaVerde {
+    border: none;
+}
+
+button {
+    border: none;
+    background-color: #fff;
+}
+
+.search-inputEnd {
+    width: 421px;
+    height: 50px;
+    border-radius: 8px;
+    border: none;
+    background: #EAEAEA url('search.svg') no-repeat left 10px center;
+    color: #A7A7A7;
+    font-family: poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-left: 40px;
+    /* Adiciona espaço à esquerda para o ícone da lupa */
+}
+
+.search-barEnd {
+    display: flex;
+}
+
+.cabecalhoEnd {
+    display: flex;
+    gap: 7rem;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+}
+
+.EndSalvos {
+    color: #443E3E;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 0.8rem;
+}
+
+.paddingEnd {
+    padding: 0.5rem 2rem;
+}
+
+.preto {
+    color: #1C1722;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    margin-top: 0.9rem;
+}
+
+.cinza {
+    color: #737373;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+
+.loc {
+    display: flex;
+    /* Alinha a imagem e o texto na horizontal */
+    align-items: center;
+    /* Alinha verticalmente os itens ao centro */
+    gap: 25px;
+    /* Adiciona um espaço entre a imagem e o texto */
+}
+
+.loc img {
+    margin-left: 0.5rem;
+    width: auto;
+    /* Mantém o tamanho original da imagem */
+    height: 30px;
+    /* Ajuste a altura conforme necessário */
+}
+
+.emLinha {
+    display: flex;
+    flex-direction: column;
+    /* Alinha os textos em coluna */
 }

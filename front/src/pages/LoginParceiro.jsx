@@ -160,7 +160,7 @@ function LoginParceiro() {
                                 />
                             {message && <p className="login-message" style={{ color: 'red' }}>{message}</p>}
                             </div>
-                            <button className="acessar" type="submit">
+                            <button className="acessarParceiro" type="submit">
                                 Acessar
                             </button>
                         </form>
