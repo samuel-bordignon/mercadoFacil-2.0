@@ -12,9 +12,13 @@
 }
 
 .icon-mercado{
-    width: 71px;
-    height: 100px;
+    margin-top: 0.9rem;
+    margin-left: 0.45rem;
+    width: 3rem;
+    height: auto;
+    opacity: 0.9;
 }
+
 #sidebar_content {
     padding: 20px;
 }
@@ -76,5 +80,5 @@
 
 .log-out{
     height: 40px;
-    margin-right: 2px;
+    margin-left: 0.88rem;
 }

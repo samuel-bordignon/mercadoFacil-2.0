@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { useContext } from 'react';
 import PopUpWelcome from './PopUpWelcome';
+import SairLogo from '../assets/images/sairLogo.png';
 import SelectTimeDay from './SelectTimeDay';
 
 const Sidebar = () => {
@@ -92,8 +93,7 @@ const Sidebar = () => {
 
         <div id="logout">
           <button id="logout_btn" onClick={() => logOut()}>
-            <img src="./logOut.svg" alt="" className="log-out" />
-            <span>Sair</span>
+            <img src={SairLogo} alt="" className="log-out" />
           </button>
         </div>
       </nav>
