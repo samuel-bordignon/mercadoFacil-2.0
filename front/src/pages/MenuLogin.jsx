@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './EscolhaCadastro.css';
 import Cover from '../assets/images/cover.png';
 import NavbarLogo from '../components/NavbarLogo';
+import Voltar from '../assets/images/Voltar.png'  // Corrigido o caminho da imagem
 
 function EscolhaLogin() {
   const navigate = useNavigate();
@@ -18,7 +19,18 @@ function EscolhaLogin() {
 
           <div className="esquerda login">
             <div className="espacamentoHome">
-              <h1 className='poppins-semibold'>Falta pouco para economizar!</h1>
+              <div className="caebecario-cad" >
+                <h1 className='poppins-semibold'>Falta pouco para economizar!</h1>
+                <button className="btn-cadastro">
+                  <img
+                    className="botao-voltarCliente"
+                    onClick={() => navigate('/')}
+                    src={Voltar}
+                    alt="Botão voltar"
+                  />
+                </button>
+
+              </div>
               <p className='paragrafo-verde'>Como deseja continuar?</p>
               <div className='container-buttons'>
                 <button className="primary" onClick={() => navigate('/loginParceiro')}>Sou parceiro</button>

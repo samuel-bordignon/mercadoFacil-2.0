@@ -98,7 +98,7 @@ function CadastroCliente1() {
             <button className="btn-cadastro">
               <img
                 className="botao-voltarCliente"
-                onClick={() => navigate('/criarConta')}
+                onClick={() => navigate('/menuCadastro')}
                 src={Voltar}
                 alt="Botão voltar"
               />

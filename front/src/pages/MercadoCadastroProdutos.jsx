@@ -13,7 +13,7 @@ function MercadoCadastroProdutos() {
   const [image, setImage] = useState(null)
   const [mercado, setMercado] = useState(null)
   const [filePath, setFilePath] = useState('')
-  const idProduto = localStorage.getItem('id_produto')
+  const idProduto = JSON.parse(localStorage.getItem('id_produto'))
   const storageLocal = getLocalStorage('produtoData')
   const idGerente = getLocalStorage('id_gerente')
   const [categoriaProdutos, setCategoriaProdutos] = useState([])
@@ -147,8 +147,9 @@ function MercadoCadastroProdutos() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (idProduto === null) {
+      if (idProduto !== null) {
         console.log('pinto')
+        console.log(idProduto)
         try {
           const produto = getLocalStorage("produtoData")
           const tabelaRelacao = await getDataByForeignKey(
@@ -206,7 +207,7 @@ function MercadoCadastroProdutos() {
         } finally {
           setLoading(false)
         }
-      } else if(idProduto != null) {
+      } else{
         console.log('piroca')
         const data = await getData("palavrachave")
         const categorias = data.map((item) => ({
@@ -241,17 +242,14 @@ function MercadoCadastroProdutos() {
   }
 
   const onSubmit = async (data) => {
-    if (idProduto) {
-      console.log('pinto')
+    if (!idProduto) {
       let filePath
       if (storageLocal.imagem_file_path === data.imagem_file_path) {
         filePath = storageLocal.imagem_file_path
       } else {
         filePath = await uploadImage(data.imagem_file_path)
       }
-      console.log('meu pinto')
       try {
-        console.log("Caminho do arquivo:", filePath)
         setFilePath(filePath)
         await updateData('produtos', idProduto, {
           nome: data.nome,
@@ -327,8 +325,8 @@ function MercadoCadastroProdutos() {
       } catch (error) {
         console.error("Erro ao atualizar categorias:", error)
       }
-    } else {
-      console.log('piroca')
+    } else if(idProduto) {
+      console.log('piroca2')
       try {
         // Fazer o upload da imagem, se necessário
         const filePath = await uploadImage(data.imagem_file_path)
@@ -432,7 +430,7 @@ function MercadoCadastroProdutos() {
                 <input
                   {...register("descricao")}
                   type="text"
-                  placeholder="Ex: 500g"
+                  placeholder="Descrição do produto"
                 />
                 {errors.descricao && (
                   <span className="error-message">{errors.descricao.message}</span>
@@ -463,7 +461,7 @@ function MercadoCadastroProdutos() {
                 )}
 
                 {/* Categoria */}
-                <p>Categoria</p>
+                <p>Palavra-Chave</p>
                 <Controller
                   control={control}
                   name="categoria"

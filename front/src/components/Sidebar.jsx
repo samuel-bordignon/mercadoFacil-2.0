@@ -49,6 +49,7 @@ const Sidebar = () => {
     setLocalStorage('MercadoData', null)
     setLocalStorage('GerenteData', null)
     setLocalStorage('EnderecoMercadoData', null)
+    setLocalStorage('hasSeenWelcome', true)
 
     navigate('/');
   }

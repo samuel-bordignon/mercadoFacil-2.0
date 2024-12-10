@@ -170,3 +170,12 @@
     margin-left: 1.5rem;
     /* Adiciona um gap de 0.8rem entre o texto e a seta */
 }
+
+.caebecario-cad{
+    display: flex;
+    align-items:self-start;
+}
+
+.caebecario-cad button{
+    margin-top: 42px;
+}
