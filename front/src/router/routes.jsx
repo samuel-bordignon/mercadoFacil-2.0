@@ -30,10 +30,12 @@ import PerfilMercado from "../pages/PerfilMercado";
 import Sidebar from "../components/Sidebar";
 import TelaDentroMercado from "../pages/TelaDentroMercado";
 import SelectTimeDay from "../components/SelectTimeDay";
+import Alelec from "../pages/alelec";
 // import TelaInfoProduto from "../pages/TelaInfoProduto";
 
 const router = createBrowserRouter([
     { path: "/", element: <HomeLogin /> },
+    { path: "/alelec", element: <Alelec /> },
     { path: "/acessoParceiro", element: <AcessoParceiro /> },
     { path: "/addEndereco", element: <AddEndereco /> },
     { path: "/cadastroEnderecoCliente", element: <CadastroCliente2 /> },
