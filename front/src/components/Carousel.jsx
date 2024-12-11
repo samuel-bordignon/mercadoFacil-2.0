@@ -9,8 +9,6 @@ function Carousel({ slides }) {
   const navigate = useNavigate();
   const idMercado = getLocalStorage('id_mercado');
   const listaCompras = getLocalStorage('listaDefout');
-  console.log(listaCompras);
-  console.log(idMercado);
   const [aviso, setAviso] = useState(false);
 
   if (!slides || slides.length === 0) {
@@ -33,7 +31,6 @@ function Carousel({ slides }) {
   const onCardClick = (id) => {
     if (id !== idMercado && listaCompras.length > 0) {
       setAviso(true);
-      console.log('Não pode entrar em outro mercado sem salvar.');
   
       // Exibe o modal do SweetAlert2 com botões personalizados
       Swal.fire({
@@ -60,6 +57,7 @@ function Carousel({ slides }) {
       });
     } else {
       // Se não houver compras ou o id for o mesmo, simplesmente navega
+      console.log('Navegando para o mercado', id);
       setLocalStorage('id_mercado', id);
       navigate('/telaDentroMercado');
     }

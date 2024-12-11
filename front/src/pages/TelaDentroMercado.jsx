@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom"
 import { p } from "framer-motion/client"
 
 function TelaDentroMercado() {
-  const { getLocalStorage, setLocalStorage, getDataById, getDataByForeignKey, listaDefoutAtual, setListaDefoutAtual, } = useContext(GlobalContext)
+  const { getLocalStorage, setLocalStorage, getDataById, getDataByForeignKey } = useContext(GlobalContext)
   const [mercadoAtual, setMercadoAtual] = useState([])
   const [enderecoMercadoAtual, setEnderecoMercadoAtual] = useState([])
   const [idProduto, setIdProduto] = useState('')
@@ -21,12 +21,14 @@ function TelaDentroMercado() {
   const [loading, setLoading] = useState(false)
   const [produtosdb, setProdutosdb] = useState([])
   const navigate = useNavigate()
+  const [listaDefoutAtual, setListaDefoutAtual] = useState([])
 
 
   useEffect(() => {
     const fetchMercado = async () => {
       try {
         const mercadoAtual = await getDataById('mercados', idMercado);
+        console.log(mercadoAtual)
         setMercadoAtual(mercadoAtual);
       } catch (error) {
         console.error('Erro ao buscar mercado:', error);
@@ -56,7 +58,12 @@ function TelaDentroMercado() {
           getDataByForeignKey('produtos', 'fk_id_mercado', mercadoAtual.id_mercado),
         ]);
 
+        console.log('Endereços:', enderecosMercados);
+
+
         setEnderecoMercadoAtual(...enderecosMercados);
+
+
         const produtosComPalavraChave = await Promise.all(
           produtos.map(async (produto) => {
             const palavraRelacao = await getDataByForeignKey('palavrachave_produto_relacao', 'fk_id_produto', produto.id_produto);
@@ -67,12 +74,15 @@ function TelaDentroMercado() {
             return { ...produto, palavraChave: null }; // Se não encontrar palavra-chave
           })
         )
+        console.log('Produtos:', produtosComPalavraChave);
 
         // Criando a sessão de feira
         const sessaoFeira = await criarSessao('Feira', ['Frutas', 'Verduras', 'Legumes'], produtosComPalavraChave);
+        const sessaoAcougue = await criarSessao('Açougue', ['Aves', 'Peixes', 'Suínos', 'Bovinos'], produtosComPalavraChave);
+        console.log('Sessão de feira:', sessaoFeira);
 
         // Atualizando o estado com a sessão criada
-        setProdutosSessaoFeira([sessaoFeira]);
+        setProdutosSessaoFeira([sessaoFeira, sessaoAcougue]);
         setProdutos(produtosComPalavraChave || []);
       } catch (error) {
         console.error('Erro ao buscar dados dependentes:', error);
@@ -112,7 +122,7 @@ function TelaDentroMercado() {
     console.log(listaProdutos)
     setLocalStorage('listaProdutosVerTodos', listaProdutos)
     navigate('/verTodos')
-    
+
   }
 
   if (loading) {
@@ -123,7 +133,7 @@ function TelaDentroMercado() {
 
   return (
     <div className="tudo">
-      <Navbar listaCompras={listaDefout} produtosdb={produtos} setProdutosdb={setProdutosdb}/>
+      <Navbar listaCompras={listaDefout} produtosdb={produtos} setProdutosdb={setProdutosdb} />
       <div className="tela-dentro-mercado">
         <div className="sideBar-dentro-mercado">
           <div className="cabecalio-mercado-container">
@@ -170,92 +180,95 @@ function TelaDentroMercado() {
             <p>{mercadoAtual.email}</p>
           </div>
         </div>
-        {produtosSessaoFeira.map((sessao, index) => (
-          <div className="todos-produtos-container" key={index}>
-            <div className="topico-produtos">
-              <h4>{sessao.nomeSessao}</h4>
-              <button
-                className="sub-titulo-verde"
-                style={{ background: "none", border: "none" }}
-                onClick={() => { verTodos(sessao.produtos) }}
-              >
-                Ver todos
-              </button>
-            </div>
-            <div className="sessao-produtos-container">
-              {sessao.produtos.slice(0, 10).map((produto) => (
-                <div
-                  className="card-produto"
-                  onClick={() => { setPopUpAtivo(!popUpAtivo), setIdProduto(produto.id_produto) }}
-                  key={produto.id_produto}
-                >
-                  <div className="espaco-colocar-img">
-                    <img
-                      className="imagem-produto"
-                      src={`/uploads_images/${produto.imagem_file_path}`}
-                      alt=""
-                    />
-                    <button
-                      className="botaoAdd"
-                      onClick={(e) => {
-                        e.stopPropagation(); // Impede que o clique no botão acione o onClick do pai
-                        adicionaLista(produto);
-                      }}
-                    >
-                      {/* Exibe o ícone baseado na presença do produto na lista */}
-                      {listaDefout.some(item => item.id_produto === produto.id_produto) ? (
-                        <img className="iconsvgMais" src="CheckMark.svg" alt="Check" />
-                      ) : (
-                        <img className="iconsvgMais" src="IconMais.svg" alt="Mais" />
-                      )}
-                    </button>
-                  </div>
-                  <div className="detalhes-produto-container">
-                  <p className="preco-produto">R${produto.preco}</p>
-                    <p className="descricao-produto">{produto.nome}</p>
-                  </div>
+        <div className="container-sessoes">
+          {produtosSessaoFeira.length > 0 && produtosSessaoFeira.map((sessao, index) => (
+            sessao.produtos.length > 0 && (
+              <div className="todos-produtos-container" key={index}>
+                <div className="topico-produtos">
+                  <h4>{sessao.nomeSessao}</h4>
+                  <button
+                    className="sub-titulo-verde"
+                    style={{ background: "none", border: "none" }}
+                    onClick={() => { verTodos(sessao.produtos) }}
+                  >
+                    Ver todos
+                  </button>
                 </div>
-              ))}
-
-              {popUpAtivo && (
-                <div className="popUp-overlay" onClick={() => setPopUpAtivo(false)} >
-                  <div className="popUp-infoProd-container"
-                    onClick={(e) => e.stopPropagation()}>
-                    <div className="espaco-img-prod-popUp-container">
-                      <div className="fundo-img-popUp">
-                        <img src={`/uploads_images/${produtos.find((produto) => produto.id_produto === idProduto).imagem_file_path}`} alt="" />
-                      </div>
-                    </div>
-                    <div className="infos-produto-popUp-container">
-                      <div className="parte-superior-popUp">
-                        <button className="bttn-fecha-PopUp" onClick={() => setPopUpAtivo(false)}>
-                          <img src="CloseIcon.svg" alt="" />
-                        </button>
-                        <h1 className="categoria-info-produto">Padaria</h1>
-                        <h1 className="nome-info-produto">{produtos.find((produto) => produto.id_produto === idProduto).nome}</h1>
-                        <p className="descricao-info-produto">{produtos.find((produto) => produto.id_produto === idProduto).descricao}</p>
-                      </div>
-                      <div className="parte-inferior-popUp">
-                        <p className="preco-info-produto">R${produtos.find((produto) => produto.id_produto === idProduto).preco}</p>
-                        <hr />
+                <div className="sessao-produtos-container">
+                  {sessao.produtos.slice(0, 10).map((produto) => (
+                    <div
+                      className="card-produto"
+                      onClick={() => { setPopUpAtivo(!popUpAtivo), setIdProduto(produto.id_produto) }}
+                      key={produto.id_produto}
+                    >
+                      <div className="espaco-colocar-img">
+                        <img
+                          className="imagem-produto"
+                          src={`/uploads_images/${produto.imagem_file_path}`}
+                          alt=""
+                        />
                         <button
-                          onClick={() => adicionaLista(produtos.find((produto) => produto.id_produto === idProduto))}
-                          className={listaDefout.some(item => item.id_produto === idProduto) ? "bttn-add-lista-remover" : "bttn-add-lista-adicionar"}
+                          className="botaoAdd"
+                          onClick={(e) => {
+                            e.stopPropagation(); // Impede que o clique no botão acione o onClick do pai
+                            adicionaLista(produto);
+                          }}
                         >
-                          {listaDefout.some(item => item.id_produto === idProduto) ? (
-                            <p>Remover da lista</p>
+                          {/* Exibe o ícone baseado na presença do produto na lista */}
+                          {listaDefout.some(item => item.id_produto === produto.id_produto) ? (
+                            <img className="iconsvgMais" src="CheckMark.svg" alt="Check" />
                           ) : (
-                            <p>Adicionar á lista</p>
+                            <img className="iconsvgMais" src="IconMais.svg" alt="Mais" />
                           )}
                         </button>
                       </div>
+                      <div className="detalhes-produto-container">
+                        <p className="preco-produto">R${produto.preco}</p>
+                        <p className="descricao-produto">{produto.nome}</p>
+                      </div>
                     </div>
-                  </div>
+                  ))}
+
+                  {popUpAtivo && (
+                    <div className="popUp-overlay" onClick={() => setPopUpAtivo(false)} >
+                      <div className="popUp-infoProd-container"
+                        onClick={(e) => e.stopPropagation()}>
+                        <div className="espaco-img-prod-popUp-container">
+                          <div className="fundo-img-popUp">
+                            <img src={`/uploads_images/${produtos.find((produto) => produto.id_produto === idProduto).imagem_file_path}`} alt="" />
+                          </div>
+                        </div>
+                        <div className="infos-produto-popUp-container">
+                          <div className="parte-superior-popUp">
+                            <button className="bttn-fecha-PopUp" onClick={() => setPopUpAtivo(false)}>
+                              <img src="CloseIcon.svg" alt="" />
+                            </button>
+                            <h1 className="categoria-info-produto">Padaria</h1>
+                            <h1 className="nome-info-produto">{produtos.find((produto) => produto.id_produto === idProduto).nome}</h1>
+                            <p className="descricao-info-produto">{produtos.find((produto) => produto.id_produto === idProduto).descricao}</p>
+                          </div>
+                          <div className="parte-inferior-popUp">
+                            <p className="preco-info-produto">R${produtos.find((produto) => produto.id_produto === idProduto).preco}</p>
+                            <hr />
+                            <button
+                              onClick={() => adicionaLista(produtos.find((produto) => produto.id_produto === idProduto))}
+                              className={listaDefout.some(item => item.id_produto === idProduto) ? "bttn-add-lista-remover" : "bttn-add-lista-adicionar"}
+                            >
+                              {listaDefout.some(item => item.id_produto === idProduto) ? (
+                                <p>Remover da lista</p>
+                              ) : (
+                                <p>Adicionar á lista</p>
+                              )}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
-        ))}
+              </div>
+            )))}
+        </div>
       </div>
     </div>
   )

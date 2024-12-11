@@ -78,7 +78,7 @@ function HomeMercados() {
 
         const formataMinutos =
           durationInMin >= 60
-            ? `${Math.floor(durationInMin / 60)}h ${durationInMin % 60}min`
+            ? `${Math.floor(durationInMin / 60)}h ${(durationInMin % 60).toFixed(0)}min`
             : `${durationInMin.toFixed(0)}min`
 
 

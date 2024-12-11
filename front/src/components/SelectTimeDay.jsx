@@ -63,6 +63,26 @@ function SelectTimeDay() {
     // setIsOpen(false);
   };
 
+  const enableInputTemporarily = (id, field) => {
+    setDays(
+      days.map((day) =>
+        day.id === id
+          ? { ...day, [`${field}Disabled`]: false }
+          : day
+      )
+    );
+  };
+
+  const handleBlur = (id, field) => {
+    setDays(
+      days.map((day) =>
+        day.id === id
+          ? { ...day, [`${field}Disabled`]: true }
+          : day
+      )
+    );
+  };
+
   return (
     isOpen && ( // Exibe o popup somente se isOpen for true
       <div className="popup-overlay">
@@ -89,12 +109,16 @@ function SelectTimeDay() {
                   <input
                     type="time"
                     value={day.start}
+                    onFocus={() => enableInputTemporarily(day.id, "start")}
+                    onBlur={() => handleBlur(day.id, "start")}
                     onChange={(e) => updateTime(day.id, "start", e.target.value)}
                     disabled={!day.enabled}
                   />
                   <input
                     type="time"
                     value={day.end}
+                    onFocus={() => enableInputTemporarily(day.id, "end")}
+                    onBlur={() => handleBlur(day.id, "end")}
                     onChange={(e) => updateTime(day.id, "end", e.target.value)}
                     disabled={!day.enabled}
                   />

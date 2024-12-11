@@ -157,12 +157,9 @@ function PerfilCliente() {  // Função que define o componente PerfilCliente
   }
 
   return (
-    <div>
+    <div >
       <Navbar listaCompras={listaCompras} produtosdb={[]} setProdutosdb={setProdutosdb} />
       <div className='tela-mercado' id='perfil-cliente'>
-        <div className='cabecario-perfil-mercado'>
-          <h1>Perfil do Cliente</h1>
-        </div>
         <form onSubmit={handleSubmitPessoal(onsubmitPessoal)} className='container-info-mercado'>
           <div className='cabecalio-info-mercado'>
             <h2>Dados do mercado</h2>

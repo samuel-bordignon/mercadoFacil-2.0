@@ -242,7 +242,8 @@ function MercadoCadastroProdutos() {
   }
 
   const onSubmit = async (data) => {
-    if (!idProduto) {
+    if (idProduto !== null) {
+      console.log('update')
       let filePath
       if (storageLocal.imagem_file_path === data.imagem_file_path) {
         filePath = storageLocal.imagem_file_path
@@ -325,8 +326,8 @@ function MercadoCadastroProdutos() {
       } catch (error) {
         console.error("Erro ao atualizar categorias:", error)
       }
-    } else if(idProduto) {
-      console.log('piroca2')
+    } else{
+      console.log('add')
       try {
         // Fazer o upload da imagem, se necessário
         const filePath = await uploadImage(data.imagem_file_path)

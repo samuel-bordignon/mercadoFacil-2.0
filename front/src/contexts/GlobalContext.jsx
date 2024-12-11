@@ -21,12 +21,6 @@ export const GlobalContextProvider = ({ children }) => {
     const [enderecosMercados, setEnderecosMercados] = useState([]);
     const [horariosComerciais, setHorariosComerciais] = useState([]);
 
-    const unidadeOptions = [
-        { value: "Kg", label: "Kg" },
-        { value: "g", label: "g" },
-        { value: "L", label: "L" },
-        { value: "ml", label: "ml" },
-    ];
 
     // Chaves de Local Storage
     const chaveMercadoData = "MercadoData";
@@ -106,6 +100,28 @@ export const GlobalContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
+    const addRelation = async (table, data) => {
+        if (!data) {
+            console.error("Dados não foras fornecidos")
+            return
+            setLoading(false);
+        }
+    
+
+        try {
+            setLoading(true)
+            const response = await axios.post(`http://localhost:3000/${table}`, data)
+            if (response.status === 200) {
+                console.log("Relacionamento salvo com sucesso")
+            } else {
+                console.error("Erro ao salvar relacionamento:", response.data)
+            }
+        } catch (error) {
+            console.error("Erro ao criar relacionamento:", error)
+        } finally {
+            setLoading(false)
+        }
+    }
 
     const updateData = async (table, id, data) => {
         try {
@@ -209,7 +225,47 @@ export const GlobalContextProvider = ({ children }) => {
         return null;
     };
 
-    // Provedor do contexto
+    const uploadImage = async (base64Image) => {
+        try {
+            const response = await axios.post(
+                'http://localhost:3000/api/images/upload',
+                { image: base64Image },
+                { headers: { 'Content-Type': 'application/json' } }
+            )
+            // O caminho do arquivo salvo no servidor
+            return response.data.filePath
+        } catch (error) {
+            console.error('Erro ao enviar a imagem:', error)
+            throw error
+        }
+    }
+    const compararListaDeCompras = async (idMercado, listaCompras) => {
+        const apiUrl = 'http://localhost:3000/comparar-lista'
+        try {
+            // Enviando a requisição ao backend
+            const response = await axios.post(apiUrl, {
+                idMercado,
+                listaCompras,
+            })
+            // Retorna os dados da resposta
+            return response.data
+        } catch (error) {
+            // Tratamento de erros
+            console.error('Erro ao comparar lista de compras:', error)
+            if (error.response) {
+                // O backend retornou um erro
+                return { error: error.response.data.message || 'Erro na API' }
+            } else {
+                // Erro na requisição ou outro problema
+                return { error: error.message || 'Erro desconhecido' }
+            }
+        }
+    }
+    const idCliente = getLocalStorage('id_cliente')
+    const idGerente = getLocalStorage('id_gerente')
+    const idEnderecoCliente = getLocalStorage("id_enderecocliente")
+    const unidadeOptions = [{ value: 'Kg', label: 'Kg' }, { value: 'g', label: 'g' }, { value: 'L', label: 'L' }, { value: 'ml', label: 'ml' }, { value: 'un', label: 'un' }]
+    const [listaDefoutAtual, setListaDefoutAtual] = useState([])
     return (
         <GlobalContext.Provider
             value={{
@@ -250,6 +306,9 @@ export const GlobalContextProvider = ({ children }) => {
                 getEndereco,
                 calcularDistanciaRaio,
                 calcularDistanciaRota,
+                compararListaDeCompras,
+                uploadImage,
+                addRelation
             }}
         >
             {children}

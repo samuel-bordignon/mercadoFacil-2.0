@@ -6,8 +6,11 @@
   }
   
   .schedule-row input[type="checkbox"] {
+    width: 24px; /* Ajuste a largura */
+    height: 24px; /* Ajuste a altura */
     margin-right: 10px; /* Espaçamento entre o checkbox e o texto */
   }
+  
   
   .schedule-row span {
     margin-right: 20px;
@@ -20,7 +23,21 @@
     padding: 5px;
     height: 32px; /* Tamanho uniforme para os inputs */
     box-sizing: border-box; /* Inclui padding e borda no tamanho total */
+    border: solid 1px black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
   }
+
+  .schedule-row input[type="time"]:disabled {
+    color: #000; /* Cor do texto */
+    background-color: #f7f7f7; /* Fundo mais claro */
+    border: 1px solid #ccc; /* Borda para inputs desabilitados */
+    opacity: 1; /* Remove a opacidade padrão de inputs desabilitados */
+    cursor: not-allowed; /* Indica que está desabilitado */
+  }
+    
   
   .schedule-row button {
     background: none;
