@@ -16,8 +16,9 @@ function CadastroParceiro1() {
   const navigate = useNavigate()
   const { addData, checkEmailExists, updateData, getLocalStorage, setLocalStorage, chaveGerenteData } = useContext(GlobalContext)
   const [showPassword, setShowPassword] = useState(false)
-  const storageLocal = getLocalStorage(chaveGerenteData)
+  const storageLocal = getLocalStorage('GerenteData')
   const id = getLocalStorage('id_gerente')
+  console.log(id)
 
 
   const validationSchema = z.object({
@@ -71,7 +72,7 @@ function CadastroParceiro1() {
           senha: data.senha,
           data_nasc: data.dataNascimento
         })
-        setLocalStorage(chaveGerenteData, data)
+        setLocalStorage('GerenteData', data)
         navigate('/criarConta/CadastroParceiro2')
         console.log('Gerente atualizado com sucesso!')
       } catch (error) {
@@ -87,7 +88,8 @@ function CadastroParceiro1() {
           senha: data.senha,
           data_nasc: data.dataNascimento
         })
-        setLocalStorage(chaveGerenteData, data)
+        console.log(data)
+        setLocalStorage('GerenteData', data)
         navigate('/criarConta/CadastroParceiro2')
         console.log('Gerente adicionado com sucesso!')
       } catch (error) {

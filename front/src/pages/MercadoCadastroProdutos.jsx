@@ -169,7 +169,6 @@ function MercadoCadastroProdutos() {
               label: categoria.nome_palavra,
             })
           )
-          console.log(categoriasFormatadasDefout)
 
           const estoque = await getDataByForeignKey(
             "estoqueprodutos",
@@ -192,6 +191,7 @@ function MercadoCadastroProdutos() {
             : null
           )
           setValue("unidade", { value: produto.unidademedida, label: produto.unidademedida } || "") // Certifique-se de que é string
+          console.log(categoriasFormatadasDefout)
           setValue("categoria", categoriasFormatadasDefout) // Certifique-se de que está no formato correto
           setValue("imagem_file_path", produto.imagem_file_path || "")
 

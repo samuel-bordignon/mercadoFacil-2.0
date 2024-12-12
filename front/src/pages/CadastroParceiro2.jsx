@@ -17,7 +17,8 @@ function CadastroParceiro2() {
   const navigate = useNavigate()
   const { addData, checkEmailExists, updateData, getLocalStorage, setLocalStorage, chaveMercadoData, chaveGerenteData } = useContext(GlobalContext)
   const [showPassword, setShowPassword] = useState(false)
-  const storageLocal = getLocalStorage(chaveMercadoData)
+  console.log(chaveMercadoData) 
+  const storageLocal = getLocalStorage('MercadoData')
   const storageGerenteLocal = getLocalStorage(chaveGerenteData)
   const id = getLocalStorage('id_mercado')
 
@@ -72,7 +73,7 @@ function CadastroParceiro2() {
         logo: User
       })
     }
-    setLocalStorage(chaveMercadoData, data)
+    setLocalStorage('MercadoData', data)
     navigate('/criarConta/CadastroParceiro3')
   }
 
@@ -123,8 +124,6 @@ function CadastroParceiro2() {
                       className="input"
                     />
                     <p className='error'>{errors.email?.message}</p>
-
-                    <img className='contador' src={EtapasContador1} alt="Etapa Contador" />
 
                   </div>
                   <div className="container-inputs">

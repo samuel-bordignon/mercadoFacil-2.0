@@ -33,22 +33,30 @@ function LoginCliente() {
     const { email, senha } = data;
 
     try {
-      const result = await login('clientes', 'email', email, senha);
+        const result = await login('clientes', 'email', email, senha);
 
-      if (result.success) {
-        setMessage('Login realizado com sucesso!');
-        navigate('/mercados'); // Redirecionar para a página de mercados
-      } else {
-        setMessage(result.message);
-      }
+        if (result.loginSuccess) {
+            setMessage('Login realizado com sucesso!');
+            navigate('/mercados'); // Redirecionar para a página de mercados
+            setLocalStorage('hasSeenWelcome', true) //garante que o poppup de boas vindas não apareça novamente
+        } else {
+            setMessage(result.message); // Mostrar mensagem retornada pela API
+        }
     } catch (error) {
-      setMessage('Ocorreu um erro inesperado.');
-      console.error('Erro no login:', error);
+        if (error.response && error.response.data && error.response.data.message) {
+            // Mensagem retornada pela API
+            setMessage(error.response.data.message);
+        } else {
+            // Mensagem genérica para outros erros
+            setMessage('Ocorreu um erro inesperado.');
+        }
+        console.error('Erro no login:', error);
     }             
-  };
+};
+
 
   return (
-    <div>
+    <div className='containerAzul'>
       <NavbarLogo />
 
         <div className="container">
@@ -92,8 +100,7 @@ function LoginCliente() {
                 <span className="error-message">{errors.senha.message}</span>
               )}
               {message && <p className="login-message" style={{color: 'red'}}>{message}</p>}
-              <button className="reset-senha">Esqueci a senha</button>
-              <button className="acessar" type="submit">
+              <button className="acessar" type="submit" style={{marginTop: '50px'}}>
                 Acessar
                 <img
                   className="seta"

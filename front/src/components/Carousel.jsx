@@ -38,8 +38,8 @@ function Carousel({ slides }) {
         text: 'Suas compras serão perdidas se entrar em outro mercado sem salvar.\nDeseja mesmo entrar sem salvar sua lista de compras?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Salvar lista',
-        cancelButtonText: 'Entrar sem salvar',
+        confirmButtonText: 'Entrar sem salvar',
+        cancelButtonText: 'cancelar',
         reverseButtons: true,
         customClass: {
           confirmButton: 'btn-confirm',
@@ -50,9 +50,6 @@ function Carousel({ slides }) {
           // Se o usuário clicar em "Salvar lista", chama a função naoSalvarLista
           salvarLista(id)
         } else {
-          // Se o usuário clicar em "Cancelar"
-          naoSalvarLista(id);
-          console.log('Usuário optou por não sair sem salvar');
         }
       });
     } else {

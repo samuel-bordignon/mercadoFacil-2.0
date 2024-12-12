@@ -53,7 +53,6 @@ const router = createBrowserRouter([
     { path: "/loginCliente", element: <LoginCliente /> },
     { path: "/loginParceiro", element: <LoginParceiro /> },
     { path: "/loginDois", element: <EscolhaLogin /> },
-    { path: "/loginParceiro", element: <LoginParceiro /> },
     { path: "/mercados", element: <HomeMercados /> },
     { path: "/mercadoEstoque", element: <MercadoEstoque /> },
     { path: "/mercadoCadastroProdutos", element: <MercadoCadastroProdutos /> },

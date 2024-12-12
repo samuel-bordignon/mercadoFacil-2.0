@@ -31,8 +31,8 @@ function EscolhaLogin() {
                 </button>
 
               </div>
-              <p className='paragrafo-verde'>Como deseja continuar?</p>
-              <div className='container-buttons'>
+              <p className='paragrafo-verde' >Como deseja continuar?</p>
+              <div className='container-buttons' style={{marginTop: '90px'}}>
                 <button className="primary" onClick={() => navigate('/loginParceiro')}>Sou parceiro</button>
                 <button className="second" onClick={() => navigate('/loginCliente')}>Sou cliente</button>
               </div>

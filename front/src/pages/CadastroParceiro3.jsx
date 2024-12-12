@@ -11,12 +11,12 @@ import Cover from '../assets/images/cover.png'  // Imagem de capa
 import NavbarLogo from '../components/NavbarLogo'  // Logo da navbar
 
 function CadastroParceiro3() {
-    const { addData, updateData, getLocalStorage, setLocalStorage, chaveEnderecoMercadoLocal, getEndereco } = useContext(GlobalContext)
+    const { addData, updateData, getLocalStorage, setLocalStorage, getEndereco } = useContext(GlobalContext)
 
     const navigate = useNavigate()
     const id = getLocalStorage('id_enderecomercado')
     const idMercado = getLocalStorage('id_mercado')
-    const storageLocal = getLocalStorage(chaveEnderecoMercadoLocal)
+    const storageLocal = getLocalStorage('EnderecoMercadoData')
     const [lat, setLat] = useState('')
     const [lng, setLng] = useState('')
 
@@ -69,8 +69,9 @@ function CadastroParceiro3() {
 
                 })
                 navigate('/mercadoEstoque')
-                setLocalStorage(chaveEnderecoMercadoLocal, data)
+                setLocalStorage('EnderecoMercadoData', data)
                 setLocalStorage('cadastroConcluido', true)
+                setLocalStorage('hasSeenWelcome', false)
             } catch (e) {
                 console.log(e)
             }
@@ -88,8 +89,9 @@ function CadastroParceiro3() {
                     fk_id_mercado: idMercado
                 })
                 navigate('/mercadoEstoque')
-                setLocalStorage(chaveEnderecoMercadoLocal, data)
+                setLocalStorage('EnderecoMercadoData', data)
                 setLocalStorage('cadastroConcluido', true)
+                setLocalStorage('hasSeenWelcome', false)
             } catch (e) {
                 console.log(e)
             }

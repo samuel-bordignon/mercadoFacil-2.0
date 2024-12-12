@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css'  // Importa o CSS necessário par
 import './PerfilCliente.css'  // Importa o CSS do componente de perfil de cliente
 
 function PerfilCliente() {  // Função que define o componente PerfilCliente
-  const { getDataById, getLocalStorage, updateData, checkEmailExists, deleteData } = useContext(GlobalContext)  // Desestrutura funções do contexto GlobalContext
+  const { getDataById, getLocalStorage, updateData, checkEmailExists, deleteData, setLocalStorage } = useContext(GlobalContext)  // Desestrutura funções do contexto GlobalContext
 
   const idCliente = getLocalStorage('id_cliente')  // Recupera o ID do cliente do localStorage
   const [emailCliente, setEmailCliente] = useState('')  // Estado para armazenar o e-mail do cliente
@@ -160,9 +160,9 @@ function PerfilCliente() {  // Função que define o componente PerfilCliente
     <div >
       <Navbar listaCompras={listaCompras} produtosdb={[]} setProdutosdb={setProdutosdb} />
       <div className='tela-mercado' id='perfil-cliente'>
-        <form onSubmit={handleSubmitPessoal(onsubmitPessoal)} className='container-info-mercado'>
+        <form onSubmit={handleSubmitPessoal(onsubmitPessoal)} className='container-info-mercado' id='form-cliente'>
           <div className='cabecalio-info-mercado'>
-            <h2>Dados do mercado</h2>
+            <h2>Informações Pessoais</h2>
             {activeBtn == 'pessoal' ? <button onClick={() => (trocaBotao('pessoal'))} type='button'>Salvar</button> :
               <button onClick={() => (trocaBotao('pessoal'))} type='submit' ><i class="bi bi-pencil-square"></i>editar</button>}
           </div>
@@ -232,7 +232,7 @@ function PerfilCliente() {  // Função que define o componente PerfilCliente
             {errorsContato.telefone && <p className='error'>{errorsContato.telefone.message}</p>}
             <br />
             <hr />
-            <label htmlFor='email'>E-mail Empresarial</label><br />
+            <label htmlFor='email'>E-mail</label><br />
             <input
               type="email"
               id="email"
@@ -247,6 +247,18 @@ function PerfilCliente() {  // Função que define o componente PerfilCliente
         </form>
         <button className='excluirConta-mercado' onClick={() => (handleDelete(idCliente))}>Excluir conta</button>
       </div>
+      <ToastContainer
+        position="bottom-left"  // Posição dos toasts
+        autoClose={5000}      // Tempo de fechamento automático (ms)
+        hideProgressBar={false} // Exibir a barra de progresso
+        newestOnTop={true}    // Toast mais novo no topo
+        closeOnClick          // Fechar o toast ao clicar
+        rtl={false}           // Direção do texto (esquerda-direita)
+        pauseOnFocusLoss      // Pausar auto-close ao perder foco
+        draggable             // Tornar o toast "arrastável"
+        pauseOnHover          // Pausar auto-close ao passar o mouse
+        theme="colored"       // Tema padrão colorido
+      />
     </div>
   )
 }

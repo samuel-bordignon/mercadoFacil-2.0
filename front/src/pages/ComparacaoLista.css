@@ -51,12 +51,11 @@
   height: 15%;
   padding: 30px 20px;
   border-bottom: solid 1px #DCDCDC;
-  box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.2);
 }
 
 .logo-mercado-list-comparacao {
-  width: 75px;
-  height: 75px;
+  width: 70px;
+  height: 70px;
   border-radius: 100%;
 }
 

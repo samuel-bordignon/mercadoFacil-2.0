@@ -22,6 +22,8 @@ function TelaDentroMercado() {
   const [produtosdb, setProdutosdb] = useState([])
   const navigate = useNavigate()
   const [listaDefoutAtual, setListaDefoutAtual] = useState([])
+  const [sessaoAtual, setSessaoAtual] = useState(null);
+
 
 
   useEffect(() => {
@@ -79,6 +81,7 @@ function TelaDentroMercado() {
         // Criando a sessão de feira
         const sessaoFeira = await criarSessao('Feira', ['Frutas', 'Verduras', 'Legumes'], produtosComPalavraChave);
         const sessaoAcougue = await criarSessao('Açougue', ['Aves', 'Peixes', 'Suínos', 'Bovinos'], produtosComPalavraChave);
+        
         console.log('Sessão de feira:', sessaoFeira);
 
         // Atualizando o estado com a sessão criada
@@ -198,7 +201,15 @@ function TelaDentroMercado() {
                   {sessao.produtos.slice(0, 10).map((produto) => (
                     <div
                       className="card-produto"
-                      onClick={() => { setPopUpAtivo(!popUpAtivo), setIdProduto(produto.id_produto) }}
+                      onClick={() => {
+                        setPopUpAtivo(!popUpAtivo);
+                        setIdProduto(produto.id_produto);
+                        // Encontre a sessão do produto e defina no estado
+                        const sessaoEncontrada = produtosSessaoFeira.find(sessao =>
+                          sessao.produtos.some(p => p.id_produto === produto.id_produto)
+                        );
+                        setSessaoAtual(sessaoEncontrada);
+                      }}
                       key={produto.id_produto}
                     >
                       <div className="espaco-colocar-img">
@@ -230,34 +241,48 @@ function TelaDentroMercado() {
                   ))}
 
                   {popUpAtivo && (
-                    <div className="popUp-overlay" onClick={() => setPopUpAtivo(false)} >
-                      <div className="popUp-infoProd-container"
-                        onClick={(e) => e.stopPropagation()}>
+                    <div className="popUp-overlay" onClick={() => setPopUpAtivo(false)}>
+                      <div className="popUp-infoProd-container" onClick={(e) => e.stopPropagation()}>
                         <div className="espaco-img-prod-popUp-container">
                           <div className="fundo-img-popUp">
-                            <img src={`/uploads_images/${produtos.find((produto) => produto.id_produto === idProduto).imagem_file_path}`} alt="" />
+                            <img
+                              src={`/uploads_images/${produtos.find((produto) => produto.id_produto === idProduto).imagem_file_path}`}
+                              alt=""
+                            />
                           </div>
                         </div>
                         <div className="infos-produto-popUp-container">
                           <div className="parte-superior-popUp">
                             <button className="bttn-fecha-PopUp" onClick={() => setPopUpAtivo(false)}>
-                              <img src="CloseIcon.svg" alt="" />
+                              <img src="CloseIcon.svg" alt="Close" />
                             </button>
-                            <h1 className="categoria-info-produto">Padaria</h1>
-                            <h1 className="nome-info-produto">{produtos.find((produto) => produto.id_produto === idProduto).nome}</h1>
-                            <p className="descricao-info-produto">{produtos.find((produto) => produto.id_produto === idProduto).descricao}</p>
+                            <h1 className="categoria-info-produto">
+                              {sessaoAtual ? sessaoAtual.nomeSessao : 'Sessão desconhecida'}
+                            </h1>
+                            <h1 className="nome-info-produto">
+                              {produtos.find((produto) => produto.id_produto === idProduto).nome}
+                            </h1>
+                            <p className="descricao-info-produto">
+                              {produtos.find((produto) => produto.id_produto === idProduto).descricao}
+                            </p>
                           </div>
                           <div className="parte-inferior-popUp">
-                            <p className="preco-info-produto">R${produtos.find((produto) => produto.id_produto === idProduto).preco}</p>
+                            <p className="preco-info-produto">
+                              R${produtos.find((produto) => produto.id_produto === idProduto).preco}
+                            </p>
                             <hr />
                             <button
                               onClick={() => adicionaLista(produtos.find((produto) => produto.id_produto === idProduto))}
-                              className={listaDefout.some(item => item.id_produto === idProduto) ? "bttn-add-lista-remover" : "bttn-add-lista-adicionar"}
+                              className={
+                                listaDefout.some(item => item.id_produto === idProduto)
+                                  ? "bttn-add-lista-remover"
+                                  : "bttn-add-lista-adicionar"
+                              }
                             >
                               {listaDefout.some(item => item.id_produto === idProduto) ? (
                                 <p>Remover da lista</p>
                               ) : (
-                                <p>Adicionar á lista</p>
+                                <p>Adicionar à lista</p>
                               )}
                             </button>
                           </div>
@@ -265,6 +290,7 @@ function TelaDentroMercado() {
                       </div>
                     </div>
                   )}
+
                 </div>
               </div>
             )))}

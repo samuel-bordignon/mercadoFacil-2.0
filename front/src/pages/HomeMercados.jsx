@@ -28,6 +28,7 @@ function HomeMercados() {
   const [produtosdb, setProdutosdb] = useState([])
 
   const calcularDistanciaRota = async (endereco1, endereco2, profile) => {
+    console.log(endereco2)
     if (endereco1?.longitude && endereco1?.latitude && endereco2?.longitude && endereco2?.latitude && profile) {
       const startPoint = [endereco1.longitude, endereco1.latitude] // Longitude e Latitude do primeiro endereço
       const endPoint = [endereco2.longitude, endereco2.latitude] // Longitude e Latitude do segundo endereço

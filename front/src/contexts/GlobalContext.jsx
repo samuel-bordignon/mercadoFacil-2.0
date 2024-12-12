@@ -90,16 +90,30 @@ export const GlobalContextProvider = ({ children }) => {
 
     const addData = async (table, data) => {
         try {
-            setLoading(true);
-            const response = await axios.post(`http://localhost:3000/${table}`, data);
-            return response.data;
+            setLoading(true)
+            const response = await axios.post(`http://localhost:3000/${table}`, data)
+            if (response.status === 200 && response.data) {
+                // Confirma se a resposta contém a chave de identificação esperada
+                const primaryKey = Object.keys(response.data).find(key => key.startsWith("id_"))
+                if (primaryKey) {
+                    setLocalStorage(primaryKey, response.data[primaryKey])
+                    console.log(`ID salvo: ${response.data[primaryKey]}`)
+                }
+            } else {
+                console.error("Erro ao salvar dados:", response.data?.message || "Resposta inválida do servidor")
+            }
+            // Lógica para validar cliente e endereço
+            if (table === "clientes") setLocalStorage("isClienteVality", true)
+            if (table === "enderecoclientes") setLocalStorage("isEnderecoClienteVality", true)
+            return response.data
         } catch (error) {
-            console.error("Erro ao adicionar registro:", error);
-            throw error;
+            console.error("Erro ao adicionar registro:", error)
+            throw error
+            
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
-    };
+    }
     const addRelation = async (table, data) => {
         if (!data) {
             console.error("Dados não foras fornecidos")
@@ -125,15 +139,21 @@ export const GlobalContextProvider = ({ children }) => {
 
     const updateData = async (table, id, data) => {
         try {
-            setLoading(true);
-            const response = await axios.put(`http://localhost:3000/${table}/${id}`, data);
-            return response.data;
+            setLoading(true)
+            const response = await axios.put(`http://localhost:3000/${table}/${id}`, data)
+            if (table === "clientes") {
+                setLocalStorage("isClienteVality", true)
+            }
+            if (table === "enderecoclientes") {
+                setLocalStorage("isEnderecoClienteVality", true)
+            }
+            return response.data
         } catch (error) {
-            console.error("Erro ao atualizar registro:", error);
+            console.error("Erro ao atualizar registro:", error)
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
-    };
+    }
 
     const deleteData = async (table, id) => {
         try {
@@ -175,7 +195,7 @@ export const GlobalContextProvider = ({ children }) => {
     const login = async (table, identificador, identificadorValor, senhaValor) => {
         try {
             setLoading(true);
-            const response = await axios.get(`http://localhost:3000/${table}/password-vality/auth/${identificador}/${identificadorValor}/${senhaValor}`);
+            const response = await axios.get(`http://localhost:3000/auth/${table}/password-vality/${identificador}/${identificadorValor}/${senhaValor}`);
             return response.data;
         } catch (error) {
             console.error("Erro ao tentar logar:", error);

@@ -153,6 +153,8 @@ function PerfilGerente() {
         setLocalStorage('id_gerente', null)
         setLocalStorage('mercadoData', null)
         setLocalStorage('gerenteData', null)
+        setLocalStorage('hasSeenWelcome', null)
+
         navigate('/')
 
       } else {
@@ -255,6 +257,18 @@ function PerfilGerente() {
         </form>
         <button className='excluirConta-mercado' onClick={() => (handleDelete(idGerente))}>Excluir conta</button>
       </div>
+      <ToastContainer
+        position="bottom-left"  // Posição dos toasts
+        autoClose={5000}      // Tempo de fechamento automático (ms)
+        hideProgressBar={false} // Exibir a barra de progresso
+        newestOnTop={true}    // Toast mais novo no topo
+        closeOnClick          // Fechar o toast ao clicar
+        rtl={false}           // Direção do texto (esquerda-direita)
+        pauseOnFocusLoss      // Pausar auto-close ao perder foco
+        draggable             // Tornar o toast "arrastável"
+        pauseOnHover          // Pausar auto-close ao passar o mouse
+        theme="colored"       // Tema padrão colorido
+      />
     </div>
   )
 }

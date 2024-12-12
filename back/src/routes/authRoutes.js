@@ -42,25 +42,35 @@ router.get('/:table/email-exists/:email', async (req, res) => {
 // Rota para verificar login (e-mail e senha)
 router.get('/:table/password-vality/:identificadorNome/:identificadorValor/:senhaValor', async (req, res) => {
     const { table, identificadorNome, identificadorValor, senhaValor } = req.params;
+
+    // Verificar se a tabela existe
+    if (!checkTableExists(table)) {
+        return res.status(404).json({ loginSuccess: false, message: 'Tabela não encontrada' });
+    }
+
     try {
+        console.log(`Verificando tabela: ${table}, ${identificadorNome}: ${identificadorValor}, senha: ${senhaValor}`);
         const result = await pool.query(`SELECT * FROM ${table} WHERE ${identificadorNome} = $1`, [identificadorValor]);
-        
+
+        // Verificar se o identificador existe
         if (result.rows.length === 0) {
             return res.status(404).json({ loginSuccess: false, message: `${identificadorNome} não cadastrado` });
         }
 
         const user = result.rows[0];
 
+        // Verificar se a senha está correta
         if (user.senha === senhaValor) {
-            return res.json({ loginSuccess: true, message: 'Bem vindo!', user });
+            return res.json({ loginSuccess: true, message: 'Bem-vindo!', user });
         } else {
             return res.status(401).json({ loginSuccess: false, message: 'Senha incorreta' });
         }
     } catch (err) {
-        console.error('Erro ao verificar e-mail e senha:', err.message);
-        res.status(500).json({ error: 'Erro ao verificar login' });
+        console.error('Erro ao verificar login:', err.message);
+        return res.status(500).json({ loginSuccess: false, message: 'Erro ao verificar login' });
     }
 });
+
 
 // Outras rotas relacionadas a autenticação...
 

@@ -2,7 +2,7 @@ import './LoginMercado.css'
 import { useNavigate } from 'react-router-dom'
 import { useState, useContext } from 'react'
 import { GlobalContext } from '../contexts/GlobalContext'
-import Voltar from '../assets/flechaAzul.svg'
+import Voltar from '../assets/images/Voltar.png'  // Corrigido o caminho da imagem
 import Select from 'react-select'
 import NavbarLogo from '../components/NavbarLogo';
 import Cover from '../assets/images/cover.png';
@@ -98,6 +98,7 @@ function LoginParceiro() {
             setMessage(result.message) // Exibe mensagem de sucesso
             setLocalStorage('cadastroConcluido', true)
             navigate('/mercadoEstoque') // Redirecionar após login bem-sucedido
+            setLocalStorage('hasSeenWelcome', false)
         } else {
             setMessage(result.message) // Exibe mensagem de erro
         }
@@ -119,7 +120,7 @@ function LoginParceiro() {
                                 className='botao-voltar'
                                 src={Voltar}
                                 alt="Botão voltar"
-                                onClick={() => navigate('/loginDois')}
+                                onClick={() => navigate('/menuLogin')}
                                 style={{ cursor: 'pointer' }}
                             />
                         </div>
