@@ -187,6 +187,7 @@ function PerfilMercado() {
         setImage(base64String)
         const filePath = await uploadImage(base64String)
         updateData('mercados', mercado.id_mercado, { logo: filePath })
+        window.location.reload()
       }
       reader.readAsDataURL(file)
     }

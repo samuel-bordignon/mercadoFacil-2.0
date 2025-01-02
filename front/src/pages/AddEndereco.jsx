@@ -6,10 +6,12 @@ import { GlobalContext } from '../contexts/GlobalContext'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import './AddEndereco.css'
-import Voltar from '../assets/images/Voltar.png'  // Corrigido o caminho da imagem
-import Casa from '../assets/images/casaIcone.png'  // Corrigido o caminho da imagem
-import Cafe from '../assets/images/cafeIcone.png'  // Corrigido o caminho da imagem
-import Endereco from '../assets/images/EnderecoIMG.png'  // Corrigido o caminho da imagem
+import Voltar from '../assets/images/Voltar.png';
+import Casa from '../assets/images/casaIcone.png';
+import Cafe from '../assets/images/cafeIcone.png';
+import Endereco from '../assets/images/EnderecoIMG.png';
+import Localizacao from '../assets/images/Localizacao.png';
+import SetaVerde from '../assets/images/setaVerde.png';
 
 
 function AddEndereco() {
@@ -23,6 +25,9 @@ function AddEndereco() {
     getEndereco,
     getLocalStorage,
   } = useContext(GlobalContext)
+
+  const listaCompras = getLocalStorage('listaDefout')
+  const [produtosdb, setProdutosdb] = useState([])
 
   const validationSchema = z.object({
     cep: z.string().length(8, 'CEP deve ter 8 dígitos').nonempty('CEP é obrigatório'),
@@ -189,100 +194,123 @@ function AddEndereco() {
 
 
   return (
-    <div className='backgroundCinza'>
-      <Navbar />
+    <div>
+      <Navbar listaCompras={listaCompras} produtosdb={[]} setProdutosdb={setProdutosdb} />
+      <div className="backgroundCinza">
+        <div className="containerEnderecos">
+          <div className="adicionarEndereco">
+            <div className="cabecalhoEndereco">
+              <div className="container-detalhes-endereco">
 
-      <div className="container">
-        <div className="adicionarEndereco">
-          <div className="cabecalhoEndereco">
+                <h1 className="letrinhaSafada">Adicionar meu endereço</h1>
+                <h2 className="letrinhaSafada2">Onde você quer receber seu pedido?</h2>
+              </div>
+              <button className="btn-cadastro">
+                <img
+                  className="botao-voltarCliente3"
+                  src={Voltar}
+                  alt="Botão voltar"
+                />
+              </button>
+            </div>
+            <div className="divTotalEsqDir">
+              <div className="ladoEsquerdo">
+                <div className="inputs-div">
+                  <div className="favEndereco">
+                    <div className="linha">
+                      <div className="campo">
+                        <label className="label-endereco" htmlFor="rua">Rua/Logradouro</label>
+                        <input id="rua" className="input-grande1" type="text" {...register("logradouro")} />
+                      </div>
+                      <div className="campo">
+                        <label className="label-endereco" htmlFor="numero">Número</label>
+                        <input id="numero" className="input-pequeno" type="text" {...register("numero")} />
+                      </div>
+                    </div>
 
-            <h1 className="letrinhaSafada">Adicionar meu endereço</h1>
+                    <div className="linha">
+                      <div className="campo">
+                        <label className="label-endereco" htmlFor="complemento">Complemento</label>
+                        <input id="complemento" className="input-grande" type="text" {...register("complemento")} />
+                      </div>
+                    </div>
 
-            <button className="btn-cadastro">
-              <img
-                className="botao-voltarCliente3"
-                onClick={() => navigate('/criarConta')}
-                src={Voltar}
-                alt="Botão voltar"
-              />
-            </button>
-          </div>
-          <h2 className="letrinhaSafada2">Onde você quer receber seu pedido?</h2>
+                    <div className="linha">
+                      <div className="campo">
+                        <label className="label-endereco" htmlFor="cep">CEP</label>
+                        <InputMask mask="99999-999" id="cep" className="input-medio" {...register("cep")} />
+                      </div>
+                      <div className="campo">
+                        <label className="label-endereco" htmlFor="bairro">Bairro</label>
+                        <input id="bairro" className="input-medio" type="text" {...register("bairro")} />
+                      </div>
+                    </div>
 
-          <div className="inputs-div">
-            <div className="favEndereco">
-
-              {/* Primeira linha (input grande 1 e input pequeno) */}
-              <div className="linha">
-                <div className="campo">
-                  <label className="label-endereco" htmlFor="rua">Rua/Logradouro</label>
-                  <input id="rua" className="input-grande1" type="text" {...register("logradouro")} />
+                    <div className="linha">
+                      <div className="campo">
+                        <label className="label-endereco" htmlFor="pontoReferencia">Ponto de Referência</label>
+                        <input id="pontoReferencia" className="input-grande" type="text" {...register("apelido")} />
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="campo">
-                  <label className="label-endereco" htmlFor="numero">Número</label>
-                  <input id="numero" className="input-pequeno" type="text" {...register("numero")} />
+                <div className="espacamentobotoes">
+                  <h3 className="fvEndereco">Favoritar endereço</h3>
+                  <div className="botoesEndereco">
+                    <button className="botao-com-icone-cafe">
+                      <img src={Casa} alt="ícone de casa" />
+                      Casa
+                    </button>
+                    <button className="botao-com-icone">
+                      <img src={Cafe} alt="ícone de trabalho" />
+                      Trabalho
+                    </button>
+                  </div>
                 </div>
               </div>
-
-              {/* Segunda linha (input grande 2) */}
-              <div className="linha">
-                <div className="campo">
-                  <label className="label-endereco" htmlFor="complemento">Complemento</label>
-                  <input id="complemento" className="input-grande" type="text" {...register("complemento")} />
-                </div>
-              </div>
-
-              {/* Terceira linha (dois inputs médios) */}
-              <div className="linha">
-                <div className="campo">
-                  <label className="label-endereco" htmlFor="cep">CEP</label>
-                  <InputMask
-                    mask="99999-999"
-                    id="cep"
-                    className="input-medio"
-                    {...register("cep")}
-                  />
-                </div>
-
-                <div className="campo">
-                  <label className="label-endereco" htmlFor="bairro">Bairro</label>
-                  <input id="bairro" className="input-medio" type="text" {...register("bairro")} />
-                </div>
-              </div>
-
-              {/* Linha final (input grande 2 novamente) */}
-              <div className="linha">
-                <div className="campo">
-                  <label className="label-endereco" htmlFor="pontoReferencia">Ponto de Referência</label>
-                  <input id="pontoReferencia" className="input-grande" type="text" {...register("apelido")} />
+              <div className="ladoDireito">
+                <img className='bonequinha' src={Endereco} alt="imagem de endereço" />
+                <div className="alinhamentoBotoes">
+                  <button
+                    className="btn-salvar"
+                    onClick={handleSubmit(onSubmit)}
+                  >
+                    Salvar Endereço
+                  </button>
                 </div>
               </div>
             </div>
-
-            <div className="espacamentobotoes">
-              <h3 className="fvEndereco">Favoritar endereço</h3>
-
-              <div className="botoesEndereco">
-                <button className="botao-com-icone-cafe">
-                  <img src={Casa} alt="ícone de casa" />
-                  Casa
-                </button>
-
-                <button className="botao-com-icone">
-                  <img src={Cafe} alt="ícone de trabalho" />
-                  Trabalho
-                </button>
-
+          </div>
+          <div className="enderecosSalvos">
+            <div className="quadradinhoBranco">
+              <div className="cabecalhoEnd">
+                <h2 className="EndSalvos">Endereços Salvos</h2>
+                <hr  className='linha'/>
               </div>
+              {/* Mapeando os endereços */}
+              <div className="enderecos-lista">
+                {enderecosCliente.map((endereco) => (
+                  <div key={endereco.id_enderecocliente} className="loc">
+                    <div className="info-endereco">
+                      <span className="apelido">{endereco.apelido}</span>
+                      <p>{endereco.logradouro}, {endereco.numero}</p>
+                      <p>{endereco.bairro}</p>
+                      <p>{endereco.complemento}</p>
+                    </div>
+                    <div className="acoes-endereco">
+                      <button onClick={() => handleEdit(endereco)}>Editar</button>
+                      <button onClick={() => handleDelete(endereco.id_enderecocliente)}>Deletar</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
             </div>
           </div>
         </div>
-    <div className="container-direita">
-      <img src={Endereco} alt="imagem de endereço" />
-    </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default AddEndereco;

@@ -82,27 +82,39 @@ function LoginParceiro() {
     }
 
     const handleLogin = async (e) => {
-        e.preventDefault()
-        const { identificador, senha } = formLog
+        e.preventDefault();
+        const { identificador, senha } = formLog;
+
         if (!identificador || !senha) {
-            setMessage('Por favor, preencha todos os campos.')
-            return
+            setMessage('Por favor, preencha todos os campos.');
+            return;
         }
 
-        const identificadorNome = selectedOption.value
-        const table = identificadorNome === 'cnpj' ? 'mercados' : 'gerentes'
-
-        const result = await login(table, identificadorNome, identificador, senha)
-
-        if (result.success) {
-            setMessage(result.message) // Exibe mensagem de sucesso
-            setLocalStorage('cadastroConcluido', true)
-            navigate('/mercadoEstoque') // Redirecionar após login bem-sucedido
-            setLocalStorage('hasSeenWelcome', false)
-        } else {
-            setMessage(result.message) // Exibe mensagem de erro
-        }
-    }
+        const identificadorNome = selectedOption?.value;
+    
+        try {
+            const result = await login('gerentes', identificadorNome, identificador, senha);
+    
+            if (result.loginSuccess) {
+                setMessage('Login realizado com sucesso!');
+                navigate('/mercadoEstoque'); // Redirecionar para a página de mercados
+                setLocalStorage('hasSeenWelcome', true) //garante que o poppup de boas vindas não apareça novamente
+                setLocalStorage('id_gerente', result.userGerente.id_gerente)
+            } else {
+                setMessage(result.message); // Mostrar mensagem retornada pela API
+            }
+        } catch (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+                // Mensagem retornada pela API
+                setMessage(error.response.data.message);
+            } else {
+                // Mensagem genérica para outros erros
+                setMessage('Ocorreu um erro inesperado.');
+            }
+            console.error('Erro no login:', error);
+        }             
+    };
+    
 
     return (
         <div className="containerAzul">

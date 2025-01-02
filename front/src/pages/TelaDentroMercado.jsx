@@ -81,11 +81,12 @@ function TelaDentroMercado() {
         // Criando a sessão de feira
         const sessaoFeira = await criarSessao('Feira', ['Frutas', 'Verduras', 'Legumes'], produtosComPalavraChave);
         const sessaoAcougue = await criarSessao('Açougue', ['Aves', 'Peixes', 'Suínos', 'Bovinos'], produtosComPalavraChave);
-        
+        const sessaoBebidas = await criarSessao('Bebidas', ['Bebidas', 'Alcólicas', 'Laticínios', 'Sucos', 'Não Alcoólicas', 'Outros'], produtosComPalavraChave);
+
         console.log('Sessão de feira:', sessaoFeira);
 
         // Atualizando o estado com a sessão criada
-        setProdutosSessaoFeira([sessaoFeira, sessaoAcougue]);
+        setProdutosSessaoFeira([sessaoFeira, sessaoAcougue, sessaoBebidas]);
         setProdutos(produtosComPalavraChave || []);
       } catch (error) {
         console.error('Erro ao buscar dados dependentes:', error);

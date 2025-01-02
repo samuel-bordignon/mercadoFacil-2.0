@@ -11,7 +11,7 @@ import Voltar from '../assets/images/Voltar.png'; // Importando a imagem correta
 import './AcessoU.css';
 
 function LoginCliente() {
-  const { login } = useContext(GlobalContext);
+  const { login, setLocalStorage  } = useContext(GlobalContext);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
@@ -34,11 +34,11 @@ function LoginCliente() {
 
     try {
         const result = await login('clientes', 'email', email, senha);
-
         if (result.loginSuccess) {
             setMessage('Login realizado com sucesso!');
             navigate('/mercados'); // Redirecionar para a página de mercados
             setLocalStorage('hasSeenWelcome', true) //garante que o poppup de boas vindas não apareça novamente
+            setLocalStorage('id_cliente', result.user.id_cliente) //salva o id do cliente no local storage
         } else {
             setMessage(result.message); // Mostrar mensagem retornada pela API
         }

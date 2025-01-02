@@ -1,13 +1,14 @@
 .backgroundCinza {
-    background: rgba(6, 4, 4, 0.212);
-    height: 57.4rem;
-
+        background: rgba(143, 141, 141, 0.212);
+        height: 59.29rem;
+        display: flex;
+        align-items: center; /* Centraliza verticalmente */
 }
 
 .containerEnderecos {
     display: flex;
     align-items: center;
-    margin: 0rem 8rem;
+   
     justify-content: space-between;
     gap: 20px;
     height: 100vh;
@@ -251,14 +252,10 @@
     width: 130px;
     height: 130px;
     border: 6px solid transparent;
-    /* Mantém o fundo transparente */
     border-top: 6px solid #00C677;
-    /* Define a cor da parte giratória */
     border-radius: 50%;
-    /* Garante bordas arredondadas */
     animation: spin 1s linear infinite;
-    box-shadow: 0 0 0 6px transparent;
-    /* Garante uniformidade visual */
+    margin-top: 10px;
 }
 
 @keyframes spin {
@@ -280,6 +277,7 @@
     background: #FFF;
     backdrop-filter: blur(54.650001525878906px);
     padding: 6rem 3rem;
+    scale: 0.9;
 }
 
 .divTotalEsqDir {
@@ -401,6 +399,7 @@
     font-style: normal;
     font-weight: 400;
     margin-bottom: 1rem;
+    margin-top: 20px;
 }
 
 .espacamentoCabecalho {
@@ -529,7 +528,7 @@
     /* Usa 'fixed' para manter a div fixa na tela mesmo ao rolar a página */
     right: 0;
     /* Alinha a div à direita */
-    top: 0;
+    top: 84px;
     /* Você pode ajustar o valor de 'top' conforme necessário para o alinhamento vertical */
     width: 481px;
     /* Defina a largura que você deseja para a div */
@@ -545,8 +544,9 @@
 }
 
 .quadradinhoBranco {
-    width: 481px;
-    height: 222px;
+    width: 100%;
+    padding: 3rem;
+    height: fit-content;
     background-color: #FFF;
 }
 
@@ -596,9 +596,7 @@ button {
     margin-top: 0.8rem;
 }
 
-.paddingEnd {
-    padding: 0.5rem 2rem;
-}
+
 
 .preto {
     color: #1C1722;
@@ -643,4 +641,8 @@ button {
     display: flex;
     flex-direction: column;
     /* Alinha os textos em coluna */
+}
+
+.enderecos-lista{
+    border-bottom: solid 1px #bdbdbd;
 }

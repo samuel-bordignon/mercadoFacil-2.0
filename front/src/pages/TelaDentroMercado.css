@@ -229,4 +229,6 @@ p {
 .container-sessoes{
     display: flex;
     flex-direction: column;
+    width: 78%;
+    
 }

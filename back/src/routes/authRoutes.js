@@ -45,10 +45,38 @@ router.get('/:table/password-vality/:identificadorNome/:identificadorValor/:senh
 
     // Verificar se a tabela existe
     if (!checkTableExists(table)) {
-        return res.status(404).json({ loginSuccess: false, message: 'Tabela não encontrada' });
+        return res.status(404).json({ loginSuccess: false, message: 'Tabela não encontrada' });  
     }
 
     try {
+        if(identificadorNome === 'cnpj') {
+            const result = await pool.query(`SELECT * FROM mercados WHERE ${identificadorNome} = $1`, [identificadorValor])
+
+            if (result.rows.length === 0) {
+                return res.status(404).json({ loginSuccess: false, message: `${identificadorNome} não cadastrado` });
+            }
+
+            const user = result.rows[0];
+
+            const resultGerente = await pool.query(`SELECT * FROM gerentes WHERE id_gerente = $1`, [user.fk_id_gerente])
+
+            const userGerente = resultGerente.rows[0];
+
+            console.log(userGerente.senha, senhaValor);
+            console.log('id do gerente');
+
+            // Verificar se a senha está correta
+
+            if (userGerente.senha === senhaValor) {
+                return res.status(200).json({ loginSuccess: true, message: 'Login realizado com sucesso!', userGerente });
+            }else {
+                console.log('Login realizado com sucesso!');
+                return res.status(401).json({ loginSuccess: false, message: 'Senha incorreta' });
+            }
+
+        }
+
+
         console.log(`Verificando tabela: ${table}, ${identificadorNome}: ${identificadorValor}, senha: ${senhaValor}`);
         const result = await pool.query(`SELECT * FROM ${table} WHERE ${identificadorNome} = $1`, [identificadorValor]);
 
