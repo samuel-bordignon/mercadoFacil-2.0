@@ -5,7 +5,8 @@
 
 ## Funcionalidades
 - **Comparação de preços:** Compare preços de produtos entre mercados da sua região.
-- **Cadastro de usuários:** Personalize sua experiência criando uma conta.
+- **Cadastro de usuários:** Personalize sua experiência criando uma conta
+
 - **Cadastro de mercados:** Permita que donos de mercados atualizem preços e gerenciem seus catálogos.
 - **Busca inteligente:** Crie listas de produtos e encontre as melhores ofertas.
 - **Histórico de compras:** Visualize listas de compras anteriores para facilitar futuras decisões.
